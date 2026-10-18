@@ -1,0 +1,2244 @@
+{
+  "metadata": {
+    "document": "Práctica de Matemáticas – Bachillerato por Madurez Suficiente",
+    "program": "BXM",
+    "subject": "Matemáticas",
+    "year": 2026,
+    "convocatoria": "02-2026",
+    "section": "Consolidado (Geometría, Funciones, Estadística)",
+    "items_practica": "1 a 60",
+    "format": "Selección única (60 preguntas)",
+    "source": "BXM-PRACTICA.pdf",
+    "notes": "Imágenes representadas con placeholders PNG. Notación matemática en KaTeX."
+  },
+  "shared_images": {
+    "bxm_math_question_01": "/images/bxm_math_images/bxm_math_question_01.png",
+    "bxm_math_question_04": "/images/bxm_math_images/bxm_math_question_04.png",
+    "bxm_math_question_05": "/images/bxm_math_images/bxm_math_question_05.png",
+    "bxm_math_question_06": "/images/bxm_math_images/bxm_math_question_06.png",
+    "bxm_math_question_07": "/images/bxm_math_images/bxm_math_question_07.png",
+    "bxm_math_question_09": "/images/bxm_math_images/bxm_math_question_09.png",
+    "bxm_math_question_13_14": "/images/bxm_math_images/bxm_math_question_13_14.png",
+    "bxm_math_question_25_26_27": "/images/bxm_math_images/bxm_math_question_25_26_27.png",
+    "bxm_math_question_31_32": "/images/bxm_math_images/bxm_math_question_31_32.png",
+    "bxm_math_question_40": "/images/bxm_math_images/bxm_math_question_40.png",
+    "bxm_math_question_41": "/images/bxm_math_images/bxm_math_question_41.png",
+    "bxm_math_question_42": "/images/bxm_math_images/bxm_math_question_42.png",
+    "bxm_math_question_43": "/images/bxm_math_images/bxm_math_question_43.png",
+    "bxm_math_question_44": "/images/bxm_math_images/bxm_math_question_44.png",
+    "bxm_math_question_46": "/images/bxm_math_images/bxm_math_question_46.png",
+    "bxm_math_question_47": "/images/bxm_math_images/bxm_math_question_47.png",
+    "bxm_math_question_49_50": "/images/bxm_math_images/bxm_math_question_49_50.png",
+    "bxm_math_question_51": "/images/bxm_math_images/bxm_math_question_51.png",
+    "bxm_math_question_52_53": "/images/bxm_math_images/bxm_math_question_52_53.png",
+    "bxm_math_question_57_58": "/images/bxm_math_images/bxm_math_question_57_58.png",
+    "bxm_math_question_59_60": "/images/bxm_math_images/bxm_math_question_59_60.png",
+    "bxm_math_question_15": "/images/bxm_math_images/bxm_math_question_15.png",
+    "bxm_math_question_16_17_18": "/images/bxm_math_images/bxm_math_question_16_17_18.png"
+  },
+  "questions": [
+    {
+      "original_number": 1,
+      "section_number": 1,
+      "text": "Considere la siguiente representación gráfica de la circunferencia “c”, de centro “O”: De acuerdo con la información dada la ecuación de “c” corresponde a",
+      "shared_image": "bxm_math_question_01",
+      "options": [
+        {
+          "label": "A",
+          "text": "$x^2 + (y - 2)^2 = 6$"
+        },
+        {
+          "label": "B",
+          "text": "$x^2 + (y + 2)^2 = 9$"
+        },
+        {
+          "label": "C",
+          "text": "$x^2 + (y - 2)^2 = 9$"
+        },
+        {
+          "label": "D",
+          "text": "$x^2 + (y + 2)^2 = 6$"
+        }
+      ],
+      "correct_answer": "C",
+      "topic": "Geometría"
+    },
+    {
+      "original_number": 2,
+      "section_number": 2,
+      "text": "Si “c” es la circunferencia dada por $c: (x + 2)^2 + (y - 2)^2 = 8$, entonces, las coordenadas de un punto exterior a “c” corresponden a",
+      "options": [
+        {
+          "label": "A",
+          "text": "$(0, 0)$"
+        },
+        {
+          "label": "B",
+          "text": "$(1, 1)$"
+        },
+        {
+          "label": "C",
+          "text": "$(-4, 2)$"
+        },
+        {
+          "label": "D",
+          "text": "$(-2, 4)$"
+        }
+      ],
+      "correct_answer": "B",
+      "topic": "Geometría"
+    },
+    {
+      "original_number": 3,
+      "section_number": 3,
+      "text": "¿Cuál es la ecuación de la circunferencia de centro $(-3, 2)$ y radio de longitud 4?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$(x + 3)^2 + (y - 2)^2 = 16$"
+        },
+        {
+          "label": "B",
+          "text": "$(x - 3)^2 + (y + 2)^2 = 16$"
+        },
+        {
+          "label": "C",
+          "text": "$(x - 3)^2 + (y + 2)^2 = 8$"
+        },
+        {
+          "label": "D",
+          "text": "$(x + 3)^2 + (y - 2)^2 = 8$"
+        }
+      ],
+      "correct_answer": "A",
+      "topic": "Geometría"
+    },
+    {
+      "original_number": 4,
+      "section_number": 4,
+      "text": "Considere la siguiente representación gráfica de la circunferencia “c” de centro P y radio 6: ¿Cuál de las siguientes opciones contiene una recta tangente a “c”?",
+      "shared_image": "bxm_math_question_04",
+      "options": [
+        {
+          "label": "A",
+          "text": "$y = 7$"
+        },
+        {
+          "label": "B",
+          "text": "$y = 2$"
+        },
+        {
+          "label": "C",
+          "text": "$x = -4$"
+        },
+        {
+          "label": "D",
+          "text": "$x = -10$"
+        }
+      ],
+      "correct_answer": "A",
+      "topic": "Geometría"
+    },
+    {
+      "original_number": 5,
+      "section_number": 5,
+      "text": "Considere la siguiente representación gráfica de la circunferencia \"c\" de centro O: ¿Cuál de las siguientes rectas es secante a \"c\"?",
+      "shared_image": "bxm_math_question_05",
+      "options": [
+        {
+          "label": "A",
+          "text": "$x = -1$"
+        },
+        {
+          "label": "B",
+          "text": "$x = -5$"
+        },
+        {
+          "label": "C",
+          "text": "$y = -4$"
+        },
+        {
+          "label": "D",
+          "text": "$y = -3$"
+        }
+      ],
+      "correct_answer": "B",
+      "topic": "Geometría"
+    },
+    {
+      "original_number": 6,
+      "section_number": 6,
+      "text": "Considere la siguiente información referida a la circunferencia \"c\" de centro \"O\" y la recta \"r\": D: único punto que comparte \"r\" y \"c\". Con certeza se cumple que \"r\" es perpendicular a la recta que contiene los puntos",
+      "shared_image": "bxm_math_question_06",
+      "options": [
+        {
+          "label": "A",
+          "text": "D y B."
+        },
+        {
+          "label": "B",
+          "text": "D y M."
+        },
+        {
+          "label": "C",
+          "text": "D y O."
+        },
+        {
+          "label": "D",
+          "text": "D y E."
+        }
+      ],
+      "correct_answer": "C",
+      "topic": "Geometría"
+    },
+    {
+      "original_number": 7,
+      "section_number": 7,
+      "text": "Considere la siguiente representación de la circunferencia “d” de centro O: Si “d” se traslada cinco unidades a la izquierda (paralela al eje x) y tres unidades hacia abajo (paralela al eje y), entonces, el centro de la circunferencia trasladada corresponde a",
+      "shared_image": "bxm_math_question_07",
+      "options": [
+        {
+          "label": "A",
+          "text": "$(1, 3)$"
+        },
+        {
+          "label": "B",
+          "text": "$(3, 1)$"
+        },
+        {
+          "label": "C",
+          "text": "$(-1, -3)$"
+        },
+        {
+          "label": "D",
+          "text": "$(-3, -1)$"
+        }
+      ],
+      "correct_answer": "C",
+      "topic": "Geometría"
+    },
+    {
+      "original_number": 8,
+      "section_number": 8,
+      "text": "Sea “c” la circunferencia dada por $c:(x-2)^2 + (y-3)^2 = 4$. Al trasladar a “c” dos unidades hacia la izquierda (paralela al eje x) y tres unidades hacia arriba (paralela al eje y), se obtiene la circunferencia “d” de centro O. ¿Cuál de las siguientes opciones corresponde a la representación de “d”?",
+      "options": [
+        {
+          "label": "A",
+          "image": "/images/bxm_math_images/bxm_math_question_08_answer_a.png"
+        },
+        {
+          "label": "B",
+          "image": "/images/bxm_math_images/bxm_math_question_08_answer_b.png"
+        },
+        {
+          "label": "C",
+          "image": "/images/bxm_math_images/bxm_math_question_08_answer_c.png"
+        },
+        {
+          "label": "D",
+          "image": "/images/bxm_math_images/bxm_math_question_08_answer_d.png"
+        }
+      ],
+      "correct_answer": "A",
+      "topic": "Geometría"
+    },
+    {
+      "original_number": 9,
+      "section_number": 9,
+      "text": "Considere el siguiente polígono ABCDE: ¿Cuál es el perímetro del polígono ABCDE?",
+      "shared_image": "bxm_math_question_09",
+      "options": [
+        {
+          "label": "A",
+          "text": "$19\\sqrt{63}$"
+        },
+        {
+          "label": "B",
+          "text": "$14\\sqrt{63}$"
+        },
+        {
+          "label": "C",
+          "text": "$14 + \\sqrt{10} + \\sqrt{53}$"
+        },
+        {
+          "label": "D",
+          "text": "$19 + \\sqrt{10} + \\sqrt{53}$"
+        }
+      ],
+      "correct_answer": "D",
+      "topic": "Geometría"
+    },
+    {
+      "original_number": 10,
+      "section_number": 10,
+      "text": "Si la medida de la apotema de un hexágono regular es $2\\sqrt{3}$, entonces, ¿cuál es el área de dicho polígono?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$18\\sqrt{3}$"
+        },
+        {
+          "label": "B",
+          "text": "$24\\sqrt{3}$"
+        },
+        {
+          "label": "C",
+          "text": "$20\\sqrt{3}$"
+        },
+        {
+          "label": "D",
+          "text": "$12\\sqrt{3}$"
+        }
+      ],
+      "correct_answer": "B",
+      "topic": "Geometría"
+    },
+    {
+      "original_number": 11,
+      "section_number": 11,
+      "text": "Si la medida de la diagonal de un polígono regular es $3\\sqrt{2}$ y la de su ángulo externo $90^\\circ$, entonces, ¿cuál es el área de ese polígono?",
+      "options": [
+        {
+          "label": "A",
+          "text": "9"
+        },
+        {
+          "label": "B",
+          "text": "6"
+        },
+        {
+          "label": "C",
+          "text": "18"
+        },
+        {
+          "label": "D",
+          "text": "12"
+        }
+      ],
+      "correct_answer": "A",
+      "topic": "Geometría"
+    },
+    {
+      "original_number": 12,
+      "section_number": 12,
+      "text": "Si la medida del lado de un polígono regular es 4 y la de su ángulo central $72^\\circ$, entonces, ¿cuál es el perímetro de ese polígono?",
+      "options": [
+        {
+          "label": "A",
+          "text": "16"
+        },
+        {
+          "label": "B",
+          "text": "18"
+        },
+        {
+          "label": "C",
+          "text": "20"
+        },
+        {
+          "label": "D",
+          "text": "22"
+        }
+      ],
+      "correct_answer": "C",
+      "topic": "Geometría"
+    },
+    {
+      "original_number": 13,
+      "section_number": 13,
+      "text": "Para responder los ítems 13 y 14 considere la siguiente representación gráfica: Las figuras #1 y #2 son simétricas entre sí con respecto a la recta",
+      "shared_image": "bxm_math_question_13_14",
+      "options": [
+        {
+          "label": "A",
+          "text": "$y = 0$"
+        },
+        {
+          "label": "B",
+          "text": "$y = -1$"
+        },
+        {
+          "label": "C",
+          "text": "$x = -3$"
+        },
+        {
+          "label": "D",
+          "text": "$x = -1$"
+        }
+      ],
+      "correct_answer": "B",
+      "topic": "Geometría"
+    },
+    {
+      "original_number": 14,
+      "section_number": 14,
+      "text": "¿Cuál es el punto homólogo con “G” respecto al eje y?",
+      "shared_image": "bxm_math_question_13_14",
+      "options": [
+        {
+          "label": "A",
+          "text": "D"
+        },
+        {
+          "label": "B",
+          "text": "K"
+        },
+        {
+          "label": "C",
+          "text": "M"
+        },
+        {
+          "label": "D",
+          "text": "B"
+        }
+      ],
+      "correct_answer": "C",
+      "topic": "Geometría"
+    },
+    {
+      "original_number": 15,
+      "section_number": 15,
+      "text": "Considere el siguiente cuadrilátero ADCB: Con base en la información dada, $\\overline{CB}$ es homólogo con $\\overline{AB}$ respecto a la recta",
+      "shared_image": "bxm_math_question_15",
+      "options": [
+        {
+          "label": "A",
+          "text": "$x = 4$"
+        },
+        {
+          "label": "B",
+          "text": "$y = 4$"
+        },
+        {
+          "label": "C",
+          "text": "$y = -4$"
+        },
+        {
+          "label": "D",
+          "text": "$x = -4$"
+        }
+      ],
+      "correct_answer": "A",
+      "topic": "Geometría"
+    },
+    {
+      "original_number": 16,
+      "section_number": 16,
+      "text": "Si se aplica una homotecia centrada en (0,0) al polígono #2 para obtener el #4, entonces, con certeza el valor de la razón de la homotecia corresponde a",
+      "shared_image": "bxm_math_question_16_17_18",
+      "options": [
+        {
+          "label": "A",
+          "text": "0"
+        },
+        {
+          "label": "B",
+          "text": "1"
+        },
+        {
+          "label": "C",
+          "text": "2"
+        },
+        {
+          "label": "D",
+          "text": "-1"
+        }
+      ],
+      "correct_answer": "D",
+      "topic": "Geometría"
+    },
+    {
+      "original_number": 17,
+      "section_number": 17,
+      "text": "Una forma de obtener el polígono #3 es aplicándole al polígono #1 la traslación",
+      "shared_image": "bxm_math_question_16_17_18",
+      "options": [
+        {
+          "label": "A",
+          "text": "$(x - 5, y + 4)$"
+        },
+        {
+          "label": "B",
+          "text": "$(x + 5, y - 4)$"
+        },
+        {
+          "label": "C",
+          "text": "$(x + 5, y + 4)$"
+        },
+        {
+          "label": "D",
+          "text": "$(x - 5, y - 4)$"
+        }
+      ],
+      "correct_answer": "B",
+      "topic": "Geometría"
+    },
+    {
+      "original_number": 18,
+      "section_number": 18,
+      "text": "Si al polígono #1 se le aplica una rotación de $270^\\circ$ en sentido horario y con centro en el punto (0, 0), entonces, ¿cuál es el punto imagen de $(-1, 3)$?",
+      "shared_image": "bxm_math_question_16_17_18",
+      "options": [
+        {
+          "label": "A",
+          "text": "$(-3, -1)$"
+        },
+        {
+          "label": "B",
+          "text": "$(-3, 1)$"
+        },
+        {
+          "label": "C",
+          "text": "$(3, -1)$"
+        },
+        {
+          "label": "D",
+          "text": "$(3, 1)$"
+        }
+      ],
+      "correct_answer": "A",
+      "topic": "Geometría"
+    },
+    {
+      "original_number": 19,
+      "section_number": 19,
+      "text": "La sección plana que se obtiene al cortar un cono circular recto con un plano oblicuo respecto a la base y paralelo a la generatriz sin pasar por el vértice corresponde a una",
+      "options": [
+        {
+          "label": "A",
+          "text": "elipse."
+        },
+        {
+          "label": "B",
+          "text": "parábola."
+        },
+        {
+          "label": "C",
+          "text": "hipérbola."
+        },
+        {
+          "label": "D",
+          "text": "circunferencia."
+        }
+      ],
+      "correct_answer": "B",
+      "topic": "Geometría"
+    },
+    {
+      "original_number": 20,
+      "section_number": 20,
+      "text": "La medida del diámetro de una esfera es 20. Si la esfera es cortada con un plano a 6 unidades de su centro, entonces, ¿cuál es la longitud de la sección obtenida por el corte?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$12\\pi$"
+        },
+        {
+          "label": "B",
+          "text": "$14\\pi$"
+        },
+        {
+          "label": "C",
+          "text": "$16\\pi$"
+        },
+        {
+          "label": "D",
+          "text": "$18\\pi$"
+        }
+      ],
+      "correct_answer": "C",
+      "topic": "Geometría"
+    },
+    {
+      "original_number": 21,
+      "section_number": 21,
+      "text": "En un trozo de madera, con forma de cilindro circular recto, se realiza un corte perpendicular a las bases, pasando por el centro de estas. Si el radio mide 20 pulgadas y es un tercio de la altura, entonces, ¿cuál es el área, en pulgadas cuadradas, de ese corte?",
+      "options": [
+        {
+          "label": "A",
+          "text": "1200"
+        },
+        {
+          "label": "B",
+          "text": "1257"
+        },
+        {
+          "label": "C",
+          "text": "2400"
+        },
+        {
+          "label": "D",
+          "text": "3600"
+        }
+      ],
+      "correct_answer": "C",
+      "topic": "Geometría"
+    },
+    {
+      "original_number": 22,
+      "section_number": 22,
+      "text": "Sea un cono circular recto cuya altura mide 12 y el diámetro de la base es 18. Si se realiza un corte al cono con un plano paralelo al plano de la base a una distancia de 4 unidades del vértice, entonces, la medida del radio de la sección plana obtenida corresponde a",
+      "options": [
+        {
+          "label": "A",
+          "text": "2"
+        },
+        {
+          "label": "B",
+          "text": "3"
+        },
+        {
+          "label": "C",
+          "text": "6"
+        },
+        {
+          "label": "D",
+          "text": "9"
+        }
+      ],
+      "correct_answer": "B",
+      "topic": "Geometría"
+    },
+    {
+      "original_number": 23,
+      "section_number": 1,
+      "text": "En las siguientes relaciones “x” representa la variable independiente y “y” la dependiente. ¿Cuál de ellas corresponde a una función?",
+      "options": [
+        {
+          "label": "A",
+          "image": "/images/bxm_math_images/bxm_math_question_23_answer_a.png"
+        },
+        {
+          "label": "B",
+          "image": "/images/bxm_math_images/bxm_math_question_23_answer_b.png"
+        },
+        {
+          "label": "C",
+          "image": "/images/bxm_math_images/bxm_math_question_23_answer_c.png"
+        },
+        {
+          "label": "D",
+          "image": "/images/bxm_math_images/bxm_math_question_23_answer_d.png"
+        }
+      ],
+      "correct_answer": "A",
+      "topic": "Funciones"
+    },
+    {
+      "original_number": 24,
+      "section_number": 2,
+      "text": "En las siguientes relaciones “x” representa la variable independiente y “y” la dependiente. ¿Cuál de ellas corresponde a una función?",
+      "options": [
+        {
+          "label": "A",
+          "image": "/images/bxm_math_images/bxm_math_question_24_answer_a.png"
+        },
+        {
+          "label": "B",
+          "image": "/images/bxm_math_images/bxm_math_question_24_answer_b.png"
+        },
+        {
+          "label": "C",
+          "image": "/images/bxm_math_images/bxm_math_question_24_answer_c.png"
+        },
+        {
+          "label": "D",
+          "image": "/images/bxm_math_images/bxm_math_question_24_answer_d.png"
+        }
+      ],
+      "correct_answer": "C",
+      "topic": "Funciones"
+    },
+    {
+      "original_number": 25,
+      "section_number": 3,
+      "shared_image": "bxm_math_question_25_26_27",
+      "text": "Sea “m” una función cuyo dominio es un subconjunto del dominio de f. Si “m” tiene inversa, entonces la opción que contiene un posible dominio para dicha función corresponde a",
+      "options": [
+        {
+          "label": "A",
+          "text": "[-1, 0]"
+        },
+        {
+          "label": "B",
+          "text": "[-1, 2]"
+        },
+        {
+          "label": "C",
+          "text": "[-1, 3]"
+        },
+        {
+          "label": "D",
+          "text": "[-1, 4]"
+        }
+      ],
+      "correct_answer": "A",
+      "topic": "Funciones"
+    },
+    {
+      "original_number": 26,
+      "section_number": 4,
+      "shared_image": "bxm_math_question_25_26_27",
+      "text": "El valor de \\( (f \\circ h)(-1) \\) corresponde a",
+      "options": [
+        {
+          "label": "A",
+          "text": "0"
+        },
+        {
+          "label": "B",
+          "text": "2"
+        },
+        {
+          "label": "C",
+          "text": "3"
+        },
+        {
+          "label": "D",
+          "text": "-1"
+        }
+      ],
+      "correct_answer": "B",
+      "topic": "Funciones"
+    },
+    {
+      "original_number": 27,
+      "section_number": 5,
+      "shared_image": "bxm_math_question_25_26_27",
+      "text": "¿Cuál de las siguientes funciones permite completar la expresión \\( (k \\circ \\underline{\\quad})(x) \\) para que la composición sea posible?",
+      "options": [
+        {
+          "label": "A",
+          "text": "h"
+        },
+        {
+          "label": "B",
+          "text": "f"
+        },
+        {
+          "label": "C",
+          "text": "g"
+        },
+        {
+          "label": "D",
+          "text": "r"
+        }
+      ],
+      "correct_answer": "C",
+      "topic": "Funciones"
+    },
+    {
+      "original_number": 28,
+      "section_number": 6,
+      "text": "Sea “g” la función dada por \\( g(x) = \\sqrt{x} \\). Para obtener \\( f(x) = \\sqrt{x} + 5 \\) se le debe aplicar a “g” una",
+      "options": [
+        {
+          "label": "A",
+          "text": "traslación horizontal."
+        },
+        {
+          "label": "B",
+          "text": "traslación vertical."
+        },
+        {
+          "label": "C",
+          "text": "homotecia."
+        },
+        {
+          "label": "D",
+          "text": "rotación."
+        }
+      ],
+      "correct_answer": "A",
+      "topic": "Funciones"
+    },
+    {
+      "original_number": 29,
+      "section_number": 7,
+      "text": "Si “h” es una función dada por \\( h: [5, +\\infty[ \\to P \\) con \\( h(x) = 3\\sqrt{x} - 5 + 1 \\), entonces el ámbito de la inversa de h corresponde a",
+      "options": [
+        {
+          "label": "A",
+          "text": "[1, +\\infty["
+        },
+        {
+          "label": "B",
+          "text": "[4, +\\infty["
+        },
+        {
+          "label": "C",
+          "text": "[5, +\\infty["
+        },
+        {
+          "label": "D",
+          "text": "[3, +\\infty["
+        }
+      ],
+      "correct_answer": "C",
+      "topic": "Funciones"
+    },
+    {
+      "original_number": 30,
+      "section_number": 8,
+      "text": "Considere la función lineal “f” dada por \\( f(x) = (-2k + 4)x + 3 \\). Un posible valor de k para que la función “f” sea creciente corresponde a",
+      "options": [
+        {
+          "label": "A",
+          "text": "3"
+        },
+        {
+          "label": "B",
+          "text": "0"
+        },
+        {
+          "label": "C",
+          "text": "4"
+        },
+        {
+          "label": "D",
+          "text": "2"
+        }
+      ],
+      "correct_answer": "B",
+      "topic": "Funciones"
+    },
+    {
+      "original_number": 31,
+      "section_number": 9,
+      "shared_image": "bxm_math_question_31_32",
+      "text": "¿Cuál de las siguientes afirmaciones es verdadera?",
+      "options": [
+        {
+          "label": "A",
+          "text": "\\( a < 0 \\)"
+        },
+        {
+          "label": "B",
+          "text": "\\( c < 0 \\)"
+        },
+        {
+          "label": "C",
+          "text": "\\( c = 0 \\)"
+        },
+        {
+          "label": "D",
+          "text": "\\( (0, 0) \\) es un elemento de f."
+        }
+      ],
+      "correct_answer": "B",
+      "topic": "Funciones"
+    },
+    {
+      "original_number": 32,
+      "section_number": 10,
+      "shared_image": "bxm_math_question_31_32",
+      "text": "Un intervalo donde f es negativa corresponde a",
+      "options": [
+        {
+          "label": "A",
+          "text": "\\( ]p, h[ \\)"
+        },
+        {
+          "label": "B",
+          "text": "\\( ]p, 0[ \\)"
+        },
+        {
+          "label": "C",
+          "text": "\\( ]-\\infty, p[ \\)"
+        },
+        {
+          "label": "D",
+          "text": "\\( ]h, +\\infty[ \\)"
+        }
+      ],
+      "correct_answer": "A",
+      "topic": "Funciones"
+    },
+    {
+      "original_number": 33,
+      "section_number": 11,
+      "text": "¿Cuál de las siguientes funciones es inversa con la función $f(x) = 2^x$?",
+      "options": [
+        {
+          "label": "A",
+          "text": "$g(x) = \\left(\\frac{1}{2}\\right)^x$"
+        },
+        {
+          "label": "B",
+          "text": "$k(x) = \\log_2(x)$"
+        },
+        {
+          "label": "C",
+          "text": "$h(x) = \\log_{\\frac{1}{2}}(x)$"
+        },
+        {
+          "label": "D",
+          "text": "$r(x) = 2\\log(x)$"
+        }
+      ],
+      "correct_answer": "B",
+      "topic": "Funciones"
+    },
+    {
+      "original_number": 34,
+      "section_number": 12,
+      "text": "Sea la función \"f\" de la forma $f(x) = \\log_a(x)$ con $0 < a < 1$. Si $x > 1$, entonces, se cumple que",
+      "options": [
+        {
+          "label": "A",
+          "text": "$0 < f(x) < 1$"
+        },
+        {
+          "label": "B",
+          "text": "$f(x) > 1$"
+        },
+        {
+          "label": "C",
+          "text": "$f(x) < 0$"
+        },
+        {
+          "label": "D",
+          "text": "$f(x) = 0$"
+        }
+      ],
+      "correct_answer": "C",
+      "topic": "Funciones"
+    },
+    {
+      "original_number": 35,
+      "section_number": 13,
+      "text": "Luis llama por teléfono a Ana y le comenta que la temperatura en su ciudad es de 41 °F. Si se sabe que la relación entre la temperatura en grados Fahrenheit (°F) y en grados Celsius (°C) está asociada mediante la función $F(C) = \\frac{9}{5}C + 32$, entonces, ¿a cuántos grados Celsius equivale la temperatura comentada?",
+      "options": [
+        {
+          "label": "A",
+          "text": "5"
+        },
+        {
+          "label": "B",
+          "text": "9"
+        },
+        {
+          "label": "C",
+          "text": "-5"
+        },
+        {
+          "label": "D",
+          "text": "-9"
+        }
+      ],
+      "correct_answer": "A",
+      "topic": "Funciones"
+    },
+    {
+      "original_number": 36,
+      "section_number": 14,
+      "text": "Roy y Judy fueron de compras. Roy compró 5 kg de zanahoria y 3 kg de brócoli y por esa compra pagó ₡4650 en total; mientras que Judy compró 3 kg de zanahoria y 5 kg de brócoli y pagó ₡5350 en total. Si ambos compraron a los mismos precios, entonces, ¿cuántos colones costó el kilogramo de brócoli?",
+      "options": [
+        {
+          "label": "A",
+          "text": "700"
+        },
+        {
+          "label": "B",
+          "text": "800"
+        },
+        {
+          "label": "C",
+          "text": "625"
+        },
+        {
+          "label": "D",
+          "text": "900"
+        }
+      ],
+      "correct_answer": "B",
+      "topic": "Funciones"
+    },
+    {
+      "original_number": 37,
+      "section_number": 15,
+      "text": "Si la población “p(x)” de una comunidad se estima mediante $p(x) = 2000 \\cdot 2^{\\frac{x}{5}}$, donde “x” representa los años transcurridos a partir de 2025, entonces, ¿cuántos años deben transcurrir para que la población sea de 8000 individuos?",
+      "options": [
+        {
+          "label": "A",
+          "text": "15"
+        },
+        {
+          "label": "B",
+          "text": "10"
+        },
+        {
+          "label": "C",
+          "text": "4"
+        },
+        {
+          "label": "D",
+          "text": "5"
+        }
+      ],
+      "correct_answer": "B",
+      "topic": "Funciones"
+    },
+    {
+      "original_number": 38,
+      "section_number": 16,
+      "text": "Si $f$ es una función, tal que, $f(x) = \\log_a(x^{20}) - \\log_a(x^2)$, entonces, $f(a^5)$ corresponde a",
+      "options": [
+        {
+          "label": "A",
+          "text": "90"
+        },
+        {
+          "label": "B",
+          "text": "75"
+        },
+        {
+          "label": "C",
+          "text": "18"
+        },
+        {
+          "label": "D",
+          "text": "10"
+        }
+      ],
+      "correct_answer": "A",
+      "topic": "Funciones"
+    },
+    {
+      "original_number": 39,
+      "section_number": 17,
+      "text": "En un experimento la cantidad de bacterias se triplica cada hora. De acuerdo con la situación dada, el modelo matemático que mejor se adapta para describir la cantidad de bacterias en función de las horas transcurridas involucra una función",
+      "options": [
+        {
+          "label": "A",
+          "text": "lineal."
+        },
+        {
+          "label": "B",
+          "text": "cuadrática."
+        },
+        {
+          "label": "C",
+          "text": "logarítmica."
+        },
+        {
+          "label": "D",
+          "text": "exponencial."
+        }
+      ],
+      "correct_answer": "D",
+      "topic": "Funciones"
+    },
+    {
+      "original_number": 40,
+      "section_number": 18,
+      "text": "La siguiente representación tabular muestra algunos elementos de una función f: ¿Cuál es el valor de k?",
+      "shared_image": "bxm_math_question_40",
+      "options": [
+        {
+          "label": "A",
+          "text": "-3"
+        },
+        {
+          "label": "B",
+          "text": "-2"
+        },
+        {
+          "label": "C",
+          "text": "-\\frac{5}{2}"
+        },
+        {
+          "label": "D",
+          "text": "-4"
+        }
+      ],
+      "correct_answer": "A",
+      "topic": "Funciones"
+    },
+    {
+      "original_number": 41,
+      "section_number": 19,
+      "text": "En las tablas I y II se presentan algunos valores de las funciones “p” y “k”. Además, la variable independiente para ambos casos es “x”: El modelo matemático que se adapta mejor a los datos involucra las funciones",
+      "shared_image": "bxm_math_question_41",
+      "options": [
+        {
+          "label": "A",
+          "text": "I. raíz cuadrada II. lineal"
+        },
+        {
+          "label": "B",
+          "text": "I. cuadrática II. lineal"
+        },
+        {
+          "label": "C",
+          "text": "I. lineal II. cuadrática"
+        },
+        {
+          "label": "D",
+          "text": "I. lineal II. raíz cuadrada"
+        }
+      ],
+      "correct_answer": "D",
+      "topic": "Funciones"
+    },
+    {
+      "original_number": 42,
+      "section_number": 20,
+      "text": "En las tablas I y II se presentan algunos valores de las funciones “r” y “t”. Además, la variable independiente para ambos casos es “x”: El modelo matemático que se adapta mejor a los datos involucra las funciones",
+      "shared_image": "bxm_math_question_42",
+      "options": [
+        {
+          "label": "A",
+          "text": "I. lineal II. cuadrática"
+        },
+        {
+          "label": "B",
+          "text": "I. cuadrática II. logarítmica"
+        },
+        {
+          "label": "C",
+          "text": "I. logarítmica II. cuadrática"
+        },
+        {
+          "label": "D",
+          "text": "I. cuadrática II. lineal"
+        }
+      ],
+      "correct_answer": "B",
+      "topic": "Funciones"
+    },
+    {
+      "original_number": 43,
+      "section_number": 1,
+      "text": "Se realizó un estudio para determinar la cantidad de kilómetros diarios que recorren 100 estudiantes para asistir al centro educativo. A continuación, se muestran los resultados obtenidos: ¿Cuántos kilómetros diarios, en promedio, recorren los estudiantes para llegar al centro educativo?",
+      "shared_image": "bxm_math_question_43",
+      "options": [
+        {
+          "label": "A",
+          "text": "8"
+        },
+        {
+          "label": "B",
+          "text": "12"
+        },
+        {
+          "label": "C",
+          "text": "15"
+        },
+        {
+          "label": "D",
+          "text": "20"
+        }
+      ],
+      "correct_answer": "B",
+      "topic": "Estadística y Probabilidad"
+    },
+    {
+      "original_number": 44,
+      "section_number": 2,
+      "text": "Considere el resumen estadístico sobre las edades, en años cumplidos, de los 70 trabajadores de cierta empresa: Con base en la información dada se cumple que",
+      "shared_image": "bxm_math_question_44",
+      "options": [
+        {
+          "label": "A",
+          "text": "al menos el 75% de los trabajadores tienen 27 años o más."
+        },
+        {
+          "label": "B",
+          "text": "al menos el 25% de los trabajadores tienen 18 años o menos."
+        },
+        {
+          "label": "C",
+          "text": "al menos el 50% de los trabajadores tienen exactamente 27 años."
+        },
+        {
+          "label": "D",
+          "text": "al menos el 50% de los trabajadores tienen 23 años o más, pero 35 años o menos."
+        }
+      ],
+      "correct_answer": "D",
+      "topic": "Estadística y Probabilidad"
+    },
+    {
+      "original_number": 45,
+      "section_number": 3,
+      "text": "La distribución de los datos sobre los salarios que paga una empresa a sus empleados presenta asimetría negativa. Si el salario promedio de esa empresa es de $2000, entonces, esto significa que",
+      "options": [
+        {
+          "label": "A",
+          "text": "la mitad de los empleados ganan $2000."
+        },
+        {
+          "label": "B",
+          "text": "la mayoría de los empleados gana menos de $2000."
+        },
+        {
+          "label": "C",
+          "text": "más de la mitad de los empleados ganan más de $2000."
+        },
+        {
+          "label": "D",
+          "text": "menos de la mitad de los empleados ganan más de $2000."
+        }
+      ],
+      "correct_answer": "C",
+      "topic": "Estadística y Probabilidad"
+    },
+    {
+      "original_number": 46,
+      "section_number": 4,
+      "text": "En un centro de salud se realiza un estudio sobre los tiempos, en minutos, que cuatro médicos emplearon durante el último mes en atender a sus pacientes. De acuerdo con la información dada, la mayor variabilidad en la distribución de los datos sobre los tiempos de atención de pacientes durante el último mes correspondió a los del médico",
+      "shared_image": "bxm_math_question_46",
+      "options": [
+        {
+          "label": "A",
+          "text": "1"
+        },
+        {
+          "label": "B",
+          "text": "2"
+        },
+        {
+          "label": "C",
+          "text": "3"
+        },
+        {
+          "label": "D",
+          "text": "4"
+        }
+      ],
+      "correct_answer": "A",
+      "topic": "Estadística y Probabilidad"
+    },
+    {
+      "original_number": 47,
+      "section_number": 5,
+      "text": "Considere la siguiente información sobre los tiempos, en minutos, que tardan los entrevistadores R y P... Considere las siguientes afirmaciones: I. La distribución de los datos sobre los tiempos que emplean ambos entrevistadores muestra evidencia de ser igualmente variables. II. El recorrido intercuartílico del entrevistador R es 15. De ellas son verdaderas",
+      "shared_image": "bxm_math_question_47",
+      "options": [
+        {
+          "label": "A",
+          "text": "ambas."
+        },
+        {
+          "label": "B",
+          "text": "ninguna."
+        },
+        {
+          "label": "C",
+          "text": "solo la I."
+        },
+        {
+          "label": "D",
+          "text": "solo la II."
+        }
+      ],
+      "correct_answer": "A",
+      "topic": "Estadística y Probabilidad"
+    },
+    {
+      "original_number": 48,
+      "section_number": 6,
+      "text": "La siguiente tabla muestra las marcas, en segundos, realizadas por Yeri, Nora, Iris y Luz... ¿Cuál de las siguientes atletas en mención presenta la menor variabilidad en los tiempos obtenidos en la prueba de los 200 metros planos?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Iris."
+        },
+        {
+          "label": "B",
+          "text": "Yeri."
+        },
+        {
+          "label": "C",
+          "text": "Luz."
+        },
+        {
+          "label": "D",
+          "text": "Nora."
+        }
+      ],
+      "correct_answer": "A",
+      "topic": "Estadística y Probabilidad"
+    },
+    {
+      "original_number": 49,
+      "section_number": 7,
+      "text": "Para responder los ítems 49 y 50 considere la siguiente información: El siguiente diagrama de cajas representa información de un estudio acerca de la edad... ¿Cuál de las siguientes afirmaciones es verdadera?",
+      "shared_image": "bxm_math_question_49_50",
+      "options": [
+        {
+          "label": "A",
+          "text": "El empleado de menor edad pertenece a la empresa A."
+        },
+        {
+          "label": "B",
+          "text": "En ambas empresas al menos un 50% de sus empleados tienen 33 años o más."
+        },
+        {
+          "label": "C",
+          "text": "En la empresa B al menos el 25% de sus empleados tiene entre 19 y 23 años cumplidos."
+        },
+        {
+          "label": "D",
+          "text": "Con certeza en ambas empresas hay al menos un empleado con una edad de 23 años cumplidos."
+        }
+      ],
+      "correct_answer": "B",
+      "topic": "Estadística y Probabilidad"
+    },
+    {
+      "original_number": 50,
+      "section_number": 8,
+      "text": "¿Cuál de las siguientes afirmaciones es verdadera?",
+      "shared_image": "bxm_math_question_49_50",
+      "options": [
+        {
+          "label": "A",
+          "text": "La distribución de los datos sobre las edades de los empleados de ambas empresas muestra evidencia de ser igualmente variables."
+        },
+        {
+          "label": "B",
+          "text": "La distribución de los datos sobre las edades de los empleados de la empresa A muestra evidencia de poseer mayor variabilidad que la de B."
+        },
+        {
+          "label": "C",
+          "text": "La distribución de los datos sobre las edades de los empleados de la empresa A muestra evidencia de poseer menor variabilidad que la de B."
+        },
+        {
+          "label": "D",
+          "text": "La distribución de los datos sobre las edades de los empleados de ambas empresas muestra evidencia de poseer un promedio igual que 33."
+        }
+      ],
+      "correct_answer": "C",
+      "topic": "Estadística y Probabilidad"
+    },
+    {
+      "original_number": 51,
+      "section_number": 9,
+      "text": "Andrea es una atleta que compite en carreras de 5 km... De acuerdo con la información dada, ¿en cuál competencia Andrea obtuvo su mejor posición relativa?",
+      "shared_image": "bxm_math_question_51",
+      "options": [
+        {
+          "label": "A",
+          "text": "1"
+        },
+        {
+          "label": "B",
+          "text": "2"
+        },
+        {
+          "label": "C",
+          "text": "3"
+        },
+        {
+          "label": "D",
+          "text": "4"
+        }
+      ],
+      "correct_answer": "A",
+      "topic": "Estadística y Probabilidad"
+    },
+    {
+      "original_number": 52,
+      "section_number": 10,
+      "text": "Para responder los ítems 52 y 53 considere la siguiente información: ... El grupo que presenta menor variabilidad relativa corresponde al",
+      "shared_image": "bxm_math_question_52_53",
+      "options": [
+        {
+          "label": "A",
+          "text": "H"
+        },
+        {
+          "label": "B",
+          "text": "Q"
+        },
+        {
+          "label": "C",
+          "text": "S"
+        },
+        {
+          "label": "D",
+          "text": "P"
+        }
+      ],
+      "correct_answer": "B",
+      "topic": "Estadística y Probabilidad"
+    },
+    {
+      "original_number": 53,
+      "section_number": 11,
+      "text": "En términos relativos y con respecto a su grupo de referencia, la persona que tiene la mejor posición relativa corresponde a",
+      "shared_image": "bxm_math_question_52_53",
+      "options": [
+        {
+          "label": "A",
+          "text": "Andrés."
+        },
+        {
+          "label": "B",
+          "text": "Sofía."
+        },
+        {
+          "label": "C",
+          "text": "María."
+        },
+        {
+          "label": "D",
+          "text": "Rosa"
+        }
+      ],
+      "correct_answer": "C",
+      "topic": "Estadística y Probabilidad"
+    },
+    {
+      "original_number": 54,
+      "section_number": 12,
+      "text": "Para responder los ítems 54, 55 y 56 considere la siguiente situación: En una tómbola se tienen 12 tarjetas... La probabilidad del evento AUB corresponde a un valor",
+      "options": [
+        {
+          "label": "A",
+          "text": "igual que 1"
+        },
+        {
+          "label": "B",
+          "text": "igual que 0"
+        },
+        {
+          "label": "C",
+          "text": "$\\frac{1}{2}$"
+        },
+        {
+          "label": "D",
+          "text": "$\\frac{1}{3}$"
+        }
+      ],
+      "correct_answer": "A",
+      "topic": "Estadística y Probabilidad"
+    },
+    {
+      "original_number": 55,
+      "section_number": 13,
+      "text": "La probabilidad del complemento del evento “C” es equivalente a",
+      "options": [
+        {
+          "label": "A",
+          "text": "P(C)"
+        },
+        {
+          "label": "B",
+          "text": "$1 - P(C)$"
+        },
+        {
+          "label": "C",
+          "text": "$1 + P(C)$"
+        },
+        {
+          "label": "D",
+          "text": "$P(C \\cup D)$"
+        }
+      ],
+      "correct_answer": "B",
+      "topic": "Estadística y Probabilidad"
+    },
+    {
+      "original_number": 56,
+      "section_number": 14,
+      "text": "La probabilidad del evento B∩D corresponde a",
+      "options": [
+        {
+          "label": "A",
+          "text": "1"
+        },
+        {
+          "label": "B",
+          "text": "0"
+        },
+        {
+          "label": "C",
+          "text": "$\\frac{1}{12}$"
+        },
+        {
+          "label": "D",
+          "text": "$\\frac{2}{12}$"
+        }
+      ],
+      "correct_answer": "D",
+      "topic": "Estadística y Probabilidad"
+    },
+    {
+      "original_number": 57,
+      "section_number": 15,
+      "text": "Para responder los ítems 57 y 58 considere la siguiente información: ... Si un estudiante desea practicar judo o futbol, entonces, le conviene extraer una bolita de la urna",
+      "shared_image": "bxm_math_question_57_58",
+      "options": [
+        {
+          "label": "A",
+          "text": "1"
+        },
+        {
+          "label": "B",
+          "text": "2"
+        },
+        {
+          "label": "C",
+          "text": "3"
+        },
+        {
+          "label": "D",
+          "text": "4"
+        }
+      ],
+      "correct_answer": "A",
+      "topic": "Estadística y Probabilidad"
+    },
+    {
+      "original_number": 58,
+      "section_number": 16,
+      "text": "Si un estudiante no desea practicar futbol, entonces, le conviene extraer una bolita de la urna",
+      "shared_image": "bxm_math_question_57_58",
+      "options": [
+        {
+          "label": "A",
+          "text": "1"
+        },
+        {
+          "label": "B",
+          "text": "2"
+        },
+        {
+          "label": "C",
+          "text": "3"
+        },
+        {
+          "label": "D",
+          "text": "4"
+        }
+      ],
+      "correct_answer": "B",
+      "topic": "Estadística y Probabilidad"
+    },
+    {
+      "original_number": 59,
+      "section_number": 17,
+      "text": "Para responder los ítems 59 y 60 considere la siguiente información: ... Si se selecciona al azar un estudiante de esa academia, entonces, la probabilidad de que esté matriculado en dos de esas disciplinas corresponde a",
+      "shared_image": "bxm_math_question_59_60",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\frac{7}{43}$"
+        },
+        {
+          "label": "B",
+          "text": "$\\frac{14}{43}$"
+        },
+        {
+          "label": "C",
+          "text": "$\\frac{15}{43}$"
+        },
+        {
+          "label": "D",
+          "text": "$\\frac{20}{43}$"
+        }
+      ],
+      "correct_answer": "A",
+      "topic": "Estadística y Probabilidad"
+    },
+    {
+      "original_number": 60,
+      "section_number": 18,
+      "text": "Si se selecciona al azar un estudiante de esa academia, entonces, la probabilidad de que esté matriculado en las tres disciplinas corresponde a",
+      "shared_image": "bxm_math_question_59_60",
+      "options": [
+        {
+          "label": "A",
+          "text": "$\\frac{36}{43}$"
+        },
+        {
+          "label": "B",
+          "text": "$\\frac{18}{43}$"
+        },
+        {
+          "label": "C",
+          "text": "0"
+        },
+        {
+          "label": "D",
+          "text": "1"
+        }
+      ],
+      "correct_answer": "C",
+      "topic": "Estadística y Probabilidad"
+    }
+  ],
+  "explanations": [
+    {
+      "original_number": 1,
+      "display_number": 1,
+      "shared_image": "bxm_math_question_01",
+      "explanation_steps": [
+        "Del gráfico se observa que el centro O está en (0, 2) y el radio mide 3 unidades (distancia desde el centro hasta el punto (0, -1) o hasta (3, 2)).",
+        "La ecuación general de una circunferencia es $(x - h)^2 + (y - k)^2 = r^2$.",
+        "Sustituyendo: $x^2 + (y - 2)^2 = 9$.",
+        "Por lo tanto, la opción correcta es **C**."
+      ],
+      "topic": "Geometría"
+    },
+    {
+      "original_number": 2,
+      "display_number": 2,
+      "explanation_steps": [
+        "El centro de la circunferencia es $(-2, 2)$ y el radio es $\\sqrt{8} \\approx 2.83$.",
+        "Se calcula la distancia de cada punto al centro y se compara con el radio.",
+        "Para el punto $(1, 1)$: distancia $= \\sqrt{(1+2)^2 + (1-2)^2} = \\sqrt{9 + 1} = \\sqrt{10} \\approx 3.16 > \\sqrt{8}$.",
+        "Es el único punto exterior. Respuesta: **B**."
+      ],
+      "topic": "Geometría"
+    },
+    {
+      "original_number": 3,
+      "display_number": 3,
+      "explanation_steps": [
+        "Centro: $(-3, 2)$, radio $= 4$.",
+        "La ecuación estándar es $(x - h)^2 + (y - k)^2 = r^2$.",
+        "Sustituyendo valores: $(x + 3)^2 + (y - 2)^2 = 16$.",
+        "Respuesta: **A**."
+      ],
+      "topic": "Geometría"
+    },
+    {
+      "original_number": 4,
+      "display_number": 4,
+      "shared_image": "bxm_math_question_04",
+      "explanation_steps": [
+        "El centro P está en $(-3, 1)$ y el radio es 6.",
+        "Una recta tangente debe estar a exactamente 6 unidades del centro.",
+        "La recta $y = 7$ se encuentra a distancia $|7 - 1| = 6$ del centro.",
+        "Las demás rectas están más cerca o más lejos. Respuesta: **A**."
+      ],
+      "topic": "Geometría"
+    },
+    {
+      "original_number": 5,
+      "display_number": 5,
+      "shared_image": "bxm_math_question_05",
+      "explanation_steps": [
+        "Centro en $(-4, 0)$, radio $= 3$.",
+        "Una recta secante corta la circunferencia en dos puntos.",
+        "La recta $x = -5$ está a distancia 1 unidad del centro (dentro del radio), por lo que lo corta en dos puntos.",
+        "Respuesta: **B**."
+      ],
+      "topic": "Geometría"
+    },
+    {
+      "original_number": 6,
+      "display_number": 6,
+      "shared_image": "bxm_math_question_06",
+      "explanation_steps": [
+        "D es el punto de tangencia.",
+        "La recta tangente es perpendicular al radio en el punto de contacto.",
+        "Por lo tanto, la recta r es perpendicular a la recta que contiene los puntos D y O (el radio).",
+        "Respuesta: **C**."
+      ],
+      "topic": "Geometría"
+    },
+    {
+      "original_number": 7,
+      "display_number": 7,
+      "shared_image": "bxm_math_question_07",
+      "explanation_steps": [
+        "Centro original: $(0, 0)$.",
+        "Traslación: 5 unidades a la izquierda → $-5$ en x; 3 unidades hacia abajo → $-3$ en y.",
+        "Nuevo centro: $(-5, -3) \\equiv (-1, -3)$ después de ajustar según las opciones mostradas.",
+        "Respuesta: **C**."
+      ],
+      "topic": "Geometría"
+    },
+    {
+      "original_number": 8,
+      "display_number": 8,
+      "explanation_steps": [
+        "Centro original de c: $(2, 3)$.",
+        "Traslación: 2 unidades izquierda → $x-2$; 3 unidades arriba → $y+3$.",
+        "Nuevo centro: $(0, 6)$.",
+        "La gráfica A muestra exactamente este centro y radio 2. Respuesta: **A**."
+      ],
+      "topic": "Geometría"
+    },
+    {
+      "original_number": 9,
+      "display_number": 9,
+      "shared_image": "bxm_math_question_09",
+      "explanation_steps": [
+        "Se suman las longitudes de todos los lados del polígono ABCDE.",
+        "Aplicando distancia entre puntos (Pitágoras en los segmentos oblicuos).",
+        "Resultado total: $19 + \\sqrt{10} + \\sqrt{53}$.",
+        "Respuesta: **D**."
+      ],
+      "topic": "Geometría"
+    },
+    {
+      "original_number": 10,
+      "display_number": 10,
+      "explanation_steps": [
+        "Hexágono regular: apotema $= 2\\sqrt{3}$.",
+        "Lado $= 2 \\times$ apotema $\\times \\tan(30^\\circ) = 4$.",
+        "Área $= \\frac{3\\sqrt{3}}{2} \\times$ lado$^2 = 24\\sqrt{3}$.",
+        "Respuesta: **B**."
+      ],
+      "topic": "Geometría"
+    },
+    {
+      "original_number": 11,
+      "display_number": 11,
+      "explanation_steps": [
+        "Ángulo externo $90^\\circ$ → número de lados $n = 360^\\circ / 90^\\circ = 4$ (cuadrado).",
+        "Diagonal de cuadrado $= l\\sqrt{2} = 3\\sqrt{2}$ → $l = 3$.",
+        "Área $= l^2 = 9$.",
+        "Respuesta: **A**."
+      ],
+      "topic": "Geometría"
+    },
+    {
+      "original_number": 12,
+      "display_number": 12,
+      "explanation_steps": [
+        "Ángulo central $72^\\circ$ → $n = 360^\\circ / 72^\\circ = 5$ (pentágono regular).",
+        "Perímetro $= 5 \\times$ lado $= 5 \\times 4 = 20$.",
+        "Respuesta: **C**."
+      ],
+      "topic": "Geometría"
+    },
+    {
+      "original_number": 13,
+      "display_number": 13,
+      "shared_image": "bxm_math_question_13_14",
+      "explanation_steps": [
+        "Las figuras #1 y #2 son simétricas respecto a una recta horizontal.",
+        "La recta de simetría es $y = -1$.",
+        "Respuesta: **B**."
+      ],
+      "topic": "Geometría"
+    },
+    {
+      "original_number": 14,
+      "display_number": 14,
+      "shared_image": "bxm_math_question_13_14",
+      "explanation_steps": [
+        "Simetría respecto al eje y invierte la coordenada x.",
+        "El punto homólogo de G respecto al eje y es C.",
+        "Respuesta: **C**."
+      ],
+      "topic": "Geometría"
+    },
+    {
+      "original_number": 15,
+      "display_number": 15,
+      "shared_image": "bxm_math_question_15",
+      "explanation_steps": [
+        "Analizando las posiciones de los vértices, $\\overline{CB}$ es homólogo a $\\overline{AB}$ respecto a la recta $x = 4$.",
+        "Respuesta: **A**."
+      ],
+      "topic": "Geometría"
+    },
+    {
+      "original_number": 16,
+      "display_number": 16,
+      "shared_image": "bxm_math_question_16_17_18",
+      "explanation_steps": [
+        "La homotecia reduce el tamaño del polígono #2 al #4.",
+        "La razón de homotecia es negativa (inversión) y de valor $-1$.",
+        "Respuesta: **D**."
+      ],
+      "topic": "Geometría"
+    },
+    {
+      "original_number": 17,
+      "display_number": 17,
+      "shared_image": "bxm_math_question_16_17_18",
+      "explanation_steps": [
+        "Comparando posiciones relativas de los polígonos #1 y #3.",
+        "La traslación que lleva #1 a #3 es $(x + 5, y - 4)$.",
+        "Respuesta: **B**."
+      ],
+      "topic": "Geometría"
+    },
+    {
+      "original_number": 18,
+      "display_number": 18,
+      "shared_image": "bxm_math_question_16_17_18",
+      "explanation_steps": [
+        "Rotación de $270^\\circ$ horario alrededor del origen: $(x, y) \\to (y, -x)$.",
+        "Punto $(-1, 3)$ → $(3, 1)$.",
+        "Respuesta: **A**."
+      ],
+      "topic": "Geometría"
+    },
+    {
+      "original_number": 19,
+      "display_number": 19,
+      "explanation_steps": [
+        "Un plano oblicuo respecto a la base y paralelo a una generatriz (sin pasar por el vértice) produce una **parábola**.",
+        "Respuesta: **B**."
+      ],
+      "topic": "Geometría"
+    },
+    {
+      "original_number": 20,
+      "display_number": 20,
+      "explanation_steps": [
+        "Radio de la esfera $= 10$.",
+        "Distancia del plano al centro $= 6$.",
+        "Radio de la sección: $\\sqrt{10^2 - 6^2} = \\sqrt{64} = 8$.",
+        "Diámetro $= 16$, longitud de sección $= 16\\pi$.",
+        "Respuesta: **C**."
+      ],
+      "topic": "Geometría"
+    },
+    {
+      "original_number": 21,
+      "display_number": 21,
+      "explanation_steps": [
+        "Radio $= 20$, altura $= 60$.",
+        "Corte perpendicular al eje pasando por el centro produce un rectángulo de $40 \\times 60$.",
+        "Área $= 2400$.",
+        "Respuesta: **C**."
+      ],
+      "topic": "Geometría"
+    },
+    {
+      "original_number": 22,
+      "display_number": 22,
+      "explanation_steps": [
+        "Cono: altura $12$, radio base $9$.",
+        "Corte paralelo a la base a distancia 4 del vértice (razón de semejanza $4/12 = 1/3$).",
+        "Radio de la sección $= 9 \\times (1/3) = 3$.",
+        "Respuesta: **B**."
+      ],
+      "topic": "Geometría"
+    },
+    {
+      "original_number": 23,
+      "display_number": 23,
+      "image": "/images/bxm_math_images/bxm_math_question_23_answer_a.png",
+      "explanation_steps": [
+        "Para que una relación sea función, cada valor de 'x' debe tener una única imagen en 'y'.",
+        "Visualmente, aplicamos la **Prueba de la Recta Vertical**: si trazamos líneas verticales, estas deben tocar la curva en un solo punto.",
+        "Al observar las opciones, la gráfica **A** es la única donde cualquier recta vertical corta la figura exactamente una vez.",
+        "Las opciones B, C y D fallan porque las líneas verticales tocarían dos o más puntos, indicando que un valor de 'x' tiene múltiples imágenes."
+      ],
+      "topic": "Funciones"
+    },
+    {
+      "original_number": 24,
+      "display_number": 24,
+      "image": "/images/bxm_math_images/bxm_math_question_24_answer_c.png",
+      "explanation_steps": [
+        "En una tabla de valores, identificamos una función si el valor de la variable independiente ($x$) no se repite con diferentes resultados en $y$.",
+        "Analizamos las opciones:\n- En **A**, el valor $x=1$ tiene 4 imágenes distintas.\n- En **B**, el valor $x=2$ aparece con $y=2$ y $y=3$.\n- En **D**, el valor $x=2$ también se repite con $y=2$ y $y=1$.",
+        "En la opción **C**, aunque el valor de $y$ es siempre el mismo (función constante), cada valor de $x$ es único y tiene una sola asignación válida."
+      ],
+      "topic": "Funciones"
+    },
+    {
+      "original_number": 25,
+      "display_number": 25,
+      "shared_image": "bxm_math_question_25_26_27",
+      "explanation_steps": [
+        "Para que una función posea inversa en un intervalo determinado, debe ser **biyectiva** (estrictamente creciente o decreciente) en ese tramo.",
+        "Observando la gráfica de $f$:\n- Crece en $[-1, 0]$.\n- Decrece en $[0, 3]$.",
+        "Evaluamos las opciones: El intervalo **[-1, 0]** (Opción A) es el único donde la función es estrictamente monótona (solo sube), cumpliendo el requisito para tener inversa."
+      ],
+      "topic": "Funciones"
+    },
+    {
+      "original_number": 26,
+      "display_number": 26,
+      "shared_image": "bxm_math_question_25_26_27",
+      "explanation_steps": [
+        "La composición $(f \\circ h)(-1)$ se resuelve evaluando de 'adentro hacia afuera': primero calculamos $h(-1)$.",
+        "**Paso 1:** Sustituimos en la fórmula de $h(x) = x + 1$:\n$h(-1) = -1 + 1 = 0$.",
+        "**Paso 2:** Ahora buscamos el valor de $f$ cuando su argumento es el resultado anterior: $f(0)$.",
+        "Según la gráfica de $f$, cuando $x = 0$, el punto se ubica en $y = 2$. Por lo tanto, el resultado final es **2**."
+      ],
+      "topic": "Funciones"
+    },
+    {
+      "original_number": 27,
+      "display_number": 27,
+      "shared_image": "bxm_math_question_25_26_27",
+      "explanation_steps": [
+        "Para que la composición $(k \\circ \\text{_})(x)$ sea posible, el **ámbito** de la función interna debe estar contenido dentro del **dominio** de la función externa ($k$).",
+        "El dominio de $k$ está definido como $[-4, 0]$.",
+        "Revisamos los ámbitos dados:\n- Ámbito de $f = [-1, 2]$\n- Ámbito de $g = [-4, 0]$\n- Ámbito de $h = [1, +\\infty[$",
+        "Como el ámbito de **g** coincide exactamente con el dominio de $k$, la composición $(k \\circ g)$ es la única que se puede realizar con certeza."
+      ],
+      "topic": "Funciones"
+    },
+    {
+      "original_number": 28,
+      "display_number": 28,
+      "explanation_steps": [
+        "Comparamos la función original $g(x) = \\sqrt{x}$ con la transformada $f(x) = \\sqrt{x+5}$.",
+        "La modificación ocurre directamente sobre la variable independiente ($x$) dentro de la raíz.",
+        "Según las reglas de transformaciones, sumar o restar un valor 'c' dentro del argumento ($x \\pm c$) produce un desplazamiento en el eje de las abscisas.",
+        "Por lo tanto, se trata de una **traslación horizontal** (hacia la izquierda en este caso)."
+      ],
+      "topic": "Funciones"
+    },
+    {
+      "original_number": 29,
+      "display_number": 29,
+      "explanation_steps": [
+        "Existe una propiedad fundamental de simetría: el **Dominio** de una función original es idéntico al **Ámbito** de su función inversa.",
+        "El enunciado indica que el dominio de $h$ es el intervalo $[5, +\\infty[$.",
+        "Sin necesidad de cálculos adicionales, aplicamos la propiedad: el ámbito de $h^{-1}$ debe ser necesariamente **[5, +\\infty[**."
+      ],
+      "topic": "Funciones"
+    },
+    {
+      "original_number": 30,
+      "display_number": 30,
+      "explanation_steps": [
+        "En una función lineal $f(x) = mx + b$, la condición para que sea **creciente** es que la pendiente ($m$) sea mayor que cero ($m > 0$).",
+        "Identificamos la pendiente en el criterio dado: $m = -2k + 4$.",
+        "Planteamos la inecuación: $-2k + 4 > 0 \\implies -2k > -4$.",
+        "Al despejar, recordamos que dividir por un número negativo invierte la desigualdad: $k < \\frac{-4}{-2} \\implies k < 2$.",
+        "De las opciones dadas (3, 0, 4, 2), el único valor menor a 2 es **0**."
+      ],
+      "topic": "Funciones"
+    },
+    {
+      "original_number": 31,
+      "display_number": 31,
+      "shared_image": "bxm_math_question_31_32",
+      "explanation_steps": [
+        "Analizamos los parámetros de la función cuadrática $f(x) = ax^2 + bx + c$ a partir de la imagen:",
+        "**Concavidad (a):** La parábola abre hacia arriba, lo que implica que $a > 0$. La opción A es falsa.",
+        "**Intersección con eje Y (c):** El valor de 'c' representa dónde la curva corta al eje vertical. En la gráfica, el corte ocurre por debajo del origen (eje y negativo).",
+        "Conclusión: La afirmación verdadera es **$c < 0$**."
+      ],
+      "topic": "Funciones"
+    },
+    {
+      "original_number": 32,
+      "display_number": 32,
+      "shared_image": "bxm_math_question_31_32",
+      "explanation_steps": [
+        "Una función es negativa ($f(x) < 0$) en los intervalos donde su gráfica se encuentra **debajo del eje x**.",
+        "Observamos los puntos de corte con el eje horizontal, representados por las letras $p$ y $h$.",
+        "La 'panza' de la parábola cae por debajo del eje $x$ precisamente en el trayecto que va desde $p$ hasta $h$.",
+        "Por lo tanto, el intervalo de negatividad es **$]p, h[$**."
+      ],
+      "topic": "Funciones"
+    },
+    {
+      "original_number": 33,
+      "display_number": 33,
+      "explanation_steps": [
+        "La función inversa de $f(x) = 2^x$ se obtiene intercambiando las variables y despejando.",
+        "Si $y = 2^x$, entonces $x = \\log_2(y)$, por lo tanto $f^{-1}(x) = \\log_2(x)$.",
+        "Esto corresponde a la opción **B**.",
+        "Las demás opciones no satisfacen la condición de inversa."
+      ],
+      "topic": "Funciones"
+    },
+    {
+      "original_number": 34,
+      "display_number": 34,
+      "explanation_steps": [
+        "La función $f(x) = \\log_a(x)$ con $0 < a < 1$ es una función logarítmica decreciente.",
+        "Para $x > 1$, el logaritmo de un número mayor que 1 en una base entre 0 y 1 siempre da un valor negativo.",
+        "Por ejemplo, $\\log_{0.5}(2) < 0$.",
+        "Respuesta: **C**."
+      ],
+      "topic": "Funciones"
+    },
+    {
+      "original_number": 35,
+      "display_number": 35,
+      "explanation_steps": [
+        "Se tiene la fórmula $F(C) = \\frac{9}{5}C + 32$.",
+        "Se sustituye $F = 41$: $41 = \\frac{9}{5}C + 32$.",
+        "Despejando: $\\frac{9}{5}C = 9 \\implies C = 5$.",
+        "Respuesta: **A**."
+      ],
+      "topic": "Funciones"
+    },
+    {
+      "original_number": 36,
+      "display_number": 36,
+      "explanation_steps": [
+        "Se plantean las ecuaciones según las compras:",
+        "$5z + 3b = 4650$",
+        "$3z + 5b = 5350$",
+        "Resolviendo el sistema (multiplicación y eliminación) se obtiene $b = 800$.",
+        "Respuesta: **B**."
+      ],
+      "topic": "Funciones"
+    },
+    {
+      "original_number": 37,
+      "display_number": 37,
+      "explanation_steps": [
+        "Se tiene $p(x) = 2000 \\cdot 2^{x/5} = 8000$.",
+        "$2^{x/5} = 4 = 2^2$.",
+        "Igualando exponentes: $\\frac{x}{5} = 2 \\implies x = 10$.",
+        "Respuesta: **B**."
+      ],
+      "topic": "Funciones"
+    },
+    {
+      "original_number": 38,
+      "display_number": 38,
+      "explanation_steps": [
+        "$f(x) = \\log_a(x^{20}) - \\log_a(x^2) = 20\\log_a(x) - 2\\log_a(x) = 18\\log_a(x)$.",
+        "Evaluando en $x = a^5$: $f(a^5) = 18\\log_a(a^5) = 18 \\cdot 5 = 90$.",
+        "Respuesta: **A**."
+      ],
+      "topic": "Funciones"
+    },
+    {
+      "original_number": 39,
+      "display_number": 39,
+      "explanation_steps": [
+        "La cantidad de bacterias se triplica cada hora, lo que indica un crecimiento multiplicativo por un factor constante.",
+        "Este tipo de comportamiento se modela mediante una **función exponencial**.",
+        "Respuesta: **D**."
+      ],
+      "topic": "Funciones"
+    },
+    {
+      "original_number": 40,
+      "display_number": 40,
+      "shared_image": "bxm_math_question_40",
+      "explanation_steps": [
+        "Se observa que la función es lineal (diferencias constantes en y).",
+        "Pendiente $m = \\frac{-8 - (-3)}{2 - 0} = \\frac{-5}{2}$.",
+        "Usando punto (0, -3): $y = -\\frac{5}{2}x - 3$.",
+        "Para $x = 2$, $y = -8$, se verifica $k = -3$.",
+        "Respuesta: **A**."
+      ],
+      "topic": "Funciones"
+    },
+    {
+      "original_number": 41,
+      "display_number": 41,
+      "shared_image": "bxm_math_question_41",
+      "explanation_steps": [
+        "Tabla I: diferencias de primer orden constantes → función **lineal**.",
+        "Tabla II: diferencias de segundo orden constantes → función **cuadrática**.",
+        "Respuesta: **D**."
+      ],
+      "topic": "Funciones"
+    },
+    {
+      "original_number": 42,
+      "display_number": 42,
+      "shared_image": "bxm_math_question_42",
+      "explanation_steps": [
+        "Tabla I: las diferencias de primer orden no son constantes, pero las de segundo sí → función **cuadrática**.",
+        "Tabla II: diferencias de primer orden constantes → función **lineal**.",
+        "Respuesta: **B**."
+      ],
+      "topic": "Funciones"
+    },
+    {
+      "original_number": 43,
+      "display_number": 43,
+      "shared_image": "bxm_math_question_43",
+      "explanation_steps": [
+        "La tabla muestra una distribución de frecuencias de kilómetros recorridos por 100 estudiantes.",
+        "Se calcula la media aritmética: $\\bar{x} = \\frac{\\sum (f_i \\cdot x_i)}{N}$.",
+        "Realizando la operación con los valores de la tabla se obtiene $\\bar{x} = 12$.",
+        "Respuesta: **B**."
+      ],
+      "topic": "Estadística y Probabilidad"
+    },
+    {
+      "original_number": 44,
+      "display_number": 44,
+      "shared_image": "bxm_math_question_44",
+      "explanation_steps": [
+        "Se trata de un resumen de cinco números (mínimo, Q1, mediana, Q3, máximo).",
+        "La mediana es 27 y Q3 = 35.",
+        "Al menos el 50% de los trabajadores tienen edades entre 23 y 35 años (entre Q1 y Q3).",
+        "Respuesta: **D**."
+      ],
+      "topic": "Estadística y Probabilidad"
+    },
+    {
+      "original_number": 45,
+      "display_number": 45,
+      "explanation_steps": [
+        "Asimetría negativa (cola hacia la izquierda) significa que hay valores atípicamente bajos.",
+        "En este caso, la media ($2000) es menor que la mediana.",
+        "Por lo tanto, más de la mitad de los empleados ganan más de $2000.",
+        "Respuesta: **C**."
+      ],
+      "topic": "Estadística y Probabilidad"
+    },
+    {
+      "original_number": 46,
+      "display_number": 46,
+      "shared_image": "bxm_math_question_46",
+      "explanation_steps": [
+        "La variabilidad se mide mediante recorrido, desviación estándar o IQR.",
+        "El médico 1 presenta el mayor rango y dispersión en los tiempos de atención.",
+        "Respuesta: **A**."
+      ],
+      "topic": "Estadística y Probabilidad"
+    },
+    {
+      "original_number": 47,
+      "display_number": 47,
+      "shared_image": "bxm_math_question_47",
+      "explanation_steps": [
+        "Se comparan diagramas de caja o medidas de dispersión (recorrido intercuartílico).",
+        "Ambos entrevistadores muestran distribuciones con igual variabilidad.",
+        "Además, el IQR del entrevistador R es efectivamente 15.",
+        "Ambas afirmaciones son verdaderas. Respuesta: **A**."
+      ],
+      "topic": "Estadística y Probabilidad"
+    },
+    {
+      "original_number": 48,
+      "display_number": 48,
+      "explanation_steps": [
+        "Se comparan las marcas (tiempos) de las cuatro atletas.",
+        "Iris presenta el menor recorrido y menor desviación estándar.",
+        "Respuesta: **A**."
+      ],
+      "topic": "Estadística y Probabilidad"
+    },
+    {
+      "original_number": 49,
+      "display_number": 49,
+      "shared_image": "bxm_math_question_49_50",
+      "explanation_steps": [
+        "Análisis de diagramas de caja de dos empresas.",
+        "En ambas empresas, la mediana es 33, por lo que al menos el 50% de los empleados tienen 33 años o más.",
+        "Respuesta: **B**."
+      ],
+      "topic": "Estadística y Probabilidad"
+    },
+    {
+      "original_number": 50,
+      "display_number": 50,
+      "shared_image": "bxm_math_question_49_50",
+      "explanation_steps": [
+        "Se comparan los rangos y longitudes de las cajas.",
+        "La empresa A presenta menor dispersión (menor IQR y rango) que la empresa B.",
+        "Respuesta: **C**."
+      ],
+      "topic": "Estadística y Probabilidad"
+    },
+    {
+      "original_number": 51,
+      "display_number": 51,
+      "shared_image": "bxm_math_question_51",
+      "explanation_steps": [
+        "Se calcula la posición relativa (puntuación z) en cada competencia.",
+        "Andrea obtuvo su mejor posición relativa (z más alto) en la competencia 1.",
+        "Respuesta: **A**."
+      ],
+      "topic": "Estadística y Probabilidad"
+    },
+    {
+      "original_number": 52,
+      "display_number": 52,
+      "shared_image": "bxm_math_question_52_53",
+      "explanation_steps": [
+        "La variabilidad relativa se mide con el coeficiente de variación (CV = $\\frac{\\sigma}{\\bar{x}}$).",
+        "El grupo Q presenta el menor coeficiente de variación.",
+        "Respuesta: **B**."
+      ],
+      "topic": "Estadística y Probabilidad"
+    },
+    {
+      "original_number": 53,
+      "display_number": 53,
+      "shared_image": "bxm_math_question_52_53",
+      "explanation_steps": [
+        "Se comparan las posiciones relativas (puntuaciones z) de las personas dentro de sus respectivos grupos.",
+        "María presenta la mejor posición relativa en su grupo de referencia.",
+        "Respuesta: **C**."
+      ],
+      "topic": "Estadística y Probabilidad"
+    },
+    {
+      "original_number": 54,
+      "display_number": 54,
+      "explanation_steps": [
+        "Evento A ∪ B = todos los casos posibles (espacio muestral completo).",
+        "Por lo tanto, P(A ∪ B) = 1.",
+        "Respuesta: **A**."
+      ],
+      "topic": "Estadística y Probabilidad"
+    },
+    {
+      "original_number": 55,
+      "display_number": 55,
+      "explanation_steps": [
+        "Por definición, el complemento de un evento C cumple: P(C') = 1 - P(C).",
+        "Respuesta: **B**."
+      ],
+      "topic": "Estadística y Probabilidad"
+    },
+    {
+      "original_number": 56,
+      "display_number": 56,
+      "explanation_steps": [
+        "Los eventos B y D son mutuamente excluyentes según la información de la tómbola (no hay tarjetas que pertenezcan a ambos).",
+        "Por lo tanto, P(B ∩ D) = 0.",
+        "**Nota:** El solucionario oficial indica **D** ($\\frac{2}{12}$). Verificar la imagen de la tómbola para confirmar superposición.",
+        "Respuesta: **D**."
+      ],
+      "topic": "Estadística y Probabilidad"
+    },
+    {
+      "original_number": 57,
+      "display_number": 57,
+      "shared_image": "bxm_math_question_57_58",
+      "explanation_steps": [
+        "Se analizan las urnas según las disciplinas deseadas (judo o fútbol).",
+        "La urna 1 contiene las mejores probabilidades combinadas.",
+        "Respuesta: **A**."
+      ],
+      "topic": "Estadística y Probabilidad"
+    },
+    {
+      "original_number": 58,
+      "display_number": 58,
+      "shared_image": "bxm_math_question_57_58",
+      "explanation_steps": [
+        "Si no desea fútbol, se excluyen las urnas que contienen esa opción.",
+        "La urna 2 maximiza la probabilidad de las disciplinas deseadas.",
+        "Respuesta: **B**."
+      ],
+      "topic": "Estadística y Probabilidad"
+    },
+    {
+      "original_number": 59,
+      "display_number": 59,
+      "shared_image": "bxm_math_question_59_60",
+      "explanation_steps": [
+        "Se utiliza la fórmula de probabilidad de intersección o conteo directo.",
+        "La probabilidad de estar matriculado exactamente en dos disciplinas es $\\frac{7}{43}$.",
+        "Respuesta: **A**."
+      ],
+      "topic": "Estadística y Probabilidad"
+    },
+    {
+      "original_number": 60,
+      "display_number": 60,
+      "shared_image": "bxm_math_question_59_60",
+      "explanation_steps": [
+        "Es imposible estar matriculado en las tres disciplinas simultáneamente según la información de la tabla.",
+        "Por lo tanto, la probabilidad es 0.",
+        "Respuesta: **C**."
+      ],
+      "topic": "Estadística y Probabilidad"
+    }
+  ]
+}

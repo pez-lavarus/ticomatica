@@ -1,0 +1,138 @@
+@import "tailwindcss";
+@import "katex/dist/katex.min.css";
+
+:root {
+  --background: #FDFCF0; /* Parchment */
+  --foreground: #002147; /* Oxford Blue */
+  --card: #FFFFFF;
+  --card-foreground: #002147;
+  --primary: #002147;
+  --primary-foreground: #FDFCF0;
+  --secondary: #D4AF37; /* Academic Gold */
+  --secondary-foreground: #002147;
+  --muted: #F1F5F9;
+  --muted-foreground: #64748B;
+  --accent: #D4AF37;
+  --accent-foreground: #002147;
+  --destructive: #B8860B; /* Deep Ochre */
+  --destructive-foreground: #FDFCF0;
+  --border: #E2E8F0;
+  --input: #E2E8F0;
+  --ring: #002147;
+  --success: #A3C1AD; /* Cambridge Blue */
+  --success-foreground: #002147;
+}
+
+.dark {
+  --background: #0F172A; /* Deep Slate */
+  --foreground: #F8FAFC; /* Slate 50 */
+  --card: #1E293B; /* Slate 800 */
+  --card-foreground: #F8FAFC;
+  --primary: #FDFCF0; /* Parchment used as high-contrast primary */
+  --primary-foreground: #0F172A;
+  --secondary: #D4AF37;
+  --secondary-foreground: #0F172A;
+  --muted: #334155; /* Slate 700 */
+  --muted-foreground: #94A3B8;
+  --accent: #D4AF37;
+  --accent-foreground: #0F172A;
+  --destructive: #B8860B;
+  --destructive-foreground: #FDFCF0;
+  --border: #334155;
+  --input: #334155;
+  --ring: #FDFCF0;
+  --success: #A3C1AD;
+  --success-foreground: #0F172A;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+
+  --font-sans: var(--font-public-sans);
+  --font-serif: var(--font-source-serif);
+
+  /* Spacing Tokens (8px base) */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+  --spacing-xxl: 4rem;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-public-sans), system-ui, -apple-system, sans-serif;
+}
+
+/* Smooth page transitions and theme switching */
+* {
+  scroll-behavior: smooth;
+}
+
+body {
+  transition-property: background-color, border-color, color;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+/* Apply transitions selectively to UI elements for better performance */
+button,
+a,
+input,
+select,
+textarea,
+.card,
+.bg-card,
+.border-border,
+.text-foreground,
+.text-muted-foreground {
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 250ms;
+}
+
+/* Ensure images and certain elements don't transition inappropriately */
+img, video, .no-transition, .no-transition * {
+  transition: none !important;
+}
+
+/* KaTeX alignment refinements */
+.katex {
+  font-size: 1.125em !important;
+}
+
+.katex-display {
+  margin: 1em 0 !important;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+
+/* Hide scrollbar for horizontal scroll areas */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
