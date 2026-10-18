@@ -1,4 +1,4 @@
 {
-  "app": "npx tsx bin/telemetry.ts",
+  "app": "npx tsx bin/app.ts",
   "requireApproval": "never"
 }

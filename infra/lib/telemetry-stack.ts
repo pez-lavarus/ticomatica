@@ -49,5 +49,9 @@ export class TelemetryStack extends cdk.Stack {
         input: JSON.stringify({ analysis: "weekly" }),
       },
     });
+
+    new cdk.CfnOutput(this, "AnalysisFunctionName", {
+      value: analysisFunction.functionName,
+    });
   }
 }

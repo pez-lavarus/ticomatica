@@ -1,6 +1,6 @@
 # Examen Matemáticas
 
-A pnpm monorepo for the Ticomatica web app and its AWS telemetry infrastructure.
+A pnpm monorepo for the Ticomatica web app and its AWS infrastructure (static hosting + telemetry).
 
 ## Structure
 
@@ -8,7 +8,7 @@ A pnpm monorepo for the Ticomatica web app and its AWS telemetry infrastructure.
 examen-matematicas/
 ├── apps/
 │   └── web/        Next.js 16 assessment app (@ticomatica/web)
-└── infra/          AWS CDK telemetry stack (@ticomatica/infra)
+└── infra/          AWS CDK stacks: web hosting + telemetry (@ticomatica/infra)
 ```
 
 ## Prerequisites
@@ -36,15 +36,23 @@ pnpm dev            # run the web app
 | `pnpm infra:diff`    | Show CDK stack diff                      |
 | `pnpm infra:deploy`  | Deploy the CDK stack                     |
 
-## Telemetry Infrastructure
+## Infrastructure
 
-`infra/` defines an AWS CDK stack with a scheduled Lambda that runs telemetry
-analysis on a daily and a weekly cadence. The analysis logic is a placeholder;
-wire it to your chosen event source and storage (e.g. S3 + Athena) when ready.
+`infra/` defines two AWS CDK stacks:
+
+- **WebHostingStack**: static S3 bucket behind CloudFront (HTTPS, URL rewriting
+  for extensionless routes, 404 handling).
+- **TelemetryStack**: a scheduled Lambda that runs telemetry analysis on a daily
+  and a weekly cadence via EventBridge Scheduler. The analysis logic is a
+  placeholder; wire it to your chosen event source and storage (e.g. S3 +
+  Athena) when ready.
+
+Deployment is handled by the `deploy` job in `.github/workflows/ci.yml` on
+pushes to `main`, using GitHub OIDC to assume an AWS role.
 
 ```bash
 cd infra
 pnpm cdk bootstrap   # once per account/region
 pnpm cdk synth
-pnpm cdk deploy
+pnpm cdk deploy --all
 ```

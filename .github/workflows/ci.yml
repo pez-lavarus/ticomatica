@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   web:
     runs-on: ubuntu-latest
@@ -36,11 +40,19 @@ jobs:
       - name: Run Tests
         run: pnpm --filter @ticomatica/web test
 
-      - name: Build Next.js
+      - name: Build static site
         run: pnpm --filter @ticomatica/web build
+
+      - name: Upload website build
+        uses: actions/upload-artifact@v4
+        with:
+          name: website-dist
+          path: apps/web/out
+          if-no-files-found: error
 
   infra:
     runs-on: ubuntu-latest
+    needs: web
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -59,8 +71,52 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Download website build
+        uses: actions/download-artifact@v4
+        with:
+          name: website-dist
+          path: apps/web/out
+
       - name: Type Check
         run: pnpm --filter @ticomatica/infra typecheck
 
-      - name: Synthesize CDK stack
+      - name: Synthesize CDK stacks
         run: pnpm --filter @ticomatica/infra synth
+
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    needs: infra
+    environment: production
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Download website build
+        uses: actions/download-artifact@v4
+        with:
+          name: website-dist
+          path: apps/web/out
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: us-east-1
+
+      - name: Deploy CDK stacks
+        run: pnpm --filter @ticomatica/infra deploy
