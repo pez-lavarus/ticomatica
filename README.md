@@ -38,7 +38,7 @@ pnpm dev            # run the web app
 
 ## Infrastructure
 
-`infra/` defines two AWS CDK stacks:
+`infra/` defines two AWS CDK stacks, deployed per stage (`dev` / `prod`):
 
 - **WebHostingStack**: static S3 bucket behind CloudFront (HTTPS, URL rewriting
   for extensionless routes, 404 handling).
@@ -47,12 +47,16 @@ pnpm dev            # run the web app
   placeholder; wire it to your chosen event source and storage (e.g. S3 +
   Athena) when ready.
 
-Deployment is handled by the `deploy` job in `.github/workflows/ci.yml` on
-pushes to `main`, using GitHub OIDC to assume an AWS role.
+The `stage` is passed via CDK context (`-c stage=dev|prod`, default `dev`) and
+suffixes the stack names, so `dev` and `prod` are isolated deployments. In CI,
+pushes to `main` deploy both stages through separate `deploy-dev` and
+`deploy-prod` jobs, each assuming its own OIDC role.
 
 ```bash
 cd infra
-pnpm cdk bootstrap   # once per account/region
-pnpm cdk synth
-pnpm cdk deploy --all
+pnpm cdk bootstrap                 # once per account/region
+pnpm cdk synth -c stage=dev
+pnpm cdk synth -c stage=prod
+pnpm cdk deploy --all -c stage=dev
+pnpm cdk deploy --all -c stage=prod
 ```

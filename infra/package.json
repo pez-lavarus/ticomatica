@@ -5,8 +5,12 @@
   "scripts": {
     "typecheck": "tsc --noEmit",
     "synth": "cdk synth",
+    "synth:dev": "cdk synth -c stage=dev",
+    "synth:prod": "cdk synth -c stage=prod",
     "diff": "cdk diff",
     "deploy": "cdk deploy --all",
+    "deploy:dev": "cdk deploy --all -c stage=dev",
+    "deploy:prod": "cdk deploy --all -c stage=prod",
     "bootstrap": "cdk bootstrap"
   },
   "dependencies": {
