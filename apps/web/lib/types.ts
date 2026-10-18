@@ -1,4 +1,4 @@
-// Shared TypeScript interfaces for the BXM Question Pilot
+// Shared TypeScript interfaces for Ticomatica
 
 export interface QuestionOption {
   label: "A" | "B" | "C" | "D";

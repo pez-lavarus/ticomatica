@@ -1,4 +1,4 @@
-# BXM Question Pilot App
+# Ticomatica
 
 A premium Next.js 15 application for the Bachillerato por Madurez Suficiente (BXM) 2026 practice assessment.
 

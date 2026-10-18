@@ -58,8 +58,8 @@ export function Logo({ className = "w-8 h-8 md:w-10 md:h-10" }: LogoProps) {
           <rect x="72" y="232" width="880" height="560" rx="84" fill="url(#cardGradientDark)"/>
           <rect x="72" y="232" width="880" height="560" rx="84" fill="url(#cardHexDark)" opacity="0.9"/>
         </g>
-        <text x="512" y="548" fontFamily="Arial, Helvetica, sans-serif" fontSize="340" fontWeight="900" letterSpacing="-14" textAnchor="middle" dominantBaseline="middle" fill="url(#textGradientDark)" filter="url(#textShadowDark)">
-          BXM
+        <text x="512" y="548" fontFamily="Arial, Helvetica, sans-serif" fontSize="150" fontWeight="900" letterSpacing="0" textAnchor="middle" dominantBaseline="middle" fill="url(#textGradientDark)" filter="url(#textShadowDark)">
+          Ticomatica
         </text>
       </svg>
     );
@@ -99,8 +99,8 @@ export function Logo({ className = "w-8 h-8 md:w-10 md:h-10" }: LogoProps) {
         <rect x="72" y="232" width="880" height="560" rx="84" fill="url(#cardGradientLight)"/>
         <rect x="72" y="232" width="880" height="560" rx="84" fill="url(#cardHexLight)" opacity="0.85"/>
       </g>
-      <text x="512" y="548" fontFamily="Arial, Helvetica, sans-serif" fontSize="340" fontWeight="900" letterSpacing="-14" textAnchor="middle" dominantBaseline="middle" fill="url(#navyGradientLight)" filter="url(#textShadowLight)">
-        BXM
+      <text x="512" y="548" fontFamily="Arial, Helvetica, sans-serif" fontSize="150" fontWeight="900" letterSpacing="0" textAnchor="middle" dominantBaseline="middle" fill="url(#navyGradientLight)" filter="url(#textShadowLight)">
+        Ticomatica
       </text>
     </svg>
   );

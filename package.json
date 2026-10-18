@@ -4,14 +4,14 @@
   "private": true,
   "packageManager": "pnpm@11.3.0",
   "scripts": {
-    "dev": "pnpm --filter @bxm/web dev",
-    "build": "pnpm --filter @bxm/web build",
-    "start": "pnpm --filter @bxm/web start",
-    "lint": "pnpm --filter @bxm/web lint",
-    "typecheck": "pnpm --filter @bxm/web typecheck && pnpm --filter @bxm/infra typecheck",
-    "test": "pnpm --filter @bxm/web test",
-    "infra:synth": "pnpm --filter @bxm/infra synth",
-    "infra:diff": "pnpm --filter @bxm/infra diff",
-    "infra:deploy": "pnpm --filter @bxm/infra deploy"
+    "dev": "pnpm --filter @ticomatica/web dev",
+    "build": "pnpm --filter @ticomatica/web build",
+    "start": "pnpm --filter @ticomatica/web start",
+    "lint": "pnpm --filter @ticomatica/web lint",
+    "typecheck": "pnpm --filter @ticomatica/web typecheck && pnpm --filter @ticomatica/infra typecheck",
+    "test": "pnpm --filter @ticomatica/web test",
+    "infra:synth": "pnpm --filter @ticomatica/infra synth",
+    "infra:diff": "pnpm --filter @ticomatica/infra diff",
+    "infra:deploy": "pnpm --filter @ticomatica/infra deploy"
   }
 }

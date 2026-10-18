@@ -1,4 +1,4 @@
-# Technical Report: Architectural Evolution of the BXM Question Pilot Design System
+# Technical Report: Architectural Evolution of the Ticomatica Design System
 
 ## 1. Executive Summary
 This report outlines a comprehensive architectural and design system overhaul for the Bachillerato por Madurez Suficiente (BXM) practice platform. The current implementation, while functional, utilizes generic styling defaults that lack a distinct professional identity. The proposed system shifts toward an "Academic Prestige" aesthetic, prioritizing readability, mathematical precision, and long-term maintainability through standardized design tokens and a modular component architecture.

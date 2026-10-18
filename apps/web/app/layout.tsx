@@ -15,7 +15,7 @@ const sourceSerif = Source_Serif_4({
 });
 
 export const metadata: Metadata = {
-  title: "BXM — Matemáticas",
+  title: "Ticomatica — Matemáticas",
   description:
     "Plataforma educativa piloto: Práctica de Matemáticas para Bachillerato por Madurez Suficiente. Área de Funciones — 10 preguntas de selección única.",
 };

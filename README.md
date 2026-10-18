@@ -1,14 +1,14 @@
 # Examen Matemáticas
 
-A pnpm monorepo for the BXM question pilot web app and its AWS telemetry infrastructure.
+A pnpm monorepo for the Ticomatica web app and its AWS telemetry infrastructure.
 
 ## Structure
 
 ```
 examen-matematicas/
 ├── apps/
-│   └── web/        Next.js 16 assessment app (@bxm/web)
-└── infra/          AWS CDK telemetry stack (@bxm/infra)
+│   └── web/        Next.js 16 assessment app (@ticomatica/web)
+└── infra/          AWS CDK telemetry stack (@ticomatica/infra)
 ```
 
 ## Prerequisites

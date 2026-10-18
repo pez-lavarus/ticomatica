@@ -1,5 +1,5 @@
 /**
- * Design Tokens for the BXM Question Pilot Design System
+ * Design Tokens for the Ticomatica Design System
  * Based on the "Academic Prestige" aesthetic.
  */
 
