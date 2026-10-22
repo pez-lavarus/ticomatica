@@ -1,6 +1,10 @@
 packages:
   - "apps/*"
-  - "infra"
+  - "packages/*"
+
+catalog:
+  typescript: ^5.9.3
+  "@types/node": ^22.20.5
 
 allowBuilds:
   esbuild: true

@@ -5,13 +5,22 @@ on:
     branches: [main, development]
   pull_request:
     branches: [main, development]
+  workflow_dispatch:
+    inputs:
+      stage:
+        description: Deployment stage
+        required: true
+        type: choice
+        options: [dev, prod]
 
 permissions:
   id-token: write
   contents: read
 
 jobs:
-  web:
+  ci:
+    name: CI
+    if: github.event_name != 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -20,77 +29,41 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
+          version: 11.3.0
           run_install: false
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: 'pnpm'
+          cache: pnpm
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Run ESLint
-        run: pnpm --filter @ticomatica/web lint
+      - name: Lint
+        run: pnpm lint
 
-      - name: Type Check
-        run: pnpm --filter @ticomatica/web typecheck
+      - name: Type check
+        run: pnpm typecheck
 
-      - name: Run Tests
-        run: pnpm --filter @ticomatica/web test
+      - name: Test
+        run: pnpm test
 
-      - name: Build static site
-        run: pnpm --filter @ticomatica/web build
-
-      - name: Upload website build
-        uses: actions/upload-artifact@v4
-        with:
-          name: website-dist
-          path: apps/web/out
-          if-no-files-found: error
-
-  infra:
-    runs-on: ubuntu-latest
-    needs: web
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          run_install: false
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: 'pnpm'
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Download website build
-        uses: actions/download-artifact@v4
-        with:
-          name: website-dist
-          path: apps/web/out
-
-      - name: Type Check
-        run: pnpm --filter @ticomatica/infra typecheck
+      - name: Build
+        run: pnpm build
 
       - name: Synthesize dev stack
-        run: pnpm --filter @ticomatica/infra synth:dev
+        run: pnpm infra:synth:dev
 
       - name: Synthesize prod stack
-        run: pnpm --filter @ticomatica/infra synth:prod
+        run: pnpm infra:synth:prod
 
-  deploy-dev:
-    if: github.ref == 'refs/heads/development' && github.event_name == 'push'
+  deploy:
+    name: Deploy (${{ inputs.stage }})
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
-    needs: infra
-    environment: development
+    environment: ${{ inputs.stage }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -98,66 +71,63 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
+          version: 11.3.0
           run_install: false
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: 'pnpm'
+          cache: pnpm
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Download website build
-        uses: actions/download-artifact@v4
-        with:
-          name: website-dist
-          path: apps/web/out
-
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: ${{ secrets.AWS_DEV_ROLE_ARN }}
+          role-to-assume: ${{ inputs.stage == 'prod' && secrets.AWS_PROD_ROLE_ARN || secrets.AWS_DEV_ROLE_ARN }}
           aws-region: us-east-1
 
-      - name: Deploy dev
-        run: pnpm --filter @ticomatica/infra deploy:dev
+      - name: Deploy infrastructure
+        run: pnpm --filter @ticomatica/infrastructure deploy:${{ inputs.stage }}
 
-  deploy-prod:
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    runs-on: ubuntu-latest
-    needs: infra
-    environment: production
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Capture stack outputs
+        run: |
+          STACK_SUFFIX=${{ inputs.stage == 'prod' && 'Prod' || 'Dev' }}
+          FUNCTION_NAME=$(aws cloudformation describe-stacks --stack-name "Telemetry${STACK_SUFFIX}" --query "Stacks[0].Outputs[?OutputKey=='AnalysisFunctionName'].OutputValue" --output text)
+          BUCKET=$(aws cloudformation describe-stacks --stack-name "WebHosting${STACK_SUFFIX}" --query "Stacks[0].Outputs[?OutputKey=='WebsiteBucketName'].OutputValue" --output text)
+          DISTRIBUTION_ID=$(aws cloudformation describe-stacks --stack-name "WebHosting${STACK_SUFFIX}" --query "Stacks[0].Outputs[?OutputKey=='DistributionId'].OutputValue" --output text)
+          echo "FUNCTION_NAME=${FUNCTION_NAME}" >> "$GITHUB_ENV"
+          echo "BUCKET=${BUCKET}" >> "$GITHUB_ENV"
+          echo "DISTRIBUTION_ID=${DISTRIBUTION_ID}" >> "$GITHUB_ENV"
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          run_install: false
+      - name: Package function code
+        run: pnpm --filter @ticomatica/infrastructure package
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: 'pnpm'
+      - name: Deploy function code
+        run: |
+          if [ "${{ inputs.stage }}" = "prod" ]; then
+            VERSION=$(aws lambda update-function-code --function-name "$FUNCTION_NAME" --zip-file fileb://apps/infrastructure/dist/lambda.zip --publish --query Version --output text)
+            aws lambda update-alias --function-name "$FUNCTION_NAME" --name live --function-version "$VERSION" 2>/dev/null || aws lambda create-alias --function-name "$FUNCTION_NAME" --name live --function-version "$VERSION"
+          else
+            aws lambda update-function-code --function-name "$FUNCTION_NAME" --zip-file fileb://apps/infrastructure/dist/lambda.zip
+          fi
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+      - name: Build frontend
+        run: pnpm --filter @ticomatica/web build
 
-      - name: Download website build
-        uses: actions/download-artifact@v4
-        with:
-          name: website-dist
-          path: apps/web/out
+      - name: Upload frontend (HTML)
+        run: aws s3 sync apps/web/out "s3://$BUCKET" --exclude "*" --include "*.html" --cache-control "public,max-age=0,must-revalidate"
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: ${{ secrets.AWS_PROD_ROLE_ARN }}
-          aws-region: us-east-1
+      - name: Upload frontend (hashed assets)
+        run: aws s3 sync apps/web/out "s3://$BUCKET" --exclude "*.html" --exclude "*.json" --cache-control "public,max-age=31536000,immutable"
 
-      - name: Deploy prod
-        run: pnpm --filter @ticomatica/infra deploy:prod
+      - name: Upload frontend (data files)
+        run: aws s3 sync apps/web/out "s3://$BUCKET" --exclude "*" --include "*.json" --cache-control "public,max-age=3600"
+
+      - name: Remove stale files
+        run: aws s3 sync apps/web/out "s3://$BUCKET" --delete
+
+      - name: Invalidate CDN
+        run: aws cloudfront create-invalidation --distribution-id "$DISTRIBUTION_ID" --paths "/*"

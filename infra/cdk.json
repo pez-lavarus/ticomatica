@@ -1,7 +1,0 @@
-{
-  "app": "npx tsx bin/app.ts",
-  "requireApproval": "never",
-  "context": {
-    "@aws-cdk/core:bootstrapQualifier": "prccenada"
-  }
-}

@@ -2,21 +2,31 @@ import * as cdk from "aws-cdk-lib";
 import * as cloudfront from "aws-cdk-lib/aws-cloudfront";
 import * as origins from "aws-cdk-lib/aws-cloudfront-origins";
 import * as s3 from "aws-cdk-lib/aws-s3";
-import * as s3deploy from "aws-cdk-lib/aws-s3-deployment";
+import { resourcePrefix, type Stage } from "../config";
 
 export interface WebHostingStackProps extends cdk.StackProps {
-  readonly websiteDistPath: string;
+  readonly stage: Stage;
 }
 
 export class WebHostingStack extends cdk.Stack {
+  public readonly websiteBucket: s3.IBucket;
+  public readonly distribution: cloudfront.IDistribution;
+
   constructor(scope: cdk.App, id: string, props: WebHostingStackProps) {
     super(scope, id, props);
 
-    const websiteBucket = new s3.Bucket(this, "WebsiteBucket", {
+    const prefix = resourcePrefix(props.stage);
+    const isProd = props.stage === "prod";
+
+    this.websiteBucket = new s3.Bucket(this, "WebsiteBucket", {
+      bucketName: `${prefix}-web`,
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
       enforceSSL: true,
-      removalPolicy: cdk.RemovalPolicy.DESTROY,
-      autoDeleteObjects: true,
+      encryption: s3.BucketEncryption.S3_MANAGED,
+      removalPolicy: isProd
+        ? cdk.RemovalPolicy.RETAIN
+        : cdk.RemovalPolicy.DESTROY,
+      autoDeleteObjects: !isProd,
     });
 
     const urlRewriteFunction = new cloudfront.Function(this, "UrlRewriteFunction", {
@@ -34,10 +44,10 @@ function handler(event) {
 `),
     });
 
-    const distribution = new cloudfront.Distribution(this, "WebsiteDistribution", {
+    this.distribution = new cloudfront.Distribution(this, "WebsiteDistribution", {
       defaultRootObject: "index.html",
       defaultBehavior: {
-        origin: origins.S3BucketOrigin.withOriginAccessControl(websiteBucket),
+        origin: origins.S3BucketOrigin.withOriginAccessControl(this.websiteBucket),
         viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
         cachePolicy: cloudfront.CachePolicy.CACHING_OPTIMIZED,
         functionAssociations: [
@@ -62,19 +72,19 @@ function handler(event) {
       priceClass: cloudfront.PriceClass.PRICE_CLASS_100,
     });
 
-    new s3deploy.BucketDeployment(this, "WebsiteDeployment", {
-      sources: [s3deploy.Source.asset(props.websiteDistPath)],
-      destinationBucket: websiteBucket,
-      distribution,
-      distributionPaths: ["/*"],
-    });
-
     new cdk.CfnOutput(this, "WebsiteUrl", {
-      value: `https://${distribution.distributionDomainName}`,
+      value: `https://${this.distribution.distributionDomainName}`,
+      exportName: `${prefix}-website-url`,
     });
 
     new cdk.CfnOutput(this, "DistributionId", {
-      value: distribution.distributionId,
+      value: this.distribution.distributionId,
+      exportName: `${prefix}-distribution-id`,
+    });
+
+    new cdk.CfnOutput(this, "WebsiteBucketName", {
+      value: this.websiteBucket.bucketName,
+      exportName: `${prefix}-website-bucket`,
     });
   }
 }
