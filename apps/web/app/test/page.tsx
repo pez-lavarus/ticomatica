@@ -12,6 +12,7 @@ import ConfirmModal from "@/app/components/ConfirmModal";
 import FormulaModal from "@/app/components/FormulaModal";
 import SectionModal from "@/app/components/SectionModal";
 import { QuestionExperience } from "@/app/components/assessment/QuestionExperience";
+import { DesktopNavigator } from "@/app/components/assessment/DesktopNavigator";
 import { useAssessment } from "@/lib/hooks/useAssessment";
 import { AssessmentErrorBoundary } from "@/app/components/error/AssessmentErrorBoundary";
 
@@ -190,27 +191,46 @@ export default function QuestionPage() {
       </div>
 
       <div className="max-w-6xl mx-auto px-4 md:px-8 py-6 md:py-10">
-        <QuestionExperience
-          question={currentQuestion}
-          currentIndex={currentIndex}
-          sectionQuestions={currentSectionQuestionsWithGlobalIndex}
-          testMode={testMode}
-          currentTopicIndex={currentTopicIndex}
-          selectedAnswer={selectedAnswers[currentIndex]}
-          isFlagged={!!flaggedQuestions[currentIndex]}
-          selectedAnswers={selectedAnswers}
-          flaggedQuestions={flaggedQuestions}
-          onSelect={handleSelect}
-          onToggleFlag={toggleFlag}
-          onNext={handleNextWithFinish}
-          onPrev={handlePrev}
-          onJumpToQuestion={jumpToQuestion}
-          onJumpToSection={handleJumpToSection}
-          onOpenImageModal={openImageModal}
-          isLastQuestionInSection={sectionIndex === currentSectionQuestionsWithGlobalIndex.length - 1}
-          hasMoreSections={hasMoreSections}
-          sharedImageSrc={currentQuestion.shared_image ? quizData.shared_images[currentQuestion.shared_image] : undefined}
-        />
+        <div className="grid grid-cols-12 gap-6 lg:gap-10">
+          <div className="col-span-12 lg:col-span-8">
+            <QuestionExperience
+              question={currentQuestion}
+              currentIndex={currentIndex}
+              sectionQuestions={currentSectionQuestionsWithGlobalIndex}
+              testMode={testMode}
+              selectedAnswer={selectedAnswers[currentIndex]}
+              isFlagged={!!flaggedQuestions[currentIndex]}
+              selectedAnswers={selectedAnswers}
+              flaggedQuestions={flaggedQuestions}
+              onSelect={handleSelect}
+              onToggleFlag={toggleFlag}
+              onNext={handleNextWithFinish}
+              onPrev={handlePrev}
+              onJumpToQuestion={jumpToQuestion}
+              onOpenImageModal={openImageModal}
+              isLastQuestionInSection={sectionIndex === currentSectionQuestionsWithGlobalIndex.length - 1}
+              hasMoreSections={hasMoreSections}
+              sharedImageSrc={currentQuestion.shared_image ? quizData.shared_images[currentQuestion.shared_image] : undefined}
+            />
+          </div>
+
+          <div className="hidden lg:block lg:col-span-4">
+            <DesktopNavigator
+              testMode={testMode}
+              currentTopicIndex={currentTopicIndex}
+              sectionQuestions={currentSectionQuestionsWithGlobalIndex}
+              currentIndex={currentIndex}
+              selectedAnswers={selectedAnswers}
+              flaggedQuestions={flaggedQuestions}
+              onJumpToQuestion={jumpToQuestion}
+              onJumpToSection={handleJumpToSection}
+              onPrev={handlePrev}
+              onNext={handleNextWithFinish}
+              isLastQuestionInSection={sectionIndex === currentSectionQuestionsWithGlobalIndex.length - 1}
+              hasMoreSections={hasMoreSections}
+            />
+          </div>
+        </div>
       </div>
 
       <ImageModal
