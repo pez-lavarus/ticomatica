@@ -142,3 +142,8 @@ img, video, .no-transition, .no-transition * {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* Logo wordmark: in dark mode invert to a light version for proper contrast. */
+.dark .ticomatica-logo-title {
+  filter: invert(100%) hue-rotate(180deg);
+}

@@ -3,10 +3,10 @@
 
 import { useState, useCallback, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { Clock, Flag, BookOpen, Shapes, BarChart3, Binary } from "lucide-react";
 import type { QuizData } from "@/lib/types";
 import { ThemeToggle } from "@/app/components/ThemeToggle";
-import { Logo } from "@/app/components/Logo";
 import ImageModal from "@/app/components/ImageModal";
 import ConfirmModal from "@/app/components/ConfirmModal";
 import FormulaModal from "@/app/components/FormulaModal";
@@ -134,62 +134,76 @@ export default function QuestionPage() {
     <div className="min-h-screen bg-background transition-colors">
       {/* Top Professional Bar */}
       <div className="sticky top-0 z-50 bg-card border-b border-border shadow-sm">
-        <div className="max-w-6xl mx-auto px-4 md:px-8 py-3 md:py-8 flex items-center justify-between gap-2 md:gap-4">
+        <div className="mx-auto px-4 md:px-8 py-3 md:py-8 flex items-center justify-between gap-2 md:gap-4">
+          {/* Logo: icon + wordmark */}
+          <button
+            onClick={() => {
+              localStorage.setItem("bxm-pilot-answers", JSON.stringify(selectedAnswers));
+              localStorage.setItem("bxm-pilot-flags", JSON.stringify(flaggedQuestions));
+              localStorage.setItem("bxm-pilot-index", currentIndex.toString());
+              localStorage.setItem("bxm-pilot-topic-index", currentTopicIndex.toString());
+              localStorage.setItem("bxm-pilot-time-left", timeLeft.toString());
+              router.push("/welcome");
+            }}
+            className="flex items-center gap-2 md:gap-3 group shrink-0 h-full"
+          >
+            <Image
+              src="/costa-rica-flag.svg"
+              alt="Bandera de Costa Rica"
+              width={50}
+              height={30}
+              className="w-10 h-10 md:w-16 md:h-16 rounded-full object-cover shadow-md group-hover:brightness-110 transition-all"
+            />
+            <Image
+              src="/ticomatica-logo-title.svg"
+              alt="Ticomatica"
+              width={2048}
+              height={682}
+              className="ticomatica-logo-title h-6 md:h-20 w-auto hidden sm:block"
+            />
+          </button>
+
+          {/* Section Indicator, Timer, Theme, Formulas & Finish */}
           <div className="flex items-center gap-2 md:gap-6">
-            <button
-              onClick={() => {
-                localStorage.setItem("bxm-pilot-answers", JSON.stringify(selectedAnswers));
-                localStorage.setItem("bxm-pilot-flags", JSON.stringify(flaggedQuestions));
-                localStorage.setItem("bxm-pilot-index", currentIndex.toString());
-                localStorage.setItem("bxm-pilot-topic-index", currentTopicIndex.toString());
-                localStorage.setItem("bxm-pilot-time-left", timeLeft.toString());
-                router.push("/welcome");
-              }}
-              className="flex items-center gap-2 md:gap-3 group"
-            >
-              <Logo className="w-8 h-8 md:w-10 md:h-10 rounded-sm shadow-md group-hover:brightness-110 transition-all" />
-            </button>
-          </div>
+            <div className="flex items-center gap-1.5 md:gap-3">
+              <button
+                onClick={() => setIsSectionModalOpen(true)}
+                className="flex items-center justify-center w-8 h-8 md:w-14 md:h-14 bg-card rounded-sm border border-border shadow-sm hover:bg-muted transition-colors text-destructive"
+                title="Información de la sección"
+              >
+                {currentTopic === "Geometría" && <Shapes className="w-4 h-4 md:w-7 md:h-7" />}
+                {currentTopic === "Estadística y Probabilidad" && <BarChart3 className="w-4 h-4 md:w-7 md:h-7" />}
+                {currentTopic === "Funciones" && <Binary className="w-4 h-4 md:w-7 md:h-7" />}
+                {currentTopic === "full" && <Clock className="w-4 h-4 md:w-7 md:h-7" />}
+              </button>
 
-          {/* Section Indicator & Timer - Separated but adjacent */}
-          <div className="flex items-center gap-1.5 md:gap-3">
-            <button
-              onClick={() => setIsSectionModalOpen(true)}
-              className="flex items-center justify-center w-8 h-8 md:w-14 md:h-14 bg-card rounded-sm border border-border shadow-sm hover:bg-muted transition-colors text-destructive"
-              title="Información de la sección"
-            >
-              {currentTopic === "Geometría" && <Shapes className="w-4 h-4 md:w-7 md:h-7" />}
-              {currentTopic === "Estadística y Probabilidad" && <BarChart3 className="w-4 h-4 md:w-7 md:h-7" />}
-              {currentTopic === "Funciones" && <Binary className="w-4 h-4 md:w-7 md:h-7" />}
-              {currentTopic === "full" && <Clock className="w-4 h-4 md:w-7 md:h-7" />}
-            </button>
-
-            <div className="flex items-center px-2 md:px-8 h-8 md:h-14 bg-card rounded-sm border border-border shadow-sm">
-              <span className="font-mono text-xs md:text-2xl font-bold tabular-nums text-foreground min-w-[35px] md:min-w-[80px] text-center">
-                {mounted ? formatTime(timeLeft) : "--:--"}
-              </span>
+              <div className="flex items-center px-2 md:px-8 h-8 md:h-14 bg-card rounded-sm border border-border shadow-sm">
+                <span className="font-mono text-xs md:text-2xl font-bold tabular-nums text-foreground min-w-[35px] md:min-w-[80px] text-center">
+                  {mounted ? formatTime(timeLeft) : "--:--"}
+                </span>
+              </div>
             </div>
-          </div>
 
-          <div className="flex items-center gap-2 md:gap-10">
-            <div>
-              <ThemeToggle />
+            <div className="flex items-center gap-2 md:gap-6">
+              <div>
+                <ThemeToggle />
+              </div>
+              <button
+                onClick={() => setIsFormulaModalOpen(true)}
+                className="flex items-center gap-1.5 md:gap-2 px-2 md:px-8 py-2 md:py-4 bg-muted border border-border hover:border-accent text-foreground text-[8px] md:text-xs font-bold uppercase tracking-[0.15em] md:tracking-[0.2em] rounded-sm transition-colors"
+                title="Fórmulas"
+              >
+                <BookOpen className="w-3 h-3 md:w-4 md:h-4" />
+                <span className="hidden md:inline">Fórmulas</span>
+              </button>
+              <button
+                onClick={handleFinishTest}
+                className="flex items-center gap-1.5 md:gap-4 px-3 md:px-10 py-2 md:py-4 bg-primary text-primary-foreground text-[8px] md:text-xs font-bold uppercase tracking-[0.15em] md:tracking-[0.2em] rounded-sm shadow-md transition-all hover:brightness-90 group"
+              >
+                <Flag className="w-3 h-3 md:w-4 md:h-4 transition-colors group-hover:text-destructive group-active:text-destructive" />
+                <span className="hidden sm:inline">Finalizar</span>
+              </button>
             </div>
-            <button
-              onClick={() => setIsFormulaModalOpen(true)}
-              className="flex items-center gap-1.5 md:gap-2 px-2 md:px-8 py-2 md:py-4 bg-muted border border-border hover:border-accent text-foreground text-[8px] md:text-xs font-bold uppercase tracking-[0.15em] md:tracking-[0.2em] rounded-sm transition-colors"
-              title="Fórmulas"
-            >
-              <BookOpen className="w-3 h-3 md:w-4 md:h-4" />
-              <span className="hidden md:inline">Fórmulas</span>
-            </button>
-            <button
-              onClick={handleFinishTest}
-              className="flex items-center gap-1.5 md:gap-4 px-3 md:px-10 py-2 md:py-4 bg-primary text-primary-foreground text-[8px] md:text-xs font-bold uppercase tracking-[0.15em] md:tracking-[0.2em] rounded-sm shadow-md transition-all hover:brightness-90 group"
-            >
-              <Flag className="w-3 h-3 md:w-4 md:h-4 transition-colors group-hover:text-destructive group-active:text-destructive" />
-              <span className="hidden sm:inline">Finalizar</span>
-            </button>
           </div>
         </div>
       </div>
