@@ -97,7 +97,7 @@ export function ResponseOptions({
                     />
                   </div>
                 ) : (
-                  <div className="option-math overflow-x-auto text-lg text-foreground font-serif">
+                  <div className="option-math text-lg text-foreground font-serif">
                     <KaTeXText text={option.text || ""} />
                   </div>
                 )}
