@@ -61,7 +61,7 @@ export const QuestionExperience = memo(function QuestionExperience({
   const optionsRef = useRef<HTMLDivElement | null>(null);
   const graphWrapperRef = useRef<HTMLDivElement | null>(null);
   const hasImageOptions = question.options.some((option) => option.image);
-  const { containerRef, gridTemplateColumns, graphMaxHeight } = useQuestionLayout({
+  const { containerRef, gridTemplateColumns, graphMaxHeight, isStickyStatement } = useQuestionLayout({
     graphSrc: sharedImageSrc,
     questionKey: question.original_number,
     hasImageOptions,
@@ -93,7 +93,10 @@ export const QuestionExperience = memo(function QuestionExperience({
         className="grid items-start gap-4 md:gap-6 [&>*]:min-w-0"
         style={{ gridTemplateColumns }}
       >
-        <div ref={statementRef}>
+        <div
+          ref={statementRef}
+          className={isStickyStatement ? "sticky top-24 lg:top-32" : undefined}
+        >
           <QuestionStatement
             question={question}
             sharedImageSrc={sharedImageSrc}

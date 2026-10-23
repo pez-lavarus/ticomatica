@@ -18,17 +18,22 @@ const CONTAINER_BREAKPOINT_PX = 720;
 // the components vertically. Tall or squarish graphs fit a narrower column and
 // keep the components side by side, with the options given priority for their
 // formulas.
-const HEAVILY_HORIZONTAL_ASPECT = 1.5;
+const HEAVILY_HORIZONTAL_ASPECT = 2.0;
 
 // When side by side, the statement column takes a fraction of the row. Taller
 // graphs get a narrower statement column so options keep room for their formulas.
 const STATEMENT_COL_MIN = 0.28;
 const STATEMENT_COL_MAX = 0.4;
 
+// For image-option questions the statement is just text, so it gets a compact
+// sticky column while the image options take a slightly larger share.
+const IMAGE_OPTIONS_STATEMENT_FRACTION = 0.45;
+
 // Graph sizing budget for vertical layout: the graph is shrunk so the options
-// stay visible without scrolling, within these bounds.
+// stay visible without scrolling, within these bounds. The ceiling keeps the
+// graph from expanding past a reasonable figure size.
 const MIN_GRAPH_HEIGHT = 140;
-const MAX_GRAPH_HEIGHT = 480;
+const MAX_GRAPH_HEIGHT = 360;
 const BOTTOM_MARGIN = 24;
 
 interface UseQuestionLayoutOptions {
@@ -116,17 +121,24 @@ export function useQuestionLayout({
 
   // Default is vertical: no graph, an unknown/loading graph, or a heavily
   // horizontal graph all stack. Tall and squarish graphs go side by side.
+  // Image-option questions also go side by side with a sticky statement so the
+  // options can scroll independently while the statement stays visible.
   let layout: QuestionLayout = "vertical";
   let statementFraction = STATEMENT_COL_MAX;
-  if (
-    !forcedVertical &&
-    !hasImageOptions &&
-    hasGraph &&
-    graphAspect !== null &&
-    graphAspect <= HEAVILY_HORIZONTAL_ASPECT
-  ) {
-    layout = "horizontal";
-    statementFraction = clamp(graphAspect / 2, STATEMENT_COL_MIN, STATEMENT_COL_MAX);
+  let isStickyStatement = false;
+  if (!forcedVertical) {
+    if (hasImageOptions) {
+      layout = "horizontal";
+      statementFraction = IMAGE_OPTIONS_STATEMENT_FRACTION;
+      isStickyStatement = true;
+    } else if (
+      hasGraph &&
+      graphAspect !== null &&
+      graphAspect <= HEAVILY_HORIZONTAL_ASPECT
+    ) {
+      layout = "horizontal";
+      statementFraction = clamp(graphAspect / 2, STATEMENT_COL_MIN, STATEMENT_COL_MAX);
+    }
   }
 
   const gridTemplateColumns =
@@ -170,5 +182,5 @@ export function useQuestionLayout({
   const effectiveGraphMaxHeight =
     hasGraph && layout === "vertical" && graphMaxHeight !== null ? graphMaxHeight : undefined;
 
-  return { containerRef, layout, gridTemplateColumns, graphMaxHeight: effectiveGraphMaxHeight };
+  return { containerRef, layout, gridTemplateColumns, graphMaxHeight: effectiveGraphMaxHeight, isStickyStatement };
 }

@@ -102,7 +102,12 @@ export default function QuestionPage() {
   // Preload every graph's aspect ratio so question switching never has to wait
   // for an image decode and the layout engine stays stable across navigation.
   useEffect(() => {
-    void preloadGraphAspects(Object.values(quizData.shared_images));
+    const optionImages = quizData.questions.flatMap((question) =>
+      question.options
+        .map((option) => option.image)
+        .filter((image): image is string => Boolean(image)),
+    );
+    void preloadGraphAspects([...Object.values(quizData.shared_images), ...optionImages]);
   }, []);
 
   const confirmFinishTest = () => {

@@ -28,6 +28,7 @@
     "bxm_math_question_44": "/images/bxm_math_images/bxm_math_question_44.png",
     "bxm_math_question_46": "/images/bxm_math_images/bxm_math_question_46.png",
     "bxm_math_question_47": "/images/bxm_math_images/bxm_math_question_47.png",
+    "bxm_math_question_48": "/images/bxm_math_images/bxm_math_question_48.png",
     "bxm_math_question_49_50": "/images/bxm_math_images/bxm_math_question_49_50.png",
     "bxm_math_question_51": "/images/bxm_math_images/bxm_math_question_51.png",
     "bxm_math_question_52_53": "/images/bxm_math_images/bxm_math_question_52_53.png",
@@ -520,8 +521,8 @@
     {
       "original_number": 19,
       "section_number": 19,
-      "statement": "",
-      "problem": "La sección plana que se obtiene al cortar un cono circular recto con un plano oblicuo respecto a la base y paralelo a la generatriz sin pasar por el vértice corresponde a una",
+      "statement": "La sección plana que se obtiene al cortar un cono circular recto con un plano oblicuo respecto a la base y paralelo a la generatriz sin pasar por el vértice corresponde a una:",
+      "problem": "",
       "options": [
         {
           "label": "A",
@@ -624,8 +625,8 @@
     {
       "original_number": 23,
       "section_number": 1,
-      "statement": "",
-      "problem": "En las siguientes relaciones “x” representa la variable independiente y “y” la dependiente. ¿Cuál de ellas corresponde a una función?",
+      "statement": "En las siguientes relaciones “x” representa la variable independiente y “y” la dependiente. ",
+      "problem": "¿Cuál de ellas corresponde a una función?",
       "options": [
         {
           "label": "A",
@@ -650,8 +651,8 @@
     {
       "original_number": 24,
       "section_number": 2,
-      "statement": "",
-      "problem": "En las siguientes relaciones “x” representa la variable independiente y “y” la dependiente. ¿Cuál de ellas corresponde a una función?",
+      "statement": "En las siguientes relaciones “x” representa la variable independiente y “y” la dependiente. ",
+      "problem": "¿Cuál de ellas corresponde a una función?",
       "options": [
         {
           "label": "A",
@@ -676,8 +677,8 @@
     {
       "original_number": 25,
       "section_number": 3,
-      "statement": "",
-      "problem": "Sea “m” una función cuyo dominio es un subconjunto del dominio de f. Si “m” tiene inversa, entonces la opción que contiene un posible dominio para dicha función corresponde a",
+      "statement": "Sea “m” una función cuyo dominio es un subconjunto del dominio de f.",
+      "problem": " Si “m” tiene inversa, entonces la opción que contiene un posible dominio para dicha función corresponde a:",
       "shared_image": "bxm_math_question_25_26_27",
       "options": [
         {
@@ -703,7 +704,7 @@
     {
       "original_number": 26,
       "section_number": 4,
-      "statement": "",
+      "statement": "Sea “m” una función cuyo dominio es un subconjunto del dominio de f.",
       "problem": "El valor de \\( (f \\circ h)(-1) \\) corresponde a",
       "shared_image": "bxm_math_question_25_26_27",
       "options": [
@@ -730,7 +731,7 @@
     {
       "original_number": 27,
       "section_number": 5,
-      "statement": "",
+      "statement": "Sea “m” una función cuyo dominio es un subconjunto del dominio de f.",
       "problem": "¿Cuál de las siguientes funciones permite completar la expresión \\( (k \\circ \\underline{\\quad})(x) \\) para que la composición sea posible?",
       "shared_image": "bxm_math_question_25_26_27",
       "options": [
@@ -757,8 +758,8 @@
     {
       "original_number": 28,
       "section_number": 6,
-      "statement": "",
-      "problem": "Sea “g” la función dada por \\( g(x) = \\sqrt{x} \\). Para obtener \\( f(x) = \\sqrt{x} + 5 \\) se le debe aplicar a “g” una",
+      "statement": "Sea “g” la función dada por \\( g(x) = \\sqrt{x} \\). ",
+      "problem": "Para obtener \\( f(x) = \\sqrt{x} + 5 \\) se le debe aplicar a “g” una",
       "options": [
         {
           "label": "A",
@@ -783,8 +784,8 @@
     {
       "original_number": 29,
       "section_number": 7,
-      "statement": "",
-      "problem": "Si “h” es una función dada por \\( h: [5, +\\infty[ \\to P \\) con \\( h(x) = 3\\sqrt{x} - 5 + 1 \\), entonces el ámbito de la inversa de h corresponde a",
+      "statement": "Sea “h” una función dada por \\( h: [5, +\\infty[ \\to P \\) con \\( h(x) = 3\\sqrt{x} - 5 + 1 \\)",
+      "problem": "El ámbito de la inversa de h corresponde a:",
       "options": [
         {
           "label": "A",
@@ -809,8 +810,8 @@
     {
       "original_number": 30,
       "section_number": 8,
-      "statement": "",
-      "problem": "Considere la función lineal “f” dada por \\( f(x) = (-2k + 4)x + 3 \\). Un posible valor de k para que la función “f” sea creciente corresponde a",
+      "statement": "Considere la función lineal “f” dada por \\( f(x) = (-2k + 4)x + 3 \\).",
+      "problem": "Un posible valor de k para que la función “f” sea creciente corresponde a",
       "options": [
         {
           "label": "A",
@@ -889,8 +890,8 @@
     {
       "original_number": 33,
       "section_number": 11,
-      "statement": "",
-      "problem": "¿Cuál de las siguientes funciones es inversa con la función $f(x) = 2^x$?",
+      "statement": "¿Cuál de las siguientes funciones es inversa con la función $f(x) = 2^x$?",
+      "problem": "",
       "options": [
         {
           "label": "A",
@@ -915,8 +916,8 @@
     {
       "original_number": 34,
       "section_number": 12,
-      "statement": "",
-      "problem": "Sea la función \"f\" de la forma $f(x) = \\log_a(x)$ con $0 < a < 1$. Si $x > 1$, entonces, se cumple que",
+      "statement": "Sea la función \"f\" de la forma $f(x) = \\log_a(x)$ con $0 < a < 1$.",
+      "problem": "Si $x > 1$, entonces, se cumple que",
       "options": [
         {
           "label": "A",
@@ -941,8 +942,8 @@
     {
       "original_number": 35,
       "section_number": 13,
-      "statement": "",
-      "problem": "Luis llama por teléfono a Ana y le comenta que la temperatura en su ciudad es de 41 °F. Si se sabe que la relación entre la temperatura en grados Fahrenheit (°F) y en grados Celsius (°C) está asociada mediante la función $F(C) = \\frac{9}{5}C + 32$, entonces, ¿a cuántos grados Celsius equivale la temperatura comentada?",
+      "statement": "Luis llama por teléfono a Ana y le comenta que la temperatura en su ciudad es de 41 °F. \nSe se sabe que la relación entre la temperatura en grados Fahrenheit (°F) y en grados Celsius (°C) está asociada mediante la función $F(C) = \\frac{9}{5}C + 32$.",
+      "problem": "¿A cuántos grados Celsius equivale la temperatura comentada?",
       "options": [
         {
           "label": "A",
@@ -967,8 +968,8 @@
     {
       "original_number": 36,
       "section_number": 14,
-      "statement": "",
-      "problem": "Roy y Judy fueron de compras. Roy compró 5 kg de zanahoria y 3 kg de brócoli y por esa compra pagó ₡4650 en total; mientras que Judy compró 3 kg de zanahoria y 5 kg de brócoli y pagó ₡5350 en total. Si ambos compraron a los mismos precios, entonces, ¿cuántos colones costó el kilogramo de brócoli?",
+      "statement": "Roy y Judy fueron de compras. Roy compró 5 kg de zanahoria y 3 kg de brócoli y por esa compra pagó ₡4650 en total; mientras que Judy compró 3 kg de zanahoria y 5 kg de brócoli y pagó ₡5350 en total. Ambos compraron a los mismos precios.",
+      "problem": "¿Cuántos colones costó el kilogramo de brócoli?",
       "options": [
         {
           "label": "A",
@@ -993,8 +994,8 @@
     {
       "original_number": 37,
       "section_number": 15,
-      "statement": "",
-      "problem": "Si la población “p(x)” de una comunidad se estima mediante $p(x) = 2000 \\cdot 2^{\\frac{x}{5}}$, donde “x” representa los años transcurridos a partir de 2025, entonces, ¿cuántos años deben transcurrir para que la población sea de 8000 individuos?",
+      "statement": "La población “p(x)” de una comunidad se estima mediante $p(x) = 2000 \\cdot 2^{\\frac{x}{5}}$, donde “x” representa los años transcurridos a partir de 2025.",
+      "problem": "¿Cuántos años deben transcurrir para que la población sea de 8000 individuos?",
       "options": [
         {
           "label": "A",
@@ -1019,8 +1020,8 @@
     {
       "original_number": 38,
       "section_number": 16,
-      "statement": "",
-      "problem": "Si $f$ es una función, tal que, $f(x) = \\log_a(x^{20}) - \\log_a(x^2)$, entonces, $f(a^5)$ corresponde a",
+      "statement": "$f$ es una función, tal que, $f(x) = \\log_a(x^{20}) - \\log_a(x^2)$.",
+      "problem": "$f(a^5)$ corresponde a:",
       "options": [
         {
           "label": "A",
@@ -1045,8 +1046,8 @@
     {
       "original_number": 39,
       "section_number": 17,
-      "statement": "",
-      "problem": "En un experimento la cantidad de bacterias se triplica cada hora. De acuerdo con la situación dada, el modelo matemático que mejor se adapta para describir la cantidad de bacterias en función de las horas transcurridas involucra una función",
+      "statement": "En un experimento la cantidad de bacterias se triplica cada hora. ",
+      "problem": "De acuerdo con la situación dada, el modelo matemático que mejor se adapta para describir la cantidad de bacterias en función de las horas transcurridas involucra una función:",
       "options": [
         {
           "label": "A",
@@ -1206,8 +1207,8 @@
     {
       "original_number": 45,
       "section_number": 3,
-      "statement": "",
-      "problem": "La distribución de los datos sobre los salarios que paga una empresa a sus empleados presenta asimetría negativa. Si el salario promedio de esa empresa es de $2000, entonces, esto significa que",
+      "statement": "La distribución de los datos sobre los salarios que paga una empresa a sus empleados presenta asimetría negativa. ",
+      "problem": "Si el salario promedio de esa empresa es de $2000, entonces, esto significa que",
       "options": [
         {
           "label": "A",
@@ -1232,8 +1233,8 @@
     {
       "original_number": 46,
       "section_number": 4,
-      "statement": "",
-      "problem": "En un centro de salud se realiza un estudio sobre los tiempos, en minutos, que cuatro médicos emplearon durante el último mes en atender a sus pacientes. De acuerdo con la información dada, la mayor variabilidad en la distribución de los datos sobre los tiempos de atención de pacientes durante el último mes correspondió a los del médico",
+      "statement": "En un centro de salud se realiza un estudio sobre los tiempos, en minutos, que cuatro médicos emplearon durante el último mes en atender a sus pacientes.",
+      "problem": "De acuerdo con la información dada, la mayor variabilidad en la distribución de los datos sobre los tiempos de atención de pacientes durante el último mes correspondió a los del médico",
       "shared_image": "bxm_math_question_46",
       "options": [
         {
@@ -1259,7 +1260,7 @@
     {
       "original_number": 47,
       "section_number": 5,
-      "statement": "Considere la siguiente información sobre los tiempos, en minutos, que tardan los entrevistadores R y P... Considere las siguientes afirmaciones:",
+      "statement": "Considere la siguiente información sobre los tiempos, en minutos, que tardan los entrevistadores R y P...",
       "problem": "I. La distribución de los datos sobre los tiempos que emplean ambos entrevistadores muestra evidencia de ser igualmente variables. II. El recorrido intercuartílico del entrevistador R es 15. De ellas son verdaderas",
       "shared_image": "bxm_math_question_47",
       "options": [
@@ -1286,8 +1287,9 @@
     {
       "original_number": 48,
       "section_number": 6,
-      "statement": "",
-      "problem": "La siguiente tabla muestra las marcas, en segundos, realizadas por Yeri, Nora, Iris y Luz... ¿Cuál de las siguientes atletas en mención presenta la menor variabilidad en los tiempos obtenidos en la prueba de los 200 metros planos?",
+      "statement": "La siguiente tabla muestra las marcas, en segundos, realizadas por Yeri, Nora, Iris y Luz... ",
+      "problem": "¿Cuál de las siguientes atletas en mención presenta la menor variabilidad en los tiempos obtenidos en la prueba de los 200 metros planos?",
+      "shared_image": "bxm_math_question_48",
       "options": [
         {
           "label": "A",
@@ -1312,7 +1314,7 @@
     {
       "original_number": 49,
       "section_number": 7,
-      "statement": "Para responder los ítems 49 y 50 considere la siguiente información:",
+      "statement": "Considere la siguiente información:",
       "problem": "El siguiente diagrama de cajas representa información de un estudio acerca de la edad... ¿Cuál de las siguientes afirmaciones es verdadera?",
       "shared_image": "bxm_math_question_49_50",
       "options": [
@@ -1339,7 +1341,7 @@
     {
       "original_number": 50,
       "section_number": 8,
-      "statement": "",
+      "statement": "Considere la siguiente información:",
       "problem": "¿Cuál de las siguientes afirmaciones es verdadera?",
       "shared_image": "bxm_math_question_49_50",
       "options": [
@@ -1366,8 +1368,8 @@
     {
       "original_number": 51,
       "section_number": 9,
-      "statement": "",
-      "problem": "Andrea es una atleta que compite en carreras de 5 km... De acuerdo con la información dada, ¿en cuál competencia Andrea obtuvo su mejor posición relativa?",
+      "statement": "Andrea es una atleta que compite en carreras de 5 km... ",
+      "problem": "De acuerdo con la información dada, ¿en cuál competencia Andrea obtuvo su mejor posición relativa?",
       "shared_image": "bxm_math_question_51",
       "options": [
         {
@@ -1393,7 +1395,7 @@
     {
       "original_number": 52,
       "section_number": 10,
-      "statement": "Para responder los ítems 52 y 53 considere la siguiente información:",
+      "statement": "Considere la siguiente información:",
       "problem": "... El grupo que presenta menor variabilidad relativa corresponde al",
       "shared_image": "bxm_math_question_52_53",
       "options": [
@@ -1420,7 +1422,7 @@
     {
       "original_number": 53,
       "section_number": 11,
-      "statement": "",
+      "statement": "Considere la siguiente información:",
       "problem": "En términos relativos y con respecto a su grupo de referencia, la persona que tiene la mejor posición relativa corresponde a",
       "shared_image": "bxm_math_question_52_53",
       "options": [
@@ -1447,8 +1449,8 @@
     {
       "original_number": 54,
       "section_number": 12,
-      "statement": "Para responder los ítems 54, 55 y 56 considere la siguiente situación:",
-      "problem": "En una tómbola se tienen 12 tarjetas... La probabilidad del evento AUB corresponde a un valor",
+      "statement": "En una tómbola se tienen 12 tarjetas...",
+      "problem": " La probabilidad del evento AUB corresponde a un valor",
       "options": [
         {
           "label": "A",
@@ -1473,7 +1475,7 @@
     {
       "original_number": 55,
       "section_number": 13,
-      "statement": "",
+      "statement": "En una tómbola se tienen 12 tarjetas...",
       "problem": "La probabilidad del complemento del evento “C” es equivalente a",
       "options": [
         {
@@ -1499,7 +1501,7 @@
     {
       "original_number": 56,
       "section_number": 14,
-      "statement": "",
+      "statement": "En una tómbola se tienen 12 tarjetas...",
       "problem": "La probabilidad del evento B∩D corresponde a",
       "options": [
         {
@@ -1525,7 +1527,7 @@
     {
       "original_number": 57,
       "section_number": 15,
-      "statement": "Para responder los ítems 57 y 58 considere la siguiente información:",
+      "statement": "Considere la siguiente información:",
       "problem": "... Si un estudiante desea practicar judo o futbol, entonces, le conviene extraer una bolita de la urna",
       "shared_image": "bxm_math_question_57_58",
       "options": [
@@ -1552,7 +1554,7 @@
     {
       "original_number": 58,
       "section_number": 16,
-      "statement": "",
+      "statement": "Considere la siguiente información:",
       "problem": "Si un estudiante no desea practicar futbol, entonces, le conviene extraer una bolita de la urna",
       "shared_image": "bxm_math_question_57_58",
       "options": [
@@ -1579,7 +1581,7 @@
     {
       "original_number": 59,
       "section_number": 17,
-      "statement": "Para responder los ítems 59 y 60 considere la siguiente información:",
+      "statement": "Considere la siguiente información:",
       "problem": "... Si se selecciona al azar un estudiante de esa academia, entonces, la probabilidad de que esté matriculado en dos de esas disciplinas corresponde a",
       "shared_image": "bxm_math_question_59_60",
       "options": [
@@ -1606,7 +1608,7 @@
     {
       "original_number": 60,
       "section_number": 18,
-      "statement": "",
+      "statement": "Considere la siguiente información:",
       "problem": "Si se selecciona al azar un estudiante de esa academia, entonces, la probabilidad de que esté matriculado en las tres disciplinas corresponde a",
       "shared_image": "bxm_math_question_59_60",
       "options": [

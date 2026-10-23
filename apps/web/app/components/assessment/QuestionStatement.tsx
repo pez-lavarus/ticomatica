@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import Image from "next/image";
 import { KaTeXText } from "@/lib/katex-utils";
+import { getGraphDimensions } from "@/lib/graph-aspects";
 import type { Question } from "@/lib/types";
 
 interface QuestionStatementProps {
@@ -21,6 +22,7 @@ export function QuestionStatement({
   graphWrapperRef,
 }: QuestionStatementProps) {
   const longPressTimer = useRef<NodeJS.Timeout | null>(null);
+  const graphDimensions = getGraphDimensions(sharedImageSrc);
 
   const handleTouchStart = (src: string, alt: string) => {
     longPressTimer.current = setTimeout(() => {
@@ -51,7 +53,7 @@ export function QuestionStatement({
       {sharedImageSrc && (
         <div
           ref={graphWrapperRef}
-          className={`rounded-sm border border-border overflow-hidden cursor-zoom-in hover:border-accent transition-colors bg-white shadow-sm ${question.statement ? "mt-6 md:mt-10" : ""}`}
+          className={`w-fit max-w-full mx-auto rounded-sm border border-border overflow-hidden cursor-zoom-in hover:border-accent transition-colors bg-white shadow-sm ${question.statement ? "mt-6 md:mt-10" : ""}`}
           onDoubleClick={() => onOpenImageModal(sharedImageSrc, "Imagen de apoyo")}
           onTouchStart={() => handleTouchStart(sharedImageSrc, "Imagen de apoyo")}
           onTouchEnd={handleTouchEnd}
@@ -60,10 +62,10 @@ export function QuestionStatement({
           <Image
             src={sharedImageSrc}
             alt="Imagen de apoyo"
-            width={900}
-            height={500}
+            width={graphDimensions?.width ?? 900}
+            height={graphDimensions?.height ?? 500}
             style={graphMaxHeight ? { maxHeight: graphMaxHeight } : undefined}
-            className="w-full max-h-[300px] md:max-h-[450px] object-contain pointer-events-none"
+            className="block w-auto h-auto max-w-full max-h-[300px] md:max-h-[450px] object-contain pointer-events-none"
           />
         </div>
       )}

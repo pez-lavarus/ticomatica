@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import Image from "next/image";
 import { KaTeXText } from "@/lib/katex-utils";
+import { getGraphDimensions } from "@/lib/graph-aspects";
 import type { Question } from "@/lib/types";
 
 interface ResponseOptionsProps {
@@ -40,7 +41,7 @@ export function ResponseOptions({
   const isShortTextOptions = !hasImageOptions && question.options.every(
     (opt) => opt.text && opt.text.length < 50
   );
-  const useGridLayout = hasImageOptions || isShortTextOptions;
+  const useGridLayout = isShortTextOptions;
 
   return (
     <div className="bg-card text-card-foreground border border-border rounded-sm shadow-md p-5 md:p-8">
@@ -54,6 +55,7 @@ export function ResponseOptions({
       <div className={`${useGridLayout ? "grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6" : "space-y-3 md:space-y-6"}`}>
         {question.options.map((option) => {
           const isSelected = selectedAnswer === option.label;
+          const optionImageDimensions = option.image ? getGraphDimensions(option.image) : null;
           return (
             <button
               key={option.label}
@@ -89,9 +91,9 @@ export function ResponseOptions({
                     <Image
                       src={option.image}
                       alt={`Opción ${option.label}`}
-                      width={340}
-                      height={200}
-                      className="rounded-sm border border-border cursor-zoom-in hover:opacity-90 transition-opacity max-h-[180px] w-full object-contain bg-white pointer-events-none"
+                      width={optionImageDimensions?.width ?? 340}
+                      height={optionImageDimensions?.height ?? 200}
+                      className="block w-auto h-auto max-w-full max-h-[360px] mx-auto rounded-sm border border-border cursor-zoom-in hover:opacity-90 transition-opacity object-contain bg-white pointer-events-none"
                     />
                   </div>
                 ) : (
