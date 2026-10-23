@@ -15,6 +15,7 @@ import { QuestionExperience } from "@/app/components/assessment/QuestionExperien
 import { DesktopNavigator } from "@/app/components/assessment/DesktopNavigator";
 import { useAssessment } from "@/lib/hooks/useAssessment";
 import { AssessmentErrorBoundary } from "@/app/components/error/AssessmentErrorBoundary";
+import { preloadGraphAspects } from "@/lib/graph-aspects";
 
 // Import the normalized JSON manifest
 import quizDataRaw from "@/data/BXM_Math_Full_02_2026_questions_answers.json";
@@ -97,6 +98,12 @@ export default function QuestionPage() {
       }
     }
   }, [timeLeft, mounted, testMode, currentTopicIndex, handleNextSection, handleFinishTest]);
+
+  // Preload every graph's aspect ratio so question switching never has to wait
+  // for an image decode and the layout engine stays stable across navigation.
+  useEffect(() => {
+    void preloadGraphAspects(Object.values(quizData.shared_images));
+  }, []);
 
   const confirmFinishTest = () => {
     localStorage.setItem("bxm-pilot-answers", JSON.stringify(selectedAnswers));
@@ -190,11 +197,9 @@ export default function QuestionPage() {
             sectionQuestions={currentSectionQuestionsWithGlobalIndex}
             testMode={testMode}
             selectedAnswer={selectedAnswers[currentIndex]}
-            isFlagged={!!flaggedQuestions[currentIndex]}
             selectedAnswers={selectedAnswers}
             flaggedQuestions={flaggedQuestions}
             onSelect={handleSelect}
-            onToggleFlag={toggleFlag}
             onNext={handleNextWithFinish}
             onPrev={handlePrev}
             onJumpToQuestion={jumpToQuestion}
@@ -211,8 +216,10 @@ export default function QuestionPage() {
             currentTopicIndex={currentTopicIndex}
             sectionQuestions={currentSectionQuestionsWithGlobalIndex}
             currentIndex={currentIndex}
+            isFlagged={!!flaggedQuestions[currentIndex]}
             selectedAnswers={selectedAnswers}
             flaggedQuestions={flaggedQuestions}
+            onToggleFlag={toggleFlag}
             onJumpToQuestion={jumpToQuestion}
             onJumpToSection={handleJumpToSection}
             onPrev={handlePrev}

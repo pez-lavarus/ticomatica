@@ -127,6 +127,12 @@ img, video, .no-transition, .no-transition * {
   overflow-y: hidden;
 }
 
+/* Response options: keep each formula on a single horizontal line (no line
+   breaks); the option container scrolls horizontally when it is overlong. */
+.option-math .katex {
+  white-space: nowrap;
+}
+
 
 /* Hide scrollbar for horizontal scroll areas */
 .hide-scrollbar::-webkit-scrollbar {

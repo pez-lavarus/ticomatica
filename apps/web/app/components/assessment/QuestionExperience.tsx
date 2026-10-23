@@ -11,6 +11,7 @@ import {
 import type { Question, TestMode } from "@/lib/types";
 import { QuestionStatement } from "./QuestionStatement";
 import { ResponseOptions } from "./ResponseOptions";
+import { useQuestionLayout } from "./useQuestionLayout";
 
 interface QuestionExperienceProps {
   // Data
@@ -21,13 +22,11 @@ interface QuestionExperienceProps {
 
   // State
   selectedAnswer?: string;
-  isFlagged: boolean;
   selectedAnswers: Record<number, string>;
   flaggedQuestions: Record<number, boolean>;
 
   // Actions
   onSelect: (option: string) => void;
-  onToggleFlag: (e: React.MouseEvent) => void;
   onNext: () => void;
   onPrev: () => void;
   onJumpToQuestion: (index: number) => void;
@@ -45,11 +44,9 @@ export const QuestionExperience = memo(function QuestionExperience({
   sectionQuestions,
   testMode,
   selectedAnswer,
-  isFlagged,
   selectedAnswers,
   flaggedQuestions,
   onSelect,
-  onToggleFlag,
   onNext,
   onPrev,
   onJumpToQuestion,
@@ -60,6 +57,18 @@ export const QuestionExperience = memo(function QuestionExperience({
 }: QuestionExperienceProps) {
   const [isNavigatorExpanded, setIsNavigatorExpanded] = useState(false);
   const autoNextTimer = useRef<NodeJS.Timeout | null>(null);
+  const statementRef = useRef<HTMLDivElement | null>(null);
+  const optionsRef = useRef<HTMLDivElement | null>(null);
+  const graphWrapperRef = useRef<HTMLDivElement | null>(null);
+  const hasImageOptions = question.options.some((option) => option.image);
+  const { containerRef, gridTemplateColumns, graphMaxHeight } = useQuestionLayout({
+    graphSrc: sharedImageSrc,
+    questionKey: question.original_number,
+    hasImageOptions,
+    statementRef,
+    optionsRef,
+    graphWrapperRef,
+  });
 
   const handleSelect = (label: string) => {
     onSelect(label);
@@ -77,22 +86,30 @@ export const QuestionExperience = memo(function QuestionExperience({
   const totalInSection = sectionQuestions.length;
 
   return (
-    <div className="flex flex-col gap-4 md:gap-6 border-2 border-red-500">
-      {/* Statement + Options: horizontal on desktop, vertical on shrink */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 items-start gap-4 md:gap-6">
-        <QuestionStatement
-          question={question}
-          isFlagged={isFlagged}
-          onToggleFlag={onToggleFlag}
-          sharedImageSrc={sharedImageSrc}
-          onOpenImageModal={onOpenImageModal}
-        />
-        <ResponseOptions
-          question={question}
-          selectedAnswer={selectedAnswer}
-          onSelect={handleSelect}
-          onOpenImageModal={onOpenImageModal}
-        />
+    <div className="flex flex-col gap-4 md:gap-6">
+      {/* Statement + Options: layout decided by the rendering engine */}
+      <div
+        ref={containerRef}
+        className="grid items-start gap-4 md:gap-6 [&>*]:min-w-0"
+        style={{ gridTemplateColumns }}
+      >
+        <div ref={statementRef}>
+          <QuestionStatement
+            question={question}
+            sharedImageSrc={sharedImageSrc}
+            onOpenImageModal={onOpenImageModal}
+            graphMaxHeight={graphMaxHeight}
+            graphWrapperRef={graphWrapperRef}
+          />
+        </div>
+        <div ref={optionsRef}>
+          <ResponseOptions
+            question={question}
+            selectedAnswer={selectedAnswer}
+            onSelect={handleSelect}
+            onOpenImageModal={onOpenImageModal}
+          />
+        </div>
       </div>
 
       {/* Quick Nav for Mobile / Desktop Bottom */}

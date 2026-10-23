@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Bookmark } from "lucide-react";
 import type { TestMode } from "@/lib/types";
 import { FULL_TEST_TOPICS } from "@/lib/constants";
 
@@ -9,8 +9,10 @@ interface DesktopNavigatorProps {
   currentTopicIndex: number;
   sectionQuestions: { globalIndex: number; section_number: number }[];
   currentIndex: number;
+  isFlagged: boolean;
   selectedAnswers: Record<number, string>;
   flaggedQuestions: Record<number, boolean>;
+  onToggleFlag: (e: React.MouseEvent) => void;
   onJumpToQuestion: (index: number) => void;
   onJumpToSection: (index: number) => void;
   onPrev: () => void;
@@ -24,8 +26,10 @@ export function DesktopNavigator({
   currentTopicIndex,
   sectionQuestions,
   currentIndex,
+  isFlagged,
   selectedAnswers,
   flaggedQuestions,
+  onToggleFlag,
   onJumpToQuestion,
   onJumpToSection,
   onPrev,
@@ -33,8 +37,26 @@ export function DesktopNavigator({
   isLastQuestionInSection,
   hasMoreSections,
 }: DesktopNavigatorProps) {
+  const currentSectionNumber = sectionQuestions.find((q) => q.globalIndex === currentIndex)?.section_number;
+
   return (
     <div className="bg-card text-card-foreground border border-border rounded-sm shadow-md p-8 lg:sticky lg:top-32">
+      <div className="flex items-center justify-between gap-3 mb-8">
+        <span className="inline-flex items-center px-4 py-1.5 bg-muted text-foreground font-bold rounded-sm text-[10px] uppercase tracking-[0.2em] border border-border/50">
+          Pregunta {currentSectionNumber}
+        </span>
+        <button
+          onClick={onToggleFlag}
+          className={`flex items-center gap-2 px-4 py-1.5 rounded-sm text-[10px] font-bold uppercase tracking-[0.2em] transition-all border active:scale-95 ${isFlagged
+            ? "bg-destructive text-destructive-foreground border-destructive shadow-sm"
+            : "bg-card text-muted-foreground border-border hover:text-foreground hover:bg-muted/30"
+            }`}
+        >
+          <Bookmark className={`w-3.5 h-3.5 ${isFlagged ? "fill-current" : ""}`} />
+          {isFlagged ? "Marcada" : "Marcar"}
+        </button>
+      </div>
+
       {testMode === "full" && (
         <div className="flex gap-2 mb-8 overflow-x-auto pb-2 hide-scrollbar">
           {FULL_TEST_TOPICS.map((topic, idx) => (

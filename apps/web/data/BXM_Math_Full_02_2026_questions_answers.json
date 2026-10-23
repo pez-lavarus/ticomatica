@@ -174,7 +174,7 @@
       "original_number": 6,
       "section_number": 6,
       "statement": "Considere la siguiente información referida a la circunferencia \"c\" de centro \"O\" y la recta \"r\":",
-      "problem": "Con certeza se cumple que \"r\" es perpendicular a la recta que contiene los puntos:",
+      "problem": "Si D es el único punto que comparte \"r\" y \"c\", con certeza se cumple que \"r\" es perpendicular a la recta que contiene los puntos:",
       "shared_image": "bxm_math_question_06",
       "options": [
         {
@@ -227,7 +227,7 @@
     {
       "original_number": 8,
       "section_number": 8,
-      "statement": "Sea “c” la circunferencia dada por $c:(x-2)^2 + (y-3)^2 = 4$. Al trasladar a “c” dos unidades hacia la izquierda (paralela al eje x) y tres unidades hacia arriba (paralela al eje y), se obtiene la circunferencia “d” de centro O.",
+      "statement": "Sea “c” la circunferencia dada por $c:(x-2)^2 + (y-3)^2 = 4$. Al trasladar “c” dos unidades hacia la izquierda (paralela al eje x) y tres unidades hacia arriba (paralela al eje y), se obtiene la circunferencia “d” de centro O.",
       "problem": "¿Cuál de las siguientes opciones corresponde a la representación de “d”?",
       "options": [
         {
@@ -546,8 +546,8 @@
     {
       "original_number": 20,
       "section_number": 20,
-      "statement": "",
-      "problem": "La medida del diámetro de una esfera es 20. Si la esfera es cortada con un plano a 6 unidades de su centro, entonces, ¿cuál es la longitud de la sección obtenida por el corte?",
+      "statement": "Sea 20 la medida del diámetro de una esfera. La esfera es cortada con un plano a 6 unidades de su centro.",
+      "problem": "¿Cuál es la longitud de la sección obtenida por el corte?",
       "options": [
         {
           "label": "A",
@@ -572,8 +572,8 @@
     {
       "original_number": 21,
       "section_number": 21,
-      "statement": "",
-      "problem": "En un trozo de madera, con forma de cilindro circular recto, se realiza un corte perpendicular a las bases, pasando por el centro de estas. Si el radio mide 20 pulgadas y es un tercio de la altura, entonces, ¿cuál es el área, en pulgadas cuadradas, de ese corte?",
+      "statement": "En un trozo de madera, con forma de cilindro circular recto, se realiza un corte perpendicular a las bases, pasando por el centro de estas. El radio mide 20 pulgadas y es un tercio de la altura.",
+      "problem": "¿Cuál es el área, en pulgadas cuadradas, de ese corte?",
       "options": [
         {
           "label": "A",
@@ -598,8 +598,8 @@
     {
       "original_number": 22,
       "section_number": 22,
-      "statement": "",
-      "problem": "Sea un cono circular recto cuya altura mide 12 y el diámetro de la base es 18. Si se realiza un corte al cono con un plano paralelo al plano de la base a una distancia de 4 unidades del vértice, entonces, la medida del radio de la sección plana obtenida corresponde a",
+      "statement": "Sea un cono circular recto cuya altura mide 12 y el diámetro de la base es 18. Se realiza un corte al cono con un plano paralelo al plano de la base a una distancia de 4 unidades del vértice.",
+      "problem": "La medida del radio de la sección plana obtenida corresponde a:",
       "options": [
         {
           "label": "A",

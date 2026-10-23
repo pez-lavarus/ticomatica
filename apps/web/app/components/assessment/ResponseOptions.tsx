@@ -72,7 +72,7 @@ export function ResponseOptions({
                 {option.label}
               </div>
 
-              <div className="flex-1 pt-0.5 md:pt-1">
+              <div className="flex-1 min-w-0 pt-0.5 md:pt-1">
                 {option.image ? (
                   <div
                     onDoubleClick={(e) => {
@@ -95,7 +95,7 @@ export function ResponseOptions({
                     />
                   </div>
                 ) : (
-                  <div className="text-lg text-foreground font-serif">
+                  <div className="option-math overflow-x-auto text-lg text-foreground font-serif">
                     <KaTeXText text={option.text || ""} />
                   </div>
                 )}
