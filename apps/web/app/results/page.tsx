@@ -93,34 +93,6 @@ export default function ResultsPage() {
 
   return (
     <div className="min-h-screen bg-background transition-colors pb-40 sm:pb-24">
-      {/* Top Bar */}
-      <div className="sticky top-0 z-50 bg-card border-b border-border shadow-sm">
-        <div className="max-w-6xl mx-auto px-4 sm:px-8 py-2 md:py-8 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <button
-              onClick={handleBackToHome}
-              className="w-8 h-8 md:w-10 md:h-10 rounded-sm shadow-md hover:brightness-110 transition-all shrink-0"
-            >
-              <Logo className="w-8 h-8 md:w-10 md:h-10 rounded-sm shadow-md hover:brightness-110 transition-all" />
-            </button>
-            <div className="hidden sm:block">
-              <div className="text-[10px] font-bold tracking-[0.2em] text-foreground uppercase">Resultados de la Evaluación</div>
-              <div className="text-[10px] text-muted-foreground font-bold uppercase tracking-[0.1em]">Práctica de Matemáticas • 2026</div>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3 sm:gap-6">
-            <ThemeToggle />
-            {user && (
-              <div className="text-right hidden xs:block">
-                <p className="text-[9px] sm:text-[10px] font-bold text-foreground uppercase tracking-[0.1em] sm:tracking-[0.2em] truncate max-w-[100px] sm:max-w-none">{user.name}</p>
-                <p className="text-[9px] sm:text-[10px] text-muted-foreground font-bold uppercase tracking-[0.1em] sm:tracking-[0.2em]">{user.age} años</p>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-
       <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 sm:py-10">
         {/* Score Summary */}
         <div className="bg-card text-card-foreground border border-border/60 rounded-sm shadow-xl p-5 sm:p-10 mb-6 sm:mb-10">

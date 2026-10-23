@@ -33,9 +33,11 @@ export default function QuestionPage() {
   const [isSectionModalOpen, setIsSectionModalOpen] = useState(false);
   const [modalImage, setModalImage] = useState({ src: "", alt: "" });
   const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
+  const [leftPanelContainer, setLeftPanelContainer] = useState<HTMLElement | null>(null);
 
   useEffect(() => {
     setPortalContainer(document.getElementById("test-header-controls"));
+    setLeftPanelContainer(document.getElementById("left-panel-content"));
   }, []);
 
   const handleFinishTest = useCallback(() => {
@@ -78,12 +80,19 @@ export default function QuestionPage() {
     toggleFlag,
     handleNext,
     handlePrev,
-    handleJumpToSection,
     jumpToQuestion,
     handleNextSection,
     testMode: currentTestMode,
     hasMoreSections,
   } = assessment;
+
+  const allQuestionsWithGlobalIndex = quizData.questions.map((q, idx) => ({ ...q, globalIndex: idx }));
+  const navigatorSections = (testMode === "full" ? FULL_TEST_TOPICS : [testMode]).map((topic) => ({
+    topic,
+    questions: allQuestionsWithGlobalIndex
+      .filter((q) => q.topic === topic)
+      .map((q) => ({ globalIndex: q.globalIndex, section_number: q.section_number })),
+  }));
 
   const handleNextWithFinish = useCallback(() => {
     if (sectionIndex === currentSectionQuestionsWithGlobalIndex.length - 1 && (!hasMoreSections || currentTestMode !== "full")) {
@@ -183,46 +192,45 @@ export default function QuestionPage() {
           portalContainer,
         )}
 
-      <div className="flex flex-col lg:flex-row gap-6 lg:gap-10 px-4 md:px-8 py-6 md:py-10">
-        <div className="flex-1 min-w-0">
-          <QuestionExperience
-            question={currentQuestion}
-            currentIndex={currentIndex}
-            sectionQuestions={currentSectionQuestionsWithGlobalIndex}
-            testMode={testMode}
-            selectedAnswer={selectedAnswers[currentIndex]}
-            selectedAnswers={selectedAnswers}
-            flaggedQuestions={flaggedQuestions}
-            onSelect={handleSelect}
-            onNext={handleNextWithFinish}
-            onPrev={handlePrev}
-            onJumpToQuestion={jumpToQuestion}
-            onOpenImageModal={openImageModal}
-            isLastQuestionInSection={sectionIndex === currentSectionQuestionsWithGlobalIndex.length - 1}
-            hasMoreSections={hasMoreSections}
-            sharedImageSrc={currentQuestion.shared_image ? quizData.shared_images[currentQuestion.shared_image] : undefined}
-          />
-        </div>
+      <div className="max-w-6xl mx-auto px-4 md:px-8 py-6 md:py-10">
+        <QuestionExperience
+          question={currentQuestion}
+          currentIndex={currentIndex}
+          sectionQuestions={currentSectionQuestionsWithGlobalIndex}
+          testMode={testMode}
+          selectedAnswer={selectedAnswers[currentIndex]}
+          selectedAnswers={selectedAnswers}
+          flaggedQuestions={flaggedQuestions}
+          onSelect={handleSelect}
+          onNext={handleNextWithFinish}
+          onPrev={handlePrev}
+          onJumpToQuestion={jumpToQuestion}
+          onOpenImageModal={openImageModal}
+          isLastQuestionInSection={sectionIndex === currentSectionQuestionsWithGlobalIndex.length - 1}
+          hasMoreSections={hasMoreSections}
+          sharedImageSrc={currentQuestion.shared_image ? quizData.shared_images[currentQuestion.shared_image] : undefined}
+        />
+      </div>
 
-        <div className="hidden lg:block lg:w-80 xl:w-96 shrink-0">
+      {leftPanelContainer &&
+        createPortal(
           <DesktopNavigator
             testMode={testMode}
+            sections={navigatorSections}
             currentTopicIndex={currentTopicIndex}
-            sectionQuestions={currentSectionQuestionsWithGlobalIndex}
             currentIndex={currentIndex}
             isFlagged={!!flaggedQuestions[currentIndex]}
             selectedAnswers={selectedAnswers}
             flaggedQuestions={flaggedQuestions}
             onToggleFlag={toggleFlag}
             onJumpToQuestion={jumpToQuestion}
-            onJumpToSection={handleJumpToSection}
             onPrev={handlePrev}
             onNext={handleNextWithFinish}
             isLastQuestionInSection={sectionIndex === currentSectionQuestionsWithGlobalIndex.length - 1}
             hasMoreSections={hasMoreSections}
-          />
-        </div>
-      </div>
+          />,
+          leftPanelContainer,
+        )}
 
       <ImageModal
         isOpen={isImageModalOpen}

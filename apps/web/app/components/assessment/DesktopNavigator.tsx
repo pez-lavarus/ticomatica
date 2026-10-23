@@ -1,20 +1,29 @@
 "use client";
 
-import { ChevronLeft, ChevronRight, Bookmark } from "lucide-react";
 import type { TestMode } from "@/lib/types";
-import { FULL_TEST_TOPICS } from "@/lib/constants";
+
+const ANSWER_LETTERS = ["A", "B", "C", "D"];
+
+interface NavigatorQuestion {
+  globalIndex: number;
+  section_number: number;
+}
+
+interface NavigatorSection {
+  topic: string;
+  questions: NavigatorQuestion[];
+}
 
 interface DesktopNavigatorProps {
   testMode: TestMode;
+  sections: NavigatorSection[];
   currentTopicIndex: number;
-  sectionQuestions: { globalIndex: number; section_number: number }[];
   currentIndex: number;
   isFlagged: boolean;
   selectedAnswers: Record<number, string>;
   flaggedQuestions: Record<number, boolean>;
   onToggleFlag: (e: React.MouseEvent) => void;
   onJumpToQuestion: (index: number) => void;
-  onJumpToSection: (index: number) => void;
   onPrev: () => void;
   onNext: () => void;
   isLastQuestionInSection: boolean;
@@ -22,112 +31,70 @@ interface DesktopNavigatorProps {
 }
 
 export function DesktopNavigator({
-  testMode,
+  sections,
   currentTopicIndex,
-  sectionQuestions,
   currentIndex,
-  isFlagged,
   selectedAnswers,
   flaggedQuestions,
-  onToggleFlag,
   onJumpToQuestion,
-  onJumpToSection,
-  onPrev,
-  onNext,
-  isLastQuestionInSection,
-  hasMoreSections,
 }: DesktopNavigatorProps) {
-  const currentSectionNumber = sectionQuestions.find((q) => q.globalIndex === currentIndex)?.section_number;
-
   return (
-    <div className="bg-card text-card-foreground border border-border rounded-sm shadow-md p-8 lg:sticky lg:top-32">
-      <div className="flex items-center justify-between gap-3 mb-8">
-        <span className="inline-flex items-center px-4 py-1.5 bg-muted text-foreground font-bold rounded-sm text-[10px] uppercase tracking-[0.2em] border border-border/50">
-          Pregunta {currentSectionNumber}
-        </span>
-        <button
-          onClick={onToggleFlag}
-          className={`flex items-center gap-2 px-4 py-1.5 rounded-sm text-[10px] font-bold uppercase tracking-[0.2em] transition-all border active:scale-95 ${isFlagged
-            ? "bg-destructive text-destructive-foreground border-destructive shadow-sm"
-            : "bg-card text-muted-foreground border-border hover:text-foreground hover:bg-muted/30"
-            }`}
-        >
-          <Bookmark className={`w-3.5 h-3.5 ${isFlagged ? "fill-current" : ""}`} />
-          {isFlagged ? "Marcada" : "Marcar"}
-        </button>
-      </div>
-
-      {testMode === "full" && (
-        <div className="flex gap-2 mb-8 overflow-x-auto pb-2 hide-scrollbar">
-          {FULL_TEST_TOPICS.map((topic, idx) => (
-            <button
-              key={topic}
-              onClick={() => onJumpToSection(idx)}
-              className={`flex-1 min-w-[70px] transition-opacity ${idx !== currentTopicIndex ? "opacity-30 hover:opacity-100" : ""}`}
-            >
-              <div
-                className={`h-1 transition-colors ${idx === currentTopicIndex
-                  ? "bg-primary"
-                  : idx < currentTopicIndex
-                    ? "bg-success"
-                    : "bg-muted"
-                  }`}
+    <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-6">
+        {sections.map((section, sectionIdx) => (
+          <div key={section.topic}>
+            <div className="flex items-center gap-2 mb-3">
+              <span
+                className={`w-2 h-2 rounded-full ${sectionIdx === currentTopicIndex ? "bg-primary" : "bg-muted"}`}
               />
-              <p className={`text-[8px] font-bold text-center mt-2 tracking-[0.1em] uppercase ${idx === currentTopicIndex ? "text-foreground" : "text-muted-foreground"
-                }`}>
-                {topic.split(" ")[0]}
-              </p>
-            </button>
-          ))}
-        </div>
-      )}
+              <h3 className="text-sm font-bold uppercase tracking-[0.15em] text-muted-foreground truncate">
+                {section.topic}
+              </h3>
+            </div>
 
-      <div className="grid lg:grid-cols-5 gap-2 mb-10">
-        {sectionQuestions.map((q) => (
-          <button
-            key={q.globalIndex}
-            onClick={() => onJumpToQuestion(q.globalIndex)}
-            className={`relative aspect-square flex items-center justify-center text-xs font-bold rounded-sm border transition-colors ${q.globalIndex === currentIndex
-              ? "bg-primary text-primary-foreground border-primary shadow-sm z-10 scale-105"
-              : selectedAnswers[q.globalIndex]
-                ? "bg-success/15 border-success/40 text-foreground"
-                : "bg-card border-border/60 hover:border-accent text-foreground"
-              }`}
-          >
-            {q.section_number}
-            {flaggedQuestions[q.globalIndex] && (
-              <div className="absolute -top-1 -right-1 w-3 h-3 bg-destructive rounded-full border border-card" />
-            )}
-          </button>
+            <div className="flex flex-col gap-2">
+              {section.questions.map((q) => {
+                const isCurrent = q.globalIndex === currentIndex;
+                const isFlaggedQ = flaggedQuestions[q.globalIndex];
+                return (
+                  <button
+                    key={q.globalIndex}
+                    onClick={() => onJumpToQuestion(q.globalIndex)}
+                    className={`flex items-center justify-between gap-2 px-3 py-2 rounded-sm border transition-colors ${isCurrent
+                      ? "border-primary bg-primary/10"
+                      : "border-transparent hover:border-accent"
+                      }`}
+                  >
+                    <span className={`text-base font-bold tabular-nums ${isCurrent ? "text-primary" : "text-foreground"}`}>
+                      {q.section_number}
+                    </span>
+
+                    <span className="flex items-center gap-1.5">
+                      {ANSWER_LETTERS.map((letter) => {
+                        const isSelected = selectedAnswers[q.globalIndex] === letter;
+                        return (
+                          <span
+                            key={letter}
+                            className={`w-7 h-7 rounded-full border flex items-center justify-center text-xs font-bold transition-colors ${isSelected
+                              ? "bg-primary text-primary-foreground border-primary"
+                              : "bg-card text-muted-foreground border-border/60"
+                              }`}
+                          >
+                            {letter}
+                          </span>
+                        );
+                      })}
+                    </span>
+
+                    {isFlaggedQ && (
+                      <span className="w-2 h-2 rounded-full bg-destructive shrink-0" />
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
         ))}
-      </div>
-
-      <div className="flex flex-col gap-3">
-        <div className="flex gap-2">
-          <button
-            onClick={onPrev}
-            disabled={currentIndex === sectionQuestions[0]?.globalIndex}
-            className="flex-1 flex items-center justify-center gap-2 py-4 border border-border bg-card rounded-sm font-bold text-[10px] uppercase tracking-[0.15em] disabled:opacity-30 hover:bg-muted/30 transition-colors"
-          >
-            <ChevronLeft className="w-4 h-4" />
-            Anterior
-          </button>
-
-          <button
-            onClick={onNext}
-            className="flex-1 flex items-center justify-center gap-2 py-4 bg-primary text-primary-foreground rounded-sm font-bold text-[10px] uppercase tracking-[0.15em] transition-colors hover:brightness-90 shadow-sm"
-          >
-            {isLastQuestionInSection ? (
-              testMode === "full" && hasMoreSections ? (
-                <>Sección <ChevronRight className="w-4 h-4" /></>
-              ) : (
-                <>Finalizar</>
-              )
-            ) : (
-              <>Siguiente <ChevronRight className="w-4 h-4" /></>
-            )}
-          </button>
-        </div>
       </div>
     </div>
   );

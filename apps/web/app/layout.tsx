@@ -28,10 +28,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className={`${publicSans.variable} ${sourceSerif.variable} h-full antialiased`} suppressHydrationWarning>
-      <body className="min-h-full flex flex-col font-sans">
+      <body className="h-dvh flex flex-col font-sans overflow-hidden">
         <ThemeProvider defaultTheme="system">
           <Header />
-          {children}
+          <div className="flex flex-1 min-h-0">
+            <aside className="hidden lg:flex lg:w-80 xl:w-96 shrink-0 flex-col border-r border-border bg-card min-h-0">
+              <div id="left-panel-content" className="flex-1 min-h-0 overflow-y-auto p-4" />
+            </aside>
+            <main className="flex-1 min-w-0 min-h-0 overflow-y-auto">{children}</main>
+          </div>
         </ThemeProvider>
       </body>
     </html>

@@ -170,7 +170,14 @@ export function useAssessment({ quizData, onTimerEnd }: UseAssessmentProps) {
 
   const jumpToQuestion = useCallback((index: number) => {
     setCurrentIndex(index);
-  }, []);
+    if (testMode === "full") {
+      const targetTopic = quizData.questions[index]?.topic;
+      const topicIndex = FULL_TEST_TOPICS.indexOf(targetTopic);
+      if (topicIndex >= 0) {
+        setCurrentTopicIndex(topicIndex);
+      }
+    }
+  }, [testMode, quizData.questions]);
 
   const totalQuestionsToFinish = testMode === "full" ? quizData.questions.length : currentSectionQuestionsWithGlobalIndex.length;
 
