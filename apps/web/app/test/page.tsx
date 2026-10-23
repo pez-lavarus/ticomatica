@@ -2,6 +2,7 @@
 "use client";
 
 import { useState, useCallback, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { Clock, Flag, BookOpen, Shapes, BarChart3, Binary } from "lucide-react";
 import type { QuizData } from "@/lib/types";
@@ -31,6 +32,11 @@ export default function QuestionPage() {
   const [isFormulaModalOpen, setIsFormulaModalOpen] = useState(false);
   const [isSectionModalOpen, setIsSectionModalOpen] = useState(false);
   const [modalImage, setModalImage] = useState({ src: "", alt: "" });
+  const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
+
+  useEffect(() => {
+    setPortalContainer(document.getElementById("test-header-controls"));
+  }, []);
 
   const handleFinishTest = useCallback(() => {
     setIsConfirmModalOpen(true);
@@ -131,11 +137,9 @@ export default function QuestionPage() {
   return (
     <AssessmentErrorBoundary>
     <div className="min-h-screen bg-background transition-colors">
-      {/* Top Professional Bar */}
-      <div className="sticky top-0 z-50 bg-card border-b border-border shadow-sm">
-        <div className="mx-auto px-4 md:px-8 py-2 md:py-4 flex items-center justify-end gap-2 md:gap-4">
-          {/* Section Indicator, Timer, Theme, Formulas & Finish */}
-          <div className="flex items-center gap-2 md:gap-6">
+      {portalContainer &&
+        createPortal(
+          <>
             <div className="flex items-center gap-1.5 md:gap-3">
               <button
                 onClick={() => setIsSectionModalOpen(true)}
@@ -175,9 +179,9 @@ export default function QuestionPage() {
                 <span className="hidden sm:inline">Finalizar</span>
               </button>
             </div>
-          </div>
-        </div>
-      </div>
+          </>,
+          portalContainer,
+        )}
 
       <div className="flex flex-col lg:flex-row gap-6 lg:gap-10 px-4 md:px-8 py-6 md:py-10">
         <div className="flex-1 min-w-0">

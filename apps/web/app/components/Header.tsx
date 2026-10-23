@@ -3,8 +3,8 @@ import Image from "next/image";
 
 export function Header() {
   return (
-    <header className="bg-card border-b border-border shadow-sm">
-      <div className="max-w-6xl mx-auto px-4 md:px-8 py-2 md:py-4 flex items-center justify-between">
+    <header className="sticky top-0 z-50 bg-card border-b border-border shadow-sm">
+      <div className="max-w-6xl mx-auto px-4 md:px-8 py-2 md:py-4 flex items-center justify-between gap-2 md:gap-4">
         <Link
           href="/welcome"
           className="flex items-center gap-2 md:gap-3 group shrink-0"
@@ -24,6 +24,8 @@ export function Header() {
             className="ticomatica-logo-title h-6 md:h-20 w-auto hidden sm:block"
           />
         </Link>
+
+        <div id="test-header-controls" className="flex items-center gap-2 md:gap-6" />
       </div>
     </header>
   );
