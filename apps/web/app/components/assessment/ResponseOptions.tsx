@@ -44,6 +44,13 @@ export function ResponseOptions({
 
   return (
     <div className="bg-card text-card-foreground border border-border rounded-sm shadow-md p-5 md:p-8">
+      {/* Problem */}
+      {question.problem && (
+        <div className="prose dark:prose-invert max-w-none text-lg md:text-2xl leading-[1.6] md:leading-[1.8] text-foreground font-serif mb-6 md:mb-10">
+          <KaTeXText text={question.problem} />
+        </div>
+      )}
+
       <div className={`${useGridLayout ? "grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6" : "space-y-3 md:space-y-6"}`}>
         {question.options.map((option) => {
           const isSelected = selectedAnswer === option.label;

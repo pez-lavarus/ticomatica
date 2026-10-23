@@ -40,7 +40,8 @@
     {
       "original_number": 1,
       "section_number": 1,
-      "text": "Considere la siguiente representación gráfica de la circunferencia “c”, de centro “O”: De acuerdo con la información dada la ecuación de “c” corresponde a",
+      "statement": "Considere la siguiente representación gráfica de la circunferencia “c”, de centro “O”:",
+      "problem": "De acuerdo con la información dada la ecuación de “c” corresponde a",
       "shared_image": "bxm_math_question_01",
       "options": [
         {
@@ -66,7 +67,8 @@
     {
       "original_number": 2,
       "section_number": 2,
-      "text": "Si “c” es la circunferencia dada por $c: (x + 2)^2 + (y - 2)^2 = 8$, entonces, las coordenadas de un punto exterior a “c” corresponden a",
+      "statement": "Sea “c” la circunferencia dada por $c: (x + 2)^2 + (y - 2)^2 = 8$.",
+      "problem": "Las coordenadas de un punto exterior a “c” corresponden a:",
       "options": [
         {
           "label": "A",
@@ -91,7 +93,8 @@
     {
       "original_number": 3,
       "section_number": 3,
-      "text": "¿Cuál es la ecuación de la circunferencia de centro $(-3, 2)$ y radio de longitud 4?",
+      "statement": "¿Cuál es la ecuación de la circunferencia de centro $(-3, 2)$ y radio de longitud 4?",
+      "problem": "",
       "options": [
         {
           "label": "A",
@@ -116,7 +119,8 @@
     {
       "original_number": 4,
       "section_number": 4,
-      "text": "Considere la siguiente representación gráfica de la circunferencia “c” de centro P y radio 6: ¿Cuál de las siguientes opciones contiene una recta tangente a “c”?",
+      "statement": "Considere la siguiente representación gráfica de la circunferencia “c” de centro P y radio 6:",
+      "problem": "¿Cuál de las siguientes opciones contiene una recta tangente a “c”?",
       "shared_image": "bxm_math_question_04",
       "options": [
         {
@@ -142,7 +146,8 @@
     {
       "original_number": 5,
       "section_number": 5,
-      "text": "Considere la siguiente representación gráfica de la circunferencia \"c\" de centro O: ¿Cuál de las siguientes rectas es secante a \"c\"?",
+      "statement": "Considere la siguiente representación gráfica de la circunferencia \"c\" de centro O:",
+      "problem": "¿Cuál de las siguientes rectas es secante a \"c\"?",
       "shared_image": "bxm_math_question_05",
       "options": [
         {
@@ -168,7 +173,8 @@
     {
       "original_number": 6,
       "section_number": 6,
-      "text": "Considere la siguiente información referida a la circunferencia \"c\" de centro \"O\" y la recta \"r\": D: único punto que comparte \"r\" y \"c\". Con certeza se cumple que \"r\" es perpendicular a la recta que contiene los puntos",
+      "statement": "Considere la siguiente información referida a la circunferencia \"c\" de centro \"O\" y la recta \"r\":",
+      "problem": "Con certeza se cumple que \"r\" es perpendicular a la recta que contiene los puntos:",
       "shared_image": "bxm_math_question_06",
       "options": [
         {
@@ -194,7 +200,8 @@
     {
       "original_number": 7,
       "section_number": 7,
-      "text": "Considere la siguiente representación de la circunferencia “d” de centro O: Si “d” se traslada cinco unidades a la izquierda (paralela al eje x) y tres unidades hacia abajo (paralela al eje y), entonces, el centro de la circunferencia trasladada corresponde a",
+      "statement": "Considere la siguiente representación de la circunferencia “d” de centro O:",
+      "problem": "Si “d” se traslada cinco unidades a la izquierda (paralela al eje x) y tres unidades hacia abajo (paralela al eje y), entonces, el centro de la circunferencia trasladada corresponde a",
       "shared_image": "bxm_math_question_07",
       "options": [
         {
@@ -220,7 +227,8 @@
     {
       "original_number": 8,
       "section_number": 8,
-      "text": "Sea “c” la circunferencia dada por $c:(x-2)^2 + (y-3)^2 = 4$. Al trasladar a “c” dos unidades hacia la izquierda (paralela al eje x) y tres unidades hacia arriba (paralela al eje y), se obtiene la circunferencia “d” de centro O. ¿Cuál de las siguientes opciones corresponde a la representación de “d”?",
+      "statement": "Sea “c” la circunferencia dada por $c:(x-2)^2 + (y-3)^2 = 4$. Al trasladar a “c” dos unidades hacia la izquierda (paralela al eje x) y tres unidades hacia arriba (paralela al eje y), se obtiene la circunferencia “d” de centro O.",
+      "problem": "¿Cuál de las siguientes opciones corresponde a la representación de “d”?",
       "options": [
         {
           "label": "A",
@@ -245,7 +253,8 @@
     {
       "original_number": 9,
       "section_number": 9,
-      "text": "Considere el siguiente polígono ABCDE: ¿Cuál es el perímetro del polígono ABCDE?",
+      "statement": "Considere el siguiente polígono ABCDE:",
+      "problem": "¿Cuál es el perímetro del polígono ABCDE?",
       "shared_image": "bxm_math_question_09",
       "options": [
         {
@@ -271,7 +280,8 @@
     {
       "original_number": 10,
       "section_number": 10,
-      "text": "Si la medida de la apotema de un hexágono regular es $2\\sqrt{3}$, entonces, ¿cuál es el área de dicho polígono?",
+      "statement": "Sea la medida de la apotema de un hexágono regular $2\\sqrt{3}$.",
+      "problem": "¿Cuál es el área de dicho polígono?",
       "options": [
         {
           "label": "A",
@@ -296,7 +306,8 @@
     {
       "original_number": 11,
       "section_number": 11,
-      "text": "Si la medida de la diagonal de un polígono regular es $3\\sqrt{2}$ y la de su ángulo externo $90^\\circ$, entonces, ¿cuál es el área de ese polígono?",
+      "statement": "Sea la medida de la diagonal de un polígono regular $3\\sqrt{2}$ y la de su ángulo externo $90^\\circ$",
+      "problem": "¿Cuál es el área de ese polígono?",
       "options": [
         {
           "label": "A",
@@ -321,7 +332,8 @@
     {
       "original_number": 12,
       "section_number": 12,
-      "text": "Si la medida del lado de un polígono regular es 4 y la de su ángulo central $72^\\circ$, entonces, ¿cuál es el perímetro de ese polígono?",
+      "statement": "Sea 4 la medida del lado de un polígono regular y la de su ángulo central $72^\\circ$",
+      "problem": "¿Cuál es el perímetro de ese polígono?",
       "options": [
         {
           "label": "A",
@@ -346,7 +358,8 @@
     {
       "original_number": 13,
       "section_number": 13,
-      "text": "Para responder los ítems 13 y 14 considere la siguiente representación gráfica: Las figuras #1 y #2 son simétricas entre sí con respecto a la recta",
+      "statement": "Considere la siguiente representación gráfica:",
+      "problem": "Las figuras #1 y #2 son simétricas entre sí con respecto a la recta",
       "shared_image": "bxm_math_question_13_14",
       "options": [
         {
@@ -372,7 +385,8 @@
     {
       "original_number": 14,
       "section_number": 14,
-      "text": "¿Cuál es el punto homólogo con “G” respecto al eje y?",
+      "statement": "Considere la siguiente representación gráfica:",
+      "problem": "¿Cuál es el punto homólogo con “G” respecto al eje y?",
       "shared_image": "bxm_math_question_13_14",
       "options": [
         {
@@ -398,7 +412,8 @@
     {
       "original_number": 15,
       "section_number": 15,
-      "text": "Considere el siguiente cuadrilátero ADCB: Con base en la información dada, $\\overline{CB}$ es homólogo con $\\overline{AB}$ respecto a la recta",
+      "statement": "Considere el siguiente cuadrilátero ADCB:",
+      "problem": "Con base en la información dada, $\\overline{CB}$ es homólogo con $\\overline{AB}$ respecto a la recta",
       "shared_image": "bxm_math_question_15",
       "options": [
         {
@@ -424,7 +439,8 @@
     {
       "original_number": 16,
       "section_number": 16,
-      "text": "Si se aplica una homotecia centrada en (0,0) al polígono #2 para obtener el #4, entonces, con certeza el valor de la razón de la homotecia corresponde a",
+      "statement": "Considere la siguiente representación gráfica:",
+      "problem": "Si se aplica una homotecia centrada en (0,0) al polígono #2 para obtener el #4, entonces, con certeza el valor de la razón de la homotecia corresponde a:",
       "shared_image": "bxm_math_question_16_17_18",
       "options": [
         {
@@ -450,7 +466,8 @@
     {
       "original_number": 17,
       "section_number": 17,
-      "text": "Una forma de obtener el polígono #3 es aplicándole al polígono #1 la traslación",
+      "statement": "Considere la siguiente representación gráfica:",
+      "problem": "Una forma de obtener el polígono #3 es aplicándole al polígono #1 la traslación",
       "shared_image": "bxm_math_question_16_17_18",
       "options": [
         {
@@ -476,7 +493,8 @@
     {
       "original_number": 18,
       "section_number": 18,
-      "text": "Si al polígono #1 se le aplica una rotación de $270^\\circ$ en sentido horario y con centro en el punto (0, 0), entonces, ¿cuál es el punto imagen de $(-1, 3)$?",
+      "statement": "Considere la siguiente representación gráfica:",
+      "problem": "Si al polígono #1 se le aplica una rotación de $270^\\circ$ en sentido horario y con centro en el punto (0, 0), entonces, ¿cuál es el punto imagen de $(-1, 3)$?",
       "shared_image": "bxm_math_question_16_17_18",
       "options": [
         {
@@ -502,7 +520,8 @@
     {
       "original_number": 19,
       "section_number": 19,
-      "text": "La sección plana que se obtiene al cortar un cono circular recto con un plano oblicuo respecto a la base y paralelo a la generatriz sin pasar por el vértice corresponde a una",
+      "statement": "",
+      "problem": "La sección plana que se obtiene al cortar un cono circular recto con un plano oblicuo respecto a la base y paralelo a la generatriz sin pasar por el vértice corresponde a una",
       "options": [
         {
           "label": "A",
@@ -527,7 +546,8 @@
     {
       "original_number": 20,
       "section_number": 20,
-      "text": "La medida del diámetro de una esfera es 20. Si la esfera es cortada con un plano a 6 unidades de su centro, entonces, ¿cuál es la longitud de la sección obtenida por el corte?",
+      "statement": "",
+      "problem": "La medida del diámetro de una esfera es 20. Si la esfera es cortada con un plano a 6 unidades de su centro, entonces, ¿cuál es la longitud de la sección obtenida por el corte?",
       "options": [
         {
           "label": "A",
@@ -552,7 +572,8 @@
     {
       "original_number": 21,
       "section_number": 21,
-      "text": "En un trozo de madera, con forma de cilindro circular recto, se realiza un corte perpendicular a las bases, pasando por el centro de estas. Si el radio mide 20 pulgadas y es un tercio de la altura, entonces, ¿cuál es el área, en pulgadas cuadradas, de ese corte?",
+      "statement": "",
+      "problem": "En un trozo de madera, con forma de cilindro circular recto, se realiza un corte perpendicular a las bases, pasando por el centro de estas. Si el radio mide 20 pulgadas y es un tercio de la altura, entonces, ¿cuál es el área, en pulgadas cuadradas, de ese corte?",
       "options": [
         {
           "label": "A",
@@ -577,7 +598,8 @@
     {
       "original_number": 22,
       "section_number": 22,
-      "text": "Sea un cono circular recto cuya altura mide 12 y el diámetro de la base es 18. Si se realiza un corte al cono con un plano paralelo al plano de la base a una distancia de 4 unidades del vértice, entonces, la medida del radio de la sección plana obtenida corresponde a",
+      "statement": "",
+      "problem": "Sea un cono circular recto cuya altura mide 12 y el diámetro de la base es 18. Si se realiza un corte al cono con un plano paralelo al plano de la base a una distancia de 4 unidades del vértice, entonces, la medida del radio de la sección plana obtenida corresponde a",
       "options": [
         {
           "label": "A",
@@ -602,7 +624,8 @@
     {
       "original_number": 23,
       "section_number": 1,
-      "text": "En las siguientes relaciones “x” representa la variable independiente y “y” la dependiente. ¿Cuál de ellas corresponde a una función?",
+      "statement": "",
+      "problem": "En las siguientes relaciones “x” representa la variable independiente y “y” la dependiente. ¿Cuál de ellas corresponde a una función?",
       "options": [
         {
           "label": "A",
@@ -627,7 +650,8 @@
     {
       "original_number": 24,
       "section_number": 2,
-      "text": "En las siguientes relaciones “x” representa la variable independiente y “y” la dependiente. ¿Cuál de ellas corresponde a una función?",
+      "statement": "",
+      "problem": "En las siguientes relaciones “x” representa la variable independiente y “y” la dependiente. ¿Cuál de ellas corresponde a una función?",
       "options": [
         {
           "label": "A",
@@ -652,8 +676,9 @@
     {
       "original_number": 25,
       "section_number": 3,
+      "statement": "",
+      "problem": "Sea “m” una función cuyo dominio es un subconjunto del dominio de f. Si “m” tiene inversa, entonces la opción que contiene un posible dominio para dicha función corresponde a",
       "shared_image": "bxm_math_question_25_26_27",
-      "text": "Sea “m” una función cuyo dominio es un subconjunto del dominio de f. Si “m” tiene inversa, entonces la opción que contiene un posible dominio para dicha función corresponde a",
       "options": [
         {
           "label": "A",
@@ -678,8 +703,9 @@
     {
       "original_number": 26,
       "section_number": 4,
+      "statement": "",
+      "problem": "El valor de \\( (f \\circ h)(-1) \\) corresponde a",
       "shared_image": "bxm_math_question_25_26_27",
-      "text": "El valor de \\( (f \\circ h)(-1) \\) corresponde a",
       "options": [
         {
           "label": "A",
@@ -704,8 +730,9 @@
     {
       "original_number": 27,
       "section_number": 5,
+      "statement": "",
+      "problem": "¿Cuál de las siguientes funciones permite completar la expresión \\( (k \\circ \\underline{\\quad})(x) \\) para que la composición sea posible?",
       "shared_image": "bxm_math_question_25_26_27",
-      "text": "¿Cuál de las siguientes funciones permite completar la expresión \\( (k \\circ \\underline{\\quad})(x) \\) para que la composición sea posible?",
       "options": [
         {
           "label": "A",
@@ -730,7 +757,8 @@
     {
       "original_number": 28,
       "section_number": 6,
-      "text": "Sea “g” la función dada por \\( g(x) = \\sqrt{x} \\). Para obtener \\( f(x) = \\sqrt{x} + 5 \\) se le debe aplicar a “g” una",
+      "statement": "",
+      "problem": "Sea “g” la función dada por \\( g(x) = \\sqrt{x} \\). Para obtener \\( f(x) = \\sqrt{x} + 5 \\) se le debe aplicar a “g” una",
       "options": [
         {
           "label": "A",
@@ -755,7 +783,8 @@
     {
       "original_number": 29,
       "section_number": 7,
-      "text": "Si “h” es una función dada por \\( h: [5, +\\infty[ \\to P \\) con \\( h(x) = 3\\sqrt{x} - 5 + 1 \\), entonces el ámbito de la inversa de h corresponde a",
+      "statement": "",
+      "problem": "Si “h” es una función dada por \\( h: [5, +\\infty[ \\to P \\) con \\( h(x) = 3\\sqrt{x} - 5 + 1 \\), entonces el ámbito de la inversa de h corresponde a",
       "options": [
         {
           "label": "A",
@@ -780,7 +809,8 @@
     {
       "original_number": 30,
       "section_number": 8,
-      "text": "Considere la función lineal “f” dada por \\( f(x) = (-2k + 4)x + 3 \\). Un posible valor de k para que la función “f” sea creciente corresponde a",
+      "statement": "",
+      "problem": "Considere la función lineal “f” dada por \\( f(x) = (-2k + 4)x + 3 \\). Un posible valor de k para que la función “f” sea creciente corresponde a",
       "options": [
         {
           "label": "A",
@@ -805,8 +835,9 @@
     {
       "original_number": 31,
       "section_number": 9,
+      "statement": "",
+      "problem": "¿Cuál de las siguientes afirmaciones es verdadera?",
       "shared_image": "bxm_math_question_31_32",
-      "text": "¿Cuál de las siguientes afirmaciones es verdadera?",
       "options": [
         {
           "label": "A",
@@ -831,8 +862,9 @@
     {
       "original_number": 32,
       "section_number": 10,
+      "statement": "",
+      "problem": "Un intervalo donde f es negativa corresponde a",
       "shared_image": "bxm_math_question_31_32",
-      "text": "Un intervalo donde f es negativa corresponde a",
       "options": [
         {
           "label": "A",
@@ -857,7 +889,8 @@
     {
       "original_number": 33,
       "section_number": 11,
-      "text": "¿Cuál de las siguientes funciones es inversa con la función $f(x) = 2^x$?",
+      "statement": "",
+      "problem": "¿Cuál de las siguientes funciones es inversa con la función $f(x) = 2^x$?",
       "options": [
         {
           "label": "A",
@@ -882,7 +915,8 @@
     {
       "original_number": 34,
       "section_number": 12,
-      "text": "Sea la función \"f\" de la forma $f(x) = \\log_a(x)$ con $0 < a < 1$. Si $x > 1$, entonces, se cumple que",
+      "statement": "",
+      "problem": "Sea la función \"f\" de la forma $f(x) = \\log_a(x)$ con $0 < a < 1$. Si $x > 1$, entonces, se cumple que",
       "options": [
         {
           "label": "A",
@@ -907,7 +941,8 @@
     {
       "original_number": 35,
       "section_number": 13,
-      "text": "Luis llama por teléfono a Ana y le comenta que la temperatura en su ciudad es de 41 °F. Si se sabe que la relación entre la temperatura en grados Fahrenheit (°F) y en grados Celsius (°C) está asociada mediante la función $F(C) = \\frac{9}{5}C + 32$, entonces, ¿a cuántos grados Celsius equivale la temperatura comentada?",
+      "statement": "",
+      "problem": "Luis llama por teléfono a Ana y le comenta que la temperatura en su ciudad es de 41 °F. Si se sabe que la relación entre la temperatura en grados Fahrenheit (°F) y en grados Celsius (°C) está asociada mediante la función $F(C) = \\frac{9}{5}C + 32$, entonces, ¿a cuántos grados Celsius equivale la temperatura comentada?",
       "options": [
         {
           "label": "A",
@@ -932,7 +967,8 @@
     {
       "original_number": 36,
       "section_number": 14,
-      "text": "Roy y Judy fueron de compras. Roy compró 5 kg de zanahoria y 3 kg de brócoli y por esa compra pagó ₡4650 en total; mientras que Judy compró 3 kg de zanahoria y 5 kg de brócoli y pagó ₡5350 en total. Si ambos compraron a los mismos precios, entonces, ¿cuántos colones costó el kilogramo de brócoli?",
+      "statement": "",
+      "problem": "Roy y Judy fueron de compras. Roy compró 5 kg de zanahoria y 3 kg de brócoli y por esa compra pagó ₡4650 en total; mientras que Judy compró 3 kg de zanahoria y 5 kg de brócoli y pagó ₡5350 en total. Si ambos compraron a los mismos precios, entonces, ¿cuántos colones costó el kilogramo de brócoli?",
       "options": [
         {
           "label": "A",
@@ -957,7 +993,8 @@
     {
       "original_number": 37,
       "section_number": 15,
-      "text": "Si la población “p(x)” de una comunidad se estima mediante $p(x) = 2000 \\cdot 2^{\\frac{x}{5}}$, donde “x” representa los años transcurridos a partir de 2025, entonces, ¿cuántos años deben transcurrir para que la población sea de 8000 individuos?",
+      "statement": "",
+      "problem": "Si la población “p(x)” de una comunidad se estima mediante $p(x) = 2000 \\cdot 2^{\\frac{x}{5}}$, donde “x” representa los años transcurridos a partir de 2025, entonces, ¿cuántos años deben transcurrir para que la población sea de 8000 individuos?",
       "options": [
         {
           "label": "A",
@@ -982,7 +1019,8 @@
     {
       "original_number": 38,
       "section_number": 16,
-      "text": "Si $f$ es una función, tal que, $f(x) = \\log_a(x^{20}) - \\log_a(x^2)$, entonces, $f(a^5)$ corresponde a",
+      "statement": "",
+      "problem": "Si $f$ es una función, tal que, $f(x) = \\log_a(x^{20}) - \\log_a(x^2)$, entonces, $f(a^5)$ corresponde a",
       "options": [
         {
           "label": "A",
@@ -1007,7 +1045,8 @@
     {
       "original_number": 39,
       "section_number": 17,
-      "text": "En un experimento la cantidad de bacterias se triplica cada hora. De acuerdo con la situación dada, el modelo matemático que mejor se adapta para describir la cantidad de bacterias en función de las horas transcurridas involucra una función",
+      "statement": "",
+      "problem": "En un experimento la cantidad de bacterias se triplica cada hora. De acuerdo con la situación dada, el modelo matemático que mejor se adapta para describir la cantidad de bacterias en función de las horas transcurridas involucra una función",
       "options": [
         {
           "label": "A",
@@ -1032,7 +1071,8 @@
     {
       "original_number": 40,
       "section_number": 18,
-      "text": "La siguiente representación tabular muestra algunos elementos de una función f: ¿Cuál es el valor de k?",
+      "statement": "La siguiente representación tabular muestra algunos elementos de una función f:",
+      "problem": "¿Cuál es el valor de k?",
       "shared_image": "bxm_math_question_40",
       "options": [
         {
@@ -1058,7 +1098,8 @@
     {
       "original_number": 41,
       "section_number": 19,
-      "text": "En las tablas I y II se presentan algunos valores de las funciones “p” y “k”. Además, la variable independiente para ambos casos es “x”: El modelo matemático que se adapta mejor a los datos involucra las funciones",
+      "statement": "En las tablas I y II se presentan algunos valores de las funciones “p” y “k”. Además, la variable independiente para ambos casos es “x”:",
+      "problem": "El modelo matemático que se adapta mejor a los datos involucra las funciones",
       "shared_image": "bxm_math_question_41",
       "options": [
         {
@@ -1084,7 +1125,8 @@
     {
       "original_number": 42,
       "section_number": 20,
-      "text": "En las tablas I y II se presentan algunos valores de las funciones “r” y “t”. Además, la variable independiente para ambos casos es “x”: El modelo matemático que se adapta mejor a los datos involucra las funciones",
+      "statement": "En las tablas I y II se presentan algunos valores de las funciones “r” y “t”. Además, la variable independiente para ambos casos es “x”:",
+      "problem": "El modelo matemático que se adapta mejor a los datos involucra las funciones",
       "shared_image": "bxm_math_question_42",
       "options": [
         {
@@ -1110,7 +1152,8 @@
     {
       "original_number": 43,
       "section_number": 1,
-      "text": "Se realizó un estudio para determinar la cantidad de kilómetros diarios que recorren 100 estudiantes para asistir al centro educativo. A continuación, se muestran los resultados obtenidos: ¿Cuántos kilómetros diarios, en promedio, recorren los estudiantes para llegar al centro educativo?",
+      "statement": "Se realizó un estudio para determinar la cantidad de kilómetros diarios que recorren 100 estudiantes para asistir al centro educativo. A continuación, se muestran los resultados obtenidos:",
+      "problem": "¿Cuántos kilómetros diarios, en promedio, recorren los estudiantes para llegar al centro educativo?",
       "shared_image": "bxm_math_question_43",
       "options": [
         {
@@ -1136,7 +1179,8 @@
     {
       "original_number": 44,
       "section_number": 2,
-      "text": "Considere el resumen estadístico sobre las edades, en años cumplidos, de los 70 trabajadores de cierta empresa: Con base en la información dada se cumple que",
+      "statement": "Considere el resumen estadístico sobre las edades, en años cumplidos, de los 70 trabajadores de cierta empresa:",
+      "problem": "Con base en la información dada se cumple que",
       "shared_image": "bxm_math_question_44",
       "options": [
         {
@@ -1162,7 +1206,8 @@
     {
       "original_number": 45,
       "section_number": 3,
-      "text": "La distribución de los datos sobre los salarios que paga una empresa a sus empleados presenta asimetría negativa. Si el salario promedio de esa empresa es de $2000, entonces, esto significa que",
+      "statement": "",
+      "problem": "La distribución de los datos sobre los salarios que paga una empresa a sus empleados presenta asimetría negativa. Si el salario promedio de esa empresa es de $2000, entonces, esto significa que",
       "options": [
         {
           "label": "A",
@@ -1187,7 +1232,8 @@
     {
       "original_number": 46,
       "section_number": 4,
-      "text": "En un centro de salud se realiza un estudio sobre los tiempos, en minutos, que cuatro médicos emplearon durante el último mes en atender a sus pacientes. De acuerdo con la información dada, la mayor variabilidad en la distribución de los datos sobre los tiempos de atención de pacientes durante el último mes correspondió a los del médico",
+      "statement": "",
+      "problem": "En un centro de salud se realiza un estudio sobre los tiempos, en minutos, que cuatro médicos emplearon durante el último mes en atender a sus pacientes. De acuerdo con la información dada, la mayor variabilidad en la distribución de los datos sobre los tiempos de atención de pacientes durante el último mes correspondió a los del médico",
       "shared_image": "bxm_math_question_46",
       "options": [
         {
@@ -1213,7 +1259,8 @@
     {
       "original_number": 47,
       "section_number": 5,
-      "text": "Considere la siguiente información sobre los tiempos, en minutos, que tardan los entrevistadores R y P... Considere las siguientes afirmaciones: I. La distribución de los datos sobre los tiempos que emplean ambos entrevistadores muestra evidencia de ser igualmente variables. II. El recorrido intercuartílico del entrevistador R es 15. De ellas son verdaderas",
+      "statement": "Considere la siguiente información sobre los tiempos, en minutos, que tardan los entrevistadores R y P... Considere las siguientes afirmaciones:",
+      "problem": "I. La distribución de los datos sobre los tiempos que emplean ambos entrevistadores muestra evidencia de ser igualmente variables. II. El recorrido intercuartílico del entrevistador R es 15. De ellas son verdaderas",
       "shared_image": "bxm_math_question_47",
       "options": [
         {
@@ -1239,7 +1286,8 @@
     {
       "original_number": 48,
       "section_number": 6,
-      "text": "La siguiente tabla muestra las marcas, en segundos, realizadas por Yeri, Nora, Iris y Luz... ¿Cuál de las siguientes atletas en mención presenta la menor variabilidad en los tiempos obtenidos en la prueba de los 200 metros planos?",
+      "statement": "",
+      "problem": "La siguiente tabla muestra las marcas, en segundos, realizadas por Yeri, Nora, Iris y Luz... ¿Cuál de las siguientes atletas en mención presenta la menor variabilidad en los tiempos obtenidos en la prueba de los 200 metros planos?",
       "options": [
         {
           "label": "A",
@@ -1264,7 +1312,8 @@
     {
       "original_number": 49,
       "section_number": 7,
-      "text": "Para responder los ítems 49 y 50 considere la siguiente información: El siguiente diagrama de cajas representa información de un estudio acerca de la edad... ¿Cuál de las siguientes afirmaciones es verdadera?",
+      "statement": "Para responder los ítems 49 y 50 considere la siguiente información:",
+      "problem": "El siguiente diagrama de cajas representa información de un estudio acerca de la edad... ¿Cuál de las siguientes afirmaciones es verdadera?",
       "shared_image": "bxm_math_question_49_50",
       "options": [
         {
@@ -1290,7 +1339,8 @@
     {
       "original_number": 50,
       "section_number": 8,
-      "text": "¿Cuál de las siguientes afirmaciones es verdadera?",
+      "statement": "",
+      "problem": "¿Cuál de las siguientes afirmaciones es verdadera?",
       "shared_image": "bxm_math_question_49_50",
       "options": [
         {
@@ -1316,7 +1366,8 @@
     {
       "original_number": 51,
       "section_number": 9,
-      "text": "Andrea es una atleta que compite en carreras de 5 km... De acuerdo con la información dada, ¿en cuál competencia Andrea obtuvo su mejor posición relativa?",
+      "statement": "",
+      "problem": "Andrea es una atleta que compite en carreras de 5 km... De acuerdo con la información dada, ¿en cuál competencia Andrea obtuvo su mejor posición relativa?",
       "shared_image": "bxm_math_question_51",
       "options": [
         {
@@ -1342,7 +1393,8 @@
     {
       "original_number": 52,
       "section_number": 10,
-      "text": "Para responder los ítems 52 y 53 considere la siguiente información: ... El grupo que presenta menor variabilidad relativa corresponde al",
+      "statement": "Para responder los ítems 52 y 53 considere la siguiente información:",
+      "problem": "... El grupo que presenta menor variabilidad relativa corresponde al",
       "shared_image": "bxm_math_question_52_53",
       "options": [
         {
@@ -1368,7 +1420,8 @@
     {
       "original_number": 53,
       "section_number": 11,
-      "text": "En términos relativos y con respecto a su grupo de referencia, la persona que tiene la mejor posición relativa corresponde a",
+      "statement": "",
+      "problem": "En términos relativos y con respecto a su grupo de referencia, la persona que tiene la mejor posición relativa corresponde a",
       "shared_image": "bxm_math_question_52_53",
       "options": [
         {
@@ -1394,7 +1447,8 @@
     {
       "original_number": 54,
       "section_number": 12,
-      "text": "Para responder los ítems 54, 55 y 56 considere la siguiente situación: En una tómbola se tienen 12 tarjetas... La probabilidad del evento AUB corresponde a un valor",
+      "statement": "Para responder los ítems 54, 55 y 56 considere la siguiente situación:",
+      "problem": "En una tómbola se tienen 12 tarjetas... La probabilidad del evento AUB corresponde a un valor",
       "options": [
         {
           "label": "A",
@@ -1419,7 +1473,8 @@
     {
       "original_number": 55,
       "section_number": 13,
-      "text": "La probabilidad del complemento del evento “C” es equivalente a",
+      "statement": "",
+      "problem": "La probabilidad del complemento del evento “C” es equivalente a",
       "options": [
         {
           "label": "A",
@@ -1444,7 +1499,8 @@
     {
       "original_number": 56,
       "section_number": 14,
-      "text": "La probabilidad del evento B∩D corresponde a",
+      "statement": "",
+      "problem": "La probabilidad del evento B∩D corresponde a",
       "options": [
         {
           "label": "A",
@@ -1469,7 +1525,8 @@
     {
       "original_number": 57,
       "section_number": 15,
-      "text": "Para responder los ítems 57 y 58 considere la siguiente información: ... Si un estudiante desea practicar judo o futbol, entonces, le conviene extraer una bolita de la urna",
+      "statement": "Para responder los ítems 57 y 58 considere la siguiente información:",
+      "problem": "... Si un estudiante desea practicar judo o futbol, entonces, le conviene extraer una bolita de la urna",
       "shared_image": "bxm_math_question_57_58",
       "options": [
         {
@@ -1495,7 +1552,8 @@
     {
       "original_number": 58,
       "section_number": 16,
-      "text": "Si un estudiante no desea practicar futbol, entonces, le conviene extraer una bolita de la urna",
+      "statement": "",
+      "problem": "Si un estudiante no desea practicar futbol, entonces, le conviene extraer una bolita de la urna",
       "shared_image": "bxm_math_question_57_58",
       "options": [
         {
@@ -1521,7 +1579,8 @@
     {
       "original_number": 59,
       "section_number": 17,
-      "text": "Para responder los ítems 59 y 60 considere la siguiente información: ... Si se selecciona al azar un estudiante de esa academia, entonces, la probabilidad de que esté matriculado en dos de esas disciplinas corresponde a",
+      "statement": "Para responder los ítems 59 y 60 considere la siguiente información:",
+      "problem": "... Si se selecciona al azar un estudiante de esa academia, entonces, la probabilidad de que esté matriculado en dos de esas disciplinas corresponde a",
       "shared_image": "bxm_math_question_59_60",
       "options": [
         {
@@ -1547,7 +1606,8 @@
     {
       "original_number": 60,
       "section_number": 18,
-      "text": "Si se selecciona al azar un estudiante de esa academia, entonces, la probabilidad de que esté matriculado en las tres disciplinas corresponde a",
+      "statement": "",
+      "problem": "Si se selecciona al azar un estudiante de esa academia, entonces, la probabilidad de que esté matriculado en las tres disciplinas corresponde a",
       "shared_image": "bxm_math_question_59_60",
       "options": [
         {

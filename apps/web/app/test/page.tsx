@@ -180,56 +180,46 @@ export default function QuestionPage() {
             </button>
           </div>
         </div>
-
-        {/* Progress Bar */}
-        <div className="h-1 bg-muted">
-          <div
-            className="h-1 bg-primary transition-all duration-300"
-            style={{ width: `${progress}%` }}
-          />
-        </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 md:px-8 py-6 md:py-10">
-        <div className="grid grid-cols-12 gap-6 lg:gap-10">
-          <div className="col-span-12 lg:col-span-8">
-            <QuestionExperience
-              question={currentQuestion}
-              currentIndex={currentIndex}
-              sectionQuestions={currentSectionQuestionsWithGlobalIndex}
-              testMode={testMode}
-              selectedAnswer={selectedAnswers[currentIndex]}
-              isFlagged={!!flaggedQuestions[currentIndex]}
-              selectedAnswers={selectedAnswers}
-              flaggedQuestions={flaggedQuestions}
-              onSelect={handleSelect}
-              onToggleFlag={toggleFlag}
-              onNext={handleNextWithFinish}
-              onPrev={handlePrev}
-              onJumpToQuestion={jumpToQuestion}
-              onOpenImageModal={openImageModal}
-              isLastQuestionInSection={sectionIndex === currentSectionQuestionsWithGlobalIndex.length - 1}
-              hasMoreSections={hasMoreSections}
-              sharedImageSrc={currentQuestion.shared_image ? quizData.shared_images[currentQuestion.shared_image] : undefined}
-            />
-          </div>
+      <div className="flex flex-col lg:flex-row gap-6 lg:gap-10 px-4 md:px-8 py-6 md:py-10">
+        <div className="flex-1 min-w-0">
+          <QuestionExperience
+            question={currentQuestion}
+            currentIndex={currentIndex}
+            sectionQuestions={currentSectionQuestionsWithGlobalIndex}
+            testMode={testMode}
+            selectedAnswer={selectedAnswers[currentIndex]}
+            isFlagged={!!flaggedQuestions[currentIndex]}
+            selectedAnswers={selectedAnswers}
+            flaggedQuestions={flaggedQuestions}
+            onSelect={handleSelect}
+            onToggleFlag={toggleFlag}
+            onNext={handleNextWithFinish}
+            onPrev={handlePrev}
+            onJumpToQuestion={jumpToQuestion}
+            onOpenImageModal={openImageModal}
+            isLastQuestionInSection={sectionIndex === currentSectionQuestionsWithGlobalIndex.length - 1}
+            hasMoreSections={hasMoreSections}
+            sharedImageSrc={currentQuestion.shared_image ? quizData.shared_images[currentQuestion.shared_image] : undefined}
+          />
+        </div>
 
-          <div className="hidden lg:block lg:col-span-4">
-            <DesktopNavigator
-              testMode={testMode}
-              currentTopicIndex={currentTopicIndex}
-              sectionQuestions={currentSectionQuestionsWithGlobalIndex}
-              currentIndex={currentIndex}
-              selectedAnswers={selectedAnswers}
-              flaggedQuestions={flaggedQuestions}
-              onJumpToQuestion={jumpToQuestion}
-              onJumpToSection={handleJumpToSection}
-              onPrev={handlePrev}
-              onNext={handleNextWithFinish}
-              isLastQuestionInSection={sectionIndex === currentSectionQuestionsWithGlobalIndex.length - 1}
-              hasMoreSections={hasMoreSections}
-            />
-          </div>
+        <div className="hidden lg:block lg:w-80 xl:w-96 shrink-0">
+          <DesktopNavigator
+            testMode={testMode}
+            currentTopicIndex={currentTopicIndex}
+            sectionQuestions={currentSectionQuestionsWithGlobalIndex}
+            currentIndex={currentIndex}
+            selectedAnswers={selectedAnswers}
+            flaggedQuestions={flaggedQuestions}
+            onJumpToQuestion={jumpToQuestion}
+            onJumpToSection={handleJumpToSection}
+            onPrev={handlePrev}
+            onNext={handleNextWithFinish}
+            isLastQuestionInSection={sectionIndex === currentSectionQuestionsWithGlobalIndex.length - 1}
+            hasMoreSections={hasMoreSections}
+          />
         </div>
       </div>
 

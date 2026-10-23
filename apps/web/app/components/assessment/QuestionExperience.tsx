@@ -77,9 +77,9 @@ export const QuestionExperience = memo(function QuestionExperience({
   const totalInSection = sectionQuestions.length;
 
   return (
-    <div className="flex flex-col gap-4 md:gap-6">
+    <div className="flex flex-col gap-4 md:gap-6 border-2 border-red-500">
       {/* Statement + Options: horizontal on desktop, vertical on shrink */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 items-start gap-4 md:gap-6">
         <QuestionStatement
           question={question}
           isFlagged={isFlagged}

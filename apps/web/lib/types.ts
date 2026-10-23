@@ -9,7 +9,8 @@ export interface QuestionOption {
 export interface Question {
   original_number: number;
   section_number: number;
-  text: string;
+  statement: string;
+  problem: string;
   shared_image?: string;
   options: QuestionOption[];
   correct_answer: "A" | "B" | "C" | "D";

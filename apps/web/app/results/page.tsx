@@ -381,7 +381,7 @@ export default function ResultsPage() {
 
                         {/* Question Text */}
                         <div className="prose dark:prose-invert max-w-none text-[15px] sm:text-lg leading-relaxed text-foreground font-serif mb-8 sm:mb-10 break-words whitespace-normal">
-                          <KaTeXText text={q.text} />
+                          <KaTeXText text={q.statement ? `${q.statement} ${q.problem}` : q.problem} />
                         </div>
 
                         {/* Answers Comparison */}
