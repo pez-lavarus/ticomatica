@@ -3,6 +3,7 @@ import { Public_Sans, Source_Serif_4 } from "next/font/google";
 import "katex/dist/katex.min.css";
 import "./globals.css";
 import { ThemeProvider } from "@/lib/theme-provider";
+import { Header } from "@/app/components/Header";
 
 const publicSans = Public_Sans({
   variable: "--font-public-sans",
@@ -29,6 +30,7 @@ export default function RootLayout({
     <html lang="es" className={`${publicSans.variable} ${sourceSerif.variable} h-full antialiased`} suppressHydrationWarning>
       <body className="min-h-full flex flex-col font-sans">
         <ThemeProvider defaultTheme="system">
+          <Header />
           {children}
         </ThemeProvider>
       </body>

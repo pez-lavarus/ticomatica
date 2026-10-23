@@ -3,7 +3,6 @@
 
 import { useState, useCallback, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import { Clock, Flag, BookOpen, Shapes, BarChart3, Binary } from "lucide-react";
 import type { QuizData } from "@/lib/types";
 import { ThemeToggle } from "@/app/components/ThemeToggle";
@@ -134,35 +133,7 @@ export default function QuestionPage() {
     <div className="min-h-screen bg-background transition-colors">
       {/* Top Professional Bar */}
       <div className="sticky top-0 z-50 bg-card border-b border-border shadow-sm">
-        <div className="mx-auto px-4 md:px-8 py-3 md:py-8 flex items-center justify-between gap-2 md:gap-4">
-          {/* Logo: icon + wordmark */}
-          <button
-            onClick={() => {
-              localStorage.setItem("bxm-pilot-answers", JSON.stringify(selectedAnswers));
-              localStorage.setItem("bxm-pilot-flags", JSON.stringify(flaggedQuestions));
-              localStorage.setItem("bxm-pilot-index", currentIndex.toString());
-              localStorage.setItem("bxm-pilot-topic-index", currentTopicIndex.toString());
-              localStorage.setItem("bxm-pilot-time-left", timeLeft.toString());
-              router.push("/welcome");
-            }}
-            className="flex items-center gap-2 md:gap-3 group shrink-0 h-full"
-          >
-            <Image
-              src="/costa-rica-flag.svg"
-              alt="Bandera de Costa Rica"
-              width={50}
-              height={30}
-              className="w-10 h-10 md:w-16 md:h-16 rounded-full object-cover shadow-md group-hover:brightness-110 transition-all"
-            />
-            <Image
-              src="/ticomatica-logo-title.svg"
-              alt="Ticomatica"
-              width={2048}
-              height={682}
-              className="ticomatica-logo-title h-6 md:h-20 w-auto hidden sm:block"
-            />
-          </button>
-
+        <div className="mx-auto px-4 md:px-8 py-2 md:py-4 flex items-center justify-end gap-2 md:gap-4">
           {/* Section Indicator, Timer, Theme, Formulas & Finish */}
           <div className="flex items-center gap-2 md:gap-6">
             <div className="flex items-center gap-1.5 md:gap-3">
