@@ -789,19 +789,19 @@
       "options": [
         {
           "label": "A",
-          "text": "[1, +\\infty["
+          "text": "\\([1, +\\infty[\\)"
         },
         {
           "label": "B",
-          "text": "[4, +\\infty["
+          "text": "\\([4, +\\infty[\\)"
         },
         {
           "label": "C",
-          "text": "[5, +\\infty["
+          "text": "\\([5, +\\infty[\\)"
         },
         {
           "label": "D",
-          "text": "[3, +\\infty["
+          "text": "\\([3, +\\infty[\\)"
         }
       ],
       "correct_answer": "C",

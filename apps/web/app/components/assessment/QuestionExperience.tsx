@@ -95,7 +95,7 @@ export const QuestionExperience = memo(function QuestionExperience({
       >
         <div
           ref={statementRef}
-          className={isStickyStatement ? "sticky top-24 lg:top-32" : undefined}
+          className={isStickyStatement ? "sticky top-24 lg:top-40" : undefined}
         >
           <QuestionStatement
             question={question}
