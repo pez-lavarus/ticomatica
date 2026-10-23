@@ -1314,8 +1314,8 @@
     {
       "original_number": 49,
       "section_number": 7,
-      "statement": "Considere la siguiente información:",
-      "problem": "El siguiente diagrama de cajas representa información de un estudio acerca de la edad... ¿Cuál de las siguientes afirmaciones es verdadera?",
+      "statement": "El siguiente diagrama de cajas representa información de un estudio acerca de la edad... ",
+      "problem": "¿Cuál de las siguientes afirmaciones es verdadera?",
       "shared_image": "bxm_math_question_49_50",
       "options": [
         {
@@ -1341,7 +1341,7 @@
     {
       "original_number": 50,
       "section_number": 8,
-      "statement": "Considere la siguiente información:",
+      "statement": "El siguiente diagrama de cajas representa información de un estudio acerca de la edad... ",
       "problem": "¿Cuál de las siguientes afirmaciones es verdadera?",
       "shared_image": "bxm_math_question_49_50",
       "options": [
