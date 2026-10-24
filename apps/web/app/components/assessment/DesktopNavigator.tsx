@@ -51,7 +51,7 @@ export function DesktopNavigator({
             </h3>
           </div>
 
-          <div className="flex flex-col gap-2 pt-3 pb-5">
+          <div className="flex flex-col gap-2 pt-2 pb-5">
             {section.questions.map((q) => {
               const isCurrent = q.globalIndex === currentIndex;
               const isFlaggedQ = flaggedQuestions[q.globalIndex];
@@ -61,7 +61,7 @@ export function DesktopNavigator({
                 <button
                   key={q.globalIndex}
                   onClick={() => onJumpToQuestion(q.globalIndex)}
-                  className={`flex items-center justify-between gap-2 px-4 py-2 rounded-sm border transition-colors ${isGreyed ? "opacity-40" : ""} ${isCurrent
+                  className={`flex items-center justify-between gap-2 px-3 py-3 rounded-sm border transition-colors ${isGreyed ? "opacity-40" : ""} ${isCurrent
                     ? "border-primary bg-primary/10"
                     : "border-transparent hover:border-accent"
                     }`}

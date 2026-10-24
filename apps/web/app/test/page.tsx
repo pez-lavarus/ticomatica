@@ -6,7 +6,6 @@ import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { Clock, Flag, BookOpen, Shapes, BarChart3, Binary } from "lucide-react";
 import type { QuizData } from "@/lib/types";
-import { ThemeToggle } from "@/app/components/ThemeToggle";
 import ImageModal from "@/app/components/ImageModal";
 import ConfirmModal from "@/app/components/ConfirmModal";
 import FormulaModal from "@/app/components/FormulaModal";
@@ -218,7 +217,7 @@ export default function QuestionPage() {
         )}
 
       <div className="flex flex-1 min-h-0">
-        <aside className="hidden lg:flex lg:w-80 xl:w-80 shrink-0 flex-col border-r border-border bg-card min-h-0">
+        <aside className="hidden lg:flex lg:w-80 xl:w-75 shrink-0 flex-col border-r border-border bg-card min-h-0">
           <div className="flex-1 min-h-0 overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
             <DesktopNavigator
               testMode={testMode}
