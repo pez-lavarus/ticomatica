@@ -7,9 +7,10 @@ import { InlineMath, BlockMath } from "react-katex";
 interface FormulaModalProps {
   isOpen: boolean;
   onClose: () => void;
+  section?: string;
 }
 
-export default function FormulaModal({ isOpen, onClose }: FormulaModalProps) {
+export default function FormulaModal({ isOpen, onClose, section }: FormulaModalProps) {
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -23,6 +24,8 @@ export default function FormulaModal({ isOpen, onClose }: FormulaModalProps) {
       document.body.style.overflow = "unset";
     };
   }, [isOpen, onClose]);
+
+  const showSection = (name: string) => !section || section === name;
 
   if (!isOpen) return null;
 
@@ -50,92 +53,98 @@ export default function FormulaModal({ isOpen, onClose }: FormulaModalProps) {
 
         <div className="flex-1 overflow-y-auto p-12 space-y-14">
           {/* Geometría */}
-          <section>
-            <h4 className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary mb-8 flex items-center gap-4">
-              <span className="w-8 h-px bg-primary/30"></span>
-              Geometría
-            </h4>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-              <div className="p-8 bg-muted/20 rounded-sm border border-border/40">
-                <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground mb-4">Circunferencia</p>
-                <div className="text-lg py-2">
-                  <BlockMath math="(x - h)^2 + (y - k)^2 = r^2" />
+          {showSection("Geometría") && (
+            <section>
+              <h4 className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary mb-8 flex items-center gap-4">
+                <span className="w-8 h-px bg-primary/30"></span>
+                Geometría
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div className="p-8 bg-muted/20 rounded-sm border border-border/40">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground mb-4">Circunferencia</p>
+                  <div className="text-lg py-2">
+                    <BlockMath math="(x - h)^2 + (y - k)^2 = r^2" />
+                  </div>
                 </div>
-              </div>
-              <div className="p-8 bg-muted/20 rounded-sm border border-border/40">
-                <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground mb-4">Distancia entre puntos</p>
-                <div className="text-lg py-2">
-                  <BlockMath math="d = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}" />
+                <div className="p-8 bg-muted/20 rounded-sm border border-border/40">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground mb-4">Distancia entre puntos</p>
+                  <div className="text-lg py-2">
+                    <BlockMath math="d = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}" />
+                  </div>
                 </div>
-              </div>
-              <div className="p-8 bg-muted/20 rounded-sm border border-border/40">
-                <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground mb-4">Área de un polígono regular</p>
-                <div className="text-lg py-2">
-                  <BlockMath math="A = \frac{n \cdot l \cdot a}{2} = \frac{P \cdot a}{2}" />
+                <div className="p-8 bg-muted/20 rounded-sm border border-border/40">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground mb-4">Área de un polígono regular</p>
+                  <div className="text-lg py-2">
+                    <BlockMath math="A = \frac{n \cdot l \cdot a}{2} = \frac{P \cdot a}{2}" />
+                  </div>
                 </div>
-              </div>
-              <div className="p-8 bg-muted/20 rounded-sm border border-border/40">
-                <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground mb-4">Suma de ángulos internos</p>
-                <div className="text-lg py-2">
-                  <BlockMath math="S = 180^\circ(n - 2)" />
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Funciones */}
-          <section>
-            <h4 className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary mb-8 flex items-center gap-4">
-              <span className="w-8 h-px bg-primary/30"></span>
-              Funciones
-            </h4>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-              <div className="p-8 bg-muted/20 rounded-sm border border-border/40">
-                <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground mb-4">Función Lineal</p>
-                <div className="text-lg py-2">
-                  <BlockMath math="f(x) = mx + b" />
-                </div>
-                <div className="mt-6 flex justify-around border-t border-border/20 pt-6">
-                  <InlineMath math="m = \frac{y_2 - y_1}{x_2 - x_1}" />
-                  <InlineMath math="b = y - mx" />
-                </div>
-              </div>
-              <div className="p-8 bg-muted/20 rounded-sm border border-border/40">
-                <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground mb-4">Función Cuadrática</p>
-                <div className="text-lg py-2">
-                  <BlockMath math="f(x) = ax^2 + bx + c" />
-                </div>
-                <div className="mt-6 text-center border-t border-border/20 pt-6">
-                  <InlineMath math="\Delta = b^2 - 4ac" />
-                  <div className="mt-3">
-                    <InlineMath math="V = \left( \frac{-b}{2a}, \frac{-\Delta}{4a} \right)" />
+                <div className="p-8 bg-muted/20 rounded-sm border border-border/40">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground mb-4">Suma de ángulos internos</p>
+                  <div className="text-lg py-2">
+                    <BlockMath math="S = 180^\circ(n - 2)" />
                   </div>
                 </div>
               </div>
-            </div>
-          </section>
+            </section>
+          )}
 
-          {/* Probabilidad */}
-          <section>
-            <h4 className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary mb-8 flex items-center gap-4">
-              <span className="w-8 h-px bg-primary/30"></span>
-              Estadística y Probabilidad
-            </h4>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-              <div className="p-8 bg-muted/20 rounded-sm border border-border/40">
-                <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground mb-4">Probabilidad Simple</p>
-                <div className="text-lg py-2">
-                  <BlockMath math="P(A) = \frac{\text{Casos Favorables}}{\text{Casos Totales}}" />
+          {/* Funciones */}
+          {showSection("Funciones") && (
+            <section>
+              <h4 className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary mb-8 flex items-center gap-4">
+                <span className="w-8 h-px bg-primary/30"></span>
+                Funciones
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div className="p-8 bg-muted/20 rounded-sm border border-border/40">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground mb-4">Función Lineal</p>
+                  <div className="text-lg py-2">
+                    <BlockMath math="f(x) = mx + b" />
+                  </div>
+                  <div className="mt-6 flex justify-around border-t border-border/20 pt-6">
+                    <InlineMath math="m = \frac{y_2 - y_1}{x_2 - x_1}" />
+                    <InlineMath math="b = y - mx" />
+                  </div>
+                </div>
+                <div className="p-8 bg-muted/20 rounded-sm border border-border/40">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground mb-4">Función Cuadrática</p>
+                  <div className="text-lg py-2">
+                    <BlockMath math="f(x) = ax^2 + bx + c" />
+                  </div>
+                  <div className="mt-6 text-center border-t border-border/20 pt-6">
+                    <InlineMath math="\Delta = b^2 - 4ac" />
+                    <div className="mt-3">
+                      <InlineMath math="V = \left( \frac{-b}{2a}, \frac{-\Delta}{4a} \right)" />
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div className="p-8 bg-muted/20 rounded-sm border border-border/40">
-                <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground mb-4">Media Aritmética</p>
-                <div className="text-lg py-2">
-                  <BlockMath math="\bar{x} = \frac{\sum_{i=1}^n x_i}{n}" />
+            </section>
+          )}
+
+          {/* Estadística y Probabilidad */}
+          {showSection("Estadística y Probabilidad") && (
+            <section>
+              <h4 className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary mb-8 flex items-center gap-4">
+                <span className="w-8 h-px bg-primary/30"></span>
+                Estadística y Probabilidad
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div className="p-8 bg-muted/20 rounded-sm border border-border/40">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground mb-4">Probabilidad Simple</p>
+                  <div className="text-lg py-2">
+                    <BlockMath math="P(A) = \frac{\text{Casos Favorables}}{\text{Casos Totales}}" />
+                  </div>
+                </div>
+                <div className="p-8 bg-muted/20 rounded-sm border border-border/40">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground mb-4">Media Aritmética</p>
+                  <div className="text-lg py-2">
+                    <BlockMath math="\bar{x} = \frac{\sum_{i=1}^n x_i}{n}" />
+                  </div>
                 </div>
               </div>
-            </div>
-          </section>
+            </section>
+          )}
         </div>
 
         <div className="p-8 border-t border-border/60 text-center bg-muted/10">

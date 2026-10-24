@@ -261,6 +261,7 @@ export default function QuestionPage() {
       <FormulaModal
         isOpen={isFormulaModalOpen}
         onClose={() => setIsFormulaModalOpen(false)}
+        section={currentTopic}
       />
 
       <SectionModal
