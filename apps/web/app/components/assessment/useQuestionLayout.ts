@@ -21,9 +21,10 @@ const CONTAINER_BREAKPOINT_PX = 720;
 const HEAVILY_HORIZONTAL_ASPECT = 2.0;
 
 // When side by side, the statement column takes a fraction of the row. Taller
-// graphs get a narrower statement column so options keep room for their formulas.
+// graphs get a narrower statement column so options keep room for their formulas;
+// horizontal-leaning graphs get a wider statement column so they stretch further.
 const STATEMENT_COL_MIN = 0.28;
-const STATEMENT_COL_MAX = 0.4;
+const STATEMENT_COL_MAX = 0.5;
 
 // For image-option questions the statement is just text, so it gets a compact
 // sticky column while the image options take a slightly larger share.
@@ -47,6 +48,16 @@ interface UseQuestionLayoutOptions {
 
 function clamp(value: number, min: number, max: number) {
   return Math.min(Math.max(value, min), max);
+}
+
+function getScrollOffset(el: HTMLElement): number {
+  let offset = 0;
+  let node: HTMLElement | null = el;
+  while (node) {
+    offset += node.scrollTop;
+    node = node.parentElement;
+  }
+  return offset;
 }
 
 let viewportSnapshot: { width: number; height: number } | null = null;
@@ -78,6 +89,7 @@ export function useQuestionLayout({
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [containerWidth, setContainerWidth] = useState<number | null>(null);
   const [graphMaxHeight, setGraphMaxHeight] = useState<number | null>(null);
+  const [optionsOverflow, setOptionsOverflow] = useState(false);
   const [, forceAspectUpdate] = useReducer((n: number) => n + 1, 0);
 
   // Server (and hydration) resolve to a single column; the client snapshot kicks
@@ -125,12 +137,10 @@ export function useQuestionLayout({
   // options can scroll independently while the statement stays visible.
   let layout: QuestionLayout = "vertical";
   let statementFraction = STATEMENT_COL_MAX;
-  let isStickyStatement = false;
   if (!forcedVertical) {
     if (hasImageOptions) {
       layout = "horizontal";
       statementFraction = IMAGE_OPTIONS_STATEMENT_FRACTION;
-      isStickyStatement = true;
     } else if (
       hasGraph &&
       graphAspect !== null &&
@@ -141,10 +151,35 @@ export function useQuestionLayout({
     }
   }
 
+  const isStickyStatement = layout === "horizontal" && (hasImageOptions || optionsOverflow);
+
   const gridTemplateColumns =
     layout === "horizontal"
       ? `minmax(0, ${statementFraction.toFixed(3)}fr) minmax(0, ${(1 - statementFraction).toFixed(3)}fr)`
       : "minmax(0, 1fr)";
+
+  // Detect when the options column is taller than the visible viewport so the
+  // statement can stay sticky while the options scroll.
+  useLayoutEffect(() => {
+    const optionsEl = optionsRef.current;
+    const statementEl = statementRef.current;
+    if (!optionsEl || !statementEl || viewportHeight === null) return;
+
+    const measure = () => {
+      const optionsHeight = optionsEl.offsetHeight;
+      const statementRect = statementEl.getBoundingClientRect();
+      const contentTop = statementRect.top + getScrollOffset(statementEl);
+      const availableHeight = viewportHeight - contentTop - BOTTOM_MARGIN;
+      setOptionsOverflow(optionsHeight > availableHeight);
+    };
+
+    measure();
+
+    const observer = new ResizeObserver(measure);
+    observer.observe(optionsEl);
+    observer.observe(statementEl);
+    return () => observer.disconnect();
+  }, [questionKey, viewportHeight, statementRef, optionsRef]);
 
   // In vertical layout, shrink the graph so the statement and options both fit
   // on screen; only the options have to remain fully visible without scrolling.
@@ -163,7 +198,7 @@ export function useQuestionLayout({
       const graphBoxHeight = graphEl.offsetHeight;
       const statementRect = statementEl.getBoundingClientRect();
       const optionsRect = optionsEl.getBoundingClientRect();
-      const contentTop = statementRect.top;
+      const contentTop = statementRect.top + getScrollOffset(statementEl);
       const gap = Math.max(0, optionsRect.top - (statementRect.top + statementHeight));
       const chromeHeight = statementHeight - graphBoxHeight;
       const available = viewportHeight - contentTop - gap - optionsHeight - BOTTOM_MARGIN;

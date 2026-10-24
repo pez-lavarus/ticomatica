@@ -61,7 +61,7 @@ export const QuestionExperience = memo(function QuestionExperience({
   const optionsRef = useRef<HTMLDivElement | null>(null);
   const graphWrapperRef = useRef<HTMLDivElement | null>(null);
   const hasImageOptions = question.options.some((option) => option.image);
-  const { containerRef, gridTemplateColumns, graphMaxHeight, isStickyStatement } = useQuestionLayout({
+  const { containerRef, layout, gridTemplateColumns, graphMaxHeight, isStickyStatement } = useQuestionLayout({
     graphSrc: sharedImageSrc,
     questionKey: question.original_number,
     hasImageOptions,
@@ -95,7 +95,7 @@ export const QuestionExperience = memo(function QuestionExperience({
       >
         <div
           ref={statementRef}
-          className={isStickyStatement ? "sticky top-24 lg:top-40" : undefined}
+          className={isStickyStatement ? "sticky top-24 lg:top-10" : undefined}
         >
           <QuestionStatement
             question={question}
@@ -103,6 +103,7 @@ export const QuestionExperience = memo(function QuestionExperience({
             onOpenImageModal={onOpenImageModal}
             graphMaxHeight={graphMaxHeight}
             graphWrapperRef={graphWrapperRef}
+            split={layout === "vertical"}
           />
         </div>
         <div ref={optionsRef}>
