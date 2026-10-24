@@ -148,6 +148,12 @@ export default function QuestionPage() {
         createPortal(
           <>
             <div className="flex items-center gap-1.5 md:gap-3">
+              <div className="flex items-center px-2 md:px-8 h-8 md:h-14 bg-card rounded-sm border border-border shadow-sm">
+                <span className="font-mono text-xs md:text-2xl font-bold tabular-nums text-foreground min-w-[35px] md:min-w-[80px] text-center">
+                  {mounted ? formatTime(timeLeft) : "--:--"}
+                </span>
+              </div>
+
               <button
                 onClick={() => setIsSectionModalOpen(true)}
                 className="flex items-center justify-center w-8 h-8 md:w-14 md:h-14 bg-card rounded-sm border border-border shadow-sm hover:bg-muted transition-colors text-destructive"
@@ -158,18 +164,9 @@ export default function QuestionPage() {
                 {currentTopic === "Funciones" && <Binary className="w-4 h-4 md:w-7 md:h-7" />}
                 {currentTopic === "full" && <Clock className="w-4 h-4 md:w-7 md:h-7" />}
               </button>
-
-              <div className="flex items-center px-2 md:px-8 h-8 md:h-14 bg-card rounded-sm border border-border shadow-sm">
-                <span className="font-mono text-xs md:text-2xl font-bold tabular-nums text-foreground min-w-[35px] md:min-w-[80px] text-center">
-                  {mounted ? formatTime(timeLeft) : "--:--"}
-                </span>
-              </div>
             </div>
 
             <div className="flex items-center gap-2 md:gap-6">
-              <div>
-                <ThemeToggle />
-              </div>
               <button
                 onClick={() => setIsFormulaModalOpen(true)}
                 className="flex items-center gap-1.5 md:gap-2 px-2 md:px-8 py-2 md:py-4 bg-muted border border-border hover:border-accent text-foreground text-[8px] md:text-xs font-bold uppercase tracking-[0.15em] md:tracking-[0.2em] rounded-sm transition-colors"
@@ -211,8 +208,8 @@ export default function QuestionPage() {
           </div>
         </aside>
 
-        <div className="flex-1 min-w-0 min-h-0 overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-          <div className="max-w-7xl mx-auto px-4 md:px-8 py-6 md:py-10 ">
+        <div className="flex-1 min-w-0 min-h-0 overflow-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+          <div className="max-w-7xl mx-auto px-4 md:px-8 py-6 md:py-10 h-full flex flex-col">
             <QuestionExperience
               question={currentQuestion}
               currentIndex={currentIndex}

@@ -11,6 +11,7 @@ interface ResponseOptionsProps {
   selectedAnswer?: string;
   onSelect: (option: string) => void;
   onOpenImageModal: (src: string, alt: string) => void;
+  scrollRef?: React.RefObject<HTMLDivElement | null>;
 }
 
 export function ResponseOptions({
@@ -18,6 +19,7 @@ export function ResponseOptions({
   selectedAnswer,
   onSelect,
   onOpenImageModal,
+  scrollRef,
 }: ResponseOptionsProps) {
   const longPressTimer = useRef<NodeJS.Timeout | null>(null);
 
@@ -44,15 +46,19 @@ export function ResponseOptions({
   const useGridLayout = isShortTextOptions;
 
   return (
-    <div className="bg-card text-card-foreground border border-border rounded-sm shadow-md p-5 md:p-8">
-      {/* Problem */}
+    <div className="bg-card text-card-foreground border border-border rounded-sm shadow-md p-5 md:p-8 flex flex-col h-full">
+      {/* Statement container */}
       {question.problem && (
-        <div className="prose dark:prose-invert max-w-none text-lg md:text-2xl leading-[1.6] md:leading-[1.8] text-foreground font-serif mb-6 md:mb-10">
+        <div className="prose dark:prose-invert max-w-none text-lg md:text-2xl leading-[1.6] md:leading-[1.8] text-foreground font-serif mb-6 md:mb-10 shrink-0">
           <KaTeXText text={question.problem} />
         </div>
       )}
 
-      <div className={`${useGridLayout ? "grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6" : "space-y-3 md:space-y-6"}`}>
+      {/* Options container */}
+      <div
+        ref={scrollRef}
+        className={`flex-1 min-h-0 overflow-y-auto hide-scrollbar ${useGridLayout ? "grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6 content-start" : "space-y-3 md:space-y-6"}`}
+      >
         {question.options.map((option) => {
           const isSelected = selectedAnswer === option.label;
           const optionImageDimensions = option.image ? getGraphDimensions(option.image) : null;

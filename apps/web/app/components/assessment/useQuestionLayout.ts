@@ -158,8 +158,15 @@ export function useQuestionLayout({
       ? `minmax(0, ${statementFraction.toFixed(3)}fr) minmax(0, ${(1 - statementFraction).toFixed(3)}fr)`
       : "minmax(0, 1fr)";
 
+  const gridTemplateRows =
+    layout === "horizontal"
+      ? "minmax(0, 1fr)"
+      : "auto minmax(0, 1fr)";
+
   // Detect when the options column is taller than the visible viewport so the
-  // statement can stay sticky while the options scroll.
+  // statement can stay sticky while the options scroll. Also expose the height
+  // available for the question content and the statement height so the options
+  // container can be sized without overflowing the view.
   useLayoutEffect(() => {
     const optionsEl = optionsRef.current;
     const statementEl = statementRef.current;
@@ -217,5 +224,5 @@ export function useQuestionLayout({
   const effectiveGraphMaxHeight =
     hasGraph && layout === "vertical" && graphMaxHeight !== null ? graphMaxHeight : undefined;
 
-  return { containerRef, layout, gridTemplateColumns, graphMaxHeight: effectiveGraphMaxHeight, isStickyStatement };
+  return { containerRef, layout, gridTemplateColumns, gridTemplateRows, graphMaxHeight: effectiveGraphMaxHeight, isStickyStatement };
 }

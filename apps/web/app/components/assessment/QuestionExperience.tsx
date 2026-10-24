@@ -1,6 +1,6 @@
 "use client";
 
-import { memo, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import {
   ChevronLeft,
   ChevronRight,
@@ -60,8 +60,9 @@ export const QuestionExperience = memo(function QuestionExperience({
   const statementRef = useRef<HTMLDivElement | null>(null);
   const optionsRef = useRef<HTMLDivElement | null>(null);
   const graphWrapperRef = useRef<HTMLDivElement | null>(null);
+  const optionsScrollRef = useRef<HTMLDivElement | null>(null);
   const hasImageOptions = question.options.some((option) => option.image);
-  const { containerRef, layout, gridTemplateColumns, graphMaxHeight, isStickyStatement } = useQuestionLayout({
+  const { containerRef, layout, gridTemplateColumns, gridTemplateRows, graphMaxHeight, isStickyStatement } = useQuestionLayout({
     graphSrc: sharedImageSrc,
     questionKey: question.original_number,
     hasImageOptions,
@@ -69,6 +70,29 @@ export const QuestionExperience = memo(function QuestionExperience({
     optionsRef,
     graphWrapperRef,
   });
+
+  // Scroll anywhere in the question area into the options container when it can
+  // scroll, so the statement stays static and only the options move.
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      const options = optionsScrollRef.current;
+      if (!options) return;
+      if (options.scrollHeight <= options.clientHeight) return;
+
+      const atTop = options.scrollTop <= 0;
+      const atBottom = options.scrollTop + options.clientHeight >= options.scrollHeight - 1;
+      if ((e.deltaY > 0 && atBottom) || (e.deltaY < 0 && atTop)) return;
+
+      e.preventDefault();
+      options.scrollTop += e.deltaY;
+    };
+
+    container.addEventListener("wheel", handleWheel, { passive: false });
+    return () => container.removeEventListener("wheel", handleWheel);
+  }, [containerRef]);
 
   const handleSelect = (label: string) => {
     onSelect(label);
@@ -86,12 +110,12 @@ export const QuestionExperience = memo(function QuestionExperience({
   const totalInSection = sectionQuestions.length;
 
   return (
-    <div className="flex flex-col gap-4 md:gap-6">
+    <div className="flex flex-col gap-4 md:gap-6 h-full">
       {/* Statement + Options: layout decided by the rendering engine */}
       <div
         ref={containerRef}
-        className="grid items-start gap-4 md:gap-6 [&>*]:min-w-0"
-        style={{ gridTemplateColumns }}
+        className="grid items-start gap-4 md:gap-6 [&>*]:min-w-0 flex-1 min-h-0"
+        style={{ gridTemplateColumns, gridTemplateRows }}
       >
         <div
           ref={statementRef}
@@ -106,18 +130,19 @@ export const QuestionExperience = memo(function QuestionExperience({
             split={layout === "vertical"}
           />
         </div>
-        <div ref={optionsRef}>
+        <div ref={optionsRef} className="self-stretch min-h-0">
           <ResponseOptions
             question={question}
             selectedAnswer={selectedAnswer}
             onSelect={handleSelect}
             onOpenImageModal={onOpenImageModal}
+            scrollRef={optionsScrollRef}
           />
         </div>
       </div>
 
       {/* Quick Nav for Mobile / Desktop Bottom */}
-      <div className="lg:hidden">
+      <div className="lg:hidden shrink-0">
         <div className="bg-card border border-border rounded-sm shadow-lg p-4">
           {!isNavigatorExpanded ? (
             <div className="flex items-center justify-between gap-3">
