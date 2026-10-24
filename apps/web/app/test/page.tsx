@@ -14,6 +14,7 @@ import SectionModal from "@/app/components/SectionModal";
 import { QuestionExperience } from "@/app/components/assessment/QuestionExperience";
 import { DesktopNavigator } from "@/app/components/assessment/DesktopNavigator";
 import { useAssessment } from "@/lib/hooks/useAssessment";
+import { useFontScale } from "@/lib/font-scale";
 import { AssessmentErrorBoundary } from "@/app/components/error/AssessmentErrorBoundary";
 import { preloadGraphAspects } from "@/lib/graph-aspects";
 
@@ -25,6 +26,7 @@ import { FULL_TEST_TOPICS } from "@/lib/constants";
 
 export default function QuestionPage() {
   const router = useRouter();
+  const { increase, decrease, scale, scaleIndex, steps } = useFontScale();
  
   // Modals state
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
@@ -143,6 +145,10 @@ export default function QuestionPage() {
 
   if (!currentQuestion) return null;
 
+  const explanation = quizData.explanations?.find(
+    (e) => e.original_number === currentQuestion.original_number,
+  );
+
   return (
     <AssessmentErrorBoundary>
     <div className="h-full flex flex-col bg-background transition-colors">
@@ -186,6 +192,27 @@ export default function QuestionPage() {
                 <span className="hidden sm:inline">Finalizar</span>
               </button>
             </div>
+
+            <div className="flex items-center gap-1 md:gap-2">
+              <button
+                onClick={decrease}
+                disabled={scaleIndex === 0}
+                className="flex items-center justify-center w-8 h-8 md:w-14 md:h-14 bg-card rounded-sm border border-border shadow-sm hover:bg-muted transition-colors disabled:opacity-30"
+                title="Reducir tamaño de texto"
+                aria-label="Reducir tamaño de texto"
+              >
+                <span className="text-xs md:text-sm font-bold text-foreground">A−</span>
+              </button>
+              <button
+                onClick={increase}
+                disabled={scaleIndex === steps.length - 1}
+                className="flex items-center justify-center w-8 h-8 md:w-14 md:h-14 bg-card rounded-sm border border-border shadow-sm hover:bg-muted transition-colors disabled:opacity-30"
+                title="Aumentar tamaño de texto"
+                aria-label="Aumentar tamaño de texto"
+              >
+                <span className="text-base md:text-xl font-bold text-foreground">A+</span>
+              </button>
+            </div>
           </>,
           portalContainer,
         )}
@@ -211,13 +238,14 @@ export default function QuestionPage() {
           </div>
         </aside>
 
-        <div className="flex-1 min-w-0 min-h-0 overflow-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+        <div className="flex-1 min-w-0 min-h-0 overflow-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden" style={{ zoom: scale }}>
           <div className="max-w-7xl mx-auto px-4 md:px-8 py-6 md:py-10 h-full flex flex-col">
             <QuestionExperience
               question={currentQuestion}
               currentIndex={currentIndex}
               sectionQuestions={currentSectionQuestionsWithGlobalIndex}
               testMode={testMode}
+              explanation={explanation}
               selectedAnswer={selectedAnswers[currentIndex]}
               selectedAnswers={selectedAnswers}
               flaggedQuestions={flaggedQuestions}

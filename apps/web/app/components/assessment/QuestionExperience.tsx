@@ -8,9 +8,11 @@ import {
   ChevronUp,
   ChevronDown
 } from "lucide-react";
-import type { Question, TestMode } from "@/lib/types";
+import type { Explanation, Question, TestMode } from "@/lib/types";
+import { getModeBehavior } from "@/lib/practice-mode";
 import { QuestionStatement } from "./QuestionStatement";
 import { ResponseOptions } from "./ResponseOptions";
+import { ExplanationPanel } from "./ExplanationPanel";
 import { useQuestionLayout } from "./useQuestionLayout";
 
 interface QuestionExperienceProps {
@@ -19,6 +21,7 @@ interface QuestionExperienceProps {
   currentIndex: number;
   sectionQuestions: { globalIndex: number; section_number: number }[];
   testMode: TestMode;
+  explanation?: Explanation;
 
   // State
   selectedAnswer?: string;
@@ -43,6 +46,7 @@ export const QuestionExperience = memo(function QuestionExperience({
   currentIndex,
   sectionQuestions,
   testMode,
+  explanation,
   selectedAnswer,
   selectedAnswers,
   flaggedQuestions,
@@ -57,13 +61,16 @@ export const QuestionExperience = memo(function QuestionExperience({
 }: QuestionExperienceProps) {
   const [isNavigatorExpanded, setIsNavigatorExpanded] = useState(false);
   const [gridActiveKey, setGridActiveKey] = useState<number | null>(null);
+  const [flashAnswer, setFlashAnswer] = useState<string | null>(null);
+  const prevQuestionKeyRef = useRef(question.original_number);
   const autoNextTimer = useRef<NodeJS.Timeout | null>(null);
   const statementRef = useRef<HTMLDivElement | null>(null);
   const optionsRef = useRef<HTMLDivElement | null>(null);
   const graphWrapperRef = useRef<HTMLDivElement | null>(null);
   const optionsScrollRef = useRef<HTMLDivElement | null>(null);
   const hasImageOptions = question.options.some((option) => option.image);
-  const { containerRef, layout, gridTemplateColumns, gridTemplateRows, graphMaxHeight, isStickyStatement } = useQuestionLayout({
+  const behavior = getModeBehavior(testMode);
+  const { containerRef, layout, gridTemplateColumns, gridTemplateRows, graphMaxHeight, isStickyStatement, explanationPlacement } = useQuestionLayout({
     graphSrc: sharedImageSrc,
     questionKey: question.original_number,
     hasImageOptions,
@@ -71,6 +78,25 @@ export const QuestionExperience = memo(function QuestionExperience({
     optionsRef,
     graphWrapperRef,
   });
+
+  const revealed = behavior.immediateFeedback && Boolean(selectedAnswer);
+  const showPanel = behavior.showExplanation && revealed;
+
+  if (prevQuestionKeyRef.current !== question.original_number) {
+    prevQuestionKeyRef.current = question.original_number;
+    setFlashAnswer(null);
+  }
+
+  const flashActive = revealed && flashAnswer === selectedAnswer;
+
+  useEffect(() => {
+    return () => {
+      if (autoNextTimer.current) {
+        clearTimeout(autoNextTimer.current);
+        autoNextTimer.current = null;
+      }
+    };
+  }, [question.original_number]);
 
   // Scroll anywhere in the question area into the options container when it can
   // scroll, so the statement stays static and only the options move.
@@ -120,16 +146,26 @@ export const QuestionExperience = memo(function QuestionExperience({
     onSelect(label);
     if (autoNextTimer.current) {
       clearTimeout(autoNextTimer.current);
-    }
-    autoNextTimer.current = setTimeout(() => {
-      onNext();
       autoNextTimer.current = null;
-    }, 300);
+    }
+    if (behavior.autoAdvance) {
+      autoNextTimer.current = setTimeout(() => {
+        onNext();
+        autoNextTimer.current = null;
+      }, 300);
+    } else {
+      setFlashAnswer(label);
+    }
   };
 
   const sectionIndex = sectionQuestions.findIndex(q => q.globalIndex === currentIndex);
   const currentSectionNumber = sectionIndex + 1;
   const totalInSection = sectionQuestions.length;
+
+  const effectiveGridTemplateRows =
+    showPanel && explanationPlacement === "below"
+      ? "auto minmax(0, 1fr) auto"
+      : gridTemplateRows;
 
   return (
     <div className="flex flex-col gap-4 md:gap-6 h-full">
@@ -137,7 +173,7 @@ export const QuestionExperience = memo(function QuestionExperience({
       <div
         ref={containerRef}
         className="grid items-start gap-4 md:gap-6 [&>*]:min-w-0 flex-1 min-h-0"
-        style={{ gridTemplateColumns, gridTemplateRows }}
+        style={{ gridTemplateColumns, gridTemplateRows: effectiveGridTemplateRows }}
       >
         <div
           ref={statementRef}
@@ -160,8 +196,30 @@ export const QuestionExperience = memo(function QuestionExperience({
             onOpenImageModal={onOpenImageModal}
             scrollRef={optionsScrollRef}
             useGrid={useGridOptions}
-          />
+            revealed={revealed}
+            correctAnswer={question.correct_answer}
+            flash={flashActive}
+          >
+            {showPanel && explanationPlacement === "options-column" && (
+              <ExplanationPanel
+                question={question}
+                selectedAnswer={selectedAnswer}
+                explanation={explanation}
+                onOpenImageModal={onOpenImageModal}
+              />
+            )}
+          </ResponseOptions>
         </div>
+        {showPanel && explanationPlacement === "below" && (
+          <div className="min-h-0">
+            <ExplanationPanel
+              question={question}
+              selectedAnswer={selectedAnswer}
+              explanation={explanation}
+              onOpenImageModal={onOpenImageModal}
+            />
+          </div>
+        )}
       </div>
 
       {/* Quick Nav for Mobile / Desktop Bottom */}

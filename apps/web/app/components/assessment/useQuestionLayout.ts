@@ -6,6 +6,8 @@ import { getGraphAspect, preloadGraphAspect } from "@/lib/graph-aspects";
 
 export type QuestionLayout = "horizontal" | "vertical";
 
+export type ExplanationPlacement = "options-column" | "below";
+
 // Below this viewport width the layout is always forced vertical (matches the
 // `lg` breakpoint used by the previous hardcoded grid).
 const VIEWPORT_BREAKPOINT_PX = 1024;
@@ -224,5 +226,8 @@ export function useQuestionLayout({
   const effectiveGraphMaxHeight =
     hasGraph && layout === "vertical" && graphMaxHeight !== null ? graphMaxHeight : undefined;
 
-  return { containerRef, layout, gridTemplateColumns, gridTemplateRows, graphMaxHeight: effectiveGraphMaxHeight, isStickyStatement };
+  const explanationPlacement: ExplanationPlacement =
+    layout === "horizontal" ? "options-column" : "below";
+
+  return { containerRef, layout, gridTemplateColumns, gridTemplateRows, graphMaxHeight: effectiveGraphMaxHeight, isStickyStatement, explanationPlacement };
 }

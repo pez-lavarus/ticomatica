@@ -85,12 +85,6 @@ body {
   font-family: var(--font-public-sans), system-ui, -apple-system, sans-serif;
 }
 
-/* Root font size is scaled by the font-scale manager so every rem-based text
-   utility grows and shrinks consistently across the app. */
-html {
-  font-size: calc(16px * var(--font-scale));
-}
-
 /* Smooth page transitions and theme switching */
 * {
   scroll-behavior: smooth;
@@ -153,4 +147,34 @@ img, video, .no-transition, .no-transition * {
 /* Logo wordmark: in dark mode invert to a light version for proper contrast. */
 .dark .ticomatica-logo-title {
   filter: invert(100%) hue-rotate(180deg);
+}
+
+/* Practice-mode answer flash: pulse the selected option a few times before it
+   settles into its solid success/destructive state. */
+@keyframes answer-flash-correct {
+  0% { box-shadow: 0 0 0 0 rgba(163, 193, 173, 0); }
+  16.66% { box-shadow: 0 0 0 6px rgba(163, 193, 173, 0.6); }
+  33.33% { box-shadow: 0 0 0 0 rgba(163, 193, 173, 0); }
+  50% { box-shadow: 0 0 0 6px rgba(163, 193, 173, 0.6); }
+  66.66% { box-shadow: 0 0 0 0 rgba(163, 193, 173, 0); }
+  83.33% { box-shadow: 0 0 0 6px rgba(163, 193, 173, 0.6); }
+  100% { box-shadow: 0 0 0 0 rgba(163, 193, 173, 0); }
+}
+
+@keyframes answer-flash-incorrect {
+  0% { box-shadow: 0 0 0 0 rgba(184, 134, 11, 0); }
+  16.66% { box-shadow: 0 0 0 6px rgba(184, 134, 11, 0.6); }
+  33.33% { box-shadow: 0 0 0 0 rgba(184, 134, 11, 0); }
+  50% { box-shadow: 0 0 0 6px rgba(184, 134, 11, 0.6); }
+  66.66% { box-shadow: 0 0 0 0 rgba(184, 134, 11, 0); }
+  83.33% { box-shadow: 0 0 0 6px rgba(184, 134, 11, 0.6); }
+  100% { box-shadow: 0 0 0 0 rgba(184, 134, 11, 0); }
+}
+
+.answer-flash-correct {
+  animation: answer-flash-correct 0.8s ease-in-out 1;
+}
+
+.answer-flash-incorrect {
+  animation: answer-flash-incorrect 0.8s ease-in-out 1;
 }

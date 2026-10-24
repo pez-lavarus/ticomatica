@@ -5,9 +5,9 @@ import { createContext, useContext, useEffect, useState } from "react";
 // Available font scale steps. The active step is applied to the `--font-scale`
 // custom property, which scales the root font size. Because Tailwind text
 // utilities use rem units, every rem-based size scales system-wide at once.
-// PX-based arbitrary values (e.g. text-[10px]) do not scale and should migrate
-// to rem tokens when full scaling is needed.
-const FONT_SCALE_STEPS = [0.875, 1, 1.125, 1.25, 1.5] as const;
+// The current size is the smallest step; two larger steps are provided, and the
+// default is the middle step.
+const FONT_SCALE_STEPS = [1, 1.125, 1.25] as const;
 
 const DEFAULT_SCALE_INDEX = 1;
 const STORAGE_KEY = "bxm-pilot-font-scale";

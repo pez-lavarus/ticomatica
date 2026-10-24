@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, type ReactNode } from "react";
 import Image from "next/image";
 import { KaTeXText } from "@/lib/katex-utils";
 import { getGraphDimensions } from "@/lib/graph-aspects";
@@ -13,6 +13,10 @@ interface ResponseOptionsProps {
   onOpenImageModal: (src: string, alt: string) => void;
   scrollRef?: React.RefObject<HTMLDivElement | null>;
   useGrid?: boolean;
+  revealed?: boolean;
+  correctAnswer?: string;
+  flash?: boolean;
+  children?: ReactNode;
 }
 
 export function ResponseOptions({
@@ -22,8 +26,16 @@ export function ResponseOptions({
   onOpenImageModal,
   scrollRef,
   useGrid,
+  revealed,
+  correctAnswer,
+  flash,
+  children,
 }: ResponseOptionsProps) {
   const longPressTimer = useRef<NodeJS.Timeout | null>(null);
+  const isCorrect = selectedAnswer === correctAnswer;
+  const visibleOptions = revealed
+    ? question.options.filter((option) => option.label === selectedAnswer)
+    : question.options;
 
   const handleTouchStart = (src: string, alt: string) => {
     longPressTimer.current = setTimeout(() => {
@@ -55,23 +67,30 @@ export function ResponseOptions({
         ref={scrollRef}
         className={`flex-1 min-h-0 overflow-y-auto hide-scrollbar ${useGrid ? "grid grid-cols-2 gap-3 md:gap-6 content-start" : "space-y-3 md:space-y-6"}`}
       >
-        {question.options.map((option) => {
+        {visibleOptions.map((option) => {
           const isSelected = selectedAnswer === option.label;
           const optionImageDimensions = option.image ? getGraphDimensions(option.image) : null;
+          const buttonClasses = revealed && isSelected
+            ? (isCorrect ? "border-success bg-success/10" : "border-destructive bg-destructive/10")
+            : isSelected
+              ? "border-primary bg-muted/40 shadow-sm"
+              : "border-border/60 hover:border-accent bg-card";
+          const letterClasses = revealed && isSelected
+            ? (isCorrect ? "bg-success text-success-foreground border-success" : "bg-destructive text-destructive-foreground border-destructive")
+            : isSelected
+              ? "bg-primary text-primary-foreground border-primary"
+              : "bg-card text-foreground border-border/60 group-hover:border-accent";
+          const flashClasses = flash && isSelected
+            ? (isCorrect ? "answer-flash-correct" : "answer-flash-incorrect")
+            : "";
           return (
             <button
               key={option.label}
               onClick={() => onSelect(option.label)}
-              className={`w-full flex gap-4 md:gap-9 p-3 md:p-5 rounded-sm border-2 text-left transition-all group active:scale-[0.98] ${isSelected
-                ? "border-primary bg-muted/40 shadow-sm"
-                : "border-border/60 hover:border-accent bg-card"
-                }`}
+              className={`w-full flex gap-4 md:gap-9 p-3 md:p-5 rounded-sm border-2 text-left transition-all group active:scale-[0.98] ${buttonClasses} ${flashClasses}`}
             >
               <div
-                className={`w-7 h-7 md:w-9 md:h-9 flex-shrink-0 flex items-center justify-center rounded-sm font-bold text-base md:text-lg border-2 transition-colors ${isSelected
-                  ? "bg-primary text-primary-foreground border-primary"
-                  : "bg-card text-foreground border-border/60 group-hover:border-accent"
-                  }`}
+                className={`w-7 h-7 md:w-9 md:h-9 flex-shrink-0 flex items-center justify-center rounded-sm font-bold text-base md:text-lg border-2 transition-colors ${letterClasses}`}
               >
                 {option.label}
               </div>
@@ -107,6 +126,7 @@ export function ResponseOptions({
             </button>
           );
         })}
+        {children}
       </div>
     </div>
   );

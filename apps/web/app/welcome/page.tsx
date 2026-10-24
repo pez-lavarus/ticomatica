@@ -102,7 +102,7 @@ export default function WelcomePage() {
                 </span>
               </div>
               <h1 className="text-2xl md:text-4xl font-serif tracking-tight text-foreground mb-3 md:mb-4 font-bold">
-                Exámen de Matemáticas
+                Práctica de Matemáticas
               </h1>
               <p className="text-xs md:text-lg text-muted-foreground font-medium uppercase tracking-[0.15em] md:tracking-[0.2em]">
                 Bachillerato por Madurez Suficiente
@@ -115,9 +115,6 @@ export default function WelcomePage() {
 
             {/* Mode Selection */}
             <div className="mt-8 md:mt-14">
-              <p className="text-xs md:text-xs uppercase tracking-[0.15em] md:tracking-[0.2em] text-muted-foreground mb-4 md:mb-6 text-center font-bold">
-                Seleccione la práctica
-              </p>
               <div className="flex flex-wrap justify-center gap-2 md:gap-4">
                 {(Object.keys(TEST_CONFIGS) as TestMode[]).map((mode) => (
                   <button
@@ -208,7 +205,7 @@ export default function WelcomePage() {
                 className={`flex-[2] py-7 bg-primary text-primary-foreground font-bold text-base rounded-sm transition-colors hover:brightness-90 flex items-center justify-center gap-3 shadow-md ${hasSession ? "" : "w-full"}`}
               >
                 <Play className="w-5 h-5 fill-current" />
-                {hasSession ? "NUEVA PRUEBA" : "INICIAR PRUEBA"}
+                {hasSession ? "NUEVA PRÁCTICA" : "INICIAR PRÁCTICA"}
                 <ArrowRight className="w-5 h-5 ml-1" />
               </button>
             </div>
