@@ -3,12 +3,8 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { Trophy, RotateCcw, Home, CheckCircle, XCircle, ChevronDown } from "lucide-react";
-import Image from "next/image";
-import { ThemeToggle } from "@/app/components/ThemeToggle";
-import { Logo } from "@/app/components/Logo";
-import { KaTeXText, ExplanationText } from "@/lib/katex-utils";
-import type { QuizData, UserData, Explanation, TestMode } from "@/lib/types";
+import { Trophy, RotateCcw, Home } from "lucide-react";
+import type { QuizData, TestMode } from "@/lib/types";
 
 // Import the normalized JSON manifest
 import quizDataRaw from "@/data/BXM_Math_Full_02_2026_questions_answers.json";
@@ -17,24 +13,17 @@ const quizData: QuizData = quizDataRaw as unknown as QuizData;
 
 export default function ResultsPage() {
   const router = useRouter();
-  const [user, setUser] = useState<UserData | null>(null);
   const [selectedAnswers, setSelectedAnswers] = useState<Record<number, string>>({});
   const [timeLeft, setTimeLeft] = useState<number>(0);
   const [testMode, setTestMode] = useState<TestMode>("full");
-  const [expandedQuestions, setExpandedQuestions] = useState<Record<number, boolean>>({});
-  const [activeTopicTab, setActiveTopicTab] = useState<string>("Todos");
-  const [activeFilter, setActiveFilter] = useState<"all" | "incorrect" | "correct">("all");
-  const [isPerformanceExpanded, setIsPerformanceExpanded] = useState(false);
 
   // Load data from localStorage
   useEffect(() => {
-    const savedUser = localStorage.getItem("bxm-pilot-user");
     const savedAnswers = localStorage.getItem("bxm-pilot-answers");
     const savedTimeStr = localStorage.getItem("bxm-pilot-time-left");
     const savedMode = localStorage.getItem("bxm-pilot-mode") as TestMode | null;
     const savedTopicIndexStr = localStorage.getItem("bxm-pilot-topic-index");
 
-    if (savedUser) setUser(JSON.parse(savedUser));
     if (savedAnswers) setSelectedAnswers(JSON.parse(savedAnswers));
     if (savedMode) setTestMode(savedMode);
 
@@ -168,41 +157,30 @@ export default function ResultsPage() {
 
         {/* Topic Breakdown */}
         <div className="bg-card text-card-foreground border border-border/60 rounded-sm shadow-xl overflow-hidden mb-8 sm:mb-12">
-          <button
-            onClick={() => setIsPerformanceExpanded(!isPerformanceExpanded)}
-            className="w-full flex items-center justify-between p-5 sm:p-6 bg-muted/20 hover:bg-muted/30 transition-colors"
-          >
+          <div className="p-5 sm:p-6 bg-muted/20">
             <h3 className="text-xs sm:text-base font-bold text-foreground uppercase tracking-[0.2em] sm:tracking-[0.3em]">Desempeño por Áreas</h3>
-            <div className="flex items-center gap-3 sm:gap-4">
-              <span className="hidden sm:inline text-xs font-bold text-muted-foreground uppercase tracking-widest">
-                {isPerformanceExpanded ? "Contraer" : "Expandir detalles"}
-              </span>
-              <ChevronDown className={`w-5 h-5 text-muted-foreground transition-transform duration-300 ${isPerformanceExpanded ? "rotate-180" : "rotate-0"}`} />
-            </div>
-          </button>
+          </div>
 
-          <div className={`transition-all duration-500 ease-in-out overflow-hidden ${isPerformanceExpanded ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"}`}>
-            <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-border/60">
-              {topicStats.map((stat) => (
-                <div key={stat.topic} className="p-4 sm:p-8">
-                  <div className="flex justify-between items-start mb-4">
-                    <h4 className="text-xs sm:text-xs font-bold text-foreground uppercase tracking-[0.1em] sm:tracking-[0.15em]">{stat.topic}</h4>
-                    <span className={`text-xs sm:text-xs font-bold uppercase tracking-[0.2em] ${stat.percentage >= 65 ? "text-success" : "text-destructive"}`}>
-                      {stat.percentage}%
-                    </span>
-                  </div>
-                  <div className="w-full h-1.5 bg-muted rounded-none overflow-hidden mb-4">
-                    <div
-                      className={`h-full transition-all duration-1000 ${stat.percentage >= 65 ? "bg-success" : "bg-destructive"}`}
-                      style={{ width: `${stat.percentage}%` }}
-                    />
-                  </div>
-                  <div className="text-xs sm:text-xs font-bold text-muted-foreground uppercase tracking-[0.2em]">
-                    {stat.correct} de {stat.total} aciertos
-                  </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-border/60">
+            {topicStats.map((stat) => (
+              <div key={stat.topic} className="p-4 sm:p-8">
+                <div className="flex justify-between items-start mb-4">
+                  <h4 className="text-xs sm:text-xs font-bold text-foreground uppercase tracking-[0.1em] sm:tracking-[0.15em]">{stat.topic}</h4>
+                  <span className={`text-xs sm:text-xs font-bold uppercase tracking-[0.2em] ${stat.percentage >= 65 ? "text-success" : "text-destructive"}`}>
+                    {stat.percentage}%
+                  </span>
                 </div>
-              ))}
-            </div>
+                <div className="w-full h-1.5 bg-muted rounded-none overflow-hidden mb-4">
+                  <div
+                    className={`h-full transition-all duration-1000 ${stat.percentage >= 65 ? "bg-success" : "bg-destructive"}`}
+                    style={{ width: `${stat.percentage}%` }}
+                  />
+                </div>
+                <div className="text-xs sm:text-xs font-bold text-muted-foreground uppercase tracking-[0.2em]">
+                  {stat.correct} de {stat.total} aciertos
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 
