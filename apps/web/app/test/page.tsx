@@ -88,7 +88,10 @@ export default function QuestionPage() {
     topic,
     questions: allQuestionsWithGlobalIndex
       .filter((q) => q.topic === topic)
-      .map((q) => ({ globalIndex: q.globalIndex, section_number: q.section_number })),
+      .map((q) => ({
+        globalIndex: q.globalIndex,
+        section_number: testMode === "full" ? q.globalIndex + 1 : q.section_number,
+      })),
   }));
 
   const handleNextWithFinish = useCallback(() => {
