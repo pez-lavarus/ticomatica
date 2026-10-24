@@ -39,12 +39,6 @@ export function ResponseOptions({
     }
   };
 
-  const hasImageOptions = question.options.some((opt) => opt.image);
-  const isShortTextOptions = !hasImageOptions && question.options.every(
-    (opt) => opt.text && opt.text.length < 50
-  );
-  const useGridLayout = isShortTextOptions;
-
   return (
     <div className="bg-card text-card-foreground border border-border rounded-sm shadow-md p-5 md:p-8 flex flex-col h-full">
       {/* Statement container */}
@@ -57,7 +51,7 @@ export function ResponseOptions({
       {/* Options container */}
       <div
         ref={scrollRef}
-        className={`flex-1 min-h-0 overflow-y-auto hide-scrollbar ${useGridLayout ? "grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6 content-start" : "space-y-3 md:space-y-6"}`}
+        className="flex-1 min-h-0 overflow-y-auto hide-scrollbar space-y-3 md:space-y-6"
       >
         {question.options.map((option) => {
           const isSelected = selectedAnswer === option.label;
@@ -66,7 +60,7 @@ export function ResponseOptions({
             <button
               key={option.label}
               onClick={() => onSelect(option.label)}
-              className={`w-full flex gap-4 md:gap-8 ${useGridLayout ? "p-4 md:p-8" : "p-4 md:p-10"} rounded-sm border-2 text-left transition-all group active:scale-[0.98] ${isSelected
+              className={`w-full flex gap-4 md:gap-8 p-4 md:p-10 rounded-sm border-2 text-left transition-all group active:scale-[0.98] ${isSelected
                 ? "border-primary bg-muted/40 shadow-sm"
                 : "border-border/60 hover:border-accent bg-card"
                 }`}
