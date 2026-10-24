@@ -122,7 +122,7 @@ export default function ResultsPage() {
                 <div className={`text-3xl sm:text-5xl font-bold tabular-nums ${passing ? "text-success" : "text-destructive"}`}>
                   {percentage}%
                 </div>
-                <div className="text-[10px] sm:text-[9px] font-bold tracking-[0.2em] text-muted-foreground mt-1 uppercase">
+                <div className="text-[0.625rem] sm:text-[0.5625rem] font-bold tracking-[0.2em] text-muted-foreground mt-1 uppercase">
                   {passing ? "Aprobado" : "Reprobado"}
                 </div>
               </div>
@@ -136,7 +136,7 @@ export default function ResultsPage() {
                   <div className="text-3xl sm:text-4xl font-bold text-foreground tabular-nums">
                     {score} <span className="text-xl sm:text-2xl text-muted-foreground font-normal">/ {totalQuestions}</span>
                   </div>
-                  {/* <p className="text-[8px] sm:text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em] mt-1">Aciertos totales obtenidos</p> */}
+                  {/* <p className="text-[0.5rem] sm:text-[0.625rem] font-bold text-muted-foreground uppercase tracking-[0.2em] mt-1">Aciertos totales obtenidos</p> */}
                 </div>
               </div>
 
@@ -149,17 +149,17 @@ export default function ResultsPage() {
               <div className="grid grid-cols-3 gap-2 sm:gap-6 mt-6 sm:mt-8">
                 <div className="text-center p-2 sm:p-4 bg-muted/30 rounded-sm border border-border/60">
                   <div className="text-xl sm:text-2xl font-bold text-success">{score}</div>
-                  <div className="text-[8px] sm:text-[9px] font-bold text-muted-foreground mt-1 uppercase tracking-[0.1em] sm:tracking-[0.2em]">Correctas</div>
+                  <div className="text-[0.5rem] sm:text-[0.5625rem] font-bold text-muted-foreground mt-1 uppercase tracking-[0.1em] sm:tracking-[0.2em]">Correctas</div>
                 </div>
                 <div className="text-center p-2 sm:p-4 bg-muted/30 rounded-sm border border-border/60">
                   <div className="text-xl sm:text-2xl font-bold text-destructive">{totalQuestions - score}</div>
-                  <div className="text-[8px] sm:text-[9px] font-bold text-muted-foreground mt-1 uppercase tracking-[0.1em] sm:tracking-[0.2em]">Incorrectas</div>
+                  <div className="text-[0.5rem] sm:text-[0.5625rem] font-bold text-muted-foreground mt-1 uppercase tracking-[0.1em] sm:tracking-[0.2em]">Incorrectas</div>
                 </div>
                 <div className="text-center p-2 sm:p-4 bg-muted/30 rounded-sm border border-border/60">
                   <div className="text-xl sm:text-2xl font-bold text-foreground">
                     {timeLeft > 0 ? Math.floor(timeLeft / 60) : 0}
                   </div>
-                  <div className="text-[8px] sm:text-[9px] font-bold text-muted-foreground mt-1 uppercase tracking-[0.1em] sm:tracking-[0.2em]">Minutos</div>
+                  <div className="text-[0.5rem] sm:text-[0.5625rem] font-bold text-muted-foreground mt-1 uppercase tracking-[0.1em] sm:tracking-[0.2em]">Minutos</div>
                 </div>
               </div>
             </div>
@@ -172,9 +172,9 @@ export default function ResultsPage() {
             onClick={() => setIsPerformanceExpanded(!isPerformanceExpanded)}
             className="w-full flex items-center justify-between p-5 sm:p-6 bg-muted/20 hover:bg-muted/30 transition-colors"
           >
-            <h3 className="text-[12px] sm:text-[15px] font-bold text-foreground uppercase tracking-[0.2em] sm:tracking-[0.3em]">Desempeño por Áreas</h3>
+            <h3 className="text-[0.75rem] sm:text-[0.9375rem] font-bold text-foreground uppercase tracking-[0.2em] sm:tracking-[0.3em]">Desempeño por Áreas</h3>
             <div className="flex items-center gap-3 sm:gap-4">
-              <span className="hidden sm:inline text-[8px] font-bold text-muted-foreground uppercase tracking-widest">
+              <span className="hidden sm:inline text-[0.5rem] font-bold text-muted-foreground uppercase tracking-widest">
                 {isPerformanceExpanded ? "Contraer" : "Expandir detalles"}
               </span>
               <ChevronDown className={`w-5 h-5 text-muted-foreground transition-transform duration-300 ${isPerformanceExpanded ? "rotate-180" : "rotate-0"}`} />
@@ -186,8 +186,8 @@ export default function ResultsPage() {
               {topicStats.map((stat) => (
                 <div key={stat.topic} className="p-4 sm:p-8">
                   <div className="flex justify-between items-start mb-4">
-                    <h4 className="text-[10px] sm:text-[10px] font-bold text-foreground uppercase tracking-[0.1em] sm:tracking-[0.15em]">{stat.topic}</h4>
-                    <span className={`text-[10px] sm:text-[10px] font-bold uppercase tracking-[0.2em] ${stat.percentage >= 65 ? "text-success" : "text-destructive"}`}>
+                    <h4 className="text-[0.625rem] sm:text-[0.625rem] font-bold text-foreground uppercase tracking-[0.1em] sm:tracking-[0.15em]">{stat.topic}</h4>
+                    <span className={`text-[0.625rem] sm:text-[0.625rem] font-bold uppercase tracking-[0.2em] ${stat.percentage >= 65 ? "text-success" : "text-destructive"}`}>
                       {stat.percentage}%
                     </span>
                   </div>
@@ -197,7 +197,7 @@ export default function ResultsPage() {
                       style={{ width: `${stat.percentage}%` }}
                     />
                   </div>
-                  <div className="text-[8px] sm:text-[9px] font-bold text-muted-foreground uppercase tracking-[0.2em]">
+                  <div className="text-[0.5rem] sm:text-[0.5625rem] font-bold text-muted-foreground uppercase tracking-[0.2em]">
                     {stat.correct} de {stat.total} aciertos
                   </div>
                 </div>
@@ -208,7 +208,7 @@ export default function ResultsPage() {
 
         {/* Detailed Review Section */}
         <div className="mb-24">
-          <h3 className="uppercase tracking-[0.2em] sm:tracking-[0.3em] text-[9px] sm:text-[10px] font-bold text-muted-foreground mb-6 sm:mb-8 px-1 text-center md:text-left">
+          <h3 className="uppercase tracking-[0.2em] sm:tracking-[0.3em] text-[0.5625rem] sm:text-[0.625rem] font-bold text-muted-foreground mb-6 sm:mb-8 px-1 text-center md:text-left">
             Desglose
           </h3>
 
@@ -221,7 +221,7 @@ export default function ResultsPage() {
                   <button
                     key={t}
                     onClick={() => setActiveTopicTab(t)}
-                    className={`whitespace-nowrap px-4 py-2 sm:px-5 sm:py-2.5 rounded-sm text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.1em] sm:tracking-[0.2em] transition-all border shrink-0 ${activeTopicTab === t
+                    className={`whitespace-nowrap px-4 py-2 sm:px-5 sm:py-2.5 rounded-sm text-[0.5625rem] sm:text-[0.625rem] font-bold uppercase tracking-[0.1em] sm:tracking-[0.2em] transition-all border shrink-0 ${activeTopicTab === t
                       ? "bg-primary text-primary-foreground border-primary shadow-md"
                       : "bg-card text-muted-foreground border-border/60 hover:border-secondary"
                       }`}
@@ -236,19 +236,19 @@ export default function ResultsPage() {
             <div className="flex w-full lg:w-auto bg-muted p-1 rounded-sm border border-border/60 shrink-0">
               <button
                 onClick={() => setActiveFilter("all")}
-                className={`flex-1 px-2 py-2 sm:px-5 sm:py-2.5 rounded-sm text-[8px] sm:text-[9px] font-bold uppercase tracking-[0.1em] sm:tracking-[0.2em] transition-all text-center ${activeFilter === "all" ? "bg-card shadow text-foreground" : "text-muted-foreground hover:text-foreground"}`}
+                className={`flex-1 px-2 py-2 sm:px-5 sm:py-2.5 rounded-sm text-[0.5rem] sm:text-[0.5625rem] font-bold uppercase tracking-[0.1em] sm:tracking-[0.2em] transition-all text-center ${activeFilter === "all" ? "bg-card shadow text-foreground" : "text-muted-foreground hover:text-foreground"}`}
               >
                 Todas
               </button>
               <button
                 onClick={() => setActiveFilter("incorrect")}
-                className={`flex-1 px-2 py-2 sm:px-5 sm:py-2.5 rounded-sm text-[8px] sm:text-[9px] font-bold uppercase tracking-[0.1em] sm:tracking-[0.2em] transition-all text-center ${activeFilter === "incorrect" ? "bg-card shadow text-destructive" : "text-muted-foreground hover:text-destructive"}`}
+                className={`flex-1 px-2 py-2 sm:px-5 sm:py-2.5 rounded-sm text-[0.5rem] sm:text-[0.5625rem] font-bold uppercase tracking-[0.1em] sm:tracking-[0.2em] transition-all text-center ${activeFilter === "incorrect" ? "bg-card shadow text-destructive" : "text-muted-foreground hover:text-destructive"}`}
               >
                 Incorrectas
               </button>
               <button
                 onClick={() => setActiveFilter("correct")}
-                className={`flex-1 px-2 py-2 sm:px-5 sm:py-2.5 rounded-sm text-[8px] sm:text-[9px] font-bold uppercase tracking-[0.1em] sm:tracking-[0.2em] transition-all text-center ${activeFilter === "correct" ? "bg-card shadow text-success" : "text-muted-foreground hover:text-success"}`}
+                className={`flex-1 px-2 py-2 sm:px-5 sm:py-2.5 rounded-sm text-[0.5rem] sm:text-[0.5625rem] font-bold uppercase tracking-[0.1em] sm:tracking-[0.2em] transition-all text-center ${activeFilter === "correct" ? "bg-card shadow text-success" : "text-muted-foreground hover:text-success"}`}
               >
                 Correctas
               </button>
@@ -297,15 +297,15 @@ export default function ResultsPage() {
                           {q.section_number}
                         </span>
                         <div className="truncate">
-                          <p className="text-[9px] sm:text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em] mb-0.5 sm:mb-1">
+                          <p className="text-[0.5625rem] sm:text-[0.625rem] font-bold text-muted-foreground uppercase tracking-[0.2em] mb-0.5 sm:mb-1">
                             Pregunta {q.original_number}
                           </p>
-                          <p className="text-[10px] sm:text-xs font-bold text-foreground uppercase tracking-[0.1em] sm:tracking-[0.2em] truncate">{q.topic}</p>
+                          <p className="text-[0.625rem] sm:text-xs font-bold text-foreground uppercase tracking-[0.1em] sm:tracking-[0.2em] truncate">{q.topic}</p>
                         </div>
                       </div>
 
                       <div className="flex items-center gap-4 sm:gap-6 shrink-0">
-                        <div className={`hidden sm:flex px-4 py-2 rounded-sm text-[9px] font-bold uppercase tracking-[0.2em] items-center gap-2 border ${isExpanded ? "opacity-100" : "opacity-90"} ${isCorrect ? "bg-success/10 border-success/30 text-success" : "bg-destructive/10 border-destructive/30 text-destructive"}`}>
+                        <div className={`hidden sm:flex px-4 py-2 rounded-sm text-[0.5625rem] font-bold uppercase tracking-[0.2em] items-center gap-2 border ${isExpanded ? "opacity-100" : "opacity-90"} ${isCorrect ? "bg-success/10 border-success/30 text-success" : "bg-destructive/10 border-destructive/30 text-destructive"}`}>
                           {isCorrect ? (
                             <>
                               <CheckCircle className="w-3.5 h-3.5" /> Correcta
@@ -326,7 +326,7 @@ export default function ResultsPage() {
                     {isExpanded && (
                       <div className="px-4 sm:px-8 pb-6 sm:pb-10 border-t border-border/60 pt-4 sm:pt-8 bg-card">
                         {/* Mobile Badge */}
-                        <div className={`sm:hidden mb-6 px-4 py-2 w-fit rounded-sm text-[9px] font-bold uppercase tracking-[0.2em] flex items-center gap-2 border ${isCorrect ? "bg-success/10 border-success/30 text-success" : "bg-destructive/10 border-destructive/30 text-destructive"}`}>
+                        <div className={`sm:hidden mb-6 px-4 py-2 w-fit rounded-sm text-[0.5625rem] font-bold uppercase tracking-[0.2em] flex items-center gap-2 border ${isCorrect ? "bg-success/10 border-success/30 text-success" : "bg-destructive/10 border-destructive/30 text-destructive"}`}>
                           {isCorrect ? (
                             <>
                               <CheckCircle className="w-3.5 h-3.5" /> Correcta
@@ -352,7 +352,7 @@ export default function ResultsPage() {
                         )}
 
                         {/* Question Text */}
-                        <div className="prose dark:prose-invert max-w-none text-[15px] sm:text-lg leading-relaxed text-foreground font-serif mb-8 sm:mb-10 break-words whitespace-normal">
+                        <div className="prose dark:prose-invert max-w-none text-[0.9375rem] sm:text-lg leading-relaxed text-foreground font-serif mb-8 sm:mb-10 break-words whitespace-normal">
                           <KaTeXText text={q.statement ? `${q.statement} ${q.problem}` : q.problem} />
                         </div>
 
@@ -360,7 +360,7 @@ export default function ResultsPage() {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                           <div className="p-4 sm:p-6 rounded-sm border border-border/60 bg-muted/10 flex flex-col justify-between">
                             <div>
-                              <div className="uppercase text-[9px] sm:text-[10px] font-bold tracking-[0.2em] sm:tracking-[0.3em] text-muted-foreground mb-4 sm:mb-6">Tu respuesta</div>
+                              <div className="uppercase text-[0.5625rem] sm:text-[0.625rem] font-bold tracking-[0.2em] sm:tracking-[0.3em] text-muted-foreground mb-4 sm:mb-6">Tu respuesta</div>
                               <div className="flex items-start gap-4 sm:gap-6">
                                 <span className="font-mono text-3xl sm:text-4xl font-bold text-muted-foreground/30">{selected || "—"}</span>
                                 <div className="flex-1 text-foreground font-serif text-sm sm:text-base break-words">
@@ -379,7 +379,7 @@ export default function ResultsPage() {
 
                           <div className="p-4 sm:p-6 rounded-sm border border-success/30 bg-success/5 flex flex-col justify-between">
                             <div>
-                              <div className="uppercase text-[9px] sm:text-[10px] font-bold tracking-[0.2em] sm:tracking-[0.3em] text-success mb-4 sm:mb-6">Respuesta correcta</div>
+                              <div className="uppercase text-[0.5625rem] sm:text-[0.625rem] font-bold tracking-[0.2em] sm:tracking-[0.3em] text-success mb-4 sm:mb-6">Respuesta correcta</div>
                               <div className="flex items-start gap-4 sm:gap-6">
                                 <span className="font-mono text-3xl sm:text-4xl font-bold text-success">{correct}</span>
                                 <div className="flex-1 text-foreground font-serif text-sm sm:text-base break-words">
@@ -398,7 +398,7 @@ export default function ResultsPage() {
                         {/* Explanation */}
                         {explanation && (
                           <div className="mt-8 sm:mt-10 pt-8 sm:pt-10 border-t border-border/60">
-                            <h4 className="text-[9px] sm:text-[10px] font-bold text-secondary uppercase tracking-[0.2em] sm:tracking-[0.3em] mb-6 sm:mb-8 flex items-center gap-3 sm:gap-4">
+                            <h4 className="text-[0.5625rem] sm:text-[0.625rem] font-bold text-secondary uppercase tracking-[0.2em] sm:tracking-[0.3em] mb-6 sm:mb-8 flex items-center gap-3 sm:gap-4">
                               <span className="w-8 sm:w-10 h-px bg-secondary/40"></span>
                               Análisis Técnico de la Solución
                             </h4>
@@ -412,7 +412,7 @@ export default function ResultsPage() {
                             <div className="space-y-6 sm:space-y-8 text-sm sm:text-base leading-relaxed text-foreground font-serif">
                               {explanation.explanation_steps.map((step: string, idx: number) => (
                                 <div key={idx} className="flex gap-4 sm:gap-6">
-                                  <span className="font-mono text-[9px] sm:text-[10px] font-bold bg-primary text-primary-foreground px-2 py-1 sm:px-2.5 sm:py-1.5 h-fit rounded-sm shadow-sm shrink-0 mt-0.5">
+                                  <span className="font-mono text-[0.5625rem] sm:text-[0.625rem] font-bold bg-primary text-primary-foreground px-2 py-1 sm:px-2.5 sm:py-1.5 h-fit rounded-sm shadow-sm shrink-0 mt-0.5">
                                     {idx + 1}
                                   </span>
                                   <div className="flex-1 break-words whitespace-normal">
@@ -438,7 +438,7 @@ export default function ResultsPage() {
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full max-w-3xl">
             <button
               onClick={handleRetake}
-              className="flex-1 flex items-center justify-center gap-2 sm:gap-4 px-4 sm:px-8 py-4 sm:py-4 bg-primary text-primary-foreground font-bold text-[10px] uppercase tracking-[0.15em] sm:tracking-[0.2em] rounded-sm transition-all active:scale-[0.98] shadow-md sm:shadow-lg border border-primary"
+              className="flex-1 flex items-center justify-center gap-2 sm:gap-4 px-4 sm:px-8 py-4 sm:py-4 bg-primary text-primary-foreground font-bold text-[0.625rem] uppercase tracking-[0.15em] sm:tracking-[0.2em] rounded-sm transition-all active:scale-[0.98] shadow-md sm:shadow-lg border border-primary"
             >
               <RotateCcw className="w-4 h-4" />
               Reintentar
@@ -446,7 +446,7 @@ export default function ResultsPage() {
 
             <button
               onClick={handleBackToHome}
-              className="flex-1 flex items-center justify-center gap-2 sm:gap-4 px-4 sm:px-8 py-4 sm:py-4 border border-border/60 bg-card text-foreground font-bold text-[10px] uppercase tracking-[0.15em] sm:tracking-[0.2em] rounded-sm transition-all hover:bg-muted active:scale-[0.98]"
+              className="flex-1 flex items-center justify-center gap-2 sm:gap-4 px-4 sm:px-8 py-4 sm:py-4 border border-border/60 bg-card text-foreground font-bold text-[0.625rem] uppercase tracking-[0.15em] sm:tracking-[0.2em] rounded-sm transition-all hover:bg-muted active:scale-[0.98]"
             >
               <Home className="w-4 h-4" />
               Inicio

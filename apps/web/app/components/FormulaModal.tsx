@@ -55,31 +55,31 @@ export default function FormulaModal({ isOpen, onClose, section }: FormulaModalP
           {/* Geometría */}
           {showSection("Geometría") && (
             <section>
-              <h4 className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary mb-8 flex items-center gap-4">
+              <h4 className="text-[0.625rem] uppercase tracking-[0.3em] font-bold text-primary mb-8 flex items-center gap-4">
                 <span className="w-8 h-px bg-primary/30"></span>
                 Geometría
               </h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                 <div className="p-8 bg-muted/20 rounded-sm border border-border/40">
-                  <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground mb-4">Circunferencia</p>
+                  <p className="text-[0.625rem] font-bold uppercase tracking-[0.1em] text-muted-foreground mb-4">Circunferencia</p>
                   <div className="text-lg py-2">
                     <BlockMath math="(x - h)^2 + (y - k)^2 = r^2" />
                   </div>
                 </div>
                 <div className="p-8 bg-muted/20 rounded-sm border border-border/40">
-                  <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground mb-4">Distancia entre puntos</p>
+                  <p className="text-[0.625rem] font-bold uppercase tracking-[0.1em] text-muted-foreground mb-4">Distancia entre puntos</p>
                   <div className="text-lg py-2">
                     <BlockMath math="d = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}" />
                   </div>
                 </div>
                 <div className="p-8 bg-muted/20 rounded-sm border border-border/40">
-                  <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground mb-4">Área de un polígono regular</p>
+                  <p className="text-[0.625rem] font-bold uppercase tracking-[0.1em] text-muted-foreground mb-4">Área de un polígono regular</p>
                   <div className="text-lg py-2">
                     <BlockMath math="A = \frac{n \cdot l \cdot a}{2} = \frac{P \cdot a}{2}" />
                   </div>
                 </div>
                 <div className="p-8 bg-muted/20 rounded-sm border border-border/40">
-                  <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground mb-4">Suma de ángulos internos</p>
+                  <p className="text-[0.625rem] font-bold uppercase tracking-[0.1em] text-muted-foreground mb-4">Suma de ángulos internos</p>
                   <div className="text-lg py-2">
                     <BlockMath math="S = 180^\circ(n - 2)" />
                   </div>
@@ -91,13 +91,13 @@ export default function FormulaModal({ isOpen, onClose, section }: FormulaModalP
           {/* Funciones */}
           {showSection("Funciones") && (
             <section>
-              <h4 className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary mb-8 flex items-center gap-4">
+              <h4 className="text-[0.625rem] uppercase tracking-[0.3em] font-bold text-primary mb-8 flex items-center gap-4">
                 <span className="w-8 h-px bg-primary/30"></span>
                 Funciones
               </h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                 <div className="p-8 bg-muted/20 rounded-sm border border-border/40">
-                  <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground mb-4">Función Lineal</p>
+                  <p className="text-[0.625rem] font-bold uppercase tracking-[0.1em] text-muted-foreground mb-4">Función Lineal</p>
                   <div className="text-lg py-2">
                     <BlockMath math="f(x) = mx + b" />
                   </div>
@@ -107,7 +107,7 @@ export default function FormulaModal({ isOpen, onClose, section }: FormulaModalP
                   </div>
                 </div>
                 <div className="p-8 bg-muted/20 rounded-sm border border-border/40">
-                  <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground mb-4">Función Cuadrática</p>
+                  <p className="text-[0.625rem] font-bold uppercase tracking-[0.1em] text-muted-foreground mb-4">Función Cuadrática</p>
                   <div className="text-lg py-2">
                     <BlockMath math="f(x) = ax^2 + bx + c" />
                   </div>
@@ -125,19 +125,19 @@ export default function FormulaModal({ isOpen, onClose, section }: FormulaModalP
           {/* Estadística y Probabilidad */}
           {showSection("Estadística y Probabilidad") && (
             <section>
-              <h4 className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary mb-8 flex items-center gap-4">
+              <h4 className="text-[0.625rem] uppercase tracking-[0.3em] font-bold text-primary mb-8 flex items-center gap-4">
                 <span className="w-8 h-px bg-primary/30"></span>
                 Estadística y Probabilidad
               </h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                 <div className="p-8 bg-muted/20 rounded-sm border border-border/40">
-                  <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground mb-4">Probabilidad Simple</p>
+                  <p className="text-[0.625rem] font-bold uppercase tracking-[0.1em] text-muted-foreground mb-4">Probabilidad Simple</p>
                   <div className="text-lg py-2">
                     <BlockMath math="P(A) = \frac{\text{Casos Favorables}}{\text{Casos Totales}}" />
                   </div>
                 </div>
                 <div className="p-8 bg-muted/20 rounded-sm border border-border/40">
-                  <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground mb-4">Media Aritmética</p>
+                  <p className="text-[0.625rem] font-bold uppercase tracking-[0.1em] text-muted-foreground mb-4">Media Aritmética</p>
                   <div className="text-lg py-2">
                     <BlockMath math="\bar{x} = \frac{\sum_{i=1}^n x_i}{n}" />
                   </div>
@@ -148,7 +148,7 @@ export default function FormulaModal({ isOpen, onClose, section }: FormulaModalP
         </div>
 
         <div className="p-8 border-t border-border/60 text-center bg-muted/10">
-          <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-muted-foreground">Material de consulta oficial • Ministerio de Educación Pública</p>
+          <p className="text-[0.5625rem] font-bold uppercase tracking-[0.2em] text-muted-foreground">Material de consulta oficial • Ministerio de Educación Pública</p>
         </div>
       </div>
     </div>
