@@ -191,7 +191,7 @@ export default function QuestionPage() {
         )}
 
       <div className="flex flex-1 min-h-0">
-        <aside className="hidden lg:flex lg:w-80 xl:w-56 shrink-0 flex-col border-r border-border bg-card min-h-0">
+        <aside className="hidden lg:flex lg:w-80 xl:w-80 shrink-0 flex-col border-r border-border bg-card min-h-0">
           <div className="flex-1 min-h-0 overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
             <DesktopNavigator
               testMode={testMode}

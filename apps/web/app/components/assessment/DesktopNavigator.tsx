@@ -55,11 +55,13 @@ export function DesktopNavigator({
             {section.questions.map((q) => {
               const isCurrent = q.globalIndex === currentIndex;
               const isFlaggedQ = flaggedQuestions[q.globalIndex];
+              const isAnswered = Boolean(selectedAnswers[q.globalIndex]);
+              const isGreyed = !isAnswered && !isCurrent;
               return (
                 <button
                   key={q.globalIndex}
                   onClick={() => onJumpToQuestion(q.globalIndex)}
-                  className={`flex items-center justify-between gap-2 px-3 py-2 rounded-sm border transition-colors ${isCurrent
+                  className={`flex items-center justify-between gap-2 px-4 py-2 rounded-sm border transition-colors ${isGreyed ? "opacity-40" : ""} ${isCurrent
                     ? "border-primary bg-primary/10"
                     : "border-transparent hover:border-accent"
                     }`}
@@ -68,15 +70,15 @@ export function DesktopNavigator({
                     {q.section_number}
                   </span>
 
-                  <span className="flex items-center gap-1.5">
+                  <span className="flex items-center gap-5">
                     {ANSWER_LETTERS.map((letter) => {
                       const isSelected = selectedAnswers[q.globalIndex] === letter;
                       return (
                         <span
                           key={letter}
-                          className={`w-7 h-7 rounded-full border flex items-center justify-center text-xs font-bold transition-colors ${isSelected
+                          className={`w-7 h-7 rounded-full border flex items-center justify-center text-sm font-bold transition-colors ${isSelected
                             ? "bg-primary text-primary-foreground border-primary"
-                            : "bg-card text-muted-foreground border-border/60"
+                            : "bg-card text-muted-foreground border-white"
                             }`}
                         >
                           {letter}
