@@ -21,6 +21,7 @@
   --ring: #002147;
   --success: #A3C1AD; /* Cambridge Blue */
   --success-foreground: #002147;
+  --font-scale: 1;
 }
 
 .dark {
@@ -82,6 +83,12 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-public-sans), system-ui, -apple-system, sans-serif;
+}
+
+/* Root font size is scaled by the font-scale manager so every rem-based text
+   utility grows and shrinks consistently across the app. */
+html {
+  font-size: calc(16px * var(--font-scale));
 }
 
 /* Smooth page transitions and theme switching */

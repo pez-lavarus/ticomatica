@@ -3,6 +3,7 @@ import { Public_Sans, Source_Serif_4 } from "next/font/google";
 import "katex/dist/katex.min.css";
 import "./globals.css";
 import { ThemeProvider } from "@/lib/theme-provider";
+import { FontScaleProvider } from "@/lib/font-scale";
 import { Header } from "@/app/components/Header";
 
 const publicSans = Public_Sans({
@@ -30,10 +31,12 @@ export default function RootLayout({
     <html lang="es" className={`${publicSans.variable} ${sourceSerif.variable} h-full antialiased`} suppressHydrationWarning>
       <body className="h-dvh flex flex-col font-sans overflow-hidden">
         <ThemeProvider defaultTheme="system">
-          <Header />
-          <div className="flex flex-1 min-h-0">
-            <main className="flex-1 min-w-0 min-h-0 overflow-y-auto overflow-y-auto p-4 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">{children}</main>
-          </div>
+          <FontScaleProvider>
+            <Header />
+            <div className="flex flex-1 min-h-0">
+              <main className="flex-1 min-w-0 min-h-0 overflow-y-auto overflow-y-auto p-4 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">{children}</main>
+            </div>
+          </FontScaleProvider>
         </ThemeProvider>
       </body>
     </html>
