@@ -32,7 +32,7 @@ export default function RootLayout({
         <ThemeProvider defaultTheme="system">
           <Header />
           <div className="flex flex-1 min-h-0">
-            <main className="flex-1 min-w-0 min-h-0 overflow-y-auto">{children}</main>
+            <main className="flex-1 min-w-0 min-h-0 overflow-y-auto overflow-y-auto p-4 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">{children}</main>
           </div>
         </ThemeProvider>
       </body>

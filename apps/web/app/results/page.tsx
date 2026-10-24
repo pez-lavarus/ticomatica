@@ -92,7 +92,7 @@ export default function ResultsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background transition-colors pb-40 sm:pb-24">
+    <div className="min-h-screen bg-background transition-colors pb-40 sm:pb-24 ">
       <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 sm:py-10">
         {/* Score Summary */}
         <div className="bg-card text-card-foreground border border-border/60 rounded-sm shadow-xl p-5 sm:p-10 mb-6 sm:mb-10">

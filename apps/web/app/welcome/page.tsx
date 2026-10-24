@@ -80,21 +80,21 @@ export default function WelcomePage() {
   const currentConfig = TEST_CONFIGS[selectedMode];
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 md:p-4 transition-colors relative overflow-hidden bg-transparent">
-      <MathBackground />
+    <div className="flex items-center justify-center p-4 md:p-4 transition-colors relative overflow-hidden bg-transparent">
+      {/* <MathBackground /> */}
       <div className="max-w-3xl w-full z-10 py-6">
         {/* Main Card */}
         <div className="bg-card text-card-foreground border border-border shadow-md rounded-sm overflow-hidden">
           {/* Title Section */}
           <div className="px-5 md:px-12 pt-8 md:pt-16 pb-6 md:pb-12 border-b border-border bg-muted/20 relative">
-            <div className="absolute top-4 left-6 hidden md:block">
+            {/* <div className="absolute top-4 left-6 hidden md:block">
               <span className="px-3 py-1 bg-secondary/10 border border-secondary text-secondary text-[10px] font-bold uppercase tracking-[0.2em] rounded-sm">
                 Proxima prueba: Febrero, 2026
               </span>
             </div>
             <div className="absolute top-4 right-6">
               <ThemeToggle />
-            </div>
+            </div> */}
             <div className="text-center">
               <div className="md:hidden mb-4">
                 <span className="px-3 py-1 bg-secondary/10 border border-secondary text-secondary text-[8px] font-bold uppercase tracking-[0.2em] rounded-sm">
@@ -102,7 +102,7 @@ export default function WelcomePage() {
                 </span>
               </div>
               <h1 className="text-2xl md:text-4xl font-serif tracking-tight text-foreground mb-3 md:mb-4 font-bold">
-                Matemáticas
+                Exámen de Matemáticas
               </h1>
               <p className="text-[10px] md:text-lg text-muted-foreground font-medium uppercase tracking-[0.15em] md:tracking-[0.2em]">
                 Bachillerato por Madurez Suficiente

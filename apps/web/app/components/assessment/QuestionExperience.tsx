@@ -56,6 +56,7 @@ export const QuestionExperience = memo(function QuestionExperience({
   sharedImageSrc,
 }: QuestionExperienceProps) {
   const [isNavigatorExpanded, setIsNavigatorExpanded] = useState(false);
+  const [gridActiveKey, setGridActiveKey] = useState<number | null>(null);
   const autoNextTimer = useRef<NodeJS.Timeout | null>(null);
   const statementRef = useRef<HTMLDivElement | null>(null);
   const optionsRef = useRef<HTMLDivElement | null>(null);
@@ -93,6 +94,27 @@ export const QuestionExperience = memo(function QuestionExperience({
     container.addEventListener("wheel", handleWheel, { passive: false });
     return () => container.removeEventListener("wheel", handleWheel);
   }, [containerRef]);
+
+  // In vertical layout, switch to a 2x2 grid once the options engage scroll.
+  useEffect(() => {
+    if (layout !== "vertical") return;
+    const options = optionsScrollRef.current;
+    if (!options) return;
+
+    const measure = () => {
+      if (options.scrollHeight > options.clientHeight) {
+        setGridActiveKey(question.original_number);
+      }
+    };
+
+    measure();
+
+    const observer = new ResizeObserver(measure);
+    observer.observe(options);
+    return () => observer.disconnect();
+  }, [question.original_number, layout]);
+
+  const useGridOptions = layout === "vertical" && gridActiveKey === question.original_number;
 
   const handleSelect = (label: string) => {
     onSelect(label);
@@ -137,6 +159,7 @@ export const QuestionExperience = memo(function QuestionExperience({
             onSelect={handleSelect}
             onOpenImageModal={onOpenImageModal}
             scrollRef={optionsScrollRef}
+            useGrid={useGridOptions}
           />
         </div>
       </div>

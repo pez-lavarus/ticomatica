@@ -12,6 +12,7 @@ interface ResponseOptionsProps {
   onSelect: (option: string) => void;
   onOpenImageModal: (src: string, alt: string) => void;
   scrollRef?: React.RefObject<HTMLDivElement | null>;
+  useGrid?: boolean;
 }
 
 export function ResponseOptions({
@@ -20,6 +21,7 @@ export function ResponseOptions({
   onSelect,
   onOpenImageModal,
   scrollRef,
+  useGrid,
 }: ResponseOptionsProps) {
   const longPressTimer = useRef<NodeJS.Timeout | null>(null);
 
@@ -51,7 +53,7 @@ export function ResponseOptions({
       {/* Options container */}
       <div
         ref={scrollRef}
-        className="flex-1 min-h-0 overflow-y-auto hide-scrollbar space-y-3 md:space-y-6"
+        className={`flex-1 min-h-0 overflow-y-auto hide-scrollbar ${useGrid ? "grid grid-cols-2 gap-3 md:gap-6 content-start" : "space-y-3 md:space-y-6"}`}
       >
         {question.options.map((option) => {
           const isSelected = selectedAnswer === option.label;
@@ -60,13 +62,13 @@ export function ResponseOptions({
             <button
               key={option.label}
               onClick={() => onSelect(option.label)}
-              className={`w-full flex gap-4 md:gap-8 p-4 md:p-10 rounded-sm border-2 text-left transition-all group active:scale-[0.98] ${isSelected
+              className={`w-full flex gap-4 md:gap-9 p-3 md:p-5 rounded-sm border-2 text-left transition-all group active:scale-[0.98] ${isSelected
                 ? "border-primary bg-muted/40 shadow-sm"
                 : "border-border/60 hover:border-accent bg-card"
                 }`}
             >
               <div
-                className={`w-8 h-8 md:w-12 md:h-12 flex-shrink-0 flex items-center justify-center rounded-sm font-bold text-lg md:text-2xl border-2 transition-colors ${isSelected
+                className={`w-7 h-7 md:w-9 md:h-9 flex-shrink-0 flex items-center justify-center rounded-sm font-bold text-base md:text-lg border-2 transition-colors ${isSelected
                   ? "bg-primary text-primary-foreground border-primary"
                   : "bg-card text-foreground border-border/60 group-hover:border-accent"
                   }`}
@@ -97,7 +99,7 @@ export function ResponseOptions({
                     />
                   </div>
                 ) : (
-                  <div className="option-math text-lg text-foreground font-serif">
+                  <div className="option-math text-xl md:text-2xl text-foreground font-serif">
                     <KaTeXText text={option.text || ""} />
                   </div>
                 )}
