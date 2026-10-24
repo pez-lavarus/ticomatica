@@ -45,7 +45,7 @@ export function ResponseOptions({
     <div className="bg-card text-card-foreground border border-border rounded-sm shadow-md p-5 md:p-8 flex flex-col h-full">
       {/* Statement container */}
       {question.problem && (
-        <div className="prose dark:prose-invert max-w-none text-lg md:text-2xl leading-[1.6] md:leading-[1.8] text-foreground font-serif mb-6 md:mb-10 shrink-0">
+        <div className="prose dark:prose-invert max-w-none text-base md:text-lg leading-[1.6] md:leading-[1.8] text-foreground font-serif mb-6 md:mb-10 shrink-0">
           <KaTeXText text={question.problem} />
         </div>
       )}
@@ -99,7 +99,7 @@ export function ResponseOptions({
                     />
                   </div>
                 ) : (
-                  <div className="option-math text-xl md:text-2xl text-foreground font-serif">
+                  <div className="option-math text-base md:text-lg text-foreground font-serif">
                     <KaTeXText text={option.text || ""} />
                   </div>
                 )}

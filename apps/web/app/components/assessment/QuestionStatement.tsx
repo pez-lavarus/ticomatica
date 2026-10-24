@@ -48,7 +48,7 @@ export function QuestionStatement({
       <div className={useSplit ? "flex flex-col md:flex-row gap-6 md:gap-10" : undefined}>
         {/* Statement */}
         {question.statement && (
-          <div className={`prose dark:prose-invert max-w-none text-lg md:text-2xl leading-[1.6] md:leading-[1.8] text-foreground font-serif ${useSplit ? "md:flex-1 min-w-0" : ""}`}>
+          <div className={`prose dark:prose-invert max-w-none text-base md:text-lg leading-[1.6] md:leading-[1.8] text-foreground font-serif ${useSplit ? "md:flex-1 min-w-0" : ""}`}>
             <KaTeXText text={question.statement} />
           </div>
         )}

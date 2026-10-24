@@ -47,7 +47,7 @@ export class AssessmentErrorBoundary extends Component<Props, State> {
             </p>
             <button
               onClick={this.handleReset}
-              className="w-full flex items-center justify-center gap-3 py-5 bg-primary text-primary-foreground font-bold text-[0.625rem] uppercase tracking-[0.2em] rounded-sm transition-colors hover:brightness-90 shadow-md"
+              className="w-full flex items-center justify-center gap-3 py-5 bg-primary text-primary-foreground font-bold text-xs uppercase tracking-[0.2em] rounded-sm transition-colors hover:brightness-90 shadow-md"
             >
               <RotateCcw className="w-4 h-4" />
               Reiniciar Aplicación

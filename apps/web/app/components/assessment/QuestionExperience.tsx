@@ -182,7 +182,7 @@ export const QuestionExperience = memo(function QuestionExperience({
                 className="flex-1 h-12 flex items-center justify-center gap-2 bg-muted/50 border border-border rounded-sm active:bg-muted transition-colors"
               >
                 <LayoutGrid className="w-4 h-4 text-primary" />
-                <span className="text-[0.625rem] font-bold uppercase tracking-wider">
+                <span className="text-xs font-bold uppercase tracking-wider">
                   ({currentSectionNumber}/{totalInSection})
                 </span>
                 <ChevronUp className="w-4 h-4 text-muted-foreground" />
@@ -201,7 +201,7 @@ export const QuestionExperience = memo(function QuestionExperience({
           ) : (
             <div className="space-y-6 py-2">
               <div className="flex items-center justify-between">
-                <h3 className="uppercase tracking-[0.2em] text-[0.625rem] font-bold text-muted-foreground">
+                <h3 className="uppercase tracking-[0.2em] text-xs font-bold text-muted-foreground">
                   Navegador de Ítems
                 </h3>
                 <button
@@ -237,7 +237,7 @@ export const QuestionExperience = memo(function QuestionExperience({
 
               <button
                 onClick={() => setIsNavigatorExpanded(false)}
-                className="w-full py-4 bg-muted text-foreground text-[0.625rem] font-bold uppercase tracking-widest rounded-sm border border-border active:bg-muted/80 transition-colors"
+                className="w-full py-4 bg-muted text-foreground text-xs font-bold uppercase tracking-widest rounded-sm border border-border active:bg-muted/80 transition-colors"
               >
                 Cerrar Panel
               </button>

@@ -172,7 +172,7 @@ export default function QuestionPage() {
             <div className="flex items-center gap-2 md:gap-6">
               <button
                 onClick={() => setIsFormulaModalOpen(true)}
-                className="flex items-center gap-1.5 md:gap-2 px-2 md:px-8 py-2 md:py-4 bg-muted border border-border hover:border-accent text-foreground text-[0.5rem] md:text-xs font-bold uppercase tracking-[0.15em] md:tracking-[0.2em] rounded-sm transition-colors"
+                className="flex items-center gap-1.5 md:gap-2 px-2 md:px-8 py-2 md:py-4 bg-muted border border-border hover:border-accent text-foreground text-xs md:text-xs font-bold uppercase tracking-[0.15em] md:tracking-[0.2em] rounded-sm transition-colors"
                 title="Fórmulas"
               >
                 <BookOpen className="w-3 h-3 md:w-4 md:h-4" />
@@ -180,7 +180,7 @@ export default function QuestionPage() {
               </button>
               <button
                 onClick={handleFinishTest}
-                className="flex items-center gap-1.5 md:gap-4 px-3 md:px-10 py-2 md:py-4 bg-primary text-primary-foreground text-[0.5rem] md:text-xs font-bold uppercase tracking-[0.15em] md:tracking-[0.2em] rounded-sm shadow-md transition-all hover:brightness-90 group"
+                className="flex items-center gap-1.5 md:gap-4 px-3 md:px-10 py-2 md:py-4 bg-primary text-primary-foreground text-xs md:text-xs font-bold uppercase tracking-[0.15em] md:tracking-[0.2em] rounded-sm shadow-md transition-all hover:brightness-90 group"
               >
                 <Flag className="w-3 h-3 md:w-4 md:h-4 transition-colors group-hover:text-destructive group-active:text-destructive" />
                 <span className="hidden sm:inline">Finalizar</span>
