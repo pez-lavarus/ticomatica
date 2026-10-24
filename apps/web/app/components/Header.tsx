@@ -10,13 +10,6 @@ export function Header() {
           className="flex items-center gap-2 md:gap-3 group shrink-0"
         >
           <Image
-            src="/costa-rica-flag.svg"
-            alt="Bandera de Costa Rica"
-            width={50}
-            height={30}
-            className="w-8 h-8 md:w-12 md:h-12 rounded-full object-cover shadow-sm group-hover:brightness-110 transition-all"
-          />
-          <Image
             src="/ticomatica-logo-title.svg"
             alt="Ticomatica"
             width={2048}
