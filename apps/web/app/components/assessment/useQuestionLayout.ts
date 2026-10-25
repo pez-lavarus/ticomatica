@@ -6,7 +6,7 @@ import { getGraphAspect, preloadGraphAspect } from "@/lib/graph-aspects";
 
 export type QuestionLayout = "horizontal" | "vertical";
 
-export type ExplanationPlacement = "options-column" | "below";
+export type PanelPlacement = "below-options" | "below-statement" | "right";
 
 // Below this viewport width the layout is always forced vertical (matches the
 // `lg` breakpoint used by the previous hardcoded grid).
@@ -96,6 +96,7 @@ export function useQuestionLayout({
   const [containerWidth, setContainerWidth] = useState<number | null>(null);
   const [graphMaxHeight, setGraphMaxHeight] = useState<number | null>(null);
   const [optionsOverflow, setOptionsOverflow] = useState(false);
+  const [optionsScrollOverflow, setOptionsScrollOverflow] = useState(false);
   const [, forceAspectUpdate] = useReducer((n: number) => n + 1, 0);
 
   // Server (and hydration) resolve to a single column; the client snapshot kicks
@@ -159,17 +160,27 @@ export function useQuestionLayout({
 
   const isStickyStatement = layout === "horizontal" && (hasImageOptions || optionsOverflow);
 
+  const panelPlacement: PanelPlacement | null = showExplanationPanel
+    ? layout === "horizontal"
+      ? optionsScrollOverflow
+        ? "below-statement"
+        : "below-options"
+      : "right"
+    : null;
+
   const gridTemplateColumns =
     layout === "horizontal"
       ? `minmax(0, ${statementFraction.toFixed(3)}fr) minmax(0, ${(1 - statementFraction).toFixed(3)}fr)`
-      : "minmax(0, 1fr)";
+      : showExplanationPanel
+        ? "minmax(0, 1fr) minmax(0, 1fr)"
+        : "minmax(0, 1fr)";
 
   const gridTemplateRows =
     layout === "horizontal"
-      ? "minmax(0, 1fr)"
-      : showExplanationPanel
-        ? "auto minmax(0, 1fr) auto"
-        : "auto minmax(0, 1fr)";
+      ? showExplanationPanel
+        ? "minmax(0, 1fr) auto"
+        : "minmax(0, 1fr)"
+      : "auto minmax(0, 1fr)";
 
   // Detect when the options column is taller than the visible viewport so the
   // statement can stay sticky while the options scroll. Also expose the height
@@ -195,6 +206,24 @@ export function useQuestionLayout({
     observer.observe(statementEl);
     return () => observer.disconnect();
   }, [questionKey, viewportHeight, statementRef, optionsRef]);
+
+  // Detect when the options list itself scrolls internally (its content is
+  // taller than its viewport), so the explanation panel can be placed where
+  // there is room instead of inside the scrolling area.
+  useLayoutEffect(() => {
+    const scrollEl = optionsScrollRef.current;
+    if (!scrollEl) return;
+
+    const measure = () => {
+      setOptionsScrollOverflow(scrollEl.scrollHeight > scrollEl.clientHeight);
+    };
+
+    measure();
+
+    const observer = new ResizeObserver(measure);
+    observer.observe(scrollEl);
+    return () => observer.disconnect();
+  }, [questionKey, optionsScrollRef]);
 
   // In vertical layout, shrink the graph so the statement and options both fit
   // on screen; only the options have to remain fully visible without scrolling.
@@ -235,8 +264,5 @@ export function useQuestionLayout({
   const effectiveGraphMaxHeight =
     hasGraph && layout === "vertical" && graphMaxHeight !== null ? graphMaxHeight : undefined;
 
-  const explanationPlacement: ExplanationPlacement =
-    layout === "horizontal" ? "options-column" : "below";
-
-  return { containerRef, layout, gridTemplateColumns, gridTemplateRows, graphMaxHeight: effectiveGraphMaxHeight, isStickyStatement, explanationPlacement };
+  return { containerRef, layout, gridTemplateColumns, gridTemplateRows, graphMaxHeight: effectiveGraphMaxHeight, isStickyStatement, panelPlacement };
 }

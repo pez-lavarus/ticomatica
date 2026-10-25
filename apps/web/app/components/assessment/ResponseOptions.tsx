@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, type ReactNode } from "react";
+import { useRef } from "react";
 import Image from "next/image";
 import { KaTeXText } from "@/lib/katex-utils";
 import { getGraphDimensions } from "@/lib/graph-aspects";
@@ -17,7 +17,6 @@ interface ResponseOptionsProps {
   revealed?: boolean;
   correctAnswer?: string;
   flash?: boolean;
-  children?: ReactNode;
 }
 
 export function ResponseOptions({
@@ -31,7 +30,6 @@ export function ResponseOptions({
   revealed,
   correctAnswer,
   flash,
-  children,
 }: ResponseOptionsProps) {
   const longPressTimer = useRef<NodeJS.Timeout | null>(null);
   const isCorrect = selectedAnswer === correctAnswer;
@@ -128,7 +126,6 @@ export function ResponseOptions({
             </button>
           );
         })}
-        {children}
       </div>
     </div>
   );

@@ -71,7 +71,7 @@ export const QuestionExperience = memo(function QuestionExperience({
   const behavior = getModeBehavior(testMode);
   const revealed = behavior.immediateFeedback && Boolean(selectedAnswer);
   const showPanel = behavior.showExplanation && revealed;
-  const { containerRef, layout, gridTemplateColumns, gridTemplateRows, graphMaxHeight, isStickyStatement, explanationPlacement } = useQuestionLayout({
+  const { containerRef, layout, gridTemplateColumns, gridTemplateRows, graphMaxHeight, isStickyStatement, panelPlacement } = useQuestionLayout({
     graphSrc: sharedImageSrc,
     questionKey: question.original_number,
     hasImageOptions,
@@ -88,7 +88,7 @@ export const QuestionExperience = memo(function QuestionExperience({
   }
 
   const flashActive = revealed && flashAnswer === selectedAnswer;
-  const useGrid = layout === "horizontal" && !hasImageOptions && !revealed;
+  const useGrid = layout === "horizontal" && !hasImageOptions;
 
   useEffect(() => {
     return () => {
@@ -153,6 +153,7 @@ export const QuestionExperience = memo(function QuestionExperience({
         <div
           ref={statementRef}
           className={isStickyStatement ? "sticky top-24 lg:top-10" : undefined}
+          style={layout === "vertical" && panelPlacement ? { gridColumn: "1 / -1" } : undefined}
         >
           <QuestionStatement
             question={question}
@@ -172,6 +173,7 @@ export const QuestionExperience = memo(function QuestionExperience({
                 ? "justify-self-start"
                 : "justify-self-center w-full max-w-2xl"
           }`}
+          style={layout === "horizontal" ? { gridColumn: 2, gridRow: 1 } : { gridColumn: 1, gridRow: 2 }}
         >
           <ResponseOptions
             question={question}
@@ -184,19 +186,17 @@ export const QuestionExperience = memo(function QuestionExperience({
             revealed={revealed}
             correctAnswer={question.correct_answer}
             flash={flashActive}
-          >
-            {showPanel && explanationPlacement === "options-column" && (
-              <ExplanationPanel
-                question={question}
-                selectedAnswer={selectedAnswer}
-                explanation={explanation}
-                onOpenImageModal={onOpenImageModal}
-              />
-            )}
-          </ResponseOptions>
+          />
         </div>
-        {showPanel && explanationPlacement === "below" && (
-          <div className="min-h-0">
+        {panelPlacement && (
+          <div
+            className="min-h-0"
+            style={
+              layout === "horizontal"
+                ? { gridColumn: panelPlacement === "below-statement" ? 1 : 2, gridRow: 2 }
+                : { gridColumn: 2, gridRow: 2 }
+            }
+          >
             <ExplanationPanel
               question={question}
               selectedAnswer={selectedAnswer}
