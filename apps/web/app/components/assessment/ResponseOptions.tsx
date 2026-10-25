@@ -12,6 +12,7 @@ interface ResponseOptionsProps {
   onSelect: (option: string) => void;
   onOpenImageModal: (src: string, alt: string) => void;
   scrollRef?: React.RefObject<HTMLDivElement | null>;
+  fillHeight?: boolean;
   revealed?: boolean;
   correctAnswer?: string;
   flash?: boolean;
@@ -24,6 +25,7 @@ export function ResponseOptions({
   onSelect,
   onOpenImageModal,
   scrollRef,
+  fillHeight,
   revealed,
   correctAnswer,
   flash,
@@ -52,7 +54,7 @@ export function ResponseOptions({
   };
 
   return (
-    <div className="bg-card text-card-foreground border border-border rounded-sm shadow-md p-5 md:p-8 flex flex-col h-full">
+    <div className={`bg-card text-card-foreground border border-border rounded-sm shadow-md p-5 md:p-8 flex flex-col ${fillHeight ? "h-full" : ""}`}>
       {/* Statement container */}
       {question.problem && (
         <div className="prose dark:prose-invert max-w-none text-base md:text-lg leading-[1.6] md:leading-[1.8] text-foreground font-serif mb-6 md:mb-10 shrink-0">
@@ -63,7 +65,7 @@ export function ResponseOptions({
       {/* Options container */}
       <div
         ref={scrollRef}
-        className="flex-1 min-h-0 overflow-y-auto hide-scrollbar space-y-3 md:space-y-6"
+        className={`overflow-y-auto hide-scrollbar space-y-3 md:space-y-6 ${fillHeight ? "flex-1 min-h-0" : ""}`}
       >
         {visibleOptions.map((option) => {
           const isSelected = selectedAnswer === option.label;

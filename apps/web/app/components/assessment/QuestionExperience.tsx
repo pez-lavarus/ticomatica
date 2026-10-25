@@ -162,13 +162,23 @@ export const QuestionExperience = memo(function QuestionExperience({
             split={layout === "vertical"}
           />
         </div>
-        <div ref={optionsRef} className="self-stretch min-h-0">
+        <div
+          ref={optionsRef}
+          className={`min-h-0 ${
+            layout === "horizontal" && hasImageOptions
+              ? "self-stretch"
+              : layout === "horizontal"
+                ? "justify-self-start"
+                : "justify-self-center w-full max-w-2xl"
+          }`}
+        >
           <ResponseOptions
             question={question}
             selectedAnswer={selectedAnswer}
             onSelect={handleSelect}
             onOpenImageModal={onOpenImageModal}
             scrollRef={optionsScrollRef}
+            fillHeight={layout === "horizontal" && hasImageOptions}
             revealed={revealed}
             correctAnswer={question.correct_answer}
             flash={flashActive}
