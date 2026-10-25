@@ -153,7 +153,7 @@ export function useQuestionLayout({
       graphAspect <= HEAVILY_HORIZONTAL_ASPECT
     ) {
       layout = "horizontal";
-      statementFraction = clamp(graphAspect / 2, STATEMENT_COL_MIN, STATEMENT_COL_MAX);
+      statementFraction = STATEMENT_COL_MIN;
     }
   }
 

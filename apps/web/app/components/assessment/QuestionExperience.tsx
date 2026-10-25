@@ -88,6 +88,7 @@ export const QuestionExperience = memo(function QuestionExperience({
   }
 
   const flashActive = revealed && flashAnswer === selectedAnswer;
+  const useGrid = layout === "horizontal" && !hasImageOptions && !revealed;
 
   useEffect(() => {
     return () => {
@@ -179,6 +180,7 @@ export const QuestionExperience = memo(function QuestionExperience({
             onOpenImageModal={onOpenImageModal}
             scrollRef={optionsScrollRef}
             fillHeight={layout === "horizontal" && hasImageOptions}
+            useGrid={useGrid}
             revealed={revealed}
             correctAnswer={question.correct_answer}
             flash={flashActive}
