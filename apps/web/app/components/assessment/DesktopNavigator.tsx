@@ -21,6 +21,7 @@ interface DesktopNavigatorProps {
   currentIndex: number;
   isFlagged: boolean;
   selectedAnswers: Record<number, string>;
+  correctAnswers: Record<number, string>;
   flaggedQuestions: Record<number, boolean>;
   onToggleFlag: (e: React.MouseEvent) => void;
   onJumpToQuestion: (index: number) => void;
@@ -31,10 +32,12 @@ interface DesktopNavigatorProps {
 }
 
 export function DesktopNavigator({
+  testMode,
   sections,
   currentTopicIndex,
   currentIndex,
   selectedAnswers,
+  correctAnswers,
   flaggedQuestions,
   onJumpToQuestion,
 }: DesktopNavigatorProps) {
@@ -73,13 +76,17 @@ export function DesktopNavigator({
                   <span className="flex items-center gap-5">
                     {ANSWER_LETTERS.map((letter) => {
                       const isSelected = selectedAnswers[q.globalIndex] === letter;
+                      const circleClasses = isSelected
+                        ? (testMode !== "full"
+                          ? (selectedAnswers[q.globalIndex] === correctAnswers[q.globalIndex]
+                            ? "bg-success text-success-foreground border-success"
+                            : "bg-destructive text-destructive-foreground border-destructive")
+                          : "bg-primary text-primary-foreground border-primary")
+                        : "bg-card text-muted-foreground border-white";
                       return (
                         <span
                           key={letter}
-                          className={`w-7 h-7 rounded-full border flex items-center justify-center text-sm font-bold transition-colors ${isSelected
-                            ? "bg-primary text-primary-foreground border-primary"
-                            : "bg-card text-muted-foreground border-white"
-                            }`}
+                          className={`w-7 h-7 rounded-full border flex items-center justify-center text-sm font-bold transition-colors ${circleClasses}`}
                         >
                           {letter}
                         </span>

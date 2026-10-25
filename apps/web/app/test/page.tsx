@@ -85,6 +85,10 @@ export default function QuestionPage() {
   } = assessment;
 
   const allQuestionsWithGlobalIndex = quizData.questions.map((q, idx) => ({ ...q, globalIndex: idx }));
+  const correctAnswers = quizData.questions.reduce<Record<number, string>>((acc, q, idx) => {
+    acc[idx] = q.correct_answer;
+    return acc;
+  }, {});
   const navigatorSections = (testMode === "full" ? FULL_TEST_TOPICS : [testMode]).map((topic) => ({
     topic,
     questions: allQuestionsWithGlobalIndex
@@ -226,6 +230,7 @@ export default function QuestionPage() {
               currentIndex={currentIndex}
               isFlagged={!!flaggedQuestions[currentIndex]}
               selectedAnswers={selectedAnswers}
+              correctAnswers={correctAnswers}
               flaggedQuestions={flaggedQuestions}
               onToggleFlag={toggleFlag}
               onJumpToQuestion={jumpToQuestion}

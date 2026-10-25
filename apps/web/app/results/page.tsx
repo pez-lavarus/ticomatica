@@ -2,6 +2,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { Trophy, RotateCcw, Home } from "lucide-react";
 import type { QuizData, TestMode } from "@/lib/types";
@@ -16,6 +17,7 @@ export default function ResultsPage() {
   const [selectedAnswers, setSelectedAnswers] = useState<Record<number, string>>({});
   const [timeLeft, setTimeLeft] = useState<number>(0);
   const [testMode, setTestMode] = useState<TestMode>("full");
+  const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
 
   // Load data from localStorage
   useEffect(() => {
@@ -37,6 +39,10 @@ export default function ResultsPage() {
     }
 
     setTimeLeft(finalTimeLeft);
+  }, []);
+
+  useEffect(() => {
+    setPortalContainer(document.getElementById("test-header-controls"));
   }, []);
 
   const testQuestionsWithGlobalIndex = quizData.questions
@@ -81,7 +87,28 @@ export default function ResultsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background transition-colors pb-40 sm:pb-24 ">
+    <div className="min-h-screen bg-background transition-colors">
+      {portalContainer &&
+        createPortal(
+          <div className="flex items-center gap-1.5 md:gap-3">
+            <button
+              onClick={handleRetake}
+              className="flex items-center gap-1.5 md:gap-2 px-3 md:px-6 py-2 md:py-3 bg-primary text-primary-foreground text-xs md:text-xs font-bold uppercase tracking-[0.15em] md:tracking-[0.2em] rounded-sm shadow-md transition-all hover:brightness-90"
+            >
+              <RotateCcw className="w-3 h-3 md:w-4 md:h-4" />
+              <span className="hidden sm:inline">Reintentar</span>
+            </button>
+            <button
+              onClick={handleBackToHome}
+              className="flex items-center gap-1.5 md:gap-2 px-3 md:px-6 py-2 md:py-3 border border-border/60 bg-card text-foreground text-xs md:text-xs font-bold uppercase tracking-[0.15em] md:tracking-[0.2em] rounded-sm transition-all hover:bg-muted"
+            >
+              <Home className="w-3 h-3 md:w-4 md:h-4" />
+              <span className="hidden sm:inline">Inicio</span>
+            </button>
+          </div>,
+          portalContainer,
+        )}
+
       <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 sm:py-10">
         {/* Score Summary */}
         <div className="bg-card text-card-foreground border border-border/60 rounded-sm shadow-xl p-5 sm:p-10 mb-6 sm:mb-10">
@@ -184,29 +211,6 @@ export default function ResultsPage() {
           </div>
         </div>
 
-      </div>
-
-      {/* Elegant Sticky Action Bar - Centered & Mobile Optimized */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-md border-t border-border/60 shadow-[0_-10px_30px_rgba(0,0,0,0.1)] pb-safe">
-        <div className="max-w-6xl mx-auto px-4 sm:px-8 py-4 sm:py-6 flex justify-center">
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full max-w-3xl">
-            <button
-              onClick={handleRetake}
-              className="flex-1 flex items-center justify-center gap-2 sm:gap-4 px-4 sm:px-8 py-4 sm:py-4 bg-primary text-primary-foreground font-bold text-xs uppercase tracking-[0.15em] sm:tracking-[0.2em] rounded-sm transition-all active:scale-[0.98] shadow-md sm:shadow-lg border border-primary"
-            >
-              <RotateCcw className="w-4 h-4" />
-              Reintentar
-            </button>
-
-            <button
-              onClick={handleBackToHome}
-              className="flex-1 flex items-center justify-center gap-2 sm:gap-4 px-4 sm:px-8 py-4 sm:py-4 border border-border/60 bg-card text-foreground font-bold text-xs uppercase tracking-[0.15em] sm:tracking-[0.2em] rounded-sm transition-all hover:bg-muted active:scale-[0.98]"
-            >
-              <Home className="w-4 h-4" />
-              Inicio
-            </button>
-          </div>
-        </div>
       </div>
     </div>
   );
