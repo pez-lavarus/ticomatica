@@ -35,7 +35,7 @@ const IMAGE_OPTIONS_STATEMENT_FRACTION = 0.45;
 // Graph sizing budget for vertical layout: the graph is shrunk so the options
 // stay visible without scrolling, within these bounds. The ceiling keeps the
 // graph from expanding past a reasonable figure size.
-const MIN_GRAPH_HEIGHT = 140;
+const MIN_GRAPH_HEIGHT = 60;
 const MAX_GRAPH_HEIGHT = 360;
 const BOTTOM_MARGIN = 24;
 
@@ -43,8 +43,10 @@ interface UseQuestionLayoutOptions {
   graphSrc?: string;
   questionKey: number;
   hasImageOptions: boolean;
+  showExplanationPanel?: boolean;
   statementRef: RefObject<HTMLDivElement | null>;
   optionsRef: RefObject<HTMLDivElement | null>;
+  optionsScrollRef: RefObject<HTMLDivElement | null>;
   graphWrapperRef: RefObject<HTMLDivElement | null>;
 }
 
@@ -84,8 +86,10 @@ export function useQuestionLayout({
   graphSrc,
   questionKey,
   hasImageOptions,
+  showExplanationPanel,
   statementRef,
   optionsRef,
+  optionsScrollRef,
   graphWrapperRef,
 }: UseQuestionLayoutOptions) {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -163,7 +167,9 @@ export function useQuestionLayout({
   const gridTemplateRows =
     layout === "horizontal"
       ? "minmax(0, 1fr)"
-      : "auto minmax(0, 1fr)";
+      : showExplanationPanel
+        ? "auto minmax(0, 1fr) auto"
+        : "auto minmax(0, 1fr)";
 
   // Detect when the options column is taller than the visible viewport so the
   // statement can stay sticky while the options scroll. Also expose the height
@@ -198,19 +204,21 @@ export function useQuestionLayout({
     if (!hasGraph || layout !== "vertical" || viewportHeight === null) return;
     const statementEl = statementRef.current;
     const optionsEl = optionsRef.current;
+    const scrollEl = optionsScrollRef.current;
     const graphEl = graphWrapperRef.current;
-    if (!statementEl || !optionsEl || !graphEl) return;
+    if (!statementEl || !optionsEl || !scrollEl || !graphEl) return;
 
     const measure = () => {
       const statementHeight = statementEl.offsetHeight;
-      const optionsHeight = optionsEl.offsetHeight;
       const graphBoxHeight = graphEl.offsetHeight;
       const statementRect = statementEl.getBoundingClientRect();
       const optionsRect = optionsEl.getBoundingClientRect();
       const contentTop = statementRect.top + getScrollOffset(statementEl);
       const gap = Math.max(0, optionsRect.top - (statementRect.top + statementHeight));
       const chromeHeight = statementHeight - graphBoxHeight;
-      const available = viewportHeight - contentTop - gap - optionsHeight - BOTTOM_MARGIN;
+      const optionsChrome = optionsEl.offsetHeight - scrollEl.clientHeight;
+      const requiredOptionsHeight = optionsChrome + scrollEl.scrollHeight;
+      const available = viewportHeight - contentTop - gap - requiredOptionsHeight - BOTTOM_MARGIN;
       setGraphMaxHeight(clamp(available - chromeHeight, MIN_GRAPH_HEIGHT, MAX_GRAPH_HEIGHT));
     };
 
@@ -219,9 +227,10 @@ export function useQuestionLayout({
     const observer = new ResizeObserver(() => measure());
     observer.observe(statementEl);
     observer.observe(optionsEl);
+    observer.observe(scrollEl);
     observer.observe(graphEl);
     return () => observer.disconnect();
-  }, [questionKey, graphSrc, hasGraph, layout, viewportHeight, statementRef, optionsRef, graphWrapperRef]);
+  }, [questionKey, graphSrc, hasGraph, layout, viewportHeight, statementRef, optionsRef, optionsScrollRef, graphWrapperRef]);
 
   const effectiveGraphMaxHeight =
     hasGraph && layout === "vertical" && graphMaxHeight !== null ? graphMaxHeight : undefined;

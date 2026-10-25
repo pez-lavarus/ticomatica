@@ -12,7 +12,6 @@ interface ResponseOptionsProps {
   onSelect: (option: string) => void;
   onOpenImageModal: (src: string, alt: string) => void;
   scrollRef?: React.RefObject<HTMLDivElement | null>;
-  useGrid?: boolean;
   revealed?: boolean;
   correctAnswer?: string;
   flash?: boolean;
@@ -25,7 +24,6 @@ export function ResponseOptions({
   onSelect,
   onOpenImageModal,
   scrollRef,
-  useGrid,
   revealed,
   correctAnswer,
   flash,
@@ -65,7 +63,7 @@ export function ResponseOptions({
       {/* Options container */}
       <div
         ref={scrollRef}
-        className={`flex-1 min-h-0 overflow-y-auto hide-scrollbar ${useGrid ? "grid grid-cols-2 gap-3 md:gap-6 content-start" : "space-y-3 md:space-y-6"}`}
+        className="flex-1 min-h-0 overflow-y-auto hide-scrollbar space-y-3 md:space-y-6"
       >
         {visibleOptions.map((option) => {
           const isSelected = selectedAnswer === option.label;

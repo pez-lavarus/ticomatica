@@ -60,7 +60,6 @@ export const QuestionExperience = memo(function QuestionExperience({
   sharedImageSrc,
 }: QuestionExperienceProps) {
   const [isNavigatorExpanded, setIsNavigatorExpanded] = useState(false);
-  const [gridActiveKey, setGridActiveKey] = useState<number | null>(null);
   const [flashAnswer, setFlashAnswer] = useState<string | null>(null);
   const prevQuestionKeyRef = useRef(question.original_number);
   const autoNextTimer = useRef<NodeJS.Timeout | null>(null);
@@ -70,17 +69,18 @@ export const QuestionExperience = memo(function QuestionExperience({
   const optionsScrollRef = useRef<HTMLDivElement | null>(null);
   const hasImageOptions = question.options.some((option) => option.image);
   const behavior = getModeBehavior(testMode);
+  const revealed = behavior.immediateFeedback && Boolean(selectedAnswer);
+  const showPanel = behavior.showExplanation && revealed;
   const { containerRef, layout, gridTemplateColumns, gridTemplateRows, graphMaxHeight, isStickyStatement, explanationPlacement } = useQuestionLayout({
     graphSrc: sharedImageSrc,
     questionKey: question.original_number,
     hasImageOptions,
+    showExplanationPanel: showPanel,
     statementRef,
     optionsRef,
+    optionsScrollRef,
     graphWrapperRef,
   });
-
-  const revealed = behavior.immediateFeedback && Boolean(selectedAnswer);
-  const showPanel = behavior.showExplanation && revealed;
 
   if (prevQuestionKeyRef.current !== question.original_number) {
     prevQuestionKeyRef.current = question.original_number;
@@ -121,27 +121,6 @@ export const QuestionExperience = memo(function QuestionExperience({
     return () => container.removeEventListener("wheel", handleWheel);
   }, [containerRef]);
 
-  // In vertical layout, switch to a 2x2 grid once the options engage scroll.
-  useEffect(() => {
-    if (layout !== "vertical") return;
-    const options = optionsScrollRef.current;
-    if (!options) return;
-
-    const measure = () => {
-      if (options.scrollHeight > options.clientHeight) {
-        setGridActiveKey(question.original_number);
-      }
-    };
-
-    measure();
-
-    const observer = new ResizeObserver(measure);
-    observer.observe(options);
-    return () => observer.disconnect();
-  }, [question.original_number, layout]);
-
-  const useGridOptions = layout === "vertical" && gridActiveKey === question.original_number;
-
   const handleSelect = (label: string) => {
     onSelect(label);
     if (autoNextTimer.current) {
@@ -162,18 +141,13 @@ export const QuestionExperience = memo(function QuestionExperience({
   const currentSectionNumber = sectionIndex + 1;
   const totalInSection = sectionQuestions.length;
 
-  const effectiveGridTemplateRows =
-    showPanel && explanationPlacement === "below"
-      ? "auto minmax(0, 1fr) auto"
-      : gridTemplateRows;
-
   return (
     <div className="flex flex-col gap-4 md:gap-6 h-full">
       {/* Statement + Options: layout decided by the rendering engine */}
       <div
         ref={containerRef}
         className="grid items-start gap-4 md:gap-6 [&>*]:min-w-0 flex-1 min-h-0"
-        style={{ gridTemplateColumns, gridTemplateRows: effectiveGridTemplateRows }}
+        style={{ gridTemplateColumns, gridTemplateRows }}
       >
         <div
           ref={statementRef}
@@ -195,7 +169,6 @@ export const QuestionExperience = memo(function QuestionExperience({
             onSelect={handleSelect}
             onOpenImageModal={onOpenImageModal}
             scrollRef={optionsScrollRef}
-            useGrid={useGridOptions}
             revealed={revealed}
             correctAnswer={question.correct_answer}
             flash={flashActive}
