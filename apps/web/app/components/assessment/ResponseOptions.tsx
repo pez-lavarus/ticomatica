@@ -33,9 +33,6 @@ export function ResponseOptions({
 }: ResponseOptionsProps) {
   const longPressTimer = useRef<NodeJS.Timeout | null>(null);
   const isCorrect = selectedAnswer === correctAnswer;
-  const visibleOptions = revealed
-    ? question.options.filter((option) => option.label === selectedAnswer)
-    : question.options;
 
   const handleTouchStart = (src: string, alt: string) => {
     longPressTimer.current = setTimeout(() => {
@@ -67,16 +64,25 @@ export function ResponseOptions({
         ref={scrollRef}
         className={`overflow-y-auto hide-scrollbar ${fillHeight ? "flex-1 min-h-0" : ""} ${useGrid ? "grid grid-cols-2 gap-3 md:gap-6 content-start" : "space-y-3 md:space-y-6"}`}
       >
-        {visibleOptions.map((option) => {
+        {question.options.map((option) => {
           const isSelected = selectedAnswer === option.label;
+          const isCorrectOption = option.label === correctAnswer;
           const optionImageDimensions = option.image ? getGraphDimensions(option.image) : null;
-          const buttonClasses = revealed && isSelected
-            ? (isCorrect ? "border-success bg-success/10" : "border-destructive bg-destructive/10")
+          const buttonClasses = revealed
+            ? (isCorrectOption
+              ? "border-success bg-success/10"
+              : isSelected
+                ? "border-destructive bg-destructive/10"
+                : "border-border/60 bg-card")
             : isSelected
               ? "border-primary bg-muted/40 shadow-sm"
               : "border-border/60 hover:border-accent bg-card";
-          const letterClasses = revealed && isSelected
-            ? (isCorrect ? "bg-success text-success-foreground border-success" : "bg-destructive text-destructive-foreground border-destructive")
+          const letterClasses = revealed
+            ? (isCorrectOption
+              ? "bg-success text-success-foreground border-success"
+              : isSelected
+                ? "bg-destructive text-destructive-foreground border-destructive"
+                : "bg-card text-foreground border-border/60")
             : isSelected
               ? "bg-primary text-primary-foreground border-primary"
               : "bg-card text-foreground border-border/60 group-hover:border-accent";

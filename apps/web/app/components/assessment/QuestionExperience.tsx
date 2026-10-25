@@ -197,12 +197,7 @@ export const QuestionExperience = memo(function QuestionExperience({
                 : { gridColumn: 2, gridRow: 2 }
             }
           >
-            <ExplanationPanel
-              question={question}
-              selectedAnswer={selectedAnswer}
-              explanation={explanation}
-              onOpenImageModal={onOpenImageModal}
-            />
+            <ExplanationPanel explanation={explanation} />
           </div>
         )}
       </div>
