@@ -143,7 +143,7 @@ export const QuestionExperience = memo(function QuestionExperience({
   const totalInSection = sectionQuestions.length;
 
   return (
-    <div className="flex flex-col gap-4 md:gap-6 h-full">
+    <div className="flex flex-col gap-4 md:gap-6 h-full border border-red-500">
       {/* Statement + Options: layout decided by the rendering engine */}
       <div
         ref={containerRef}
