@@ -1,244 +1,275 @@
 import { describe, expect, it } from "vitest";
 import {
-  COLUMN_GAP_PX,
-  MAX_GRAPH_HEIGHT,
-  MIN_GRAPH_HEIGHT,
-  OPTIONS_MIN_WIDTH_PX,
-  STATEMENT_WITH_GRAPH_MIN_WIDTH_PX,
-  columnsTemplate,
-  gridTemplateRowsFor,
-  oneColumnListHeight,
-  planVerticalFit,
-  resolveArrangement,
-  scrollForRevealedContent,
-  twoColumnListHeight,
+  EXPLANATION_MIN_PX,
+  GAP_WIDE_PX,
+  IDEAL_WIDTH_CAP_PX,
+  OPTIONS_MIN_PX,
+  SAFETY_PX,
+  planQuestionLayout,
 } from "./question-layout-plan";
-import type { ArrangementInput, VerticalFitInput } from "./question-layout-plan";
+import type { LayoutPlan, PanelMeasurer, PanelVariant, Rect } from "./question-layout-plan";
 
-const squarishGraph: ArrangementInput = {
-  isWideViewport: true,
-  containerWidth: 1000,
-  hasImageOptions: false,
-  hasGraph: true,
-  graphAspect: 1.2,
-};
+const CHAR_W = 9;
+const LINE_H = 32;
+const PAD = 66; // padding + border
 
-// What the question container reports for a given real width at a font scale:
-// `zoom` makes local width = visual width / scale.
-const localWidth = (visualWidth: number, scale: number) => Math.round(visualWidth / scale);
+interface TextPanelSpec {
+  chars: number;
+  graph?: { width: number; height: number };
+  /** Options: one entry per option, in characters. */
+  items?: number[];
+}
 
-describe("resolveArrangement", () => {
-  it("stays stacked below the wide-viewport breakpoint", () => {
-    expect(resolveArrangement({ ...squarishGraph, isWideViewport: false }).layout).toBe("vertical");
+/** A text-flow model of a panel: text wraps by characters, a graph scales to
+ *  its max height and to the width, options stack or use two columns. */
+function textPanel(spec: TextPanelSpec): PanelMeasurer {
+  const graphSize = (avail: number, graphMax: number | null) => {
+    if (!spec.graph) return { w: 0, h: 0 };
+    const maxH = Math.min(graphMax ?? 450, spec.graph.height);
+    const scale = Math.min(1, maxH / spec.graph.height, avail / spec.graph.width);
+    return { w: spec.graph.width * scale, h: spec.graph.height * scale };
+  };
+  const optionHeight = (chars: number, width: number) =>
+    Math.max(36, Math.ceil((chars * CHAR_W) / Math.max(width - 112, 40)) * LINE_H) + 40;
+
+  return {
+    variants: [
+      ...(spec.items
+        ? ([{ columns: 1 }, { columns: 2 }] as PanelVariant[])
+        : spec.graph && spec.chars > 0
+          ? ([{ split: false }, { split: true }] as PanelVariant[])
+          : [{}]),
+    ],
+    height(width, variant, graphMax) {
+      const inner = width - PAD;
+      const textH = (w: number) => (spec.chars ? Math.ceil((spec.chars * CHAR_W) / w) * LINE_H : 0);
+      if (spec.items) {
+        const cols = variant.columns ?? 1;
+        const colW = cols === 2 ? (inner - 24) / 2 : inner;
+        const hs = spec.items.map((c) => optionHeight(c, colW));
+        let total = 0;
+        for (let i = 0; i < hs.length; i += cols) total += Math.max(...hs.slice(i, i + cols)) + (i ? 24 : 0);
+        return PAD + textH(inner) + (spec.chars ? 32 : 0) + total;
+      }
+      if (variant.split) {
+        const half = (inner - 40) / 2;
+        return PAD + Math.max(textH(half), graphSize(half, graphMax).h);
+      }
+      const g = graphSize(inner, graphMax);
+      return PAD + textH(inner) + (g.h ? g.h + (spec.chars ? 40 : 0) : 0);
+    },
+    maxContentWidth(variant, graphMax) {
+      const text = spec.chars * CHAR_W;
+      if (spec.items) {
+        const widest = Math.max(...spec.items) * CHAR_W + 112;
+        const cols = variant.columns ?? 1;
+        return PAD + Math.max(cols === 2 ? widest * 2 + 24 : widest, spec.chars ? text : 0);
+      }
+      const g = graphSize(9999, graphMax);
+      if (variant.split) return PAD + text + 40 + g.w;
+      return PAD + Math.max(text, g.w);
+    },
+  };
+}
+
+const short = textPanel({ chars: 80 });
+const longStatement = textPanel({ chars: 240 });
+const withGraph = textPanel({ chars: 90, graph: { width: 420, height: 380 } });
+const wideGraph = textPanel({ chars: 90, graph: { width: 900, height: 300 } });
+const shortOptions = textPanel({ chars: 60, items: [14, 14, 14, 14] });
+const longOptions = textPanel({ chars: 60, items: [70, 64, 80, 72] });
+const explanation = textPanel({ chars: 420 });
+
+const overlaps = (a: Rect, b: Rect) =>
+  a.x < b.x + b.width && b.x < a.x + a.width && a.y < b.y + b.height && b.y < a.y + a.height;
+
+function plan(
+  overrides: Partial<Parameters<typeof planQuestionLayout>[0]> & {
+    statement?: PanelMeasurer;
+    options?: PanelMeasurer;
+    explanation?: PanelMeasurer | null;
+  } = {},
+): LayoutPlan {
+  const { statement, options, explanation: e, ...rest } = overrides;
+  return planQuestionLayout({
+    containerWidth: 1000,
+    containerHeight: 700,
+    hasGraph: false,
+    panels: { statement: statement ?? short, options: options ?? shortOptions, explanation: e ?? null },
+    ...rest,
   });
+}
 
-  it("stays stacked until the container has been measured", () => {
-    expect(resolveArrangement({ ...squarishGraph, containerWidth: null }).layout).toBe("vertical");
-  });
+function assertSane(p: LayoutPlan, width: number) {
+  const rects = Object.values(p.rects) as Rect[];
+  for (const r of rects) {
+    expect(r.x).toBeGreaterThanOrEqual(0);
+    expect(r.x + r.width).toBeLessThanOrEqual(width);
+    expect(r.width).toBeGreaterThan(0);
+    expect(r.height).toBeGreaterThan(0);
+  }
+  for (let i = 0; i < rects.length; i++) {
+    for (let j = i + 1; j < rects.length; j++) expect(overlaps(rects[i], rects[j])).toBe(false);
+  }
+}
 
-  it("stacks when there is no graph and no image options", () => {
-    expect(resolveArrangement({ ...squarishGraph, hasGraph: false, graphAspect: null }).layout).toBe("vertical");
-  });
-
-  it("stacks while the graph aspect is unknown or heavily horizontal", () => {
-    expect(resolveArrangement({ ...squarishGraph, graphAspect: null }).layout).toBe("vertical");
-    expect(resolveArrangement({ ...squarishGraph, graphAspect: 2.6 }).layout).toBe("vertical");
-  });
-
-  it("places squarish graphs side by side", () => {
-    expect(resolveArrangement(squarishGraph).layout).toBe("horizontal");
-  });
-
-  it("keeps both columns above their minimum widths", () => {
-    for (const width of [740, 800, 1000, 1400]) {
-      for (const graphAspect of [0.6, 1, 1.5, 2]) {
-        const result = resolveArrangement({ ...squarishGraph, containerWidth: width, graphAspect });
-        if (result.layout !== "horizontal") continue;
-        const usable = width - COLUMN_GAP_PX;
-        expect(result.statementFraction * usable).toBeGreaterThanOrEqual(STATEMENT_WITH_GRAPH_MIN_WIDTH_PX - 0.5);
-        expect((1 - result.statementFraction) * usable).toBeGreaterThanOrEqual(OPTIONS_MIN_WIDTH_PX - 0.5);
+describe("planQuestionLayout", () => {
+  it("never overlaps panels or leaves the container, across sizes and content", () => {
+    const statements = [short, longStatement, withGraph, wideGraph];
+    const options = [shortOptions, longOptions];
+    for (const width of [360, 520, 760, 1000, 1400]) {
+      for (const height of [420, 700, 1000]) {
+        for (const s of statements) {
+          for (const o of options) {
+            for (const e of [null, explanation]) {
+              const p = plan({
+                containerWidth: width,
+                containerHeight: height,
+                hasGraph: s === withGraph || s === wideGraph,
+                statement: s,
+                options: o,
+                explanation: e,
+              });
+              assertSane(p, width);
+              expect(Boolean(p.rects.explanation)).toBe(Boolean(e));
+            }
+          }
+        }
       }
     }
   });
 
-  it("gives taller graphs a narrower statement column than wider ones", () => {
-    const tall = resolveArrangement({ ...squarishGraph, containerWidth: 1600, graphAspect: 0.7 });
-    const wide = resolveArrangement({ ...squarishGraph, containerWidth: 1600, graphAspect: 1.9 });
-    expect(tall.statementFraction).toBeLessThan(wide.statementFraction);
-  });
-
-  it("uses image options side by side and stacks them when too narrow", () => {
-    const base: ArrangementInput = { ...squarishGraph, hasGraph: false, graphAspect: null, hasImageOptions: true };
-    expect(resolveArrangement({ ...base, containerWidth: 900 }).layout).toBe("horizontal");
-    expect(resolveArrangement({ ...base, containerWidth: 690 }).layout).toBe("vertical");
-  });
-
-  it("stacks sooner as the font grows, for the same real width", () => {
-    // Real content width 880px (e.g. a 1280px window beside the sidebar).
-    const at = (scale: number) =>
-      resolveArrangement({ ...squarishGraph, containerWidth: localWidth(880, scale) }).layout;
-    expect(at(1)).toBe("horizontal");
-    expect(at(1.125)).toBe("horizontal");
-    expect(at(1.25)).toBe("vertical");
-  });
-
-  it("scales its minimums with the root font size when that is how fonts scale", () => {
-    const input = { ...squarishGraph, containerWidth: 800 };
-    expect(resolveArrangement({ ...input, remScale: 1 }).layout).toBe("horizontal");
-    expect(resolveArrangement({ ...input, remScale: 1.25 }).layout).toBe("vertical");
-  });
-});
-
-describe("columnsTemplate / gridTemplateRowsFor", () => {
-  it("emits one column when stacked and two fractions when side by side", () => {
-    expect(columnsTemplate({ layout: "vertical", statementFraction: 0.5 })).toBe("minmax(0, 1fr)");
-    expect(columnsTemplate({ layout: "horizontal", statementFraction: 0.4 })).toBe(
-      "minmax(0, 0.400fr) minmax(0, 0.600fr)",
+  it("sizes every panel to its content: height equals the natural height", () => {
+    const p = plan();
+    expect(p.rects.statement!.height).toBe(
+      Math.ceil(short.height(p.rects.statement!.width, p.statementVariant, null)) + SAFETY_PX,
+    );
+    expect(p.rects.options!.height).toBe(
+      Math.ceil(shortOptions.height(p.rects.options!.width, p.optionsVariant, null)) + SAFETY_PX,
     );
   });
 
-  it("contains the options row in contained mode and lets rows grow in page mode", () => {
-    expect(gridTemplateRowsFor("horizontal", "contained", false)).toBe("minmax(0, 1fr)");
-    expect(gridTemplateRowsFor("vertical", "contained", false)).toBe("auto minmax(0, 1fr)");
-    expect(gridTemplateRowsFor("vertical", "contained", true)).toBe("auto minmax(0, 1fr) auto");
-    expect(gridTemplateRowsFor("vertical", "page", false)).toBe("auto auto");
-    expect(gridTemplateRowsFor("vertical", "page", true)).toBe("auto auto auto");
-  });
-});
-
-describe("list heights", () => {
-  it("sums one column with gaps", () => {
-    expect(oneColumnListHeight([70, 70, 70, 70], 12)).toBe(316);
-    expect(oneColumnListHeight([], 12)).toBe(0);
+  it("keeps panels no wider than a readable measure", () => {
+    const p = plan({ containerWidth: 1600, statement: longStatement });
+    for (const r of Object.values(p.rects) as Rect[]) expect(r.width).toBeLessThanOrEqual(IDEAL_WIDTH_CAP_PX);
   });
 
-  it("takes the taller of each pair in two columns", () => {
-    expect(twoColumnListHeight([70, 70, 70, 70], 12)).toBe(152);
-    expect(twoColumnListHeight([60, 90, 50], 10)).toBe(90 + 10 + 50);
-  });
-});
-
-// A statement card made of 100px of chrome (padding, text) plus a graph.
-function stackedInput(overrides: Partial<VerticalFitInput> = {}): VerticalFitInput {
-  return {
-    containerHeight: 700,
-    rowGap: 24,
-    hasGraph: true,
-    statement: { height: 400, graphBoxHeight: 300, textHeight: 60, graphBesideText: false },
-    options: { chromeHeight: 80, itemHeights: [70, 70, 70, 70], itemGap: 12, listWidth: 600 },
-    explanationHeight: 0,
-    ...overrides,
-  };
-}
-
-describe("planVerticalFit", () => {
-  it("shrinks the graph to the room left by the options when everything fits", () => {
-    const fit = planVerticalFit(stackedInput());
-    // 700 - 24 gap - 2 safety - 396 options - 100 chrome - 2 frame
-    expect(fit).toEqual({ optionsGrid: false, graphMaxHeight: 176, scroll: "contained" });
+  it("does not stretch the options card across a wide container", () => {
+    const p = plan({ containerWidth: 1600 });
+    expect(p.rects.options!.width).toBeLessThan(1000);
   });
 
-  it("never grows the graph past the ceiling", () => {
-    const fit = planVerticalFit(stackedInput({ containerHeight: 1200 }));
-    expect(fit.graphMaxHeight).toBe(MAX_GRAPH_HEIGHT);
+  it("uses two option columns when they make the card clearly more compact", () => {
+    const p = plan({ containerWidth: 1000, statement: longStatement, options: shortOptions });
+    expect(p.optionsVariant.columns).toBe(2);
   });
 
-  it("switches to two columns before shrinking the graph below its floor", () => {
-    const fit = planVerticalFit(stackedInput({ containerHeight: 500 }));
-    expect(fit).toEqual({ optionsGrid: true, graphMaxHeight: MIN_GRAPH_HEIGHT, scroll: "contained" });
+  it("stays single column when the options are long", () => {
+    const p = plan({ containerWidth: 700, containerHeight: 1200, options: longOptions });
+    expect(p.optionsVariant.columns).toBe(1);
   });
 
-  it("does not use two columns when the list is too narrow for them", () => {
-    const fit = planVerticalFit(
-      stackedInput({
-        containerHeight: 500,
-        options: { chromeHeight: 80, itemHeights: [70, 70, 70, 70], itemGap: 12, listWidth: 330 },
-      }),
-    );
-    expect(fit.optionsGrid).toBe(false);
-    expect(fit.scroll).toBe("page");
+  it("places a squarish graph beside the text on a wide screen and stacks when narrow", () => {
+    const wide = plan({ containerWidth: 1300, containerHeight: 600, hasGraph: true, statement: withGraph });
+    expect(["side", "stack"]).toContain(wide.template);
+    const narrow = plan({ containerWidth: 420, hasGraph: true, statement: withGraph });
+    expect(narrow.template).toBe("stack");
+    expect(narrow.rects.statement!.width).toBeLessThanOrEqual(420);
   });
 
-  it("scrolls only the options list when the floor graph still leaves usable room", () => {
-    const fit = planVerticalFit(
-      stackedInput({
-        containerHeight: 606,
-        options: { chromeHeight: 80, itemHeights: [150, 150, 150, 150], itemGap: 12, listWidth: 600 },
-      }),
-    );
-    expect(fit).toEqual({ optionsGrid: true, graphMaxHeight: MIN_GRAPH_HEIGHT, scroll: "contained" });
+  it("a larger font (smaller local container) never produces a side-by-side layout below the minimums", () => {
+    for (let width = 400; width <= 1400; width += 40) {
+      const p = plan({ containerWidth: width, hasGraph: true, statement: withGraph });
+      if (p.template !== "side") continue;
+      expect(p.rects.options!.width).toBeGreaterThanOrEqual(OPTIONS_MIN_PX);
+    }
   });
 
-  it("falls back to a scrolling page when nothing fits, instead of clipping", () => {
-    const fit = planVerticalFit(stackedInput({ containerHeight: 380 }));
-    expect(fit).toEqual({ optionsGrid: false, graphMaxHeight: MAX_GRAPH_HEIGHT, scroll: "page" });
+  it("shrinks the graph before it overflows the screen", () => {
+    const tall = textPanel({ chars: 90, graph: { width: 500, height: 500 } });
+    const roomy = plan({ containerWidth: 700, containerHeight: 1400, hasGraph: true, statement: tall });
+    const tight = plan({ containerWidth: 700, containerHeight: 640, hasGraph: true, statement: tall });
+    expect(roomy.graphMax).toBeNull();
+    expect(tight.graphMax).not.toBeNull();
   });
 
-  it("handles a statement without a graph", () => {
-    const base = stackedInput({
-      hasGraph: false,
-      statement: { height: 200, graphBoxHeight: 0, textHeight: 200, graphBesideText: false },
+  it("scrolls only when nothing fits, and reports the real content height", () => {
+    const p = plan({ containerWidth: 420, containerHeight: 300, statement: longStatement });
+    expect(p.overflow).toBe(true);
+    expect(p.stageHeight).toBe(p.contentHeight);
+  });
+
+  it("centers the layout horizontally and biases it toward the top", () => {
+    const p = plan({ containerWidth: 1600, containerHeight: 1000 });
+    const statement = p.rects.statement!;
+    expect(statement.x).toBeGreaterThan(0);
+    expect(statement.y).toBeGreaterThanOrEqual(0);
+    expect(statement.y).toBeLessThan((1000 - p.contentHeight) / 2);
+  });
+
+  describe("with the explanation", () => {
+    it("places all three and reads statement, options, explanation in order", () => {
+      const p = plan({ containerWidth: 1000, containerHeight: 900, explanation });
+      const { statement, options, explanation: e } = p.rects as Required<LayoutPlan["rects"]>;
+      const before = (a: Rect, b: Rect) => a.y < b.y + b.height && (a.y + a.height <= b.y + 1 || a.x + a.width <= b.x + 1);
+      expect(before(statement, options)).toBe(true);
+      expect(before(options, e) || before(statement, e)).toBe(true);
+      expect(e.width).toBeGreaterThanOrEqual(EXPLANATION_MIN_PX);
     });
-    expect(planVerticalFit({ ...base, containerHeight: 700 })).toEqual({
-      optionsGrid: false,
-      graphMaxHeight: undefined,
-      scroll: "contained",
+
+    it("rearranges when stacking would overflow but another arrangement fits", () => {
+      const without = plan({ containerWidth: 1300, containerHeight: 560, statement: short, options: shortOptions });
+      const withE = plan({
+        containerWidth: 1300,
+        containerHeight: 560,
+        statement: short,
+        options: shortOptions,
+        explanation,
+        previous: without,
+      });
+      expect(withE.template).not.toBe("stack3");
+      expect(withE.overflow).toBe(false);
     });
-    expect(planVerticalFit({ ...base, containerHeight: 400 })).toEqual({
-      optionsGrid: false,
-      graphMaxHeight: undefined,
-      scroll: "page",
+
+    it("resizes the graph or the other panels when space is short", () => {
+      const tall = textPanel({ chars: 90, graph: { width: 500, height: 500 } });
+      const before = plan({ containerWidth: 900, containerHeight: 900, hasGraph: true, statement: tall });
+      const after = plan({
+        containerWidth: 900,
+        containerHeight: 900,
+        hasGraph: true,
+        statement: tall,
+        explanation,
+        previous: before,
+      });
+      const changed =
+        after.graphMax !== before.graphMax ||
+        after.template !== before.template ||
+        after.rects.statement!.width !== before.rects.statement!.width ||
+        after.rects.options!.width !== before.rects.options!.width;
+      expect(changed).toBe(true);
+    });
+
+    it("leaves the arrangement alone when the explanation fits without changes", () => {
+      const before = plan({ containerWidth: 1000, containerHeight: 1600 });
+      const after = plan({ containerWidth: 1000, containerHeight: 1600, explanation, previous: before });
+      expect(after.rects.statement!.width).toBe(before.rects.statement!.width);
+      expect(after.rects.options!.width).toBe(before.rects.options!.width);
+      expect(after.optionsVariant).toEqual(before.optionsVariant);
     });
   });
 
-  it("requires the text to fit when the graph sits beside it", () => {
-    // Card = 60 padding + max(400 text, 300 graph). Taller than the single-column room.
-    const beside = stackedInput({
-      containerHeight: 800,
-      statement: { height: 460, graphBoxHeight: 300, textHeight: 400, graphBesideText: true },
-    });
-    const fit = planVerticalFit(beside);
-    expect(fit.optionsGrid).toBe(true);
-    expect(fit.graphMaxHeight).toBe(MAX_GRAPH_HEIGHT);
+  it("is deterministic", () => {
+    const a = plan({ containerWidth: 1100, explanation });
+    const b = plan({ containerWidth: 1100, explanation });
+    expect(a).toEqual(b);
   });
 
-  it("does not force a tiny image up to the floor", () => {
-    // Two columns leave 120px for the image: enough for a 90px image, not for the floor.
-    const tiny = stackedInput({ containerHeight: 480, graphIntrinsicHeight: 90 });
-    expect(planVerticalFit(tiny)).toEqual({ optionsGrid: true, graphMaxHeight: 120, scroll: "contained" });
-    expect(planVerticalFit({ ...tiny, graphIntrinsicHeight: null }).scroll).toBe("page");
-  });
-
-  it("makes the graph smaller when an explanation takes room below", () => {
-    // Single column only (narrow list), so the graph is the only thing that can give.
-    const options = { chromeHeight: 80, itemHeights: [70, 70, 70, 70], itemGap: 12, listWidth: 330 };
-    const without = planVerticalFit(stackedInput({ containerHeight: 900, options }));
-    const withExplanation = planVerticalFit(stackedInput({ containerHeight: 900, options, explanationHeight: 120 }));
-    expect(without.graphMaxHeight).toBe(MAX_GRAPH_HEIGHT);
-    expect(withExplanation.graphMaxHeight).toBe(232);
-  });
-
-  it("reaches page mode at larger fonts for the same window", () => {
-    // Same window, same content in local px; zoom shrinks the local container.
-    const heightAt = (scale: number) => Math.round(560 / scale);
-    const scrollAt = (scale: number) => planVerticalFit(stackedInput({ containerHeight: heightAt(scale) })).scroll;
-    expect(scrollAt(1)).toBe("contained");
-    expect(scrollAt(1.25)).toBe("page");
-  });
-});
-
-describe("scrollForRevealedContent", () => {
-  const fit = { optionsGrid: false, graphMaxHeight: 200, scroll: "contained" as const };
-
-  it("keeps the layout when the revealed content fits", () => {
-    expect(scrollForRevealedContent(fit, 600, 600)).toBe(fit);
-  });
-
-  it("only turns on scrolling when the revealed content overflows", () => {
-    expect(scrollForRevealedContent(fit, 640, 600)).toEqual({ ...fit, scroll: "page" });
-  });
-
-  it("never changes the graph size", () => {
-    expect(scrollForRevealedContent(fit, 900, 600).graphMaxHeight).toBe(200);
+  it("uses the configured gap between stacked panels", () => {
+    const p = plan({ containerWidth: 1000, containerHeight: 2000 });
+    if (p.template === "stack") {
+      const s = p.rects.statement!;
+      expect(p.rects.options!.y - (s.y + s.height)).toBe(GAP_WIDE_PX);
+    }
   });
 });

@@ -1,299 +1,484 @@
-// Pure layout decisions for the question screen. Nothing in this file touches
-// the DOM: `useQuestionLayout` measures, this module decides, and the decisions
-// are unit-tested.
+// Layout engine for the question screen. Pure: nothing here touches the DOM.
+// `useQuestionLayout` measures the real panels and hands this module a
+// `PanelMeasurer` per panel; this module decides where each one goes and how
+// big it is, and is unit-tested with synthetic measurers.
 //
-// Unit convention: every length is a *local* CSS pixel, i.e. the unit that
-// `clientWidth` / `offsetHeight` report inside the font-scale wrapper. Font
-// scaling is applied with CSS `zoom`, so a larger font shrinks the local
-// container (visual width / scale) while text stays the same local size. All
-// thresholds below therefore express "how many characters fit", and a bigger
-// font reaches them at a larger real viewport without any special casing.
-// `remScale` only matters if font scaling ever moves to the root font size,
-// where local px are real px and the thresholds must grow with the text.
+// Model
+//  - Three panels (statement, options, optional explanation) are placed as
+//    "bands" (rows) of "columns" (stacks). Each panel hugs its content: its
+//    width comes from its max-content width (capped to a readable measure) and
+//    its height is whatever the content needs at that width. Empty space is
+//    allowed around the panels, never inside them.
+//  - Every candidate arrangement x panel variant (statement text beside the
+//    graph, options in one or two columns) x graph size is laid out and
+//    scored; the lowest score wins. When the explanation shows, it is simply
+//    one more panel in the search, so the others resize or move only when that
+//    yields a better whole.
+//
+// Unit convention: lengths are local CSS pixels, i.e. what clientWidth and
+// offsetHeight report inside the font-scale `zoom` wrapper. A larger font
+// shrinks the local container, so every threshold below already scales with
+// the text and nothing needs special casing.
 
-export type QuestionLayout = "horizontal" | "vertical";
+export type PanelId = "statement" | "options" | "explanation";
 
-// ---------------------------------------------------------------------------
-// Arrangement: side by side or stacked
-// ---------------------------------------------------------------------------
+export interface Rect {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
 
-// Below the `lg` viewport breakpoint the sidebar is gone and the mobile
-// navigator is shown, and the screen is always stacked.
-export const WIDE_VIEWPORT_QUERY = "(min-width: 1024px)";
+/** Internal arrangement of a panel. `split`: statement text beside the graph.
+ *  `columns`: how many columns the options use. */
+export interface PanelVariant {
+  split?: boolean;
+  columns?: 1 | 2;
+}
 
-// Horizontal gap between the two columns (`md:gap-6`).
-export const COLUMN_GAP_PX = 24;
+export interface PanelMeasurer {
+  /** Variants worth trying, default first. */
+  variants: PanelVariant[];
+  /** Natural outer height at an outer width. */
+  height(width: number, variant: PanelVariant, graphMax: number | null): number;
+  /** Outer width the content would take with no wrapping at all. */
+  maxContentWidth(variant: PanelVariant, graphMax: number | null): number;
+}
 
-// Narrowest the options column may get. Derived from ResponseOptions: card
-// padding (64) + option padding (40) + letter badge and gap (72) leaves ~200px
-// for a formula, which is roughly one short expression.
-export const OPTIONS_MIN_WIDTH_PX = 380;
+export type TemplateName =
+  | "stack"
+  | "side"
+  | "stack3"
+  | "side-top"
+  | "side-bottom"
+  | "triple"
+  | "left-statement"
+  | "right-explanation";
 
-// Narrowest the statement column may get. With a graph it must also leave the
-// graph a usable width after the card padding (64).
-export const STATEMENT_MIN_WIDTH_PX = 300;
-export const STATEMENT_WITH_GRAPH_MIN_WIDTH_PX = 340;
-
-// A graph wider than this ("heavily horizontal") needs full width, so it
-// stacks. Tall or squarish graphs fit a narrower column and sit side by side.
-export const HEAVILY_HORIZONTAL_ASPECT = 2.0;
-
-// Preferred share of the row for the statement column. Taller graphs get a
-// narrower statement so options keep room for formulas; wide-leaning graphs get
-// more room. Image-option questions use a fixed share (the statement is text).
-export const STATEMENT_COL_MIN = 0.28;
-export const STATEMENT_COL_MAX = 0.5;
-export const IMAGE_OPTIONS_STATEMENT_FRACTION = 0.45;
-
-export interface ArrangementInput {
-  isWideViewport: boolean;
-  /** Content width of the question container, or null before first measure. */
-  containerWidth: number | null;
-  /** 1 under CSS-zoom font scaling; root-font-size / 16 otherwise. */
-  remScale?: number;
-  hasImageOptions: boolean;
+export interface PlanInput {
+  containerWidth: number;
+  containerHeight: number;
   hasGraph: boolean;
-  /** Graph width / height, or null while unknown (not preloaded yet). */
-  graphAspect: number | null;
+  panels: {
+    statement: PanelMeasurer;
+    options: PanelMeasurer;
+    explanation?: PanelMeasurer | null;
+  };
+  /** Plan on screen for this same question and container, used to limit how
+   *  much the existing panels move when the explanation appears. */
+  previous?: LayoutPlan | null;
 }
 
-export interface Arrangement {
-  layout: QuestionLayout;
-  /** Share of the row given to the statement column (horizontal only). */
-  statementFraction: number;
+export interface LayoutPlan {
+  template: TemplateName;
+  rects: Partial<Record<PanelId, Rect>>;
+  statementVariant: PanelVariant;
+  optionsVariant: PanelVariant;
+  /** Max graph height in px; null means the CSS default. */
+  graphMax: number | null;
+  /** Height of the positioning stage: the container when everything fits. */
+  stageHeight: number;
+  /** Height the panels need in total. */
+  contentHeight: number;
+  /** Panels need more height than the container: the screen scrolls. */
+  overflow: boolean;
+  score: number;
 }
+
+// ---------------------------------------------------------------------------
+// Constants
+// ---------------------------------------------------------------------------
+
+export const GAP_WIDE_PX = 24;
+export const GAP_NARROW_PX = 16;
+export const GAP_BREAKPOINT_PX = 720;
+
+/** Widest a text-led panel gets: about 75 characters of the serif body font. */
+export const IDEAL_WIDTH_CAP_PX = 760;
+
+export const STATEMENT_MIN_PX = 300;
+export const STATEMENT_WITH_GRAPH_MIN_PX = 340;
+export const STATEMENT_SPLIT_MIN_PX = 620;
+export const OPTIONS_MIN_PX = 380;
+// padding (64) + two columns of at least 260 + their gap (24).
+export const OPTIONS_TWO_COLUMN_MIN_PX = 64 + 2 * 260 + 24;
+export const EXPLANATION_MIN_PX = 340;
+
+/** Graph max-heights tried, largest first, when the screen would overflow. */
+export const GRAPH_LADDER: ReadonlyArray<number | null> = [null, 340, 280, 220, 170, 140];
+
+/** Sub-pixel slack so rounding never clips the last row of a panel. */
+export const SAFETY_PX = 1;
+
+/** Share of the free vertical space placed above the panels. */
+export const TOP_BIAS = 0.25;
+export const MAX_TOP_OFFSET_PX = 72;
+
+export function gapFor(containerWidth: number) {
+  return containerWidth >= GAP_BREAKPOINT_PX ? GAP_WIDE_PX : GAP_NARROW_PX;
+}
+
+export function minPanelWidth(id: PanelId, variant: PanelVariant, hasGraph: boolean) {
+  if (id === "statement") {
+    if (variant.split) return STATEMENT_SPLIT_MIN_PX;
+    return hasGraph ? STATEMENT_WITH_GRAPH_MIN_PX : STATEMENT_MIN_PX;
+  }
+  if (id === "options") return variant.columns === 2 ? OPTIONS_TWO_COLUMN_MIN_PX : OPTIONS_MIN_PX;
+  return EXPLANATION_MIN_PX;
+}
+
+// ---------------------------------------------------------------------------
+// Templates
+// ---------------------------------------------------------------------------
+
+type Column = PanelId[];
+type Band = Column[];
+
+interface Template {
+  name: TemplateName;
+  bands: Band[];
+  /** Tiny preference for simpler arrangements when scores are close. */
+  complexity: number;
+}
+
+const S: PanelId = "statement";
+const O: PanelId = "options";
+const E: PanelId = "explanation";
+
+const TEMPLATES_TWO: Template[] = [
+  { name: "stack", bands: [[[S]], [[O]]], complexity: 0 },
+  { name: "side", bands: [[[S], [O]]], complexity: 0.15 },
+];
+
+const TEMPLATES_THREE: Template[] = [
+  { name: "stack3", bands: [[[S]], [[O]], [[E]]], complexity: 0 },
+  { name: "side-top", bands: [[[S], [O]], [[E]]], complexity: 0.06 },
+  { name: "side-bottom", bands: [[[S]], [[O], [E]]], complexity: 0.06 },
+  { name: "left-statement", bands: [[[S], [O, E]]], complexity: 0.1 },
+  { name: "right-explanation", bands: [[[S, O], [E]]], complexity: 0.1 },
+  { name: "triple", bands: [[[S], [O], [E]]], complexity: 0.4 },
+];
+
+// ---------------------------------------------------------------------------
+// Scoring weights (lower score is better)
+// ---------------------------------------------------------------------------
+
+const W_OVERFLOW_FLAT = 4;
+const W_OVERFLOW = 6;
+const W_WASTE = 3; // empty space inside panels (width beyond the content)
+const W_RAGGED = 2; // empty space beside a shorter column in a band
+const W_TALL = 0.8; // panels much taller than wide
+const W_LONG_LINE = 1; // panels wider than a comfortable reading measure
+const W_WRAP_COLUMNS = 1.2; // two option columns that are narrower than their content
+const W_GRAPH_STEP = 0.3; // each step the graph is shrunk
+const W_MOVE = 2.5; // displacement of panels that were already on screen
+const TALL_RATIO = 1.4;
 
 export function clamp(value: number, min: number, max: number) {
   return Math.min(Math.max(value, min), max);
 }
 
-export function resolveArrangement(input: ArrangementInput): Arrangement {
-  const stacked: Arrangement = { layout: "vertical", statementFraction: STATEMENT_COL_MAX };
-  const { isWideViewport, containerWidth, hasImageOptions, hasGraph, graphAspect } = input;
-  const rem = input.remScale && input.remScale > 0 ? input.remScale : 1;
-
-  if (!isWideViewport || containerWidth === null) return stacked;
-
-  // Default is stacked: no graph, an unknown graph, or a heavily horizontal
-  // graph all stack. Tall and squarish graphs, and image options, go side by
-  // side.
-  let preferred: number;
-  if (hasImageOptions) {
-    preferred = IMAGE_OPTIONS_STATEMENT_FRACTION;
-  } else if (hasGraph && graphAspect !== null && graphAspect <= HEAVILY_HORIZONTAL_ASPECT) {
-    preferred = clamp(graphAspect / 2, STATEMENT_COL_MIN, STATEMENT_COL_MAX);
-  } else {
-    return stacked;
-  }
-
-  // Even when side by side is preferred, both columns need a minimum width.
-  // This is what reacts to the font size: a larger font makes the local
-  // container narrower until the minimums no longer fit and we stack.
-  const usable = containerWidth - COLUMN_GAP_PX * rem;
-  const statementMin = (hasGraph ? STATEMENT_WITH_GRAPH_MIN_WIDTH_PX : STATEMENT_MIN_WIDTH_PX) * rem;
-  const optionsMin = OPTIONS_MIN_WIDTH_PX * rem;
-  if (usable < statementMin + optionsMin) return stacked;
-
-  const statementPx = clamp(preferred * usable, statementMin, usable - optionsMin);
-  return { layout: "horizontal", statementFraction: statementPx / usable };
-}
-
-export function columnsTemplate(arrangement: Arrangement) {
-  if (arrangement.layout === "vertical") return "minmax(0, 1fr)";
-  const f = arrangement.statementFraction;
-  return `minmax(0, ${f.toFixed(3)}fr) minmax(0, ${(1 - f).toFixed(3)}fr)`;
-}
-
 // ---------------------------------------------------------------------------
-// Vertical fit: how to get statement + options on screen
+// Measurement cache
 // ---------------------------------------------------------------------------
 
-// Graph height bounds in vertical layout. The graph shrinks (down to the
-// floor) so the options stay visible; the ceiling stops it from growing past a
-// reasonable figure size.
-export const MIN_GRAPH_HEIGHT = 140;
-export const MAX_GRAPH_HEIGHT = 360;
+const variantKey = (v: PanelVariant) => `${v.split ? 1 : 0}${v.columns ?? 0}`;
 
-// The graph wrapper draws a 1px border on each side around the image.
-export const GRAPH_FRAME_PX = 2;
-
-// Sub-pixel slack so rounding never clips the last pixel row.
-export const SAFETY_PX = 2;
-
-// When even the shrunken graph leaves less than this for the options list, the
-// screen stops trying to keep the statement static and scrolls as one page.
-export const MIN_OPTIONS_VIEWPORT_PX = 200;
-
-// Two option columns are only worth it when each card keeps room for a formula.
-export const TWO_COLUMN_MIN_LIST_WIDTH_PX = 2 * 260 + 24;
-
-export type ScrollMode = "contained" | "page";
-
-export interface VerticalFitInput {
-  /** Content height of the question container. */
-  containerHeight: number;
-  /** Gap between grid rows. */
-  rowGap: number;
-  hasGraph: boolean;
-  /** Intrinsic graph height, so tiny images are not forced up to the floor. */
-  graphIntrinsicHeight?: number | null;
-  statement: {
-    /** Whole statement card, as currently rendered. */
-    height: number;
-    /** Graph wrapper as currently rendered (0 without a graph). */
-    graphBoxHeight: number;
-    /** Statement text block (0 without text). */
-    textHeight: number;
-    /** True when the graph sits next to the text instead of below it. */
-    graphBesideText: boolean;
-  };
-  options: {
-    /** Card height minus the list: padding, border and the problem text. */
-    chromeHeight: number;
-    /** Natural height of each option, in order. */
-    itemHeights: number[];
-    /** Gap between options. */
-    itemGap: number;
-    /** Width of the list, to decide whether two columns are legible. */
-    listWidth: number;
-  };
-  /** Explanation block below the options (0 when not shown or placed beside). */
-  explanationHeight: number;
-  remScale?: number;
-}
-
-export interface VerticalFit {
-  optionsGrid: boolean;
-  /** Max height for the graph image; undefined means "no override". */
-  graphMaxHeight: number | undefined;
-  scroll: ScrollMode;
-}
-
-export const DEFAULT_FIT: VerticalFit = {
-  optionsGrid: false,
-  graphMaxHeight: undefined,
-  scroll: "contained",
-};
-
-export function oneColumnListHeight(itemHeights: number[], gap: number) {
-  if (itemHeights.length === 0) return 0;
-  return itemHeights.reduce((sum, h) => sum + h, 0) + gap * (itemHeights.length - 1);
-}
-
-export function twoColumnListHeight(itemHeights: number[], gap: number) {
-  if (itemHeights.length === 0) return 0;
-  let total = 0;
-  let rows = 0;
-  for (let i = 0; i < itemHeights.length; i += 2) {
-    total += Math.max(itemHeights[i], itemHeights[i + 1] ?? 0);
-    rows += 1;
-  }
-  return total + gap * (rows - 1);
-}
-
-interface Budget {
-  fits: boolean;
-  /** Image max height when it fits. */
-  graph: number | undefined;
-}
-
-export function planVerticalFit(input: VerticalFitInput): VerticalFit {
-  const { statement, options, hasGraph } = input;
-  const rem = input.remScale && input.remScale > 0 ? input.remScale : 1;
-  const minGraph = Math.min(MIN_GRAPH_HEIGHT, input.graphIntrinsicHeight ?? Infinity);
-  const maxGraph = Math.max(minGraph, MAX_GRAPH_HEIGHT);
-
-  const rowGaps = input.rowGap * (input.explanationHeight > 0 ? 2 : 1);
-  const available = input.containerHeight - rowGaps - input.explanationHeight - SAFETY_PX;
-
-  // Height of the statement card as a function of the image height.
-  //   stacked:  chrome + text + margin + image
-  //   beside:   padding + max(text, image)
-  const stacked = !statement.graphBesideText;
-  const chrome = stacked
-    ? statement.height - statement.graphBoxHeight
-    : statement.height - Math.max(statement.textHeight, statement.graphBoxHeight);
-  const statementHeightFor = (imageHeight: number) => {
-    const box = imageHeight + GRAPH_FRAME_PX;
-    return stacked ? chrome + box : chrome + Math.max(statement.textHeight, box);
-  };
-
-  const budgetFor = (optionsHeight: number): Budget => {
-    const room = available - optionsHeight;
-    if (!hasGraph) return { fits: statement.height <= room, graph: undefined };
-    // Beside the text, the card is as tall as the taller of the two, so the
-    // text alone must fit even though the image can use all remaining room.
-    if (!stacked && chrome + statement.textHeight > room) return { fits: false, graph: undefined };
-    const imageRoom = room - chrome - GRAPH_FRAME_PX;
-    if (imageRoom < minGraph) return { fits: false, graph: undefined };
-    return { fits: true, graph: clamp(imageRoom, minGraph, maxGraph) };
-  };
-
-  const listOne = oneColumnListHeight(options.itemHeights, options.itemGap);
-  const listTwo = twoColumnListHeight(options.itemHeights, options.itemGap);
-  const canGrid =
-    options.itemHeights.length >= 2 && options.listWidth >= TWO_COLUMN_MIN_LIST_WIDTH_PX * rem;
-
-  // 1. Everything fits in a single column.
-  const single = budgetFor(options.chromeHeight + listOne);
-  if (single.fits) return { optionsGrid: false, graphMaxHeight: single.graph, scroll: "contained" };
-
-  // 2. Everything fits once the options use two columns.
-  if (canGrid) {
-    const double = budgetFor(options.chromeHeight + listTwo);
-    if (double.fits) return { optionsGrid: true, graphMaxHeight: double.graph, scroll: "contained" };
-  }
-
-  // 3. Shrink the graph to its floor and let only the options list scroll, as
-  //    long as enough of it stays visible to be usable.
-  const floorStatement = hasGraph ? statementHeightFor(minGraph) : statement.height;
-  const listViewport = available - floorStatement - options.chromeHeight;
-  if (listViewport >= MIN_OPTIONS_VIEWPORT_PX) {
-    return {
-      optionsGrid: canGrid,
-      graphMaxHeight: hasGraph ? minGraph : undefined,
-      scroll: "contained",
-    };
-  }
-
-  // 4. Nothing fits comfortably (large font, long statement, short window):
-  //    scroll the whole screen as a page with the graph at a normal size.
+function memoized(m: PanelMeasurer): PanelMeasurer {
+  const heights = new Map<string, number>();
+  const widths = new Map<string, number>();
   return {
-    optionsGrid: false,
-    graphMaxHeight: hasGraph ? maxGraph : undefined,
-    scroll: "page",
+    variants: m.variants,
+    height(width, variant, graphMax) {
+      const w = Math.round(width);
+      const key = `${w}|${variantKey(variant)}|${graphMax}`;
+      let value = heights.get(key);
+      if (value === undefined) {
+        value = m.height(w, variant, graphMax);
+        heights.set(key, value);
+      }
+      return value;
+    },
+    maxContentWidth(variant, graphMax) {
+      const key = `${variantKey(variant)}|${graphMax}`;
+      let value = widths.get(key);
+      if (value === undefined) {
+        value = m.maxContentWidth(variant, graphMax);
+        widths.set(key, value);
+      }
+      return value;
+    },
   };
 }
 
-/**
- * After an answer is revealed the options collapse to the selected one and an
- * explanation appears. The graph and grid decisions are kept from before the
- * reveal so nothing resizes under the reader's eyes; the only thing that may
- * change is that the screen becomes scrollable when the new content overflows.
- */
-export function scrollForRevealedContent(
-  fit: VerticalFit,
-  contentHeight: number,
-  containerHeight: number,
-): VerticalFit {
-  if (fit.scroll === "page") return fit;
-  return contentHeight > containerHeight + 1 ? { ...fit, scroll: "page" } : fit;
+// ---------------------------------------------------------------------------
+// Candidate layout
+// ---------------------------------------------------------------------------
+
+interface PanelStat {
+  id: PanelId;
+  rect: Rect;
+  contentWidth: number;
 }
 
-export function sameFit(a: VerticalFit, b: VerticalFit) {
-  return (
-    a.optionsGrid === b.optionsGrid &&
-    a.graphMaxHeight === b.graphMaxHeight &&
-    a.scroll === b.scroll
+interface Candidate {
+  template: Template;
+  statementVariant: PanelVariant;
+  optionsVariant: PanelVariant;
+  graphMax: number | null;
+  graphStep: number;
+  stats: PanelStat[];
+  layoutWidth: number;
+  totalHeight: number;
+  /** Area of band space not covered by panels (shorter columns). */
+  emptyBandArea: number;
+}
+
+interface Context {
+  width: number;
+  height: number;
+  gap: number;
+  hasGraph: boolean;
+  measurers: Partial<Record<PanelId, PanelMeasurer>>;
+}
+
+function layoutCandidate(
+  ctx: Context,
+  template: Template,
+  statementVariant: PanelVariant,
+  optionsVariant: PanelVariant,
+  graphStep: number,
+  graphValue: number | null,
+): Candidate | null {
+  const { gap } = ctx;
+  const variantOf = (id: PanelId): PanelVariant =>
+    id === S ? statementVariant : id === O ? optionsVariant : {};
+  const measurer = (id: PanelId) => ctx.measurers[id] as PanelMeasurer;
+
+  const idealOf = (id: PanelId) => {
+    const v = variantOf(id);
+    const min = minPanelWidth(id, v, ctx.hasGraph);
+    const content = measurer(id).maxContentWidth(v, graphValue);
+    return Math.min(clamp(content, min, Math.max(min, IDEAL_WIDTH_CAP_PX)), Math.max(ctx.width, 1));
+  };
+
+  const columnInfo = template.bands.map((band) =>
+    band.map((ids) => ({
+      ids,
+      ideal: Math.max(...ids.map(idealOf)),
+      min: Math.max(...ids.map((id) => minPanelWidth(id, variantOf(id), ctx.hasGraph))),
+    })),
   );
+
+  const bandIdeal = columnInfo.map(
+    (cols) => cols.reduce((sum, c) => sum + c.ideal, 0) + gap * (cols.length - 1),
+  );
+  const layoutWidth = Math.min(ctx.width, Math.max(...bandIdeal));
+
+  const stats: PanelStat[] = [];
+  let y = 0;
+  let emptyBandArea = 0;
+
+  for (let b = 0; b < columnInfo.length; b++) {
+    const cols = columnInfo[b];
+    const available = layoutWidth - gap * (cols.length - 1);
+    const total = cols.reduce((sum, c) => sum + c.ideal, 0);
+    let widths = cols.map((c) => c.ideal);
+
+    if (total > available) {
+      const slack = cols.reduce((sum, c) => sum + (c.ideal - c.min), 0);
+      const need = total - available;
+      if (need > slack + 0.5) {
+        // Columns cannot both keep their minimum width. A single column just
+        // takes the narrow container; side by side is not possible.
+        if (cols.length > 1) return null;
+        widths = [available];
+      } else {
+        widths = cols.map((c) => c.ideal - (slack > 0 ? (need * (c.ideal - c.min)) / slack : 0));
+      }
+    } else if (total < available) {
+      const extra = available - total;
+      widths = cols.map((c) => c.ideal + (extra * c.ideal) / total);
+    }
+
+    widths = widths.map(Math.round);
+    widths[widths.length - 1] += available - widths.reduce((s, w) => s + w, 0);
+
+    let bandHeight = 0;
+    const columnHeights: number[] = [];
+    let x = 0;
+    const placed: PanelStat[] = [];
+    for (let c = 0; c < cols.length; c++) {
+      let cy = y;
+      cols[c].ids.forEach((id, i) => {
+        const v = variantOf(id);
+        const m = measurer(id);
+        const height = Math.ceil(m.height(widths[c], v, graphValue)) + SAFETY_PX;
+        placed.push({
+          id,
+          rect: { x, y: cy, width: widths[c], height },
+          contentWidth: m.maxContentWidth(v, graphValue),
+        });
+        cy += height + (i < cols[c].ids.length - 1 ? gap : 0);
+      });
+      const colHeight = cy - y;
+      columnHeights.push(colHeight);
+      bandHeight = Math.max(bandHeight, colHeight);
+      x += widths[c] + gap;
+    }
+    cols.forEach((_, c) => {
+      emptyBandArea += (bandHeight - columnHeights[c]) * widths[c];
+    });
+    stats.push(...placed);
+    y += bandHeight + gap;
+  }
+
+  return {
+    template,
+    statementVariant,
+    optionsVariant,
+    graphMax: graphValue,
+    graphStep,
+    stats,
+    layoutWidth,
+    totalHeight: y - gap,
+    emptyBandArea,
+  };
 }
 
-export function gridTemplateRowsFor(
-  layout: QuestionLayout,
-  scroll: ScrollMode,
-  hasExplanationRow: boolean,
-) {
-  if (layout === "horizontal") return "minmax(0, 1fr)";
-  const options = scroll === "contained" ? "minmax(0, 1fr)" : "auto";
-  return hasExplanationRow ? `auto ${options} auto` : `auto ${options}`;
+function scoreCandidate(c: Candidate, ctx: Context, previous?: LayoutPlan | null): number {
+  let score = c.template.complexity + W_GRAPH_STEP * c.graphStep;
+
+  const overflow = Math.max(0, c.totalHeight - ctx.height);
+  if (overflow > 0) score += W_OVERFLOW_FLAT + (W_OVERFLOW * overflow) / Math.max(ctx.height, 1);
+
+  let area = 0;
+  let waste = 0;
+  for (const { id, rect, contentWidth } of c.stats) {
+    if (id === O && c.optionsVariant.columns === 2 && rect.width < contentWidth) {
+      score += W_WRAP_COLUMNS * (1 - rect.width / contentWidth);
+    }
+    const a = rect.width * rect.height;
+    area += a;
+    waste += a * Math.max(0, 1 - contentWidth / rect.width);
+    score += W_TALL * Math.max(0, rect.height / rect.width - TALL_RATIO);
+    score += W_LONG_LINE * Math.max(0, (rect.width - IDEAL_WIDTH_CAP_PX) / IDEAL_WIDTH_CAP_PX);
+  }
+  if (area > 0) score += W_WASTE * (waste / area);
+
+  const bounding = c.layoutWidth * Math.max(c.totalHeight, 1);
+  score += (W_RAGGED * c.emptyBandArea) / bounding;
+
+  if (previous) {
+    let moved = 0;
+    let count = 0;
+    for (const { id, rect } of c.stats) {
+      const before = previous.rects[id];
+      if (!before || id === E) continue;
+      moved +=
+        Math.abs(rect.x - before.x) +
+        Math.abs(rect.y - before.y) +
+        Math.abs(rect.width - before.width) +
+        Math.abs(rect.height - before.height);
+      count += 1;
+    }
+    if (count > 0) score += (W_MOVE * moved) / count / (ctx.width + ctx.height);
+  }
+  return score;
+}
+
+// ---------------------------------------------------------------------------
+// Entry point
+// ---------------------------------------------------------------------------
+
+export function planQuestionLayout(input: PlanInput): LayoutPlan {
+  const { containerWidth, containerHeight, hasGraph } = input;
+  const withExplanation = Boolean(input.panels.explanation);
+  const ctx: Context = {
+    width: Math.max(containerWidth, 1),
+    height: containerHeight,
+    gap: gapFor(containerWidth),
+    hasGraph,
+    measurers: {
+      statement: memoized(input.panels.statement),
+      options: memoized(input.panels.options),
+      ...(input.panels.explanation ? { explanation: memoized(input.panels.explanation) } : {}),
+    },
+  };
+
+  const templates = withExplanation ? TEMPLATES_THREE : TEMPLATES_TWO;
+  const ladder = hasGraph ? GRAPH_LADDER : [null];
+
+  let best: { candidate: Candidate; score: number } | null = null;
+
+  for (const template of templates) {
+    for (const sv of input.panels.statement.variants) {
+      for (const ov of input.panels.options.variants) {
+        // Shrink the graph only as far as needed to fit this arrangement.
+        let chosen: Candidate | null = null;
+        for (let step = 0; step < ladder.length; step++) {
+          const candidate = layoutCandidate(ctx, template, sv, ov, step, ladder[step]);
+          if (!candidate) break;
+          chosen = candidate;
+          if (candidate.totalHeight <= ctx.height) break;
+        }
+        if (!chosen) continue;
+        const score = scoreCandidate(chosen, ctx, input.previous);
+        if (!best || score < best.score - 1e-9) best = { candidate: chosen, score };
+      }
+    }
+  }
+
+  // The stacked template is always feasible, so this only guards bad input.
+  if (!best) {
+    const fallback = layoutCandidate(
+      ctx,
+      templates[0],
+      input.panels.statement.variants[0],
+      input.panels.options.variants[0],
+      0,
+      null,
+    ) as Candidate;
+    best = { candidate: fallback, score: 0 };
+  }
+
+  const { candidate } = best;
+  const overflow = candidate.totalHeight > ctx.height;
+  const slack = Math.max(0, ctx.height - candidate.totalHeight);
+  const top = overflow ? 0 : Math.round(Math.min(slack * TOP_BIAS, MAX_TOP_OFFSET_PX));
+  const left = Math.round((ctx.width - candidate.layoutWidth) / 2);
+
+  const rects: Partial<Record<PanelId, Rect>> = {};
+  for (const { id, rect } of candidate.stats) {
+    rects[id] = { ...rect, x: rect.x + left, y: rect.y + top };
+  }
+
+  return {
+    template: candidate.template.name,
+    rects,
+    statementVariant: candidate.statementVariant,
+    optionsVariant: candidate.optionsVariant,
+    graphMax: candidate.graphMax,
+    stageHeight: overflow ? candidate.totalHeight : ctx.height,
+    contentHeight: candidate.totalHeight,
+    overflow,
+    score: best.score,
+  };
+}
+
+export function samePlan(a: LayoutPlan | null, b: LayoutPlan | null) {
+  if (a === b) return true;
+  if (!a || !b) return false;
+  if (a.stageHeight !== b.stageHeight || a.graphMax !== b.graphMax) return false;
+  if (a.statementVariant.split !== b.statementVariant.split) return false;
+  if (a.optionsVariant.columns !== b.optionsVariant.columns) return false;
+  for (const id of ["statement", "options", "explanation"] as PanelId[]) {
+    const ra = a.rects[id];
+    const rb = b.rects[id];
+    if (Boolean(ra) !== Boolean(rb)) return false;
+    if (ra && rb && (ra.x !== rb.x || ra.y !== rb.y || ra.width !== rb.width || ra.height !== rb.height)) {
+      return false;
+    }
+  }
+  return true;
 }

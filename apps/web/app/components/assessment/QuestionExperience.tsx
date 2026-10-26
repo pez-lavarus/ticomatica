@@ -63,37 +63,26 @@ export const QuestionExperience = memo(function QuestionExperience({
   const [flashAnswer, setFlashAnswer] = useState<string | null>(null);
   const prevQuestionKeyRef = useRef(question.original_number);
   const autoNextTimer = useRef<NodeJS.Timeout | null>(null);
-  const statementRef = useRef<HTMLDivElement | null>(null);
-  const statementTextRef = useRef<HTMLDivElement | null>(null);
-  const graphWrapperRef = useRef<HTMLDivElement | null>(null);
-  const optionsScrollRef = useRef<HTMLDivElement | null>(null);
-  const explanationRef = useRef<HTMLDivElement | null>(null);
-  const hasImageOptions = question.options.some((option) => option.image);
   const behavior = getModeBehavior(testMode);
 
   const revealed = behavior.immediateFeedback && Boolean(selectedAnswer);
-  const showPanel = behavior.showExplanation && revealed;
+  const showPanel = behavior.showExplanation && revealed && Boolean(explanation);
 
-  const {
-    containerRef,
-    layout,
-    gridTemplateColumns,
-    gridTemplateRows,
-    graphMaxHeight,
-    optionsGrid,
-    scrollMode,
-    explanationPlacement,
-  } = useQuestionLayout({
-    graphSrc: sharedImageSrc,
+  // Every image that affects panel sizes, so the layout can re-plan once their
+  // dimensions are known.
+  const imageSources = [
+    ...(sharedImageSrc ? [sharedImageSrc] : []),
+    ...question.options.flatMap((option) => (option.image ? [option.image] : [])),
+    ...(showPanel && explanation?.image ? [explanation.image] : []),
+  ];
+
+  const { containerRef, slot, stageHeight, statementSplit, optionsColumns, graphMax } = useQuestionLayout({
     questionKey: question.original_number,
-    hasImageOptions,
-    revealed,
-    showExplanation: showPanel,
-    statementRef,
-    statementTextRef,
-    graphWrapperRef,
-    optionsScrollRef,
-    explanationRef,
+    hasGraph: Boolean(sharedImageSrc),
+    hasStatementText: Boolean(question.statement),
+    optionCount: question.options.length,
+    hasExplanation: showPanel,
+    imageSources,
   });
 
   if (prevQuestionKeyRef.current !== question.original_number) {
@@ -111,42 +100,6 @@ export const QuestionExperience = memo(function QuestionExperience({
       }
     };
   }, [question.original_number]);
-
-  // Keep the screen from feeling stuck: a wheel gesture anywhere in the
-  // question area scrolls whichever region can actually move. Over a scrollable
-  // region the browser handles it natively (momentum, scroll chaining); over
-  // dead space or a region that cannot scroll, it is redirected to the options
-  // list. In page mode the container itself scrolls natively, so nothing to do.
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container || scrollMode === "page") return;
-
-    const canScroll = (el: HTMLElement | null): el is HTMLElement =>
-      el !== null && el.scrollHeight > el.clientHeight + 1;
-
-    const handleWheel = (e: WheelEvent) => {
-      if (e.defaultPrevented || e.ctrlKey || Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
-
-      const options = optionsScrollRef.current;
-      const target = e.target as Node | null;
-      if (target && options?.contains(target) && canScroll(options)) return;
-      if (target && statementRef.current?.contains(target) && canScroll(statementRef.current)) return;
-      if (!canScroll(options)) return;
-
-      const atTop = options.scrollTop <= 0;
-      const atBottom = options.scrollTop + options.clientHeight >= options.scrollHeight - 1;
-      if ((e.deltaY > 0 && atBottom) || (e.deltaY < 0 && atTop)) return;
-
-      // Lines and pages (Firefox, some mice) are not pixels.
-      const delta =
-        e.deltaMode === 1 ? e.deltaY * 16 : e.deltaMode === 2 ? e.deltaY * options.clientHeight : e.deltaY;
-      e.preventDefault();
-      options.scrollTop += delta;
-    };
-
-    container.addEventListener("wheel", handleWheel, { passive: false });
-    return () => container.removeEventListener("wheel", handleWheel);
-  }, [containerRef, scrollMode]);
 
   const handleSelect = (label: string) => {
     onSelect(label);
@@ -170,56 +123,51 @@ export const QuestionExperience = memo(function QuestionExperience({
 
   return (
     <div className="flex flex-col gap-4 md:gap-6 h-full">
-      {/* Statement + Options: arrangement is decided by useQuestionLayout.
-          The container is padded and pulled back with a negative margin so the
-          cards' shadows are not clipped by the scroll overflow. */}
+      {/* The three panels (statement, options, explanation) are placed by
+          useQuestionLayout: each one hugs its content, and their arrangement
+          and sizes are re-planned whenever the question, the font size, the
+          available space or the explanation changes. The container is padded
+          and pulled back with a negative margin so the cards' shadows are not
+          clipped by the scroll overflow. */}
       <div
         ref={containerRef}
-        className={`grid items-start gap-4 md:gap-6 [&>*]:min-w-0 flex-1 min-h-0 -mx-1.5 px-1.5 -mb-2 pb-2 ${
-          scrollMode === "page" ? "overflow-y-auto hide-scrollbar" : ""
-        }`}
-        style={{ gridTemplateColumns, gridTemplateRows }}
+        className="relative flex-1 min-h-0 -mx-1.5 px-1.5 -mb-2 pb-2 overflow-y-auto hide-scrollbar"
       >
         <div
-          ref={statementRef}
           className={
-            layout === "horizontal"
-              ? "min-h-0 max-h-full overflow-y-auto hide-scrollbar -mx-1.5 px-1.5 pb-2"
-              : undefined
+            stageHeight === undefined
+              ? "flex flex-col gap-4 md:gap-6"
+              : "question-stage relative"
           }
+          style={stageHeight === undefined ? undefined : { height: stageHeight }}
         >
           <QuestionStatement
             question={question}
             sharedImageSrc={sharedImageSrc}
             onOpenImageModal={onOpenImageModal}
-            graphMaxHeight={graphMaxHeight}
-            graphWrapperRef={graphWrapperRef}
-            textRef={statementTextRef}
-            split={layout === "vertical"}
+            slot={slot("statement")}
+            split={statementSplit}
+            graphMax={graphMax}
           />
-        </div>
-        <div className="self-stretch min-h-0">
           <ResponseOptions
             question={question}
             selectedAnswer={selectedAnswer}
             onSelect={handleSelect}
             onOpenImageModal={onOpenImageModal}
-            scrollRef={optionsScrollRef}
-            useGrid={optionsGrid}
+            slot={slot("options")}
+            columns={optionsColumns}
             revealed={revealed}
             correctAnswer={question.correct_answer}
             flash={flashActive}
-          >
-            {showPanel && explanationPlacement === "options-column" && (
-              <ExplanationPanel explanation={explanation} />
-            )}
-          </ResponseOptions>
+          />
+          {showPanel && (
+            <ExplanationPanel
+              explanation={explanation}
+              questionKey={question.original_number}
+              slot={slot("explanation")}
+            />
+          )}
         </div>
-        {showPanel && explanationPlacement === "below" && (
-          <div ref={explanationRef} className="min-h-0">
-            <ExplanationPanel explanation={explanation} />
-          </div>
-        )}
       </div>
 
       {/* Quick Nav for Mobile / Desktop Bottom */}

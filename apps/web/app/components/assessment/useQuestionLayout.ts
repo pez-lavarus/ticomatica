@@ -1,131 +1,153 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useReducer, useRef, useState, useSyncExternalStore } from "react";
-import type { RefObject } from "react";
-import { getGraphAspect, getGraphDimensions, preloadGraphAspect } from "@/lib/graph-aspects";
-import {
-  DEFAULT_FIT,
-  WIDE_VIEWPORT_QUERY,
-  columnsTemplate,
-  gridTemplateRowsFor,
-  oneColumnListHeight,
-  planVerticalFit,
-  resolveArrangement,
-  sameFit,
-  scrollForRevealedContent,
-} from "@/lib/question-layout-plan";
-import type { ScrollMode, VerticalFit, VerticalFitInput } from "@/lib/question-layout-plan";
+import { useCallback, useEffect, useLayoutEffect, useReducer, useRef, useState } from "react";
+import { getGraphAspect, preloadGraphAspect } from "@/lib/graph-aspects";
+import { planQuestionLayout, samePlan } from "@/lib/question-layout-plan";
+import type { LayoutPlan, PanelId, PanelMeasurer, PanelVariant } from "@/lib/question-layout-plan";
+import type { PanelSlot } from "./QuestionPanel";
 
-export type { QuestionLayout, ScrollMode } from "@/lib/question-layout-plan";
-
-export type ExplanationPlacement = "options-column" | "below";
-
-// This hook only measures and applies. Every decision (side by side or
-// stacked, column widths, graph height, two-column options, page scroll) lives
-// in `lib/question-layout-plan.ts` where it is unit-tested.
+// This hook only measures and applies. Every decision (which panels sit side
+// by side, how wide each one is, how big the graph is, whether the screen
+// scrolls) lives in `lib/question-layout-plan.ts`, which is unit-tested.
 //
-// Measurement rules, because the font scale is a CSS `zoom` on an ancestor:
-//  - Everything is measured from elements inside that wrapper, with the
-//    offset/client/scroll family, so all numbers share one coordinate space.
-//  - Nothing is compared against `window.innerHeight` or
-//    `getBoundingClientRect()`, which live in viewport pixels. The container
-//    already sits inside the available area (`flex-1 min-h-0`), so its own
-//    content box is the height budget at any font size.
-//  - Measured inputs never depend on the values this hook outputs (the graph
-//    height, the grid choice), so one pass converges and cannot oscillate.
+// How measuring works. Each panel's content element hangs out of flow from its
+// frame (see QuestionPanel), so the engine can ask "how tall are you at 520px,
+// with the graph capped at 220px, in two columns?" by temporarily setting
+// those on the element, reading offsetHeight, and restoring. All of it happens
+// synchronously inside one layout effect, so nothing is painted and nothing
+// animates while probing; the frame only ever sees the final plan.
+//
+// Units: the font scale is a CSS `zoom` on an ancestor, so everything is read
+// with the offset/client family, which reports in the zoomed element's own
+// coordinates. Nothing here uses getBoundingClientRect or window sizes. A
+// larger font makes the container smaller in these units, which is what
+// triggers a new plan.
 
 interface UseQuestionLayoutOptions {
-  graphSrc?: string;
   questionKey: number;
-  hasImageOptions: boolean;
-  /** Answer feedback is showing: options collapse to the selected one. */
-  revealed: boolean;
-  /** Explanation panel is mounted. */
-  showExplanation: boolean;
-  statementRef: RefObject<HTMLDivElement | null>;
-  statementTextRef: RefObject<HTMLDivElement | null>;
-  graphWrapperRef: RefObject<HTMLDivElement | null>;
-  optionsScrollRef: RefObject<HTMLDivElement | null>;
-  explanationRef: RefObject<HTMLDivElement | null>;
+  hasGraph: boolean;
+  hasStatementText: boolean;
+  optionCount: number;
+  /** The explanation panel is mounted. */
+  hasExplanation: boolean;
+  /** Every image the panels show, so the layout re-plans once sizes are known. */
+  imageSources: string[];
 }
 
 interface ContainerBox {
   width: number;
   height: number;
-  remScale: number;
 }
 
-interface FrozenOptions {
-  key: number;
-  chromeHeight: number;
-  itemHeights: number[];
-  itemGap: number;
-  listWidth: number;
+interface PlanState {
+  plan: LayoutPlan | null;
+  /** Panels that already had a place in the previous plan: only they animate. */
+  placed: Partial<Record<PanelId, boolean>>;
 }
 
 const px = (value: string) => Number.parseFloat(value) || 0;
 
-function getContentBox(el: HTMLElement) {
+function getContentBox(el: HTMLElement): ContainerBox {
   const style = getComputedStyle(el);
   return {
-    width: Math.round(el.clientWidth - px(style.paddingLeft) - px(style.paddingRight)),
-    height: Math.round(el.clientHeight - px(style.paddingTop) - px(style.paddingBottom)),
+    width: Math.floor(el.clientWidth - px(style.paddingLeft) - px(style.paddingRight)),
+    height: Math.floor(el.clientHeight - px(style.paddingTop) - px(style.paddingBottom)),
   };
 }
 
-function getRemScale() {
-  return px(getComputedStyle(document.documentElement).fontSize) / 16 || 1;
-}
+function createMeasurer(el: HTMLElement, id: PanelId, variants: PanelVariant[]): PanelMeasurer {
+  const frame = el.parentElement as HTMLElement;
+  const chromeX = Math.max(0, frame.offsetWidth - frame.clientWidth);
+  const chromeY = Math.max(0, frame.offsetHeight - frame.clientHeight);
 
-function subscribeToWideViewport(onChange: () => void) {
-  const query = window.matchMedia(WIDE_VIEWPORT_QUERY);
-  query.addEventListener("change", onChange);
-  return () => query.removeEventListener("change", onChange);
-}
+  const probe = <T,>(
+    width: string,
+    variant: PanelVariant,
+    graphMax: number | null,
+    read: () => T,
+  ): T => {
+    const saved = {
+      position: el.style.position,
+      left: el.style.left,
+      top: el.style.top,
+      width: el.style.width,
+      split: el.dataset.split,
+      columns: el.dataset.columns,
+      graphMax: el.style.getPropertyValue("--graph-max"),
+    };
+    el.style.position = "absolute";
+    el.style.left = "0";
+    el.style.top = "0";
+    el.style.width = width;
+    if (id === "statement") {
+      if (variant.split !== undefined) el.dataset.split = String(variant.split);
+      if (graphMax === null) el.style.removeProperty("--graph-max");
+      else el.style.setProperty("--graph-max", `${graphMax}px`);
+    }
+    if (id === "options" && variant.columns !== undefined) el.dataset.columns = String(variant.columns);
+    try {
+      return read();
+    } finally {
+      el.style.position = saved.position;
+      el.style.left = saved.left;
+      el.style.top = saved.top;
+      el.style.width = saved.width;
+      if (saved.split === undefined) delete el.dataset.split;
+      else el.dataset.split = saved.split;
+      if (saved.columns === undefined) delete el.dataset.columns;
+      else el.dataset.columns = saved.columns;
+      if (saved.graphMax) el.style.setProperty("--graph-max", saved.graphMax);
+      else el.style.removeProperty("--graph-max");
+    }
+  };
 
-const getWideViewport = () => window.matchMedia(WIDE_VIEWPORT_QUERY).matches;
-const getWideViewportOnServer = () => false;
+  return {
+    variants,
+    height: (width, variant, graphMax) =>
+      probe(`${Math.max(width - chromeX, 1)}px`, variant, graphMax, () => el.offsetHeight + chromeY),
+    maxContentWidth: (variant, graphMax) =>
+      probe("max-content", variant, graphMax, () => el.offsetWidth + chromeX),
+  };
+}
 
 export function useQuestionLayout({
-  graphSrc,
   questionKey,
-  hasImageOptions,
-  revealed,
-  showExplanation,
-  statementRef,
-  statementTextRef,
-  graphWrapperRef,
-  optionsScrollRef,
-  explanationRef,
+  hasGraph,
+  hasStatementText,
+  optionCount,
+  hasExplanation,
+  imageSources,
 }: UseQuestionLayoutOptions) {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const frozenRef = useRef<FrozenOptions | null>(null);
+  const lastPlan = useRef<{ plan: LayoutPlan; questionKey: number; box: ContainerBox } | null>(null);
   const [box, setBox] = useState<ContainerBox | null>(null);
-  const [fit, setFit] = useState<VerticalFit>(DEFAULT_FIT);
-  const [, forceAspectUpdate] = useReducer((n: number) => n + 1, 0);
+  const [state, setState] = useState<PlanState>({ plan: null, placed: {} });
+  // Bumped when something that changes natural sizes finishes loading.
+  const [measureVersion, bumpMeasure] = useReducer((n: number) => n + 1, 0);
 
-  // The server and hydration resolve to stacked; the client value applies
-  // right after hydration without a mismatch.
-  const isWideViewport = useSyncExternalStore(
-    subscribeToWideViewport,
-    getWideViewport,
-    getWideViewportOnServer,
-  );
+  // Registry of the panels' content elements, with one stable ref callback per
+  // panel. Built once; it is a plain object (not a ref) because the callbacks
+  // are handed to the panels during render.
+  const [registry] = useState(() => {
+    const elements: Partial<Record<PanelId, HTMLElement>> = {};
+    const make = (id: PanelId) => (el: HTMLElement | null) => {
+      if (el) elements[id] = el;
+      else delete elements[id];
+    };
+    return {
+      elements,
+      refs: { statement: make("statement"), options: make("options"), explanation: make("explanation") },
+    };
+  });
 
-  // Container size, read synchronously on mount so the first paint already
-  // uses the right arrangement, then kept current. Font-scale changes resize
-  // the container in local pixels, which lands here too.
+  // Container size: read on mount so the first paint is already laid out, then
+  // kept current. Font-scale changes resize the container in local pixels.
   useLayoutEffect(() => {
     const el = containerRef.current;
     if (!el) return;
     const read = () => {
-      const { width, height } = getContentBox(el);
-      const remScale = getRemScale();
-      setBox((prev) =>
-        prev && prev.width === width && prev.height === height && prev.remScale === remScale
-          ? prev
-          : { width, height, remScale },
-      );
+      const next = getContentBox(el);
+      setBox((prev) => (prev && prev.width === next.width && prev.height === next.height ? prev : next));
     };
     read();
     if (typeof ResizeObserver === "undefined") return;
@@ -134,148 +156,106 @@ export function useQuestionLayout({
     return () => observer.disconnect();
   }, []);
 
+  // Image sizes are needed before the panels have their real height.
+  const imageKey = imageSources.join("|");
   useEffect(() => {
-    if (!graphSrc || getGraphAspect(graphSrc) !== null) return;
     let cancelled = false;
-    preloadGraphAspect(graphSrc).then(() => {
-      if (!cancelled) forceAspectUpdate();
-    });
+    for (const src of imageKey ? imageKey.split("|") : []) {
+      if (getGraphAspect(src) !== null) continue;
+      preloadGraphAspect(src).then(() => {
+        if (!cancelled) bumpMeasure();
+      });
+    }
     return () => {
       cancelled = true;
     };
-  }, [graphSrc]);
+  }, [imageKey]);
 
-  const hasGraph = Boolean(graphSrc);
-  const graphAspect = getGraphAspect(graphSrc);
-
-  const arrangement = resolveArrangement({
-    isWideViewport,
-    containerWidth: box?.width ?? null,
-    remScale: box?.remScale,
-    hasImageOptions,
-    hasGraph,
-    graphAspect,
-  });
-  const { layout } = arrangement;
-  const remScale = box?.remScale;
-  const hasBox = box !== null;
-
-  // Vertical fit: how tall the graph may be, whether the options use two
-  // columns, and whether the screen has to scroll as a page.
-  useLayoutEffect(() => {
-    const resetFit = () => setFit((prev) => (sameFit(prev, DEFAULT_FIT) ? prev : DEFAULT_FIT));
-    if (layout !== "vertical" || !hasBox) {
-      resetFit();
-      return;
-    }
-
-    const containerEl = containerRef.current;
-    const statementEl = statementRef.current;
-    const listEl = optionsScrollRef.current;
-    const cardEl = listEl?.parentElement;
-    if (!containerEl || !statementEl || !listEl || !cardEl) return;
-    const graphEl = graphWrapperRef.current;
-    const textEl = statementTextRef.current;
-    const explanationEl = explanationRef.current;
-    const items = Array.from(listEl.children) as HTMLElement[];
-
-    const compute = () => {
-      const content = getContentBox(containerEl);
-      const rowGap = px(getComputedStyle(containerEl).rowGap);
-
-      // Options as rendered right now. `space-y-*` spaces with margins and the
-      // two-column grid with `gap`, so take whichever is present.
-      const itemGap = Math.max(
-        px(getComputedStyle(listEl).rowGap),
-        items[0] ? px(getComputedStyle(items[0]).marginBottom) : 0,
-        items[1] ? px(getComputedStyle(items[1]).marginTop) : 0,
-      );
-      const live = {
-        chromeHeight: cardEl.offsetHeight - listEl.offsetHeight,
-        itemHeights: items.map((item) => item.offsetHeight),
-        itemGap,
-        listWidth: listEl.clientWidth,
-      };
-
-      // Remember the full option list while it is visible. After a reveal only
-      // the selected option remains, but the layout keeps being planned for the
-      // full list so the graph does not jump when feedback appears.
-      if (!revealed) frozenRef.current = { key: questionKey, ...live };
-      const frozen = revealed && frozenRef.current?.key === questionKey ? frozenRef.current : null;
-      const planned = frozen ?? live;
-
-      const textHeight = textEl?.offsetHeight ?? 0;
-      const graphBoxHeight = graphEl?.offsetHeight ?? 0;
-      const graphBesideText = Boolean(
-        graphEl && textEl && textHeight > 0 && graphEl.offsetTop < textEl.offsetTop + textHeight - 1,
-      );
-      const explanationHeight = explanationEl?.offsetHeight ?? 0;
-
-      const input: VerticalFitInput = {
-        containerHeight: content.height,
-        rowGap,
-        hasGraph,
-        graphIntrinsicHeight: getGraphDimensions(graphSrc)?.height ?? null,
-        statement: { height: statementEl.offsetHeight, graphBoxHeight, textHeight, graphBesideText },
-        options: planned,
-        explanationHeight: frozen ? 0 : explanationHeight,
-        remScale,
-      };
-      let next = planVerticalFit(input);
-
-      if (frozen) {
-        const contentHeight =
-          statementEl.offsetHeight +
-          rowGap +
-          live.chromeHeight +
-          oneColumnListHeight(live.itemHeights, live.itemGap) +
-          (explanationHeight > 0 ? rowGap + explanationHeight : 0);
-        next = scrollForRevealedContent(next, contentHeight, content.height);
-      }
-
-      setFit((prev) => (sameFit(prev, next) ? prev : next));
+  // Web fonts (KaTeX, serif body) change text metrics when they arrive.
+  useEffect(() => {
+    if (typeof document === "undefined" || !document.fonts) return;
+    let frame = 0;
+    const schedule = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(bumpMeasure);
     };
+    document.fonts.addEventListener("loadingdone", schedule);
+    document.fonts.ready.then(schedule);
+    return () => {
+      cancelAnimationFrame(frame);
+      document.fonts.removeEventListener("loadingdone", schedule);
+    };
+  }, []);
 
-    compute();
+  useLayoutEffect(() => {
+    if (!box || box.width <= 0 || box.height <= 0) return;
+    const statementEl = registry.elements.statement;
+    const optionsEl = registry.elements.options;
+    const explanationEl = hasExplanation ? registry.elements.explanation : undefined;
+    if (!statementEl || !optionsEl) return;
 
-    const observer = new ResizeObserver(compute);
-    [containerEl, statementEl, cardEl, listEl, graphEl, explanationEl, ...items].forEach((el) => {
-      if (el) observer.observe(el);
+    const prev = lastPlan.current;
+    const sameScreen =
+      prev && prev.questionKey === questionKey && prev.box.width === box.width && prev.box.height === box.height;
+
+    const next = planQuestionLayout({
+      containerWidth: box.width,
+      containerHeight: box.height,
+      hasGraph,
+      previous: sameScreen ? prev.plan : null,
+      panels: {
+        statement: createMeasurer(
+          statementEl,
+          "statement",
+          hasGraph && hasStatementText ? [{ split: false }, { split: true }] : [{}],
+        ),
+        options: createMeasurer(
+          optionsEl,
+          "options",
+          optionCount >= 2 ? [{ columns: 1 }, { columns: 2 }] : [{ columns: 1 }],
+        ),
+        explanation: explanationEl ? createMeasurer(explanationEl, "explanation", [{}]) : null,
+      },
     });
-    return () => observer.disconnect();
-  }, [
-    layout,
-    hasBox,
-    remScale,
-    questionKey,
-    revealed,
-    showExplanation,
-    hasGraph,
-    graphSrc,
-    statementRef,
-    statementTextRef,
-    graphWrapperRef,
-    optionsScrollRef,
-    explanationRef,
-  ]);
+    lastPlan.current = { plan: next, questionKey, box };
 
-  const explanationPlacement: ExplanationPlacement =
-    layout === "horizontal" ? "options-column" : "below";
-  const scrollMode: ScrollMode = layout === "vertical" ? fit.scroll : "contained";
+    setState((current) => {
+      if (samePlan(current.plan, next)) return current;
+      return {
+        plan: next,
+        placed: {
+          statement: Boolean(current.plan?.rects.statement),
+          options: Boolean(current.plan?.rects.options),
+          explanation: Boolean(current.plan?.rects.explanation),
+        },
+      };
+    });
+  }, [box, questionKey, hasGraph, hasStatementText, optionCount, hasExplanation, measureVersion, registry]);
+
+  // A new question starts at the top.
+  useEffect(() => {
+    containerRef.current?.scrollTo?.({ top: 0 });
+  }, [questionKey]);
+
+  const { plan, placed } = state;
+
+  const slot = useCallback(
+    (id: PanelId): PanelSlot => ({
+      register: registry.refs[id],
+      rect: plan?.rects[id] ?? null,
+      animate: Boolean(placed[id]),
+    }),
+    [plan, placed, registry],
+  );
 
   return {
     containerRef,
-    layout,
-    gridTemplateColumns: columnsTemplate(arrangement),
-    gridTemplateRows: gridTemplateRowsFor(
-      layout,
-      scrollMode,
-      showExplanation && explanationPlacement === "below",
-    ),
-    graphMaxHeight: layout === "vertical" && hasGraph ? fit.graphMaxHeight : undefined,
-    // A revealed question shows a single option, so two columns make no sense.
-    optionsGrid: layout === "vertical" && fit.optionsGrid && !revealed,
-    scrollMode,
-    explanationPlacement,
+    plan,
+    slot,
+    /** Height for the positioning stage; undefined before the first plan. */
+    stageHeight: plan?.stageHeight,
+    statementSplit: plan?.statementVariant.split ?? false,
+    optionsColumns: (plan?.optionsVariant.columns ?? 1) as 1 | 2,
+    graphMax: plan?.graphMax ?? null,
   };
 }

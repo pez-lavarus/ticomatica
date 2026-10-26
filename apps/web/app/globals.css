@@ -197,5 +197,35 @@ img:not(.graph-image), video, .no-transition, .no-transition * {
 }
 
 .panel-enter {
-  animation: panel-enter 200ms ease-out;
+  animation: panel-enter 260ms ease-out;
+}
+
+/* Question screen: panels are placed by the layout engine (see
+   useQuestionLayout). The frame animates its position and size to the new
+   plan; the stage animates the scroll height. A panel's first placement is
+   not animated (data-animate="false"), so it never flies in from a corner. */
+.question-panel {
+  transition:
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    width 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    height 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.question-panel[data-animate="false"] {
+  transition: none;
+}
+
+.question-stage {
+  transition: height 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .question-panel,
+  .question-stage {
+    transition: none;
+  }
+
+  .panel-enter {
+    animation: none;
+  }
 }
