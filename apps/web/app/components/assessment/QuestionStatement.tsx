@@ -12,6 +12,8 @@ interface QuestionStatementProps {
   onOpenImageModal: (src: string, alt: string) => void;
   graphMaxHeight?: number;
   graphWrapperRef?: React.RefObject<HTMLDivElement | null>;
+  /** Wraps the statement text so the layout can measure its natural height. */
+  textRef?: React.RefObject<HTMLDivElement | null>;
   split?: boolean;
 }
 
@@ -21,6 +23,7 @@ export function QuestionStatement({
   onOpenImageModal,
   graphMaxHeight,
   graphWrapperRef,
+  textRef,
   split,
 }: QuestionStatementProps) {
   const longPressTimer = useRef<NodeJS.Timeout | null>(null);
@@ -48,7 +51,10 @@ export function QuestionStatement({
       <div className={useSplit ? "flex flex-col md:flex-row gap-6 md:gap-10" : undefined}>
         {/* Statement */}
         {question.statement && (
-          <div className={`prose dark:prose-invert max-w-none text-base md:text-lg leading-[1.6] md:leading-[1.8] text-foreground font-serif ${useSplit ? "md:flex-1 min-w-0" : ""}`}>
+          <div
+            ref={textRef}
+            className={`prose dark:prose-invert max-w-none text-base md:text-lg leading-[1.6] md:leading-[1.8] text-foreground font-serif ${useSplit ? "md:flex-1 min-w-0 md:self-start" : ""}`}
+          >
             <KaTeXText text={question.statement} />
           </div>
         )}
@@ -70,7 +76,7 @@ export function QuestionStatement({
                 width={graphDimensions?.width ?? 900}
                 height={graphDimensions?.height ?? 500}
                 style={graphMaxHeight ? { maxHeight: graphMaxHeight } : undefined}
-                className="block w-auto h-auto max-w-full max-h-[300px] md:max-h-[450px] object-contain pointer-events-none"
+                className="graph-image block w-auto h-auto max-w-full max-h-[300px] md:max-h-[450px] object-contain pointer-events-none"
               />
             </div>
           </div>

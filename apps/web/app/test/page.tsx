@@ -243,7 +243,7 @@ export default function QuestionPage() {
         </aside>
 
         <div className="flex-1 min-w-0 min-h-0 overflow-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden" style={{ zoom: scale }}>
-          <div className=" mx-auto px-2 md:px-4 py-6 md:py-4 h-full flex flex-col">
+          <div className="px-8 mx-auto h-full flex flex-col">
             <QuestionExperience
               question={currentQuestion}
               currentIndex={currentIndex}

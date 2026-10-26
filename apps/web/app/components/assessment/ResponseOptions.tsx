@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, type ReactNode } from "react";
 import Image from "next/image";
 import { KaTeXText } from "@/lib/katex-utils";
 import { getGraphDimensions } from "@/lib/graph-aspects";
@@ -12,11 +12,11 @@ interface ResponseOptionsProps {
   onSelect: (option: string) => void;
   onOpenImageModal: (src: string, alt: string) => void;
   scrollRef?: React.RefObject<HTMLDivElement | null>;
-  fillHeight?: boolean;
   useGrid?: boolean;
   revealed?: boolean;
   correctAnswer?: string;
   flash?: boolean;
+  children?: ReactNode;
 }
 
 export function ResponseOptions({
@@ -25,11 +25,11 @@ export function ResponseOptions({
   onSelect,
   onOpenImageModal,
   scrollRef,
-  fillHeight,
   useGrid,
   revealed,
   correctAnswer,
   flash,
+  children,
 }: ResponseOptionsProps) {
   const longPressTimer = useRef<NodeJS.Timeout | null>(null);
   const isCorrect = selectedAnswer === correctAnswer;
@@ -51,7 +51,7 @@ export function ResponseOptions({
   };
 
   return (
-    <div className={`bg-card text-card-foreground border border-border rounded-sm shadow-md p-5 md:p-8 flex flex-col ${fillHeight ? "h-full" : ""}`}>
+    <div className="bg-card text-card-foreground border border-border rounded-sm shadow-md p-5 md:p-8 flex flex-col h-full">
       {/* Statement container */}
       {question.problem && (
         <div className="prose dark:prose-invert max-w-none text-base md:text-lg leading-[1.6] md:leading-[1.8] text-foreground font-serif mb-6 md:mb-10 shrink-0">
@@ -62,7 +62,7 @@ export function ResponseOptions({
       {/* Options container */}
       <div
         ref={scrollRef}
-        className={`overflow-y-auto hide-scrollbar ${fillHeight ? "flex-1 min-h-0" : ""} ${useGrid ? "grid grid-cols-2 gap-3 md:gap-6 content-start" : "space-y-3 md:space-y-6"}`}
+        className={`flex-1 min-h-0 overflow-y-auto hide-scrollbar ${useGrid ? "grid grid-cols-2 gap-3 md:gap-6 content-start" : "space-y-3 md:space-y-6"}`}
       >
         {question.options.map((option) => {
           const isSelected = selectedAnswer === option.label;
@@ -120,7 +120,7 @@ export function ResponseOptions({
                       alt={`Opción ${option.label}`}
                       width={optionImageDimensions?.width ?? 340}
                       height={optionImageDimensions?.height ?? 200}
-                      className="block w-auto h-auto max-w-full max-h-[360px] mx-auto rounded-sm border border-border cursor-zoom-in hover:opacity-90 transition-opacity object-contain bg-white pointer-events-none"
+                      className="block w-auto h-auto max-w-full max-h-[240px] mx-auto rounded-sm border border-border cursor-zoom-in hover:opacity-90 transition-opacity object-contain bg-white pointer-events-none"
                     />
                   </div>
                 ) : (
@@ -132,6 +132,7 @@ export function ResponseOptions({
             </button>
           );
         })}
+        {children}
       </div>
     </div>
   );

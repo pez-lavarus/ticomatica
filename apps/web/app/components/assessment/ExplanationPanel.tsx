@@ -6,13 +6,17 @@ import type { Explanation } from "@/lib/types";
 
 interface ExplanationPanelProps {
   explanation?: Explanation;
+  maxHeight?: number;
 }
 
-export function ExplanationPanel({ explanation }: ExplanationPanelProps) {
+export function ExplanationPanel({ explanation, maxHeight }: ExplanationPanelProps) {
   if (!explanation) return null;
 
   return (
-    <div className="bg-card text-card-foreground border border-border rounded-sm shadow-md p-5 md:p-6">
+    <div
+      className="bg-card text-card-foreground border border-border rounded-sm shadow-md p-5 md:p-6 min-h-0 overflow-y-auto hide-scrollbar panel-enter"
+      style={maxHeight !== undefined ? { maxHeight } : undefined}
+    >
       <h4 className="text-xs sm:text-xs font-bold text-secondary uppercase tracking-[0.2em] sm:tracking-[0.3em] mb-6 sm:mb-8 flex items-center gap-3 sm:gap-4">
         <span className="w-8 sm:w-10 h-px bg-secondary/40"></span>
         Solución

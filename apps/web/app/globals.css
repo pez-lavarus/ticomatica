@@ -112,9 +112,14 @@ textarea,
   transition-duration: 250ms;
 }
 
-/* Ensure images and certain elements don't transition inappropriately */
-img, video, .no-transition, .no-transition * {
+/* Ensure images and certain elements don't transition inappropriately. The
+   graph image is exempt so its max-height can animate on resize. */
+img:not(.graph-image), video, .no-transition, .no-transition * {
   transition: none !important;
+}
+
+.graph-image {
+  transition: max-height 240ms ease;
 }
 
 /* KaTeX alignment refinements */
@@ -177,4 +182,20 @@ img, video, .no-transition, .no-transition * {
 
 .answer-flash-incorrect {
   animation: answer-flash-incorrect 0.8s ease-in-out 1;
+}
+
+/* Explanation panel entrance: subtle fade + rise when it mounts. */
+@keyframes panel-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.panel-enter {
+  animation: panel-enter 200ms ease-out;
 }
