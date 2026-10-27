@@ -26,8 +26,7 @@ import { FULL_TEST_TOPICS } from "@/lib/constants";
 export default function QuestionPage() {
   const router = useRouter();
   const { increase, decrease, scale, scaleIndex, steps } = useFontScale();
-  const [reviewMode, setReviewMode] = useState(false);
- 
+
   // Modals state
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
@@ -38,9 +37,6 @@ export default function QuestionPage() {
 
   useEffect(() => {
     setPortalContainer(document.getElementById("test-header-controls"));
-    if (localStorage.getItem("bxm-pilot-review") === "true") {
-      setReviewMode(true);
-    }
   }, []);
 
   const handleFinishTest = useCallback(() => {
@@ -49,7 +45,6 @@ export default function QuestionPage() {
 
   const assessment = useAssessment({
     quizData,
-    paused: reviewMode,
     onTimerEnd: () => {
        // In the original page.tsx, when timeLeft === 0, handleNextSection was called.
        // handleNextSection would either jump to next section or call handleFinishTest (which opens the modal).
@@ -73,6 +68,8 @@ export default function QuestionPage() {
     selectedAnswers,
     flaggedQuestions,
     timeLeft,
+    reviewMode,
+    update,
     currentTopic,
     currentQuestion,
     currentSectionQuestionsWithGlobalIndex,
@@ -135,13 +132,12 @@ export default function QuestionPage() {
   }, []);
 
   const confirmFinishTest = () => {
-    localStorage.setItem("bxm-pilot-answers", JSON.stringify(selectedAnswers));
-    localStorage.setItem("bxm-pilot-time-left", timeLeft.toString());
+    update({ phase: "results", review: false });
     router.push("/results");
   };
 
   const handleResults = () => {
-    localStorage.removeItem("bxm-pilot-review");
+    update({ phase: "results", review: false });
     router.push("/results");
   };
 

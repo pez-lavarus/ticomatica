@@ -5,51 +5,34 @@ import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { Trophy, RotateCcw } from "lucide-react";
-import type { QuizData, TestMode } from "@/lib/types";
+import type { QuizData } from "@/lib/types";
 import { DesktopNavigator } from "@/app/components/assessment/DesktopNavigator";
+import { loadTestSession, resetTestSession, saveTestSession, type TestSession } from "@/lib/test-session";
 
 // Import the normalized JSON manifest
 import quizDataRaw from "@/data/BXM_Math_Full_02_2026_questions_answers.json";
-import { SECTION_TIME, FULL_TEST_TOPICS } from "@/lib/constants";
+import { SECTION_TIME, FULL_TEST_TIME, FULL_TEST_TOPICS } from "@/lib/constants";
 const quizData: QuizData = quizDataRaw as unknown as QuizData;
 
 export default function ResultsPage() {
   const router = useRouter();
-  const [selectedAnswers, setSelectedAnswers] = useState<Record<number, string>>({});
-  const [flaggedQuestions, setFlaggedQuestions] = useState<Record<number, boolean>>({});
-  const [timeLeft, setTimeLeft] = useState<number>(0);
-  const [testMode, setTestMode] = useState<TestMode>("full");
-  const [currentTopicIndex, setCurrentTopicIndex] = useState(0);
+  const [session, setSession] = useState<TestSession | null>(null);
   const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
 
   // Load data from localStorage
   useEffect(() => {
-    const savedAnswers = localStorage.getItem("bxm-pilot-answers");
-    const savedFlags = localStorage.getItem("bxm-pilot-flags");
-    const savedTimeStr = localStorage.getItem("bxm-pilot-time-left");
-    const savedMode = localStorage.getItem("bxm-pilot-mode") as TestMode | null;
-    const savedTopicIndexStr = localStorage.getItem("bxm-pilot-topic-index");
-
-    if (savedAnswers) setSelectedAnswers(JSON.parse(savedAnswers));
-    if (savedFlags) setFlaggedQuestions(JSON.parse(savedFlags));
-    if (savedMode) setTestMode(savedMode);
-    if (savedTopicIndexStr) setCurrentTopicIndex(parseInt(savedTopicIndexStr));
-
-    let finalTimeLeft = savedTimeStr ? parseInt(savedTimeStr) : 0;
-
-    // If in full mode, we need to add the time of the remaining sections
-    if (savedMode === "full" && savedTopicIndexStr !== null) {
-      const topicIdx = parseInt(savedTopicIndexStr);
-      const remainingSections = FULL_TEST_TOPICS.length - 1 - topicIdx;
-      finalTimeLeft += remainingSections * SECTION_TIME;
-    }
-
-    setTimeLeft(finalTimeLeft);
+    setSession(loadTestSession());
   }, []);
 
   useEffect(() => {
     setPortalContainer(document.getElementById("test-header-controls"));
   }, []);
+
+  const selectedAnswers = session?.answers ?? {};
+  const flaggedQuestions = session?.flags ?? {};
+  const testMode = session?.mode ?? "full";
+  const currentTopicIndex = session?.topicIndex ?? 0;
+  const timeLeft = session?.timeLeft ?? 0;
 
   const testQuestionsWithGlobalIndex = quizData.questions
     .map((q, idx) => ({ ...q, globalIndex: idx }))
@@ -81,12 +64,7 @@ export default function ResultsPage() {
   }).filter((s) => testMode === "full" || s.topic === testMode);
 
   const handleRetake = () => {
-    localStorage.removeItem("bxm-pilot-answers");
-    localStorage.removeItem("bxm-pilot-flags");
-    localStorage.removeItem("bxm-pilot-time-left");
-    localStorage.removeItem("bxm-pilot-index");
-    localStorage.removeItem("bxm-pilot-topic-index");
-    localStorage.removeItem("bxm-pilot-review");
+    resetTestSession(testMode, testMode === "full" ? FULL_TEST_TIME : SECTION_TIME);
     router.push("/test");
   };
 
@@ -106,8 +84,8 @@ export default function ResultsPage() {
   }));
 
   const handleJumpToQuestion = (index: number) => {
-    localStorage.setItem("bxm-pilot-index", index.toString());
-    localStorage.setItem("bxm-pilot-review", "true");
+    const current = loadTestSession();
+    saveTestSession({ ...current, index, review: true });
     router.push("/test");
   };
 

@@ -193,6 +193,30 @@ describe("planQuestionLayout", () => {
     expect(tight.graphMax).not.toBeNull();
   });
 
+  it("prefers the shared graph's cached max height when it still fits", () => {
+    const tall = textPanel({ chars: 90, graph: { width: 500, height: 500 } });
+    const p = plan({
+      containerWidth: 700,
+      containerHeight: 1400,
+      hasGraph: true,
+      statement: tall,
+      preferredGraphMax: 220,
+    });
+    expect(p.graphMax).toBe(220);
+  });
+
+  it("falls back to a smaller graph when the cached height no longer fits", () => {
+    const tall = textPanel({ chars: 90, graph: { width: 500, height: 500 } });
+    const p = plan({
+      containerWidth: 700,
+      containerHeight: 500,
+      hasGraph: true,
+      statement: tall,
+      preferredGraphMax: 340,
+    });
+    expect(p.graphMax).not.toBe(340);
+  });
+
   it("scrolls only when nothing fits, and reports the real content height", () => {
     const p = plan({ containerWidth: 420, containerHeight: 300, statement: longStatement });
     expect(p.overflow).toBe(true);

@@ -32,6 +32,8 @@ interface UseQuestionLayoutOptions {
   hasExplanation: boolean;
   /** Every image the panels show, so the layout re-plans once sizes are known. */
   imageSources: string[];
+  /** The shared graph source, so its chosen size is reused across questions. */
+  graphSrc?: string;
 }
 
 interface ContainerBox {
@@ -46,6 +48,10 @@ interface PlanState {
 }
 
 const px = (value: string) => Number.parseFloat(value) || 0;
+
+/** Chosen graph max-height per shared image, so sibling questions that reuse
+ *  the same graph keep the same graph dimensions instead of re-shrinking. */
+const graphMaxCache = new Map<string, number | null>();
 
 function getContentBox(el: HTMLElement): ContainerBox {
   const style = getComputedStyle(el);
@@ -117,6 +123,7 @@ export function useQuestionLayout({
   optionCount,
   hasExplanation,
   imageSources,
+  graphSrc,
 }: UseQuestionLayoutOptions) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const lastPlan = useRef<{
@@ -213,6 +220,7 @@ export function useQuestionLayout({
         containerWidth: box.width,
         containerHeight: box.height,
         hasGraph,
+        preferredGraphMax: graphSrc ? graphMaxCache.get(graphSrc) : undefined,
         previous,
         panels: {
           statement: createMeasurer(
@@ -229,6 +237,7 @@ export function useQuestionLayout({
         },
       });
       lastPlan.current = { plan: next, questionKey, box, hasExplanation };
+      if (graphSrc) graphMaxCache.set(graphSrc, next.graphMax);
 
       setState((current) => {
         if (samePlan(current.plan, next)) return current;
@@ -254,7 +263,7 @@ export function useQuestionLayout({
     observer.observe(optionsEl);
     if (explanationEl) observer.observe(explanationEl);
     return () => observer.disconnect();
-  }, [box, questionKey, hasGraph, hasStatementText, optionCount, hasExplanation, measureVersion, registry]);
+  }, [box, questionKey, hasGraph, hasStatementText, optionCount, hasExplanation, measureVersion, registry, graphSrc]);
 
   // A new question starts at the top.
   useEffect(() => {

@@ -87,6 +87,7 @@ export const QuestionExperience = memo(function QuestionExperience({
     optionCount: question.options.length,
     hasExplanation: showPanel,
     imageSources,
+    graphSrc: sharedImageSrc,
   });
 
   if (prevQuestionKeyRef.current !== question.original_number) {

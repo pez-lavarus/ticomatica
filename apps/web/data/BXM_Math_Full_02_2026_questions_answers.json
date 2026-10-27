@@ -42,7 +42,7 @@
       "original_number": 1,
       "section_number": 1,
       "statement": "Considere la siguiente representación gráfica de la circunferencia “c”, de centro “O”:",
-      "problem": "De acuerdo con la información dada la ecuación de “c” corresponde a",
+      "problem": "De acuerdo con la información dada la ecuación de “c” corresponde a:",
       "shared_image": "bxm_math_question_01",
       "options": [
         {
@@ -202,7 +202,7 @@
       "original_number": 7,
       "section_number": 7,
       "statement": "Considere la siguiente representación de la circunferencia “d” de centro O:",
-      "problem": "Si “d” se traslada cinco unidades a la izquierda (paralela al eje x) y tres unidades hacia abajo (paralela al eje y), entonces, el centro de la circunferencia trasladada corresponde a",
+      "problem": "Si “d” se traslada cinco unidades a la izquierda (paralela al eje x) y tres unidades hacia abajo (paralela al eje y), entonces, el centro de la circunferencia trasladada corresponde a:",
       "shared_image": "bxm_math_question_07",
       "options": [
         {
@@ -360,7 +360,7 @@
       "original_number": 13,
       "section_number": 13,
       "statement": "Considere la siguiente representación gráfica:",
-      "problem": "Las figuras #1 y #2 son simétricas entre sí con respecto a la recta",
+      "problem": "Las figuras #1 y #2 son simétricas entre sí con respecto a la recta:",
       "shared_image": "bxm_math_question_13_14",
       "options": [
         {
@@ -414,7 +414,7 @@
       "original_number": 15,
       "section_number": 15,
       "statement": "Considere el siguiente cuadrilátero ADCB:",
-      "problem": "Con base en la información dada, $\\overline{CB}$ es homólogo con $\\overline{AB}$ respecto a la recta",
+      "problem": "Con base en la información dada, $\\overline{CB}$ es homólogo con $\\overline{AB}$ respecto a la recta:",
       "shared_image": "bxm_math_question_15",
       "options": [
         {
@@ -468,7 +468,7 @@
       "original_number": 17,
       "section_number": 17,
       "statement": "Considere la siguiente representación gráfica:",
-      "problem": "Una forma de obtener el polígono #3 es aplicándole al polígono #1 la traslación",
+      "problem": "Una forma de obtener el polígono #3 es aplicándole al polígono #1 la traslación:",
       "shared_image": "bxm_math_question_16_17_18",
       "options": [
         {
@@ -759,7 +759,7 @@
       "original_number": 28,
       "section_number": 6,
       "statement": "Sea “g” la función dada por \\( g(x) = \\sqrt{x} \\). ",
-      "problem": "Para obtener \\( f(x) = \\sqrt{x} + 5 \\) se le debe aplicar a “g” una",
+      "problem": "Para obtener \\( f(x) = \\sqrt{x} + 5 \\) se le debe aplicar a “g” una:",
       "options": [
         {
           "label": "A",
@@ -811,7 +811,7 @@
       "original_number": 30,
       "section_number": 8,
       "statement": "Considere la función lineal “f” dada por \\( f(x) = (-2k + 4)x + 3 \\).",
-      "problem": "Un posible valor de k para que la función “f” sea creciente corresponde a",
+      "problem": "Un posible valor de k para que la función “f” sea creciente corresponde a:",
       "options": [
         {
           "label": "A",
@@ -864,7 +864,7 @@
       "original_number": 32,
       "section_number": 10,
       "statement": "",
-      "problem": "Un intervalo donde f es negativa corresponde a",
+      "problem": "Un intervalo donde f es negativa corresponde a:",
       "shared_image": "bxm_math_question_31_32",
       "options": [
         {
@@ -917,7 +917,7 @@
       "original_number": 34,
       "section_number": 12,
       "statement": "Sea la función \"f\" de la forma $f(x) = \\log_a(x)$ con $0 < a < 1$.",
-      "problem": "Si $x > 1$, entonces, se cumple que",
+      "problem": "Si $x > 1$, entonces, se cumple que:",
       "options": [
         {
           "label": "A",
@@ -1100,7 +1100,7 @@
       "original_number": 41,
       "section_number": 19,
       "statement": "En las tablas I y II se presentan algunos valores de las funciones “p” y “k”. Además, la variable independiente para ambos casos es “x”:",
-      "problem": "El modelo matemático que se adapta mejor a los datos involucra las funciones",
+      "problem": "El modelo matemático que se adapta mejor a los datos involucra las funciones:",
       "shared_image": "bxm_math_question_41",
       "options": [
         {
@@ -1127,7 +1127,7 @@
       "original_number": 42,
       "section_number": 20,
       "statement": "En las tablas I y II se presentan algunos valores de las funciones “r” y “t”. Además, la variable independiente para ambos casos es “x”:",
-      "problem": "El modelo matemático que se adapta mejor a los datos involucra las funciones",
+      "problem": "El modelo matemático que se adapta mejor a los datos involucra las funciones:",
       "shared_image": "bxm_math_question_42",
       "options": [
         {
@@ -1181,7 +1181,7 @@
       "original_number": 44,
       "section_number": 2,
       "statement": "Considere el resumen estadístico sobre las edades, en años cumplidos, de los 70 trabajadores de cierta empresa:",
-      "problem": "Con base en la información dada se cumple que",
+      "problem": "Con base en la información dada se cumple que:",
       "shared_image": "bxm_math_question_44",
       "options": [
         {
@@ -1208,7 +1208,7 @@
       "original_number": 45,
       "section_number": 3,
       "statement": "La distribución de los datos sobre los salarios que paga una empresa a sus empleados presenta asimetría negativa. ",
-      "problem": "Si el salario promedio de esa empresa es de $2000, entonces, esto significa que",
+      "problem": "Si el salario promedio de esa empresa es de $2000, entonces, esto significa que:",
       "options": [
         {
           "label": "A",
@@ -1234,7 +1234,7 @@
       "original_number": 46,
       "section_number": 4,
       "statement": "En un centro de salud se realiza un estudio sobre los tiempos, en minutos, que cuatro médicos emplearon durante el último mes en atender a sus pacientes.",
-      "problem": "De acuerdo con la información dada, la mayor variabilidad en la distribución de los datos sobre los tiempos de atención de pacientes durante el último mes correspondió a los del médico",
+      "problem": "De acuerdo con la información dada, la mayor variabilidad en la distribución de los datos sobre los tiempos de atención de pacientes durante el último mes correspondió a los del médico:",
       "shared_image": "bxm_math_question_46",
       "options": [
         {
@@ -1261,7 +1261,7 @@
       "original_number": 47,
       "section_number": 5,
       "statement": "Considere la siguiente información sobre los tiempos, en minutos, que tardan los entrevistadores R y P...",
-      "problem": "I. La distribución de los datos sobre los tiempos que emplean ambos entrevistadores muestra evidencia de ser igualmente variables. II. El recorrido intercuartílico del entrevistador R es 15. De ellas son verdaderas",
+      "problem": "I. La distribución de los datos sobre los tiempos que emplean ambos entrevistadores muestra evidencia de ser igualmente variables. II. El recorrido intercuartílico del entrevistador R es 15. De ellas son verdaderas:",
       "shared_image": "bxm_math_question_47",
       "options": [
         {
@@ -1423,7 +1423,7 @@
       "original_number": 53,
       "section_number": 11,
       "statement": "Considere la siguiente información:",
-      "problem": "En términos relativos y con respecto a su grupo de referencia, la persona que tiene la mejor posición relativa corresponde a",
+      "problem": "En términos relativos y con respecto a su grupo de referencia, la persona que tiene la mejor posición relativa corresponde a:",
       "shared_image": "bxm_math_question_52_53",
       "options": [
         {
@@ -1450,7 +1450,7 @@
       "original_number": 54,
       "section_number": 12,
       "statement": "En una tómbola se tienen 12 tarjetas...",
-      "problem": " La probabilidad del evento AUB corresponde a un valor",
+      "problem": " La probabilidad del evento AUB corresponde a un valor:",
       "options": [
         {
           "label": "A",
@@ -1476,7 +1476,7 @@
       "original_number": 55,
       "section_number": 13,
       "statement": "En una tómbola se tienen 12 tarjetas...",
-      "problem": "La probabilidad del complemento del evento “C” es equivalente a",
+      "problem": "La probabilidad del complemento del evento “C” es equivalente a:",
       "options": [
         {
           "label": "A",
@@ -1502,7 +1502,7 @@
       "original_number": 56,
       "section_number": 14,
       "statement": "En una tómbola se tienen 12 tarjetas...",
-      "problem": "La probabilidad del evento B∩D corresponde a",
+      "problem": "La probabilidad del evento B∩D corresponde a:",
       "options": [
         {
           "label": "A",
@@ -1555,7 +1555,7 @@
       "original_number": 58,
       "section_number": 16,
       "statement": "Considere la siguiente información:",
-      "problem": "Si un estudiante no desea practicar futbol, entonces, le conviene extraer una bolita de la urna",
+      "problem": "Si un estudiante no desea practicar futbol, entonces, le conviene extraer una bolita de la urna:",
       "shared_image": "bxm_math_question_57_58",
       "options": [
         {
@@ -1609,7 +1609,7 @@
       "original_number": 60,
       "section_number": 18,
       "statement": "Considere la siguiente información:",
-      "problem": "Si se selecciona al azar un estudiante de esa academia, entonces, la probabilidad de que esté matriculado en las tres disciplinas corresponde a",
+      "problem": "Si se selecciona al azar un estudiante de esa academia, entonces, la probabilidad de que esté matriculado en las tres disciplinas corresponde a:",
       "shared_image": "bxm_math_question_59_60",
       "options": [
         {

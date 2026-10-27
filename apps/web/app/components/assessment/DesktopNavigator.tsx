@@ -71,7 +71,7 @@ export function DesktopNavigator({
                   <button
                     key={q.globalIndex}
                     onClick={() => onJumpToQuestion(q.globalIndex)}
-                    className={`flex items-center justify-between gap-2 px-3 py-3 rounded-sm border transition-colors ${isGreyed ? "opacity-40" : ""} ${isCurrent
+                    className={`flex items-center justify-between gap-2 px-3 py-3 rounded-sm border transition-colors ${isGreyed ? "" : ""} ${isCurrent
                       ? "border-primary bg-primary/10"
                       : "border-transparent hover:border-accent"
                       }`}
@@ -115,7 +115,7 @@ export function DesktopNavigator({
         ))}
       </div>
 
-      {onResults && (
+      {onResults && reviewMode && (
         <div className="shrink-0 p-4 border-t border-border/60 bg-card">
           <button
             onClick={onResults}

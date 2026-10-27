@@ -1,32 +1,26 @@
 "use client";
 
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-
-const TEST_STATE_KEYS = [
-  "bxm-pilot-answers",
-  "bxm-pilot-flags",
-  "bxm-pilot-time-left",
-  "bxm-pilot-index",
-  "bxm-pilot-topic-index",
-  "bxm-pilot-mode",
-  "bxm-pilot-review",
-];
+import ConfirmModal from "./ConfirmModal";
+import { clearTestSession, hasTestProgress } from "@/lib/test-session";
 
 export function Header() {
   const router = useRouter();
+  const [isExitConfirmOpen, setIsExitConfirmOpen] = useState(false);
 
   const handleLogoClick = () => {
-    const hasProgress = TEST_STATE_KEYS.some((key) => {
-      const value = localStorage.getItem(key);
-      return value !== null && value !== "";
-    });
-
-    if (hasProgress && !window.confirm("Se perderá el avance actual. ¿Deseas salir?")) {
-      return;
+    if (hasTestProgress()) {
+      setIsExitConfirmOpen(true);
+    } else {
+      router.push("/welcome");
     }
+  };
 
-    TEST_STATE_KEYS.forEach((key) => localStorage.removeItem(key));
+  const handleConfirmExit = () => {
+    clearTestSession();
+    setIsExitConfirmOpen(false);
     router.push("/welcome");
   };
 
@@ -36,7 +30,7 @@ export function Header() {
         <button
           type="button"
           onClick={handleLogoClick}
-          className="flex items-center gap-2 md:gap-3 group shrink-0"
+          className="flex items-center gap-2 md:gap-3 group shrink-0 cursor-pointer"
           aria-label="Volver al inicio"
         >
           <Image
@@ -50,6 +44,17 @@ export function Header() {
 
         <div id="test-header-controls" className="flex items-center gap-2 md:gap-6" />
       </div>
+
+      <ConfirmModal
+        isOpen={isExitConfirmOpen}
+        onClose={() => setIsExitConfirmOpen(false)}
+        onConfirm={handleConfirmExit}
+        title="¿Salir de la prueba?"
+        message="Se perderá el avance actual. ¿Deseas volver al inicio?"
+        confirmText="Sí, salir"
+        cancelText="Continuar"
+        variant="danger"
+      />
     </header>
   );
 }

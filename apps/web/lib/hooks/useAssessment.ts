@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import type { QuizData, TestMode } from "@/lib/types";
-import { SECTION_TIME, FULL_TEST_TIME, FULL_TEST_TOPICS } from "@/lib/constants";
+import { useCallback, useEffect } from "react";
+import type { QuizData } from "@/lib/types";
+import { FULL_TEST_TOPICS } from "@/lib/constants";
+import { useTestSession } from "@/lib/test-session";
 
 interface UseAssessmentProps {
   quizData: QuizData;
@@ -12,112 +13,44 @@ interface UseAssessmentProps {
 }
 
 export function useAssessment({ quizData, onTimerEnd, paused }: UseAssessmentProps) {
-  const [mounted, setMounted] = useState(false);
-  const [testMode, setTestMode] = useState<TestMode>("full");
-  const [currentTopicIndex, setCurrentTopicIndex] = useState(0);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [selectedAnswers, setSelectedAnswers] = useState<Record<number, string>>({});
-  const [flaggedQuestions, setFlaggedQuestions] = useState<Record<number, boolean>>({});
-  const [timeLeft, setTimeLeft] = useState(SECTION_TIME);
+  const { session, hydrated, update } = useTestSession();
 
-  // Load saved state
+  const testMode = session.mode;
+  const currentTopicIndex = session.topicIndex;
+  const currentIndex = session.index;
+  const selectedAnswers = session.answers;
+  const flaggedQuestions = session.flags;
+  const timeLeft = session.timeLeft;
+  const reviewMode = session.review;
+
+  // Section-mode practices default their index to 0, which points at the first
+  // Geometría question. Ensure the current question belongs to the selected
+  // section (legacy sessions and fresh resets both rely on this correction).
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setMounted(true);
-
-    const savedAnswers = localStorage.getItem("bxm-pilot-answers");
-    if (savedAnswers) {
-      try {
-        const parsed = JSON.parse(savedAnswers);
-        if (typeof parsed === "object" && parsed !== null) {
-          setSelectedAnswers(parsed);
-        }
-      } catch (e) {
-        console.error("Failed to parse saved answers", e);
-      }
+    if (!hydrated || testMode === "full") return;
+    if (quizData.questions[currentIndex]?.topic === testMode) return;
+    const firstIndex = quizData.questions.findIndex((q) => q.topic === testMode);
+    if (firstIndex >= 0) {
+      update({ index: firstIndex });
     }
+  }, [hydrated, testMode, currentIndex, quizData.questions, update]);
 
-    const savedFlags = localStorage.getItem("bxm-pilot-flags");
-    if (savedFlags) {
-      try {
-        const parsed = JSON.parse(savedFlags);
-        if (typeof parsed === "object" && parsed !== null) {
-          setFlaggedQuestions(parsed);
-        }
-      } catch (e) {
-        console.error("Failed to parse saved flags", e);
-      }
-    }
-
-    const savedMode = localStorage.getItem("bxm-pilot-mode") as TestMode | null;
-    if (savedMode) {
-      setTestMode(savedMode);
-
-      const savedTopicIndex = localStorage.getItem("bxm-pilot-topic-index");
-      if (savedTopicIndex) setCurrentTopicIndex(parseInt(savedTopicIndex));
-
-      const savedIndex = localStorage.getItem("bxm-pilot-index");
-      if (savedIndex) {
-        setCurrentIndex(parseInt(savedIndex));
-      } else if (savedMode !== "full") {
-        const firstIndex = quizData.questions.findIndex(q => q.topic === savedMode);
-        setCurrentIndex(firstIndex >= 0 ? firstIndex : 0);
-      }
-
-      const savedTime = localStorage.getItem("bxm-pilot-time-left");
-      if (savedTime) {
-        setTimeLeft(parseInt(savedTime));
-      } else {
-        setTimeLeft(savedMode === "full" ? FULL_TEST_TIME : SECTION_TIME);
-      }
-    }
-  }, [quizData.questions]);
-
-  // Persist state
-  useEffect(() => {
-    if (mounted) {
-      localStorage.setItem("bxm-pilot-answers", JSON.stringify(selectedAnswers));
-    }
-  }, [selectedAnswers, mounted]);
-
-  useEffect(() => {
-    if (mounted) {
-      localStorage.setItem("bxm-pilot-flags", JSON.stringify(flaggedQuestions));
-    }
-  }, [flaggedQuestions, mounted]);
-
-  useEffect(() => {
-    if (mounted) localStorage.setItem("bxm-pilot-index", currentIndex.toString());
-  }, [currentIndex, mounted]);
-
-  useEffect(() => {
-    if (mounted) localStorage.setItem("bxm-pilot-topic-index", currentTopicIndex.toString());
-  }, [currentTopicIndex, mounted]);
-
-  useEffect(() => {
-    if (mounted) localStorage.setItem("bxm-pilot-time-left", timeLeft.toString());
-  }, [timeLeft, mounted]);
+  const isPaused = Boolean(paused) || reviewMode;
 
   // Timer
   useEffect(() => {
-    if (!mounted || paused) return;
+    if (!hydrated || isPaused || timeLeft <= 0) return;
     const timer = setInterval(() => {
-      setTimeLeft((prev) => {
-        if (prev <= 1) {
-          clearInterval(timer);
-          return 0;
-        }
-        return prev - 1;
-      });
+      update({ timeLeft: timeLeft - 1 });
     }, 1000);
     return () => clearInterval(timer);
-  }, [mounted, paused]);
+  }, [hydrated, isPaused, timeLeft, update]);
 
   useEffect(() => {
-    if (timeLeft === 0 && mounted) {
+    if (timeLeft === 0 && hydrated) {
       onTimerEnd();
     }
-  }, [timeLeft, mounted, onTimerEnd]);
+  }, [timeLeft, hydrated, onTimerEnd]);
 
   const currentTopic = testMode === "full" ? FULL_TEST_TOPICS[currentTopicIndex] : testMode;
 
@@ -131,55 +64,54 @@ export function useAssessment({ quizData, onTimerEnd, paused }: UseAssessmentPro
   const progress = Math.round(((sectionIndex + 1) / currentSectionQuestionsWithGlobalIndex.length) * 100) || 0;
 
   const handleSelect = useCallback((option: string) => {
-    setSelectedAnswers(prev => ({ ...prev, [currentIndex]: option }));
-  }, [currentIndex]);
+    update((prev) => ({ answers: { ...prev.answers, [currentIndex]: option } }));
+  }, [currentIndex, update]);
 
   const toggleFlag = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
-    setFlaggedQuestions(prev => ({ ...prev, [currentIndex]: !prev[currentIndex] }));
-  }, [currentIndex]);
+    update((prev) => ({ flags: { ...prev.flags, [currentIndex]: !prev.flags[currentIndex] } }));
+  }, [currentIndex, update]);
 
   const handleNextSection = useCallback(() => {
     if (testMode === "full" && currentTopicIndex < FULL_TEST_TOPICS.length - 1) {
       const nextTopic = FULL_TEST_TOPICS[currentTopicIndex + 1];
       const nextFirstIndex = quizData.questions.findIndex(q => q.topic === nextTopic);
-      setCurrentTopicIndex(prev => prev + 1);
-      setCurrentIndex(nextFirstIndex);
+      update({ topicIndex: currentTopicIndex + 1, index: nextFirstIndex });
     }
-  }, [testMode, currentTopicIndex, quizData.questions]);
+  }, [testMode, currentTopicIndex, quizData.questions, update]);
 
   const handleJumpToSection = useCallback((index: number) => {
     if (testMode !== "full" || index === currentTopicIndex) return;
     const nextTopic = FULL_TEST_TOPICS[index];
     const nextFirstIndex = quizData.questions.findIndex(q => q.topic === nextTopic);
-    setCurrentTopicIndex(index);
-    setCurrentIndex(nextFirstIndex);
-  }, [testMode, currentTopicIndex, quizData.questions]);
+    update({ topicIndex: index, index: nextFirstIndex });
+  }, [testMode, currentTopicIndex, quizData.questions, update]);
 
   const handleNext = useCallback(() => {
     if (sectionIndex < currentSectionQuestionsWithGlobalIndex.length - 1) {
-      setCurrentIndex(currentSectionQuestionsWithGlobalIndex[sectionIndex + 1].globalIndex);
+      update({ index: currentSectionQuestionsWithGlobalIndex[sectionIndex + 1].globalIndex });
     } else if (testMode === "full" && currentTopicIndex < FULL_TEST_TOPICS.length - 1) {
       handleNextSection();
     }
-  }, [sectionIndex, currentSectionQuestionsWithGlobalIndex, testMode, currentTopicIndex, handleNextSection]);
+  }, [sectionIndex, currentSectionQuestionsWithGlobalIndex, testMode, currentTopicIndex, handleNextSection, update]);
 
   const handlePrev = useCallback(() => {
     if (sectionIndex > 0) {
-      setCurrentIndex(currentSectionQuestionsWithGlobalIndex[sectionIndex - 1].globalIndex);
+      update({ index: currentSectionQuestionsWithGlobalIndex[sectionIndex - 1].globalIndex });
     }
-  }, [sectionIndex, currentSectionQuestionsWithGlobalIndex]);
+  }, [sectionIndex, currentSectionQuestionsWithGlobalIndex, update]);
 
   const jumpToQuestion = useCallback((index: number) => {
-    setCurrentIndex(index);
     if (testMode === "full") {
       const targetTopic = quizData.questions[index]?.topic;
       const topicIndex = FULL_TEST_TOPICS.indexOf(targetTopic);
       if (topicIndex >= 0) {
-        setCurrentTopicIndex(topicIndex);
+        update({ index, topicIndex });
+        return;
       }
     }
-  }, [testMode, quizData.questions]);
+    update({ index });
+  }, [testMode, quizData.questions, update]);
 
   const totalQuestionsToFinish = testMode === "full" ? quizData.questions.length : currentSectionQuestionsWithGlobalIndex.length;
 
@@ -192,14 +124,19 @@ export function useAssessment({ quizData, onTimerEnd, paused }: UseAssessmentPro
   const isComplete = answeredCount >= totalQuestionsToFinish;
   const remainingCount = Math.max(0, totalQuestionsToFinish - answeredCount);
 
+  const setTimeLeft = useCallback((seconds: number) => {
+    update({ timeLeft: seconds });
+  }, [update]);
+
   return {
-    mounted,
+    mounted: hydrated,
     testMode,
     currentTopicIndex,
     currentIndex,
     selectedAnswers,
     flaggedQuestions,
     timeLeft,
+    reviewMode,
     currentTopic,
     currentQuestion,
     currentSectionQuestionsWithGlobalIndex,
@@ -218,5 +155,6 @@ export function useAssessment({ quizData, onTimerEnd, paused }: UseAssessmentPro
     handleNextSection,
     setTimeLeft,
     hasMoreSections,
+    update,
   };
 }

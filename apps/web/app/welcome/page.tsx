@@ -8,6 +8,8 @@ import { History, Play, User, Calendar, ArrowRight } from "lucide-react";
 import type { TestMode, TestConfig } from "@/lib/types";
 import { ThemeToggle } from "@/app/components/ThemeToggle";
 import { MathBackground } from "@/app/components/MathBackground";
+import { loadTestSession, hasTestProgress, resetTestSession } from "@/lib/test-session";
+import { FULL_TEST_TIME, SECTION_TIME } from "@/lib/constants";
 
 const userSchema = z.object({
   name: z.string().optional(),
@@ -29,16 +31,9 @@ export default function WelcomePage() {
   const [hasSession, setHasSession] = useState(false);
 
   useEffect(() => {
-    const savedAnswers = localStorage.getItem("bxm-pilot-answers");
-    if (savedAnswers) {
-      try {
-        const answers = JSON.parse(savedAnswers);
-        if (Object.keys(answers).length > 0) {
-          setTimeout(() => setHasSession(true), 0);
-        }
-      } catch (e) {
-        console.error("Failed to parse saved answers", e);
-      }
+    const session = loadTestSession();
+    if (hasTestProgress() && session.phase === "active") {
+      setTimeout(() => setHasSession(true), 0);
     }
   }, []);
 
@@ -63,16 +58,9 @@ export default function WelcomePage() {
       return;
     }
 
-    // Persist user data and test configuration
-    localStorage.setItem("bxm-pilot-user", JSON.stringify(result.data));
-    localStorage.setItem("bxm-pilot-start-time", Date.now().toString());
-    localStorage.setItem("bxm-pilot-mode", selectedMode);
-
-    // Clear previous session data
-    localStorage.removeItem("bxm-pilot-answers");
-    localStorage.removeItem("bxm-pilot-index");
-    localStorage.removeItem("bxm-pilot-topic-index");
-    localStorage.removeItem("bxm-pilot-time-left");
+    // Persist test configuration and start a fresh session
+    const duration = selectedMode === "full" ? FULL_TEST_TIME : SECTION_TIME;
+    resetTestSession(selectedMode, duration);
 
     router.push("/test");
   };
