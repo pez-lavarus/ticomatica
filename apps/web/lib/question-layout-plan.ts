@@ -99,9 +99,9 @@ export const IDEAL_WIDTH_CAP_PX = 760;
 export const STATEMENT_MIN_PX = 300;
 export const STATEMENT_WITH_GRAPH_MIN_PX = 340;
 export const STATEMENT_SPLIT_MIN_PX = 620;
-export const OPTIONS_MIN_PX = 380;
-// padding (64) + two columns of at least 260 + their gap (24).
-export const OPTIONS_TWO_COLUMN_MIN_PX = 64 + 2 * 260 + 24;
+export const OPTIONS_MIN_PX = 240;
+// padding (64) + two columns of at least 200 + their gap (24).
+export const OPTIONS_TWO_COLUMN_MIN_PX = 64 + 2 * 200 + 24;
 export const EXPLANATION_MIN_PX = 340;
 
 /** Graph max-heights tried, largest first, when the screen would overflow. */

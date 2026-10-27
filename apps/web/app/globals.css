@@ -21,6 +21,8 @@
   --ring: #002147;
   --success: #A3C1AD; /* Cambridge Blue */
   --success-foreground: #002147;
+  --wrong: #C0504A; /* Brick Red for incorrect answers */
+  --wrong-foreground: #FDFCF0;
   --font-scale: 1;
 }
 
@@ -44,6 +46,8 @@
   --ring: #FDFCF0;
   --success: #A3C1AD;
   --success-foreground: #0F172A;
+  --wrong: #C0504A;
+  --wrong-foreground: #FDFCF0;
 }
 
 @theme inline {
@@ -66,6 +70,8 @@
   --color-ring: var(--ring);
   --color-success: var(--success);
   --color-success-foreground: var(--success-foreground);
+  --color-wrong: var(--wrong);
+  --color-wrong-foreground: var(--wrong-foreground);
 
   --font-sans: var(--font-public-sans);
   --font-serif: var(--font-source-serif);
@@ -167,13 +173,13 @@ img:not(.graph-image), video, .no-transition, .no-transition * {
 }
 
 @keyframes answer-flash-incorrect {
-  0% { box-shadow: 0 0 0 0 rgba(184, 134, 11, 0); }
-  16.66% { box-shadow: 0 0 0 6px rgba(184, 134, 11, 0.6); }
-  33.33% { box-shadow: 0 0 0 0 rgba(184, 134, 11, 0); }
-  50% { box-shadow: 0 0 0 6px rgba(184, 134, 11, 0.6); }
-  66.66% { box-shadow: 0 0 0 0 rgba(184, 134, 11, 0); }
-  83.33% { box-shadow: 0 0 0 6px rgba(184, 134, 11, 0.6); }
-  100% { box-shadow: 0 0 0 0 rgba(184, 134, 11, 0); }
+  0% { box-shadow: 0 0 0 0 rgba(192, 80, 74, 0); }
+  16.66% { box-shadow: 0 0 0 6px rgba(192, 80, 74, 0.6); }
+  33.33% { box-shadow: 0 0 0 0 rgba(192, 80, 74, 0); }
+  50% { box-shadow: 0 0 0 6px rgba(192, 80, 74, 0.6); }
+  66.66% { box-shadow: 0 0 0 0 rgba(192, 80, 74, 0); }
+  83.33% { box-shadow: 0 0 0 6px rgba(192, 80, 74, 0.6); }
+  100% { box-shadow: 0 0 0 0 rgba(192, 80, 74, 0); }
 }
 
 .answer-flash-correct {

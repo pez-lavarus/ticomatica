@@ -119,7 +119,12 @@ export function useQuestionLayout({
   imageSources,
 }: UseQuestionLayoutOptions) {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const lastPlan = useRef<{ plan: LayoutPlan; questionKey: number; box: ContainerBox } | null>(null);
+  const lastPlan = useRef<{
+    plan: LayoutPlan;
+    questionKey: number;
+    box: ContainerBox;
+    hasExplanation: boolean;
+  } | null>(null);
   const [box, setBox] = useState<ContainerBox | null>(null);
   const [state, setState] = useState<PlanState>({ plan: null, placed: {} });
   // Bumped when something that changes natural sizes finishes loading.
@@ -194,42 +199,61 @@ export function useQuestionLayout({
     const explanationEl = hasExplanation ? registry.elements.explanation : undefined;
     if (!statementEl || !optionsEl) return;
 
-    const prev = lastPlan.current;
-    const sameScreen =
-      prev && prev.questionKey === questionKey && prev.box.width === box.width && prev.box.height === box.height;
+    const compute = () => {
+      const prev = lastPlan.current;
+      const sameScreen =
+        prev && prev.questionKey === questionKey && prev.box.width === box.width && prev.box.height === box.height;
+      // Only bias toward the previous plan when the explanation is (dis)appearing:
+      // that is when we want to limit how far the existing panels jump. A pure
+      // re-measure (graph or font arrived) must be free to move panels to their
+      // true positions, otherwise the layout becomes dependent on visit order.
+      const previous = sameScreen && prev.hasExplanation !== hasExplanation ? prev.plan : null;
 
-    const next = planQuestionLayout({
-      containerWidth: box.width,
-      containerHeight: box.height,
-      hasGraph,
-      previous: sameScreen ? prev.plan : null,
-      panels: {
-        statement: createMeasurer(
-          statementEl,
-          "statement",
-          hasGraph && hasStatementText ? [{ split: false }, { split: true }] : [{}],
-        ),
-        options: createMeasurer(
-          optionsEl,
-          "options",
-          optionCount >= 2 ? [{ columns: 1 }, { columns: 2 }] : [{ columns: 1 }],
-        ),
-        explanation: explanationEl ? createMeasurer(explanationEl, "explanation", [{}]) : null,
-      },
-    });
-    lastPlan.current = { plan: next, questionKey, box };
-
-    setState((current) => {
-      if (samePlan(current.plan, next)) return current;
-      return {
-        plan: next,
-        placed: {
-          statement: Boolean(current.plan?.rects.statement),
-          options: Boolean(current.plan?.rects.options),
-          explanation: Boolean(current.plan?.rects.explanation),
+      const next = planQuestionLayout({
+        containerWidth: box.width,
+        containerHeight: box.height,
+        hasGraph,
+        previous,
+        panels: {
+          statement: createMeasurer(
+            statementEl,
+            "statement",
+            hasGraph && hasStatementText ? [{ split: false }, { split: true }] : [{}],
+          ),
+          options: createMeasurer(
+            optionsEl,
+            "options",
+            optionCount >= 2 ? [{ columns: 1 }, { columns: 2 }] : [{ columns: 1 }],
+          ),
+          explanation: explanationEl ? createMeasurer(explanationEl, "explanation", [{}]) : null,
         },
-      };
-    });
+      });
+      lastPlan.current = { plan: next, questionKey, box, hasExplanation };
+
+      setState((current) => {
+        if (samePlan(current.plan, next)) return current;
+        return {
+          plan: next,
+          placed: {
+            statement: Boolean(current.plan?.rects.statement),
+            options: Boolean(current.plan?.rects.options),
+            explanation: Boolean(current.plan?.rects.explanation),
+          },
+        };
+      });
+    };
+
+    compute();
+
+    // Re-plan when a panel's content settles at a different size (an image or
+    // a web font arrives, the question changes under our feet, etc.). The probe
+    // above mutates and restores widths synchronously, so it never reaches this
+    // observer; only real size changes do.
+    const observer = new ResizeObserver(compute);
+    observer.observe(statementEl);
+    observer.observe(optionsEl);
+    if (explanationEl) observer.observe(explanationEl);
+    return () => observer.disconnect();
   }, [box, questionKey, hasGraph, hasStatementText, optionCount, hasExplanation, measureVersion, registry]);
 
   // A new question starts at the top.

@@ -80,7 +80,7 @@ export function DesktopNavigator({
                         ? (testMode !== "full"
                           ? (selectedAnswers[q.globalIndex] === correctAnswers[q.globalIndex]
                             ? "bg-success text-success-foreground border-success"
-                            : "bg-destructive text-destructive-foreground border-destructive")
+                            : "bg-wrong text-wrong-foreground border-wrong")
                           : "bg-primary text-primary-foreground border-primary")
                         : "bg-card text-muted-foreground border-white";
                       return (

@@ -65,6 +65,7 @@ export function QuestionStatement({
           </div>
         )}
 
+        {/* Shared image */}
         {sharedImageSrc && (
           <div className="min-w-0 flex justify-center group-data-[split=true]:flex-1">
             <div
@@ -77,8 +78,8 @@ export function QuestionStatement({
               <Image
                 src={sharedImageSrc}
                 alt="Imagen de apoyo"
-                width={graphDimensions?.width ?? 900}
-                height={graphDimensions?.height ?? 500}
+                width={graphDimensions?.width ?? 800}
+                height={graphDimensions?.height ?? 600}
                 className="graph-image block w-auto h-auto max-w-full max-h-[var(--graph-max,300px)] md:max-h-[var(--graph-max,450px)] object-contain pointer-events-none"
               />
             </div>

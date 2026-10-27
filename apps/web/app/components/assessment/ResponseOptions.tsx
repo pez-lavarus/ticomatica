@@ -78,7 +78,7 @@ export function ResponseOptions({
               ? (isCorrectOption
                 ? "border-success bg-success/10"
                 : isSelected
-                  ? "border-destructive bg-destructive/10"
+                  ? "border-wrong bg-wrong/10"
                   : "border-border/60 bg-card")
               : isSelected
                 ? "border-primary bg-muted/40 shadow-sm"
@@ -87,7 +87,7 @@ export function ResponseOptions({
               ? (isCorrectOption
                 ? "bg-success text-success-foreground border-success"
                 : isSelected
-                  ? "bg-destructive text-destructive-foreground border-destructive"
+                  ? "bg-wrong text-wrong-foreground border-wrong"
                   : "bg-card text-foreground border-border/60")
               : isSelected
                 ? "bg-primary text-primary-foreground border-primary"
@@ -106,7 +106,7 @@ export function ResponseOptions({
                 >
                   {option.label}
                 </div>
-  
+
                 <div className="flex-1 min-w-0 pt-0.5 md:pt-1">
                   {option.image ? (
                     <div
