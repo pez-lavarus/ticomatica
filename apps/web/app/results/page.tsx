@@ -4,8 +4,9 @@
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
-import { Trophy, RotateCcw, Home } from "lucide-react";
+import { Trophy, RotateCcw } from "lucide-react";
 import type { QuizData, TestMode } from "@/lib/types";
+import { DesktopNavigator } from "@/app/components/assessment/DesktopNavigator";
 
 // Import the normalized JSON manifest
 import quizDataRaw from "@/data/BXM_Math_Full_02_2026_questions_answers.json";
@@ -15,19 +16,24 @@ const quizData: QuizData = quizDataRaw as unknown as QuizData;
 export default function ResultsPage() {
   const router = useRouter();
   const [selectedAnswers, setSelectedAnswers] = useState<Record<number, string>>({});
+  const [flaggedQuestions, setFlaggedQuestions] = useState<Record<number, boolean>>({});
   const [timeLeft, setTimeLeft] = useState<number>(0);
   const [testMode, setTestMode] = useState<TestMode>("full");
+  const [currentTopicIndex, setCurrentTopicIndex] = useState(0);
   const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
 
   // Load data from localStorage
   useEffect(() => {
     const savedAnswers = localStorage.getItem("bxm-pilot-answers");
+    const savedFlags = localStorage.getItem("bxm-pilot-flags");
     const savedTimeStr = localStorage.getItem("bxm-pilot-time-left");
     const savedMode = localStorage.getItem("bxm-pilot-mode") as TestMode | null;
     const savedTopicIndexStr = localStorage.getItem("bxm-pilot-topic-index");
 
     if (savedAnswers) setSelectedAnswers(JSON.parse(savedAnswers));
+    if (savedFlags) setFlaggedQuestions(JSON.parse(savedFlags));
     if (savedMode) setTestMode(savedMode);
+    if (savedTopicIndexStr) setCurrentTopicIndex(parseInt(savedTopicIndexStr));
 
     let finalTimeLeft = savedTimeStr ? parseInt(savedTimeStr) : 0;
 
@@ -76,18 +82,37 @@ export default function ResultsPage() {
 
   const handleRetake = () => {
     localStorage.removeItem("bxm-pilot-answers");
+    localStorage.removeItem("bxm-pilot-flags");
     localStorage.removeItem("bxm-pilot-time-left");
     localStorage.removeItem("bxm-pilot-index");
     localStorage.removeItem("bxm-pilot-topic-index");
+    localStorage.removeItem("bxm-pilot-review");
     router.push("/test");
   };
 
-  const handleBackToHome = () => {
-    router.push("/welcome");
+  const allQuestionsWithGlobalIndex = quizData.questions.map((q, idx) => ({ ...q, globalIndex: idx }));
+  const correctAnswers = quizData.questions.reduce<Record<number, string>>((acc, q, idx) => {
+    acc[idx] = q.correct_answer;
+    return acc;
+  }, {});
+  const navigatorSections = (testMode === "full" ? FULL_TEST_TOPICS : [testMode]).map((topic) => ({
+    topic,
+    questions: allQuestionsWithGlobalIndex
+      .filter((q) => q.topic === topic)
+      .map((q) => ({
+        globalIndex: q.globalIndex,
+        section_number: testMode === "full" ? q.globalIndex + 1 : q.section_number,
+      })),
+  }));
+
+  const handleJumpToQuestion = (index: number) => {
+    localStorage.setItem("bxm-pilot-index", index.toString());
+    localStorage.setItem("bxm-pilot-review", "true");
+    router.push("/test");
   };
 
   return (
-    <div className="min-h-screen bg-background transition-colors">
+    <div className="h-full flex flex-col bg-background transition-colors">
       {portalContainer &&
         createPortal(
           <div className="flex items-center gap-1.5 md:gap-3">
@@ -98,18 +123,33 @@ export default function ResultsPage() {
               <RotateCcw className="w-3 h-3 md:w-4 md:h-4" />
               <span className="hidden sm:inline">Reintentar</span>
             </button>
-            <button
-              onClick={handleBackToHome}
-              className="flex items-center gap-1.5 md:gap-2 px-3 md:px-6 py-2 md:py-3 border border-border/60 bg-card text-foreground text-xs md:text-xs font-bold uppercase tracking-[0.15em] md:tracking-[0.2em] rounded-sm transition-all hover:bg-muted"
-            >
-              <Home className="w-3 h-3 md:w-4 md:h-4" />
-              <span className="hidden sm:inline">Inicio</span>
-            </button>
           </div>,
           portalContainer,
         )}
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 sm:py-10">
+      <div className="flex flex-1 min-h-0">
+        <aside className="hidden lg:flex lg:w-80 xl:w-70 shrink-0 flex-col border-r border-border bg-card min-h-0">
+          <DesktopNavigator
+            testMode={testMode}
+            sections={navigatorSections}
+            currentTopicIndex={currentTopicIndex}
+            currentIndex={-1}
+            isFlagged={false}
+            selectedAnswers={selectedAnswers}
+            correctAnswers={correctAnswers}
+            flaggedQuestions={flaggedQuestions}
+            reviewMode
+            onToggleFlag={() => {}}
+            onJumpToQuestion={handleJumpToQuestion}
+            onPrev={() => {}}
+            onNext={() => {}}
+            isLastQuestionInSection={false}
+            hasMoreSections={false}
+          />
+        </aside>
+
+        <div className="flex-1 min-w-0 min-h-0 overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+          <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 sm:py-10">
         {/* Score Summary */}
         <div className="bg-card text-card-foreground border border-border/60 rounded-sm shadow-xl p-5 sm:p-10 mb-6 sm:mb-10">
           <div className="flex flex-col md:flex-row items-center gap-6 sm:gap-10">
@@ -211,6 +251,8 @@ export default function ResultsPage() {
           </div>
         </div>
 
+          </div>
+        </div>
       </div>
     </div>
   );

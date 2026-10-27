@@ -39,6 +39,8 @@ interface QuestionExperienceProps {
   isLastQuestionInSection: boolean;
   hasMoreSections: boolean;
   sharedImageSrc?: string;
+  /** Review mode: force practice behavior (feedback + explanation) regardless of testMode. */
+  reviewMode?: boolean;
 }
 
 export const QuestionExperience = memo(function QuestionExperience({
@@ -58,14 +60,17 @@ export const QuestionExperience = memo(function QuestionExperience({
   isLastQuestionInSection,
   hasMoreSections,
   sharedImageSrc,
+  reviewMode,
 }: QuestionExperienceProps) {
   const [isNavigatorExpanded, setIsNavigatorExpanded] = useState(false);
   const [flashAnswer, setFlashAnswer] = useState<string | null>(null);
   const prevQuestionKeyRef = useRef(question.original_number);
   const autoNextTimer = useRef<NodeJS.Timeout | null>(null);
-  const behavior = getModeBehavior(testMode);
+  const behavior = reviewMode
+    ? { autoAdvance: false, immediateFeedback: true, showExplanation: true, collapseOptions: false }
+    : getModeBehavior(testMode);
 
-  const revealed = behavior.immediateFeedback && Boolean(selectedAnswer);
+  const revealed = behavior.immediateFeedback && (reviewMode || Boolean(selectedAnswer));
   const showPanel = behavior.showExplanation && revealed && Boolean(explanation);
 
   // Every image that affects panel sizes, so the layout can re-plan once their
@@ -73,7 +78,6 @@ export const QuestionExperience = memo(function QuestionExperience({
   const imageSources = [
     ...(sharedImageSrc ? [sharedImageSrc] : []),
     ...question.options.flatMap((option) => (option.image ? [option.image] : [])),
-    ...(showPanel && explanation?.image ? [explanation.image] : []),
   ];
 
   const { containerRef, slot, stageHeight, statementSplit, optionsColumns, graphMax } = useQuestionLayout({
@@ -159,6 +163,7 @@ export const QuestionExperience = memo(function QuestionExperience({
             revealed={revealed}
             correctAnswer={question.correct_answer}
             flash={flashActive}
+            readOnly={reviewMode}
           />
           {showPanel && (
             <ExplanationPanel

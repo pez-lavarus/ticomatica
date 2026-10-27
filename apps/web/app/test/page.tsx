@@ -26,6 +26,7 @@ import { FULL_TEST_TOPICS } from "@/lib/constants";
 export default function QuestionPage() {
   const router = useRouter();
   const { increase, decrease, scale, scaleIndex, steps } = useFontScale();
+  const [reviewMode, setReviewMode] = useState(false);
  
   // Modals state
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
@@ -37,6 +38,9 @@ export default function QuestionPage() {
 
   useEffect(() => {
     setPortalContainer(document.getElementById("test-header-controls"));
+    if (localStorage.getItem("bxm-pilot-review") === "true") {
+      setReviewMode(true);
+    }
   }, []);
 
   const handleFinishTest = useCallback(() => {
@@ -45,6 +49,7 @@ export default function QuestionPage() {
 
   const assessment = useAssessment({
     quizData,
+    paused: reviewMode,
     onTimerEnd: () => {
        // In the original page.tsx, when timeLeft === 0, handleNextSection was called.
        // handleNextSection would either jump to next section or call handleFinishTest (which opens the modal).
@@ -135,6 +140,11 @@ export default function QuestionPage() {
     router.push("/results");
   };
 
+  const handleResults = () => {
+    localStorage.removeItem("bxm-pilot-review");
+    router.push("/results");
+  };
+
   const formatTime = (seconds: number) => {
     const min = Math.floor(seconds / 60);
     const sec = seconds % 60;
@@ -160,11 +170,13 @@ export default function QuestionPage() {
         createPortal(
           <>
             <div className="flex items-center gap-1.5 md:gap-3">
-              <div className="flex items-center px-2 md:px-8 h-8 md:h-14 bg-card rounded-sm border border-border shadow-sm">
-                <span className="font-mono text-xs md:text-2xl font-bold tabular-nums text-foreground min-w-[35px] md:min-w-[80px] text-center">
-                  {mounted ? formatTime(timeLeft) : "--:--"}
-                </span>
-              </div>
+              {!reviewMode && (
+                <div className="flex items-center px-2 md:px-8 h-8 md:h-14 bg-card rounded-sm border border-border shadow-sm">
+                  <span className="font-mono text-xs md:text-2xl font-bold tabular-nums text-foreground min-w-[35px] md:min-w-[80px] text-center">
+                    {mounted ? formatTime(timeLeft) : "--:--"}
+                  </span>
+                </div>
+              )}
 
               <button
                 onClick={() => setIsSectionModalOpen(true)}
@@ -187,13 +199,15 @@ export default function QuestionPage() {
                 <BookOpen className="w-3 h-3 md:w-4 md:h-4" />
                 <span className="hidden md:inline">Fórmulas</span>
               </button>
-              <button
-                onClick={handleFinishTest}
-                className="flex items-center gap-1.5 md:gap-4 px-3 md:px-10 py-2 md:py-4 bg-primary text-primary-foreground text-xs md:text-xs font-bold uppercase tracking-[0.15em] md:tracking-[0.2em] rounded-sm shadow-md transition-all hover:brightness-90 group"
-              >
-                <Flag className="w-3 h-3 md:w-4 md:h-4 transition-colors group-hover:text-destructive group-active:text-destructive" />
-                <span className="hidden sm:inline">Finalizar</span>
-              </button>
+              {!reviewMode && (
+                <button
+                  onClick={handleFinishTest}
+                  className="flex items-center gap-1.5 md:gap-4 px-3 md:px-10 py-2 md:py-4 bg-primary text-primary-foreground text-xs md:text-xs font-bold uppercase tracking-[0.15em] md:tracking-[0.2em] rounded-sm shadow-md transition-all hover:brightness-90 group"
+                >
+                  <Flag className="w-3 h-3 md:w-4 md:h-4 transition-colors group-hover:text-destructive group-active:text-destructive" />
+                  <span className="hidden sm:inline">Finalizar</span>
+                </button>
+              )}
             </div>
 
             <div className="flex items-center gap-1 md:gap-2">
@@ -221,25 +235,25 @@ export default function QuestionPage() {
         )}
 
       <div className="flex flex-1 min-h-0">
-        <aside className="hidden lg:flex lg:w-80 xl:w-75 shrink-0 flex-col border-r border-border bg-card min-h-0">
-          <div className="flex-1 min-h-0 overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-            <DesktopNavigator
-              testMode={testMode}
-              sections={navigatorSections}
-              currentTopicIndex={currentTopicIndex}
-              currentIndex={currentIndex}
-              isFlagged={!!flaggedQuestions[currentIndex]}
-              selectedAnswers={selectedAnswers}
-              correctAnswers={correctAnswers}
-              flaggedQuestions={flaggedQuestions}
-              onToggleFlag={toggleFlag}
-              onJumpToQuestion={jumpToQuestion}
-              onPrev={handlePrev}
-              onNext={handleNextWithFinish}
-              isLastQuestionInSection={sectionIndex === currentSectionQuestionsWithGlobalIndex.length - 1}
-              hasMoreSections={hasMoreSections}
-            />
-          </div>
+        <aside className="hidden lg:flex lg:w-80 xl:w-70 shrink-0 flex-col border-r border-border bg-card min-h-0">
+          <DesktopNavigator
+            testMode={testMode}
+            sections={navigatorSections}
+            currentTopicIndex={currentTopicIndex}
+            currentIndex={currentIndex}
+            isFlagged={!!flaggedQuestions[currentIndex]}
+            selectedAnswers={selectedAnswers}
+            correctAnswers={correctAnswers}
+            flaggedQuestions={flaggedQuestions}
+            reviewMode={reviewMode}
+            onResults={handleResults}
+            onToggleFlag={toggleFlag}
+            onJumpToQuestion={jumpToQuestion}
+            onPrev={handlePrev}
+            onNext={handleNextWithFinish}
+            isLastQuestionInSection={sectionIndex === currentSectionQuestionsWithGlobalIndex.length - 1}
+            hasMoreSections={hasMoreSections}
+          />
         </aside>
 
         <div className="flex-1 min-w-0 min-h-0 overflow-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden" style={{ zoom: scale }}>
@@ -261,6 +275,7 @@ export default function QuestionPage() {
               isLastQuestionInSection={sectionIndex === currentSectionQuestionsWithGlobalIndex.length - 1}
               hasMoreSections={hasMoreSections}
               sharedImageSrc={currentQuestion.shared_image ? quizData.shared_images[currentQuestion.shared_image] : undefined}
+              reviewMode={reviewMode}
             />
           </div>
         </div>

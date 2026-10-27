@@ -1,8 +1,6 @@
 "use client";
 
-import Image from "next/image";
 import { ExplanationText } from "@/lib/katex-utils";
-import { getGraphDimensions } from "@/lib/graph-aspects";
 import type { Explanation } from "@/lib/types";
 import { QuestionPanel } from "./QuestionPanel";
 import type { PanelSlot } from "./QuestionPanel";
@@ -17,8 +15,6 @@ interface ExplanationPanelProps {
 export function ExplanationPanel({ explanation, questionKey, slot }: ExplanationPanelProps) {
   if (!explanation) return null;
 
-  const imageDimensions = getGraphDimensions(explanation.image);
-
   return (
     <QuestionPanel id="explanation" slot={slot} contentKey={questionKey} className="panel-enter">
       <div className="p-5 md:p-6">
@@ -26,18 +22,6 @@ export function ExplanationPanel({ explanation, questionKey, slot }: Explanation
           <span className="w-8 sm:w-10 h-px bg-secondary/40"></span>
           Solución
         </h4>
-
-        {explanation.image && (
-          <div className="mb-6 sm:mb-8 rounded-sm border border-border/60 overflow-hidden inline-flex shadow-md bg-white max-w-full">
-            <Image
-              src={explanation.image}
-              alt="Explicación"
-              width={imageDimensions?.width ?? 500}
-              height={imageDimensions?.height ?? 280}
-              className="block w-auto h-auto max-w-full max-h-[320px] object-contain p-2 sm:p-4"
-            />
-          </div>
-        )}
 
         <div className="space-y-6 sm:space-y-8 text-sm sm:text-base leading-relaxed text-foreground font-serif">
           {explanation.explanation_steps.map((step, idx) => (

@@ -20,6 +20,8 @@ interface ResponseOptionsProps {
   revealed?: boolean;
   correctAnswer?: string;
   flash?: boolean;
+  /** Review mode: options are shown but not selectable. */
+  readOnly?: boolean;
 }
 
 export function ResponseOptions({
@@ -32,6 +34,7 @@ export function ResponseOptions({
   revealed,
   correctAnswer,
   flash,
+  readOnly,
 }: ResponseOptionsProps) {
   const longPressTimer = useRef<NodeJS.Timeout | null>(null);
   const isCorrect = selectedAnswer === correctAnswer;
@@ -98,8 +101,9 @@ export function ResponseOptions({
             return (
               <button
                 key={option.label}
+                disabled={readOnly}
                 onClick={() => onSelect(option.label)}
-                className={`w-full flex gap-4 md:gap-9 p-3 md:p-5 rounded-sm border-2 text-left transition-all group active:scale-[0.98] ${buttonClasses} ${flashClasses}`}
+                className={`w-full flex gap-4 md:gap-9 p-3 md:p-5 rounded-sm border-2 text-left transition-all group active:scale-[0.98] disabled:cursor-default disabled:active:scale-100 ${buttonClasses} ${flashClasses}`}
               >
                 <div
                   className={`w-7 h-7 md:w-9 md:h-9 flex-shrink-0 flex items-center justify-center rounded-sm font-bold text-base md:text-lg border-2 transition-colors ${letterClasses}`}

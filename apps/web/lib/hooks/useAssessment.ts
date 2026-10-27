@@ -7,9 +7,11 @@ import { SECTION_TIME, FULL_TEST_TIME, FULL_TEST_TOPICS } from "@/lib/constants"
 interface UseAssessmentProps {
   quizData: QuizData;
   onTimerEnd: () => void;
+  /** Review mode: pause the countdown. */
+  paused?: boolean;
 }
 
-export function useAssessment({ quizData, onTimerEnd }: UseAssessmentProps) {
+export function useAssessment({ quizData, onTimerEnd, paused }: UseAssessmentProps) {
   const [mounted, setMounted] = useState(false);
   const [testMode, setTestMode] = useState<TestMode>("full");
   const [currentTopicIndex, setCurrentTopicIndex] = useState(0);
@@ -98,7 +100,7 @@ export function useAssessment({ quizData, onTimerEnd }: UseAssessmentProps) {
 
   // Timer
   useEffect(() => {
-    if (!mounted) return;
+    if (!mounted || paused) return;
     const timer = setInterval(() => {
       setTimeLeft((prev) => {
         if (prev <= 1) {
@@ -109,7 +111,7 @@ export function useAssessment({ quizData, onTimerEnd }: UseAssessmentProps) {
       });
     }, 1000);
     return () => clearInterval(timer);
-  }, [mounted]);
+  }, [mounted, paused]);
 
   useEffect(() => {
     if (timeLeft === 0 && mounted) {
