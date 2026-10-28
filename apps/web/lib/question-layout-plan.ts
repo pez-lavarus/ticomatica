@@ -67,10 +67,11 @@ export interface PlanInput {
   /** Plan on screen for this same question and container, used to limit how
    *  much the existing panels move when the explanation appears. */
   previous?: LayoutPlan | null;
-  /** Graph max-height to prefer (px; null means the CSS default). Questions
-   *  that share the same graph pass the value chosen for a sibling question so
-   *  the graph keeps a consistent size instead of re-shrinking per question. */
-  preferredGraphMax?: number | null;
+  /** Graph max-height to pin (px; null means the CSS default). Questions that
+   *  share the same graph pass the value chosen for a sibling question so the
+   *  graph keeps a fixed, consistent size: it is never re-shrunk or re-grown,
+   *  even when the question changes or the window resizes. */
+  fixedGraphMax?: number | null;
 }
 
 export interface LayoutPlan {
@@ -411,11 +412,12 @@ export function planQuestionLayout(input: PlanInput): LayoutPlan {
   };
 
   const templates = withExplanation ? TEMPLATES_THREE : TEMPLATES_TWO;
-  const baseLadder = hasGraph ? GRAPH_LADDER : [null];
   const ladder =
-    hasGraph && input.preferredGraphMax !== undefined
-      ? [input.preferredGraphMax, ...baseLadder.filter((step) => step !== input.preferredGraphMax)]
-      : baseLadder;
+    hasGraph && input.fixedGraphMax !== undefined
+      ? [input.fixedGraphMax]
+      : hasGraph
+        ? GRAPH_LADDER
+        : [null];
 
   let best: { candidate: Candidate; score: number } | null = null;
 

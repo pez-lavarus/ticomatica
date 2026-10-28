@@ -4,7 +4,7 @@
 import { useState, useCallback, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
-import { Clock, Flag, BookOpen, Shapes, BarChart3, Binary } from "lucide-react";
+import { Clock, Flag, BookOpen, Shapes, BarChart3, Binary, RotateCcw } from "lucide-react";
 import type { QuizData } from "@/lib/types";
 import ImageModal from "@/app/components/ImageModal";
 import ConfirmModal from "@/app/components/ConfirmModal";
@@ -141,6 +141,14 @@ export default function QuestionPage() {
     router.push("/results");
   };
 
+  const resetCurrentQuestion = useCallback(() => {
+    update((prev) => {
+      const answers = { ...prev.answers };
+      delete answers[currentIndex];
+      return { answers };
+    });
+  }, [currentIndex, update]);
+
   const formatTime = (seconds: number) => {
     const min = Math.floor(seconds / 60);
     const sec = seconds % 60;
@@ -226,6 +234,18 @@ export default function QuestionPage() {
                 <span className="text-base md:text-xl font-bold text-foreground">A+</span>
               </button>
             </div>
+            
+            {!reviewMode && (
+              <button
+                onClick={resetCurrentQuestion}
+                disabled={!selectedAnswers[currentIndex]}
+                className="flex items-center justify-center w-8 h-8 md:w-14 md:h-14 bg-card rounded-sm border border-border shadow-sm hover:bg-muted transition-colors disabled:opacity-30"
+                title="Limpiar respuesta"
+                aria-label="Limpiar respuesta"
+              >
+                <RotateCcw className="w-4 h-4 md:w-5 md:h-5 text-foreground" />
+              </button>
+            )}
           </>,
           portalContainer,
         )}

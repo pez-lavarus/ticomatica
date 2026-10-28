@@ -114,7 +114,7 @@ export default function WelcomePage() {
                       : "bg-card border-border hover:border-accent text-foreground"
                       }`}
                   >
-                    {mode === "full" ? "Prueba Completa" : mode}
+                    {mode === "full" ? "Práctica Completa" : mode}
                   </button>
                 ))}
               </div>

@@ -49,8 +49,9 @@ interface PlanState {
 
 const px = (value: string) => Number.parseFloat(value) || 0;
 
-/** Chosen graph max-height per shared image, so sibling questions that reuse
- *  the same graph keep the same graph dimensions instead of re-shrinking. */
+/** Pinned graph max-height per shared image. Once a graph is sized, sibling
+ *  questions and window resizes keep the same graph dimensions instead of
+ *  re-shrinking or re-growing it. */
 const graphMaxCache = new Map<string, number | null>();
 
 function getContentBox(el: HTMLElement): ContainerBox {
@@ -220,7 +221,7 @@ export function useQuestionLayout({
         containerWidth: box.width,
         containerHeight: box.height,
         hasGraph,
-        preferredGraphMax: graphSrc ? graphMaxCache.get(graphSrc) : undefined,
+        fixedGraphMax: graphSrc ? graphMaxCache.get(graphSrc) : undefined,
         previous,
         panels: {
           statement: createMeasurer(

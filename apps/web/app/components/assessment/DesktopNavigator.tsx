@@ -66,12 +66,14 @@ export function DesktopNavigator({
                 const isCurrent = q.globalIndex === currentIndex;
                 const isFlaggedQ = flaggedQuestions[q.globalIndex];
                 const isAnswered = Boolean(selectedAnswers[q.globalIndex]);
-                const isGreyed = !isAnswered && !isCurrent;
+                const showCorrectness = testMode !== "full" || reviewMode;
+                const selectedLetter = selectedAnswers[q.globalIndex];
+                const isCorrect = isAnswered && selectedLetter === correctAnswers[q.globalIndex];
                 return (
                   <button
                     key={q.globalIndex}
                     onClick={() => onJumpToQuestion(q.globalIndex)}
-                    className={`flex items-center justify-between gap-2 px-3 py-3 rounded-sm border transition-colors ${isGreyed ? "" : ""} ${isCurrent
+                    className={`flex items-center justify-between gap-2 px-3 py-3 rounded-sm border transition-colors ${isCurrent
                       ? "border-primary bg-primary/10"
                       : "border-transparent hover:border-accent"
                       }`}
@@ -82,23 +84,23 @@ export function DesktopNavigator({
 
                     <span className="flex items-center gap-5">
                       {ANSWER_LETTERS.map((letter) => {
-                        const isSelected = selectedAnswers[q.globalIndex] === letter;
-                        const showCorrectness = testMode !== "full" || reviewMode;
+                        const isSelected = selectedLetter === letter;
+                        const showLetter = isSelected || reviewMode || isCurrent || (showCorrectness && !isAnswered);
                         const circleClasses = isSelected
                           ? (showCorrectness
-                            ? (selectedAnswers[q.globalIndex] === correctAnswers[q.globalIndex]
+                            ? (isCorrect
                               ? "bg-success text-success-foreground border-success"
                               : "bg-wrong text-wrong-foreground border-wrong")
                             : "bg-primary text-primary-foreground border-primary")
-                          : (reviewMode && !isAnswered
-                            ? "bg-card text-muted-foreground border-wrong"
-                            : "bg-card text-muted-foreground border-white");
+                          : (showCorrectness && !isAnswered
+                            ? "bg-wrong text-wrong-foreground border-wrong"
+                            : "bg-transparent border-white");
                         return (
                           <span
                             key={letter}
                             className={`w-7 h-7 rounded-full border flex items-center justify-center text-sm font-bold transition-colors opacity-60 ${circleClasses}`}
                           >
-                            {letter}
+                            {showLetter ? letter : null}
                           </span>
                         );
                       })}
