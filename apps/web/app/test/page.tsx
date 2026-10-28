@@ -350,6 +350,14 @@ export default function QuestionPage() {
               keywords={currentQuestion.keywords}
               hints={currentQuestion.hints}
               hintStrategy={currentQuestion.hint_strategy}
+              onRevealSolution={
+                testMode !== "full"
+                  ? () => {
+                      handleSelect(currentQuestion.correct_answer);
+                      setIsHintModalOpen(false);
+                    }
+                  : undefined
+              }
             />
           </aside>
         )}

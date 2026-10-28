@@ -1,5 +1,6 @@
 "use client";
 
+import { X } from "lucide-react";
 import { ExplanationText } from "@/lib/katex-utils";
 import type { Explanation } from "@/lib/types";
 import { QuestionPanel } from "./QuestionPanel";
@@ -10,14 +11,27 @@ interface ExplanationPanelProps {
   questionKey: number;
   /** Placement and measuring hooks from `useQuestionLayout`. */
   slot: PanelSlot;
+  /** Close the panel (dismiss the explanation). */
+  onClose?: () => void;
 }
 
-export function ExplanationPanel({ explanation, questionKey, slot }: ExplanationPanelProps) {
+export function ExplanationPanel({ explanation, questionKey, slot, onClose }: ExplanationPanelProps) {
   if (!explanation) return null;
 
   return (
     <QuestionPanel id="explanation" slot={slot} contentKey={questionKey} className="panel-enter">
-      <div className="p-5 md:p-6">
+      <div className="relative p-5 md:p-6">
+        {onClose && (
+          <button
+            onClick={onClose}
+            aria-label="Cerrar solución"
+            title="Cerrar"
+            className="absolute top-3 right-3 z-10 w-7 h-7 flex items-center justify-center rounded-full border border-border/60 bg-card text-muted-foreground hover:text-foreground hover:border-accent transition-colors"
+          >
+            <X className="w-3.5 h-3.5" strokeWidth={2.5} />
+          </button>
+        )}
+
         <h4 className="text-xs sm:text-xs font-bold text-secondary uppercase tracking-[0.2em] sm:tracking-[0.3em] mb-6 sm:mb-8 flex items-center gap-3 sm:gap-4">
           <span className="w-8 sm:w-10 h-px bg-secondary/40"></span>
           Solución

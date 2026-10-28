@@ -1,14 +1,16 @@
 "use client";
 
-import { Lightbulb } from "lucide-react";
+import { Eye, Lightbulb } from "lucide-react";
 
 interface HintModalProps {
   keywords?: string[];
   hints?: string[];
   hintStrategy?: string;
+  /** Reveal the solution: mark the correct answer and show the explanation. */
+  onRevealSolution?: () => void;
 }
 
-export default function HintModal({ keywords = [], hints = [], hintStrategy }: HintModalProps) {
+export default function HintModal({ keywords = [], hints = [], hintStrategy, onRevealSolution }: HintModalProps) {
   const pairs = keywords.map((keyword, index) => ({
     keyword,
     hint: hints[index] ?? "",
@@ -41,6 +43,18 @@ export default function HintModal({ keywords = [], hints = [], hintStrategy }: H
       {hintStrategy && (
         <div className="p-4 border-t border-border/60 bg-muted/10 shrink-0">
           <p className="text-xs text-muted-foreground italic">{hintStrategy}</p>
+        </div>
+      )}
+
+      {onRevealSolution && (
+        <div className="p-4 border-t border-border/60 bg-muted/10 shrink-0">
+          <button
+            onClick={onRevealSolution}
+            className="w-full flex items-center justify-center gap-2 px-3 py-3 rounded-sm bg-primary text-primary-foreground text-xs font-bold uppercase tracking-[0.2em] shadow-md hover:brightness-90 transition-all"
+          >
+            <Eye className="w-4 h-4" />
+            <span>Ver solución</span>
+          </button>
         </div>
       )}
     </div>

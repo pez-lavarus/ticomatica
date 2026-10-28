@@ -64,6 +64,7 @@ export const QuestionExperience = memo(function QuestionExperience({
 }: QuestionExperienceProps) {
   const [isNavigatorExpanded, setIsNavigatorExpanded] = useState(false);
   const [flashAnswer, setFlashAnswer] = useState<string | null>(null);
+  const [isExplanationDismissed, setIsExplanationDismissed] = useState(false);
   const prevQuestionKeyRef = useRef(question.original_number);
   const autoNextTimer = useRef<NodeJS.Timeout | null>(null);
   const behavior = reviewMode
@@ -71,7 +72,7 @@ export const QuestionExperience = memo(function QuestionExperience({
     : getModeBehavior(testMode);
 
   const revealed = behavior.immediateFeedback && (reviewMode || Boolean(selectedAnswer));
-  const showPanel = behavior.showExplanation && revealed && Boolean(explanation);
+  const showPanel = behavior.showExplanation && revealed && Boolean(explanation) && !isExplanationDismissed;
 
   // Every image that affects panel sizes, so the layout can re-plan once their
   // dimensions are known.
@@ -93,6 +94,15 @@ export const QuestionExperience = memo(function QuestionExperience({
   if (prevQuestionKeyRef.current !== question.original_number) {
     prevQuestionKeyRef.current = question.original_number;
     setFlashAnswer(null);
+  }
+
+  // Re-open the explanation whenever the question or the selected answer
+  // changes, so "Ver solución" can reveal it again after it was dismissed.
+  const revealKey = `${question.original_number}:${selectedAnswer ?? ""}`;
+  const prevRevealKeyRef = useRef(revealKey);
+  if (prevRevealKeyRef.current !== revealKey) {
+    prevRevealKeyRef.current = revealKey;
+    setIsExplanationDismissed(false);
   }
 
   const flashActive = revealed && flashAnswer === selectedAnswer;
@@ -171,6 +181,7 @@ export const QuestionExperience = memo(function QuestionExperience({
               explanation={explanation}
               questionKey={question.original_number}
               slot={slot("explanation")}
+              onClose={() => setIsExplanationDismissed(true)}
             />
           )}
         </div>
