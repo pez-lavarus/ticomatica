@@ -293,3 +293,35 @@ export function useQuestionLayout({
     graphMax: plan?.graphMax ?? null,
   };
 }
+
+// ---------------------------------------------------------------------------
+// Hint panel width
+// ---------------------------------------------------------------------------
+// The hint panel (HintModal) sits beside the question as a sibling, in the
+// unzoomed viewport coordinate space. Its width is chosen to keep the hint
+// text clear and complete (a comfortable reading measure) while leaving the
+// question enough room, so it only shrinks when the viewport gets tight.
+
+const HINT_PANEL_IDEAL_PX = 440;
+const HINT_PANEL_MIN_PX = 320;
+const MIN_QUESTION_SPACE_PX = 560;
+
+export function computeHintPanelWidth(availableWidth: number): number {
+  const bySpace = availableWidth - MIN_QUESTION_SPACE_PX;
+  return Math.min(HINT_PANEL_IDEAL_PX, Math.max(HINT_PANEL_MIN_PX, bySpace));
+}
+
+/** Reactive width (px) for the hint panel, following the viewport size. */
+export function useHintPanelWidth(): number {
+  const [width, setWidth] = useState<number>(HINT_PANEL_IDEAL_PX);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const update = () => setWidth(computeHintPanelWidth(window.innerWidth));
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
+  return width;
+}

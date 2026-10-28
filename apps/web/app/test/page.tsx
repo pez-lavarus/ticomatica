@@ -13,6 +13,7 @@ import SectionModal from "@/app/components/SectionModal";
 import HintModal from "@/app/components/HintModal";
 import { QuestionExperience } from "@/app/components/assessment/QuestionExperience";
 import { DesktopNavigator } from "@/app/components/assessment/DesktopNavigator";
+import { useHintPanelWidth } from "@/app/components/assessment/useQuestionLayout";
 import { useAssessment } from "@/lib/hooks/useAssessment";
 import { useFontScale } from "@/lib/font-scale";
 import { AssessmentErrorBoundary } from "@/app/components/error/AssessmentErrorBoundary";
@@ -27,6 +28,7 @@ import { FULL_TEST_TOPICS } from "@/lib/constants";
 export default function QuestionPage() {
   const router = useRouter();
   const { increase, decrease, scale, scaleIndex, steps } = useFontScale();
+  const hintWidth = useHintPanelWidth();
 
   // Modals state
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
@@ -46,13 +48,18 @@ export default function QuestionPage() {
 
   useEffect(() => {
     if (!isHintModalOpen) return;
-    const handlePointerDown = (e: MouseEvent) => {
+    const handleClick = (e: MouseEvent) => {
       if (hintPanelRef.current && !hintPanelRef.current.contains(e.target as Node)) {
         setIsHintModalOpen(false);
       }
     };
-    document.addEventListener("mousedown", handlePointerDown);
-    return () => document.removeEventListener("mousedown", handlePointerDown);
+    const timer = setTimeout(() => {
+      document.addEventListener("click", handleClick);
+    }, 0);
+    return () => {
+      clearTimeout(timer);
+      document.removeEventListener("click", handleClick);
+    };
   }, [isHintModalOpen]);
 
   const handleFinishTest = useCallback(() => {
@@ -272,7 +279,6 @@ export default function QuestionPage() {
             {!reviewMode && (
               <button
                 onClick={() => setIsHintModalOpen((prev) => !prev)}
-                onMouseDown={(e) => e.stopPropagation()}
                 className="flex items-center justify-center w-8 h-8 md:w-14 md:h-14 bg-card rounded-sm border border-border shadow-sm hover:bg-muted transition-colors"
                 title="Pistas"
                 aria-label="Pistas"
@@ -287,7 +293,7 @@ export default function QuestionPage() {
 
       <div className="flex flex-1 min-h-0">
         {!isHintModalOpen && (
-          <aside className="hidden lg:flex lg:w-80 xl:w-70 shrink-0 flex-col border-r border-border bg-card min-h-0">
+          <aside key="navigator" className="hidden lg:flex lg:w-80 xl:w-70 shrink-0 flex-col border-r border-border bg-card min-h-0">
             <DesktopNavigator
               testMode={testMode}
               sections={navigatorSections}
@@ -309,7 +315,7 @@ export default function QuestionPage() {
           </aside>
         )}
 
-        <div className="flex-1 min-w-0 min-h-0 overflow-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden" style={{ zoom: scale }}>
+        <div key="question" className="flex-1 min-w-0 min-h-0 overflow-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden" style={{ zoom: scale }}>
           <div className="px-8 mx-auto h-full flex flex-col">
             <QuestionExperience
               question={currentQuestion}
@@ -335,8 +341,10 @@ export default function QuestionPage() {
 
         {isHintModalOpen && (
           <aside
+            key="hint"
             ref={hintPanelRef}
-            className="hidden lg:flex lg:w-97 xl:w-120 shrink-0 flex-col border-l border-border bg-card min-h-0"
+            style={{ width: hintWidth, zoom: scale }}
+            className="hidden lg:flex shrink-0 flex-col border-l border-border bg-card min-h-0"
           >
             <HintModal
               keywords={currentQuestion.keywords}
