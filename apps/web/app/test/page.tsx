@@ -34,6 +34,7 @@ export default function QuestionPage() {
   const [isFormulaModalOpen, setIsFormulaModalOpen] = useState(false);
   const [isSectionModalOpen, setIsSectionModalOpen] = useState(false);
   const [isHintModalOpen, setIsHintModalOpen] = useState(false);
+  const [isHintBlinking, setIsHintBlinking] = useState(false);
   const [modalImage, setModalImage] = useState({ src: "", alt: "" });
   const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
 
@@ -100,6 +101,13 @@ export default function QuestionPage() {
     testMode: currentTestMode,
     hasMoreSections,
   } = assessment;
+
+  // Blink the hint lightbulb for a few seconds whenever a new question opens.
+  useEffect(() => {
+    setIsHintBlinking(true);
+    const timer = setTimeout(() => setIsHintBlinking(false), 3000);
+    return () => clearTimeout(timer);
+  }, [currentIndex]);
 
   const allQuestionsWithGlobalIndex = quizData.questions.map((q, idx) => ({ ...q, globalIndex: idx }));
   const correctAnswers = quizData.questions.reduce<Record<number, string>>((acc, q, idx) => {
@@ -269,7 +277,7 @@ export default function QuestionPage() {
                 title="Pistas"
                 aria-label="Pistas"
               >
-                <Lightbulb className="w-4 h-4 md:w-5 md:h-5 text-foreground" />
+                <Lightbulb className={`w-4 h-4 md:w-5 md:h-5 text-accent ${isHintBlinking ? "animate-pulse" : ""}`} />
               </button>
             )}
             
@@ -328,7 +336,7 @@ export default function QuestionPage() {
         {isHintModalOpen && (
           <aside
             ref={hintPanelRef}
-            className="hidden lg:flex lg:w-96 xl:w-80 shrink-0 flex-col border-l border-border bg-card min-h-0"
+            className="hidden lg:flex lg:w-97 xl:w-120 shrink-0 flex-col border-l border-border bg-card min-h-0"
           >
             <HintModal
               keywords={currentQuestion.keywords}
