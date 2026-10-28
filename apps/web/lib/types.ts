@@ -15,6 +15,9 @@ export interface Question {
   options: QuestionOption[];
   correct_answer: "A" | "B" | "C" | "D";
   topic: string;
+  keywords?: string[];
+  hints?: string[];
+  hint_strategy?: string;
 }
 
 export type TestMode = "full" | "Geometría" | "Funciones" | "Estadística y Probabilidad";

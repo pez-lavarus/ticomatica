@@ -63,7 +63,20 @@
         }
       ],
       "correct_answer": "C",
-      "topic": "Geometría"
+      "topic": "Geometría",
+      "keywords": [
+        "circunferencia",
+        "centro",
+        "radio",
+        "ecuación ordinaria"
+      ],
+      "hints": [
+        "Conjunto de puntos a igual distancia de un punto fijo.",
+        "Punto fijo que determina la posición de la circunferencia.",
+        "Distancia del centro a cualquier punto de la circunferencia.",
+        "Forma: (x−h)²+(y−k)²=r²; el centro es (h,k) y el radio r."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 2,
@@ -89,7 +102,20 @@
         }
       ],
       "correct_answer": "B",
-      "topic": "Geometría"
+      "topic": "Geometría",
+      "keywords": [
+        "circunferencia",
+        "punto exterior",
+        "distancia al centro",
+        "radio"
+      ],
+      "hints": [
+        "Conjunto de puntos cuya distancia al centro es constante.",
+        "Punto situado fuera de la circunferencia, a más de un radio del centro.",
+        "Para comparar un punto con el centro, usa (x−h)²+(y−k)².",
+        "En la ecuación ordinaria, r² es el valor con el que se compara esa distancia al cuadrado."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 3,
@@ -115,7 +141,20 @@
         }
       ],
       "correct_answer": "A",
-      "topic": "Geometría"
+      "topic": "Geometría",
+      "keywords": [
+        "circunferencia",
+        "centro",
+        "radio",
+        "ecuación ordinaria"
+      ],
+      "hints": [
+        "Conjunto de puntos a una distancia fija del centro.",
+        "En (h,k), h es la coordenada x y k la coordenada y.",
+        "La distancia del centro a la circunferencia; en la ecuación se usa r².",
+        "Sustituye el centro y r en (x−h)²+(y−k)²=r²."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 4,
@@ -142,7 +181,20 @@
         }
       ],
       "correct_answer": "A",
-      "topic": "Geometría"
+      "topic": "Geometría",
+      "keywords": [
+        "recta tangente",
+        "circunferencia",
+        "radio",
+        "distancia del centro a la recta"
+      ],
+      "hints": [
+        "Recta que toca la circunferencia en un solo punto.",
+        "Todos sus puntos están a la misma distancia r del centro.",
+        "El segmento al punto de tangencia es perpendicular a la tangente.",
+        "Una recta es tangente cuando su distancia mínima al centro es igual al radio."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 5,
@@ -169,7 +221,18 @@
         }
       ],
       "correct_answer": "B",
-      "topic": "Geometría"
+      "topic": "Geometría",
+      "keywords": [
+        "recta secante",
+        "circunferencia",
+        "puntos de intersección"
+      ],
+      "hints": [
+        "Recta que atraviesa la circunferencia y la corta en dos puntos.",
+        "La circunferencia contiene todos los puntos a distancia r del centro.",
+        "Una secante comparte exactamente dos puntos con la circunferencia."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 6,
@@ -196,7 +259,18 @@
         }
       ],
       "correct_answer": "C",
-      "topic": "Geometría"
+      "topic": "Geometría",
+      "keywords": [
+        "recta tangente",
+        "radio",
+        "perpendicularidad"
+      ],
+      "hints": [
+        "Si una recta comparte un único punto con la circunferencia, es tangente.",
+        "El radio que llega al punto de tangencia forma un ángulo recto con la tangente.",
+        "Perpendicular significa que las rectas se cruzan formando 90°."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 7,
@@ -223,7 +297,18 @@
         }
       ],
       "correct_answer": "C",
-      "topic": "Geometría"
+      "topic": "Geometría",
+      "keywords": [
+        "traslación",
+        "centro de circunferencia",
+        "coordenadas"
+      ],
+      "hints": [
+        "Trasladar cambia la posición sin cambiar forma ni tamaño.",
+        "El centro se desplaza igual que todos los puntos de la figura.",
+        "Mover a la izquierda resta a x; mover hacia abajo resta a y."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 8,
@@ -249,7 +334,20 @@
         }
       ],
       "correct_answer": "A",
-      "topic": "Geometría"
+      "topic": "Geometría",
+      "keywords": [
+        "traslación",
+        "circunferencia",
+        "centro",
+        "ecuación ordinaria"
+      ],
+      "hints": [
+        "La traslación modifica las coordenadas sumando el desplazamiento.",
+        "La circunferencia conserva su radio al trasladarse.",
+        "El nuevo centro se obtiene aplicando el desplazamiento al centro original.",
+        "La ecuación usa (x−h)²+(y−k)²=r² con el nuevo centro y el mismo radio."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 9,
@@ -276,7 +374,18 @@
         }
       ],
       "correct_answer": "D",
-      "topic": "Geometría"
+      "topic": "Geometría",
+      "keywords": [
+        "polígono",
+        "perímetro",
+        "distancia entre puntos"
+      ],
+      "hints": [
+        "Figura plana cerrada formada por segmentos.",
+        "El perímetro es la suma de las longitudes de todos sus lados.",
+        "Entre (x₁,y₁) y (x₂,y₂), la distancia es √((x₂−x₁)²+(y₂−y₁)²)."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 10,
@@ -302,7 +411,20 @@
         }
       ],
       "correct_answer": "B",
-      "topic": "Geometría"
+      "topic": "Geometría",
+      "keywords": [
+        "hexágono regular",
+        "apotema",
+        "área",
+        "perímetro"
+      ],
+      "hints": [
+        "Polígono de seis lados iguales y ángulos iguales.",
+        "Segmento perpendicular del centro al punto medio de un lado.",
+        "En un polígono regular, A = perímetro × apotema ÷ 2.",
+        "El perímetro de un hexágono regular es seis veces la medida de un lado."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 11,
@@ -328,7 +450,20 @@
         }
       ],
       "correct_answer": "A",
-      "topic": "Geometría"
+      "topic": "Geometría",
+      "keywords": [
+        "polígono regular",
+        "ángulo externo",
+        "diagonal",
+        "área"
+      ],
+      "hints": [
+        "Polígono con todos los lados y ángulos iguales.",
+        "La suma de los ángulos externos es 360°; cada uno determina el número de lados.",
+        "Una diagonal une dos vértices no consecutivos; identifica qué diagonal describe el dato.",
+        "El área de un polígono regular es perímetro × apotema ÷ 2."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 12,
@@ -354,7 +489,20 @@
         }
       ],
       "correct_answer": "C",
-      "topic": "Geometría"
+      "topic": "Geometría",
+      "keywords": [
+        "polígono regular",
+        "ángulo central",
+        "número de lados",
+        "perímetro"
+      ],
+      "hints": [
+        "Polígono con lados y ángulos iguales.",
+        "El ángulo central es 360° dividido entre el número de lados.",
+        "Por tanto, n = 360° ÷ ángulo central.",
+        "Perímetro = número de lados × longitud de cada lado."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 13,
@@ -381,7 +529,18 @@
         }
       ],
       "correct_answer": "B",
-      "topic": "Geometría"
+      "topic": "Geometría",
+      "keywords": [
+        "simetría axial",
+        "eje de simetría",
+        "reflexión"
+      ],
+      "hints": [
+        "La reflexión coloca cada punto al otro lado del eje, a igual distancia.",
+        "El eje de simetría queda a mitad de camino entre puntos correspondientes.",
+        "Una reflexión invierte la figura respecto de una recta sin cambiar sus dimensiones."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 14,
@@ -408,7 +567,18 @@
         }
       ],
       "correct_answer": "C",
-      "topic": "Geometría"
+      "topic": "Geometría",
+      "keywords": [
+        "punto homólogo",
+        "simetría respecto al eje y",
+        "coordenadas"
+      ],
+      "hints": [
+        "Punto homólogo es la imagen de un punto bajo una transformación.",
+        "Reflejar respecto al eje y cambia (x,y) por (−x,y).",
+        "La coordenada x cambia de signo y la y se conserva."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 15,
@@ -435,7 +605,18 @@
         }
       ],
       "correct_answer": "A",
-      "topic": "Geometría"
+      "topic": "Geometría",
+      "keywords": [
+        "segmentos homólogos",
+        "reflexión",
+        "eje de simetría"
+      ],
+      "hints": [
+        "Segmentos homólogos corresponden entre sí y conservan longitud.",
+        "En una reflexión, los puntos correspondientes quedan a igual distancia del eje.",
+        "El eje de reflexión es la mediatriz de los segmentos que unen puntos correspondientes."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 16,
@@ -462,7 +643,18 @@
         }
       ],
       "correct_answer": "D",
-      "topic": "Geometría"
+      "topic": "Geometría",
+      "keywords": [
+        "homotecia",
+        "centro de homotecia",
+        "razón de homotecia"
+      ],
+      "hints": [
+        "Transformación que amplía o reduce una figura conservando alineaciones y proporciones.",
+        "Punto fijo desde el que se alinean el centro y los puntos correspondientes.",
+        "La razón es la proporción entre distancias al centro; su signo indica si la imagen queda al mismo lado o al opuesto."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 17,
@@ -489,7 +681,18 @@
         }
       ],
       "correct_answer": "B",
-      "topic": "Geometría"
+      "topic": "Geometría",
+      "keywords": [
+        "traslación",
+        "vector de traslación",
+        "coordenadas"
+      ],
+      "hints": [
+        "Transformación que desplaza todos los puntos por igual.",
+        "El vector indica cuánto cambia x y cuánto cambia y.",
+        "(x+a,y+b) suma a a la coordenada x y b a la coordenada y."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 18,
@@ -516,7 +719,20 @@
         }
       ],
       "correct_answer": "A",
-      "topic": "Geometría"
+      "topic": "Geometría",
+      "keywords": [
+        "rotación",
+        "ángulo de rotación",
+        "origen",
+        "coordenadas"
+      ],
+      "hints": [
+        "Transformación que gira puntos alrededor de un centro sin cambiar distancias.",
+        "Un giro de 270° horario equivale a uno de 90° antihorario.",
+        "El origen es (0,0), centro del giro indicado.",
+        "Para 90° antihorario alrededor del origen, (x,y) pasa a (−y,x)."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 19,
@@ -542,7 +758,20 @@
         }
       ],
       "correct_answer": "B",
-      "topic": "Geometría"
+      "topic": "Geometría",
+      "keywords": [
+        "secciones cónicas",
+        "cono",
+        "parábola",
+        "generatriz"
+      ],
+      "hints": [
+        "Las secciones cónicas dependen de cómo un plano corta un cono.",
+        "Un cono circular recto tiene una base circular y un vértice.",
+        "Un plano paralelo a una generatriz, sin pasar por el vértice, produce una parábola.",
+        "La generatriz es una línea recta sobre la superficie lateral del cono."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 20,
@@ -568,7 +797,20 @@
         }
       ],
       "correct_answer": "C",
-      "topic": "Geometría"
+      "topic": "Geometría",
+      "keywords": [
+        "esfera",
+        "sección plana",
+        "radio de la sección",
+        "distancia al centro"
+      ],
+      "hints": [
+        "Superficie cuyos puntos están a una distancia fija del centro.",
+        "Un plano corta una esfera formando una circunferencia.",
+        "El radio de la sección, la distancia del centro al plano y el radio de la esfera forman un triángulo rectángulo.",
+        "Si R es el radio de la esfera y d la distancia al plano, el radio de corte es √(R²−d²)."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 21,
@@ -594,7 +836,18 @@
         }
       ],
       "correct_answer": "C",
-      "topic": "Geometría"
+      "topic": "Geometría",
+      "keywords": [
+        "cilindro circular recto",
+        "corte perpendicular a las bases",
+        "área del rectángulo"
+      ],
+      "hints": [
+        "Sólido con dos bases circulares iguales y paralelas.",
+        "Un plano perpendicular a las bases y que pasa por sus centros produce una sección rectangular.",
+        "El área de la sección es diámetro de la base × altura del cilindro."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 22,
@@ -620,7 +873,20 @@
         }
       ],
       "correct_answer": "B",
-      "topic": "Geometría"
+      "topic": "Geometría",
+      "keywords": [
+        "cono",
+        "sección paralela a la base",
+        "semejanza de triángulos",
+        "radio"
+      ],
+      "hints": [
+        "El radio de la base y la altura del cono forman un triángulo rectángulo en la sección axial.",
+        "Un corte paralelo a la base produce una sección circular.",
+        "Los triángulos formados por el vértice y las secciones son semejantes; sus lados guardan la misma proporción.",
+        "El radio de la sección es proporcional a su distancia al vértice respecto de la altura total."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 23,
@@ -646,7 +912,20 @@
         }
       ],
       "correct_answer": "A",
-      "topic": "Funciones"
+      "topic": "Funciones",
+      "keywords": [
+        "relación",
+        "función",
+        "variable independiente",
+        "unicidad de salida"
+      ],
+      "hints": [
+        "Una relación asocia elementos de un conjunto con elementos de otro.",
+        "Es función si cada entrada tiene exactamente una salida.",
+        "La variable independiente es la entrada, usualmente x.",
+        "Una misma entrada no puede tener dos valores de salida distintos."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 24,
@@ -672,7 +951,20 @@
         }
       ],
       "correct_answer": "C",
-      "topic": "Funciones"
+      "topic": "Funciones",
+      "keywords": [
+        "relación",
+        "función",
+        "variable independiente",
+        "unicidad de salida"
+      ],
+      "hints": [
+        "Una relación asocia valores de entrada con valores de salida.",
+        "Una función asigna exactamente una salida a cada entrada de su dominio.",
+        "La variable independiente representa los valores que se introducen.",
+        "Comprueba que ninguna entrada tenga más de una salida."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 25,
@@ -699,7 +991,20 @@
         }
       ],
       "correct_answer": "A",
-      "topic": "Funciones"
+      "topic": "Funciones",
+      "keywords": [
+        "función inversa",
+        "dominio",
+        "inyectividad",
+        "prueba de la recta horizontal"
+      ],
+      "hints": [
+        "Una función inversa deshace la acción de la función original.",
+        "El dominio es el conjunto de entradas permitidas.",
+        "Una función es inyectiva si entradas distintas producen salidas distintas.",
+        "Gráficamente, una recta horizontal debe cortar la gráfica a lo sumo una vez para que sea inyectiva."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 26,
@@ -726,7 +1031,18 @@
         }
       ],
       "correct_answer": "B",
-      "topic": "Funciones"
+      "topic": "Funciones",
+      "keywords": [
+        "composición de funciones",
+        "evaluación",
+        "f(h(x))"
+      ],
+      "hints": [
+        "La composición aplica primero la función interior y luego la exterior.",
+        "Evalúa la función sustituyendo x por el valor indicado.",
+        "En (f∘h)(−1), calcula primero h(−1) y usa ese resultado como entrada de f."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 27,
@@ -753,7 +1069,20 @@
         }
       ],
       "correct_answer": "C",
-      "topic": "Funciones"
+      "topic": "Funciones",
+      "keywords": [
+        "composición de funciones",
+        "dominio",
+        "ámbito",
+        "compatibilidad"
+      ],
+      "hints": [
+        "En (k∘u)(x), primero se aplica u y luego k.",
+        "El dominio son las entradas permitidas de una función.",
+        "El ámbito es el conjunto de salidas que la función puede producir.",
+        "La salida de la función interior debe pertenecer al dominio de la exterior."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 28,
@@ -779,7 +1108,18 @@
         }
       ],
       "correct_answer": "A",
-      "topic": "Funciones"
+      "topic": "Funciones",
+      "keywords": [
+        "transformación de funciones",
+        "traslación vertical",
+        "raíz cuadrada"
+      ],
+      "hints": [
+        "Una transformación modifica la gráfica de una función de manera predecible.",
+        "Sumar una constante fuera de la función desplaza la gráfica verticalmente.",
+        "La función raíz cuadrada básica es g(x)=√x; añadir 5 fuera de la raíz sube sus valores 5 unidades."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 29,
@@ -805,7 +1145,18 @@
         }
       ],
       "correct_answer": "C",
-      "topic": "Funciones"
+      "topic": "Funciones",
+      "keywords": [
+        "función inversa",
+        "ámbito de la inversa",
+        "dominio de la función"
+      ],
+      "hints": [
+        "La inversa intercambia entradas y salidas de la función original.",
+        "El ámbito de la inversa coincide con el dominio de la función original.",
+        "El dominio dado indica qué valores puede recibir h; aquí es [5,+∞[."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 30,
@@ -831,7 +1182,20 @@
         }
       ],
       "correct_answer": "B",
-      "topic": "Funciones"
+      "topic": "Funciones",
+      "keywords": [
+        "función lineal",
+        "pendiente",
+        "función creciente",
+        "inecuación"
+      ],
+      "hints": [
+        "Una función lineal de la forma mx+b tiene pendiente m.",
+        "La pendiente es el coeficiente de x; aquí m=−2k+4.",
+        "Una función lineal es creciente cuando su pendiente es positiva.",
+        "Plantea −2k+4>0 y determina qué valores de k cumplen la desigualdad."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 31,
@@ -858,7 +1222,18 @@
         }
       ],
       "correct_answer": "B",
-      "topic": "Funciones"
+      "topic": "Funciones",
+      "keywords": [
+        "gráfica de función",
+        "intersecciones",
+        "signo de parámetros"
+      ],
+      "hints": [
+        "La gráfica representa los pares (x,f(x)) de la función.",
+        "Los cruces con los ejes muestran dónde f(x)=0 o dónde x=0.",
+        "El signo de un parámetro se interpreta a partir de la posición de la gráfica y sus intersecciones; revisa la figura."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 32,
@@ -885,7 +1260,18 @@
         }
       ],
       "correct_answer": "A",
-      "topic": "Funciones"
+      "topic": "Funciones",
+      "keywords": [
+        "función negativa",
+        "intervalos",
+        "eje x"
+      ],
+      "hints": [
+        "Una función es negativa donde su gráfica está debajo del eje x.",
+        "Un intervalo reúne todos los valores de x entre dos extremos.",
+        "El eje x marca f(x)=0; debajo de él, f(x)<0."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 33,
@@ -911,7 +1297,18 @@
         }
       ],
       "correct_answer": "B",
-      "topic": "Funciones"
+      "topic": "Funciones",
+      "keywords": [
+        "función inversa",
+        "función exponencial",
+        "logaritmo"
+      ],
+      "hints": [
+        "La inversa intercambia x e y en la relación original.",
+        "En f(x)=2ˣ, la base es 2 y la variable está en el exponente.",
+        "El logaritmo en base 2 revierte la exponencial 2ˣ: log₂(x)."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 34,
@@ -937,7 +1334,18 @@
         }
       ],
       "correct_answer": "C",
-      "topic": "Funciones"
+      "topic": "Funciones",
+      "keywords": [
+        "función logarítmica",
+        "base entre cero y uno",
+        "signo"
+      ],
+      "hints": [
+        "El logaritmo logₐ(x) es el exponente al que se eleva a para obtener x.",
+        "Si 0<a<1, la función logarítmica es decreciente.",
+        "Para x>1 y 0<a<1, el valor de logₐ(x) es negativo."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 35,
@@ -963,7 +1371,18 @@
         }
       ],
       "correct_answer": "A",
-      "topic": "Funciones"
+      "topic": "Funciones",
+      "keywords": [
+        "conversión Fahrenheit-Celsius",
+        "función lineal",
+        "despeje"
+      ],
+      "hints": [
+        "La fórmula dada relaciona F y C: F=(9/5)C+32.",
+        "Una función lineal combina la variable con una pendiente y una constante.",
+        "Sustituye F=41 y despeja C restando 32 y multiplicando por 5/9."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 36,
@@ -989,7 +1408,20 @@
         }
       ],
       "correct_answer": "B",
-      "topic": "Funciones"
+      "topic": "Funciones",
+      "keywords": [
+        "sistema de ecuaciones",
+        "precios unitarios",
+        "precio por kg de zanahoria",
+        "precio por kg de brócoli"
+      ],
+      "hints": [
+        "Cada compra da una ecuación; las dos ecuaciones comparten los mismos precios desconocidos.",
+        "Un precio unitario es el costo de un kilogramo.",
+        "Si z es el precio de la zanahoria, su costo en cada compra es la cantidad de kg multiplicada por z.",
+        "Si b es el precio del brócoli, su costo es kg × b; resuelve ambas ecuaciones para hallar b."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 37,
@@ -1015,7 +1447,20 @@
         }
       ],
       "correct_answer": "B",
-      "topic": "Funciones"
+      "topic": "Funciones",
+      "keywords": [
+        "función exponencial",
+        "crecimiento poblacional",
+        "duplicación",
+        "exponente"
+      ],
+      "hints": [
+        "En una función exponencial, la variable aparece en el exponente.",
+        "El modelo parte de 2000 habitantes en 2025 y describe cómo cambia la población.",
+        "Como la base es 2, la población se duplica cada vez que x aumenta 5 años.",
+        "Para llegar de 2000 a 8000, expresa 8000/2000 como una potencia de 2."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 38,
@@ -1041,7 +1486,18 @@
         }
       ],
       "correct_answer": "A",
-      "topic": "Funciones"
+      "topic": "Funciones",
+      "keywords": [
+        "propiedades de logaritmos",
+        "potencia",
+        "evaluación de función"
+      ],
+      "hints": [
+        "La resta de logaritmos de igual base equivale al logaritmo del cociente.",
+        "Se cumple logₐ(xⁿ)=n·logₐ(x), para valores permitidos.",
+        "Sustituye x=a⁵ en toda la expresión y simplifica con las reglas de logaritmos."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 39,
@@ -1067,7 +1523,18 @@
         }
       ],
       "correct_answer": "D",
-      "topic": "Funciones"
+      "topic": "Funciones",
+      "keywords": [
+        "crecimiento exponencial",
+        "cantidad de bacterias",
+        "modelo matemático"
+      ],
+      "hints": [
+        "Si una cantidad se multiplica por el mismo factor en intervalos iguales, el crecimiento es exponencial.",
+        "La cantidad inicial de bacterias no está indicada, pero cada hora se triplica.",
+        "Un modelo exponencial puede escribirse como N(t)=N₀·3ᵗ."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 40,
@@ -1094,7 +1561,18 @@
         }
       ],
       "correct_answer": "A",
-      "topic": "Funciones"
+      "topic": "Funciones",
+      "keywords": [
+        "función",
+        "tabla de valores",
+        "valor desconocido"
+      ],
+      "hints": [
+        "Una función asigna una única salida a cada entrada.",
+        "La tabla muestra pares de entrada y salida que deben seguir una misma regla.",
+        "Usa la regla observada en la tabla para determinar k; la tabla contiene la información necesaria."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 41,
@@ -1121,7 +1599,20 @@
         }
       ],
       "correct_answer": "D",
-      "topic": "Funciones"
+      "topic": "Funciones",
+      "keywords": [
+        "modelos de funciones",
+        "tabla de valores",
+        "función lineal",
+        "función raíz cuadrada"
+      ],
+      "hints": [
+        "El modelo adecuado es el que reproduce el patrón de los datos de cada tabla.",
+        "Compara cómo cambian las salidas cuando cambia x.",
+        "En una función lineal, diferencias iguales en x producen cambios iguales en y.",
+        "En una función raíz cuadrada, la salida varía como √x, no con incrementos constantes."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 42,
@@ -1148,7 +1639,20 @@
         }
       ],
       "correct_answer": "B",
-      "topic": "Funciones"
+      "topic": "Funciones",
+      "keywords": [
+        "modelos de funciones",
+        "tabla de valores",
+        "función cuadrática",
+        "función logarítmica"
+      ],
+      "hints": [
+        "El modelo adecuado debe concordar con los valores de la tabla.",
+        "Busca patrones en las entradas y salidas, no un único par aislado.",
+        "En una función cuadrática, las segundas diferencias suelen ser constantes cuando x avanza uniformemente.",
+        "Una función logarítmica crece lentamente y requiere entradas positivas."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 43,
@@ -1175,7 +1679,20 @@
         }
       ],
       "correct_answer": "B",
-      "topic": "Estadística y Probabilidad"
+      "topic": "Estadística y Probabilidad",
+      "keywords": [
+        "media aritmética",
+        "promedio",
+        "distribución de frecuencias",
+        "distancia recorrida"
+      ],
+      "hints": [
+        "La media se obtiene sumando los datos y dividiendo entre el número de observaciones.",
+        "Con una tabla de frecuencias, multiplica cada distancia por su frecuencia y divide entre el total.",
+        "Las frecuencias indican cuántos estudiantes corresponden a cada distancia.",
+        "La variable medida es la cantidad de kilómetros diarios recorridos por estudiante."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 44,
@@ -1202,7 +1719,20 @@
         }
       ],
       "correct_answer": "D",
-      "topic": "Estadística y Probabilidad"
+      "topic": "Estadística y Probabilidad",
+      "keywords": [
+        "estadística descriptiva",
+        "cuartiles",
+        "edades",
+        "porcentaje"
+      ],
+      "hints": [
+        "Resume y describe los datos de un grupo.",
+        "Q1 deja al menos 25% de los datos en o por debajo; la mediana deja 50%; Q3 deja 75%.",
+        "Las edades se interpretan usando los límites del resumen estadístico.",
+        "Un porcentaje expresa una parte del total; vincúlalo con el cuartil indicado."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 45,
@@ -1228,7 +1758,20 @@
         }
       ],
       "correct_answer": "C",
-      "topic": "Estadística y Probabilidad"
+      "topic": "Estadística y Probabilidad",
+      "keywords": [
+        "asimetría negativa",
+        "media",
+        "distribución salarial",
+        "sesgo"
+      ],
+      "hints": [
+        "La asimetría negativa tiene una cola más larga hacia los valores pequeños.",
+        "La media es el promedio y puede desplazarse hacia la cola de la distribución.",
+        "Los salarios pueden concentrarse en un rango mientras unos pocos valores bajos alargan la cola izquierda.",
+        "Con sesgo negativo, normalmente media < mediana; el promedio no indica cuántas personas ganan exactamente esa cantidad."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 46,
@@ -1255,7 +1798,20 @@
         }
       ],
       "correct_answer": "A",
-      "topic": "Estadística y Probabilidad"
+      "topic": "Estadística y Probabilidad",
+      "keywords": [
+        "variabilidad",
+        "dispersión",
+        "tiempos de atención",
+        "comparación de distribuciones"
+      ],
+      "hints": [
+        "La variabilidad mide cuánto difieren los datos entre sí.",
+        "Mayor dispersión significa datos más extendidos alrededor de su centro.",
+        "Compara la amplitud o dispersión de los tiempos de cada médico.",
+        "Usa la misma medida de dispersión para comparar las cuatro distribuciones."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 47,
@@ -1282,7 +1838,20 @@
         }
       ],
       "correct_answer": "A",
-      "topic": "Estadística y Probabilidad"
+      "topic": "Estadística y Probabilidad",
+      "keywords": [
+        "variabilidad",
+        "recorrido intercuartílico",
+        "cuartiles",
+        "diagramas de caja"
+      ],
+      "hints": [
+        "La variabilidad indica qué tan dispersos están los datos.",
+        "El recorrido intercuartílico es Q3−Q1 y mide la amplitud del 50% central.",
+        "Q1 es el primer cuartil y Q3 el tercero.",
+        "En un diagrama de caja, la longitud de la caja representa el recorrido intercuartílico."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 48,
@@ -1309,7 +1878,20 @@
         }
       ],
       "correct_answer": "A",
-      "topic": "Estadística y Probabilidad"
+      "topic": "Estadística y Probabilidad",
+      "keywords": [
+        "variabilidad",
+        "dispersión",
+        "tiempos deportivos",
+        "comparación de datos"
+      ],
+      "hints": [
+        "Menor variabilidad significa resultados más parecidos entre sí.",
+        "La dispersión se compara mediante el rango u otra medida apropiada mostrada en los datos.",
+        "Los tiempos están en segundos; compara la separación entre los resultados de cada atleta.",
+        "Aplica la misma medida de dispersión a los cuatro conjuntos."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 49,
@@ -1336,7 +1918,20 @@
         }
       ],
       "correct_answer": "B",
-      "topic": "Estadística y Probabilidad"
+      "topic": "Estadística y Probabilidad",
+      "keywords": [
+        "diagrama de cajas",
+        "mediana",
+        "cuartiles",
+        "edades"
+      ],
+      "hints": [
+        "Resume la distribución con mínimo, Q1, mediana, Q3 y máximo.",
+        "La mediana divide los datos ordenados en dos mitades.",
+        "Los cuartiles delimitan aproximadamente el 25%, 50% y 75% acumulado.",
+        "Lee las edades en la escala y evita asumir valores exactos que el diagrama no garantiza."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 50,
@@ -1363,7 +1958,20 @@
         }
       ],
       "correct_answer": "C",
-      "topic": "Estadística y Probabilidad"
+      "topic": "Estadística y Probabilidad",
+      "keywords": [
+        "diagrama de cajas",
+        "variabilidad",
+        "recorrido intercuartílico",
+        "edades"
+      ],
+      "hints": [
+        "El diagrama muestra el resumen de cinco números de cada distribución.",
+        "La variabilidad describe cuánto se extienden las edades.",
+        "La caja va de Q1 a Q3; su longitud compara la dispersión del 50% central.",
+        "Compara las cajas de A y B en la escala de edades."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 51,
@@ -1390,7 +1998,20 @@
         }
       ],
       "correct_answer": "A",
-      "topic": "Estadística y Probabilidad"
+      "topic": "Estadística y Probabilidad",
+      "keywords": [
+        "posición relativa",
+        "competencia deportiva",
+        "comparación entre grupos",
+        "puntaje estandarizado"
+      ],
+      "hints": [
+        "La posición relativa indica cómo se ubica un resultado respecto de su grupo.",
+        "El tiempo o puesto debe interpretarse según el desempeño de los demás participantes.",
+        "Las competencias pueden tener grupos con distinto nivel o dispersión; compara de forma relativa.",
+        "Un puntaje estandarizado expresa cuántas desviaciones estándar separan un resultado de la media."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 52,
@@ -1417,7 +2038,18 @@
         }
       ],
       "correct_answer": "B",
-      "topic": "Estadística y Probabilidad"
+      "topic": "Estadística y Probabilidad",
+      "keywords": [
+        "variabilidad relativa",
+        "coeficiente de variación",
+        "comparación de grupos"
+      ],
+      "hints": [
+        "La variabilidad relativa compara la dispersión en relación con el tamaño típico de los datos.",
+        "El coeficiente de variación suele ser desviación estándar ÷ media, expresado como porcentaje.",
+        "Compara los coeficientes de los grupos; menor valor significa menor dispersión relativa."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 53,
@@ -1444,7 +2076,18 @@
         }
       ],
       "correct_answer": "C",
-      "topic": "Estadística y Probabilidad"
+      "topic": "Estadística y Probabilidad",
+      "keywords": [
+        "posición relativa",
+        "comparación de grupos",
+        "medida estandarizada"
+      ],
+      "hints": [
+        "La posición relativa muestra qué tan favorable es un resultado frente al grupo de referencia.",
+        "Resultados de grupos distintos se comparan mejor usando una escala común.",
+        "Una medida estandarizada, como z=(x−media)/desviación estándar, indica la distancia relativa a la media."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 54,
@@ -1470,7 +2113,20 @@
         }
       ],
       "correct_answer": "A",
-      "topic": "Estadística y Probabilidad"
+      "topic": "Estadística y Probabilidad",
+      "keywords": [
+        "probabilidad",
+        "unión de eventos",
+        "A ∪ B",
+        "espacio muestral"
+      ],
+      "hints": [
+        "La probabilidad es casos favorables divididos entre casos posibles cuando todos son equiprobables.",
+        "La unión incluye los resultados que pertenecen a A, a B o a ambos.",
+        "A∪B significa que ocurre al menos uno de los dos eventos.",
+        "El espacio muestral contiene todos los resultados posibles; su probabilidad total es 1."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 55,
@@ -1496,7 +2152,20 @@
         }
       ],
       "correct_answer": "B",
-      "topic": "Estadística y Probabilidad"
+      "topic": "Estadística y Probabilidad",
+      "keywords": [
+        "probabilidad",
+        "evento complementario",
+        "P(C)",
+        "regla del complemento"
+      ],
+      "hints": [
+        "La probabilidad mide qué tan posible es un evento.",
+        "El complemento de C contiene los resultados en los que C no ocurre.",
+        "P(C) representa la probabilidad de que ocurra C.",
+        "La regla del complemento es P(Cᶜ)=1−P(C)."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 56,
@@ -1522,7 +2191,20 @@
         }
       ],
       "correct_answer": "D",
-      "topic": "Estadística y Probabilidad"
+      "topic": "Estadística y Probabilidad",
+      "keywords": [
+        "probabilidad",
+        "intersección de eventos",
+        "B ∩ D",
+        "eventos simultáneos"
+      ],
+      "hints": [
+        "La probabilidad mide la proporción de resultados favorables.",
+        "La intersección reúne los resultados comunes a ambos eventos.",
+        "B∩D significa que ocurren B y D al mismo tiempo.",
+        "Cuenta los resultados que cumplen ambas condiciones y divídelos entre el total de resultados equiprobables."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 57,
@@ -1549,7 +2231,20 @@
         }
       ],
       "correct_answer": "A",
-      "topic": "Estadística y Probabilidad"
+      "topic": "Estadística y Probabilidad",
+      "keywords": [
+        "probabilidad",
+        "urna",
+        "unión de eventos",
+        "judo o fútbol"
+      ],
+      "hints": [
+        "La probabilidad depende de cuántos resultados favorables hay entre los posibles.",
+        "La urna representa el mecanismo de selección aleatoria descrito en el enunciado.",
+        "La unión corresponde a resultados que cumplen al menos una de las condiciones.",
+        "“Judo o fútbol” incluye a quienes practican cualquiera de las dos disciplinas, incluida la posibilidad de ambas."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 58,
@@ -1576,7 +2271,20 @@
         }
       ],
       "correct_answer": "B",
-      "topic": "Estadística y Probabilidad"
+      "topic": "Estadística y Probabilidad",
+      "keywords": [
+        "probabilidad",
+        "evento complementario",
+        "urna",
+        "no practicar fútbol"
+      ],
+      "hints": [
+        "La probabilidad es la proporción de resultados favorables.",
+        "El complemento reúne todos los casos en los que el evento original no ocurre.",
+        "La urna codifica las opciones posibles para la selección.",
+        "“No practicar fútbol” significa elegir un caso fuera del conjunto de quienes practican fútbol."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 59,
@@ -1603,7 +2311,20 @@
         }
       ],
       "correct_answer": "A",
-      "topic": "Estadística y Probabilidad"
+      "topic": "Estadística y Probabilidad",
+      "keywords": [
+        "probabilidad",
+        "selección aleatoria",
+        "intersección de disciplinas",
+        "dos disciplinas"
+      ],
+      "hints": [
+        "La probabilidad de un evento es casos favorables entre el total de casos posibles.",
+        "En una selección aleatoria, cada estudiante tiene la misma oportunidad de ser elegido si el método es uniforme.",
+        "La intersección identifica estudiantes que pertenecen simultáneamente a los conjuntos indicados.",
+        "Interpreta “dos disciplinas” según el diagrama o datos: verifica qué estudiantes están matriculados en exactamente dos."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     },
     {
       "original_number": 60,
@@ -1630,7 +2351,20 @@
         }
       ],
       "correct_answer": "C",
-      "topic": "Estadística y Probabilidad"
+      "topic": "Estadística y Probabilidad",
+      "keywords": [
+        "probabilidad",
+        "intersección de eventos",
+        "tres disciplinas",
+        "selección aleatoria"
+      ],
+      "hints": [
+        "La probabilidad es el número de casos favorables dividido entre el total.",
+        "La intersección representa elementos comunes a todos los eventos indicados.",
+        "Estar matriculado en las tres disciplinas exige pertenecer a los tres conjuntos a la vez.",
+        "En una selección aleatoria uniforme, divide el número de estudiantes que cumplen la condición entre el total."
+      ],
+      "hint_strategy": "Los primeros indicios explican los conceptos clave; los siguientes orientan la aplicación al ejercicio sin revelar directamente la respuesta."
     }
   ],
   "explanations": [

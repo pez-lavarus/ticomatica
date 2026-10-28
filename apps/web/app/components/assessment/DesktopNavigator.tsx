@@ -85,14 +85,14 @@ export function DesktopNavigator({
                     <span className="flex items-center gap-5">
                       {ANSWER_LETTERS.map((letter) => {
                         const isSelected = selectedLetter === letter;
-                        const showLetter = isSelected || reviewMode || isCurrent || (showCorrectness && !isAnswered);
+                        const showLetter = isSelected || reviewMode || isCurrent;
                         const circleClasses = isSelected
                           ? (showCorrectness
                             ? (isCorrect
                               ? "bg-success text-success-foreground border-success"
                               : "bg-wrong text-wrong-foreground border-wrong")
                             : "bg-primary text-primary-foreground border-primary")
-                          : (showCorrectness && !isAnswered
+                          : (reviewMode && !isAnswered
                             ? "bg-wrong text-wrong-foreground border-wrong"
                             : "bg-transparent border-white");
                         return (

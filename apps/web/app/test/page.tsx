@@ -1,15 +1,16 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
-import { Clock, Flag, BookOpen, Shapes, BarChart3, Binary, RotateCcw } from "lucide-react";
+import { Clock, Flag, BookOpen, Shapes, BarChart3, Binary, RotateCcw, Lightbulb } from "lucide-react";
 import type { QuizData } from "@/lib/types";
 import ImageModal from "@/app/components/ImageModal";
 import ConfirmModal from "@/app/components/ConfirmModal";
 import FormulaModal from "@/app/components/FormulaModal";
 import SectionModal from "@/app/components/SectionModal";
+import HintModal from "@/app/components/HintModal";
 import { QuestionExperience } from "@/app/components/assessment/QuestionExperience";
 import { DesktopNavigator } from "@/app/components/assessment/DesktopNavigator";
 import { useAssessment } from "@/lib/hooks/useAssessment";
@@ -32,12 +33,26 @@ export default function QuestionPage() {
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [isFormulaModalOpen, setIsFormulaModalOpen] = useState(false);
   const [isSectionModalOpen, setIsSectionModalOpen] = useState(false);
+  const [isHintModalOpen, setIsHintModalOpen] = useState(false);
   const [modalImage, setModalImage] = useState({ src: "", alt: "" });
   const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
 
   useEffect(() => {
     setPortalContainer(document.getElementById("test-header-controls"));
   }, []);
+
+  const hintPanelRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (!isHintModalOpen) return;
+    const handlePointerDown = (e: MouseEvent) => {
+      if (hintPanelRef.current && !hintPanelRef.current.contains(e.target as Node)) {
+        setIsHintModalOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handlePointerDown);
+    return () => document.removeEventListener("mousedown", handlePointerDown);
+  }, [isHintModalOpen]);
 
   const handleFinishTest = useCallback(() => {
     setIsConfirmModalOpen(true);
@@ -246,31 +261,45 @@ export default function QuestionPage() {
                 <RotateCcw className="w-4 h-4 md:w-5 md:h-5 text-foreground" />
               </button>
             )}
+            {!reviewMode && (
+              <button
+                onClick={() => setIsHintModalOpen((prev) => !prev)}
+                onMouseDown={(e) => e.stopPropagation()}
+                className="flex items-center justify-center w-8 h-8 md:w-14 md:h-14 bg-card rounded-sm border border-border shadow-sm hover:bg-muted transition-colors"
+                title="Pistas"
+                aria-label="Pistas"
+              >
+                <Lightbulb className="w-4 h-4 md:w-5 md:h-5 text-foreground" />
+              </button>
+            )}
+            
           </>,
           portalContainer,
         )}
 
       <div className="flex flex-1 min-h-0">
-        <aside className="hidden lg:flex lg:w-80 xl:w-70 shrink-0 flex-col border-r border-border bg-card min-h-0">
-          <DesktopNavigator
-            testMode={testMode}
-            sections={navigatorSections}
-            currentTopicIndex={currentTopicIndex}
-            currentIndex={currentIndex}
-            isFlagged={!!flaggedQuestions[currentIndex]}
-            selectedAnswers={selectedAnswers}
-            correctAnswers={correctAnswers}
-            flaggedQuestions={flaggedQuestions}
-            reviewMode={reviewMode}
-            onResults={handleResults}
-            onToggleFlag={toggleFlag}
-            onJumpToQuestion={jumpToQuestion}
-            onPrev={handlePrev}
-            onNext={handleNextWithFinish}
-            isLastQuestionInSection={sectionIndex === currentSectionQuestionsWithGlobalIndex.length - 1}
-            hasMoreSections={hasMoreSections}
-          />
-        </aside>
+        {!isHintModalOpen && (
+          <aside className="hidden lg:flex lg:w-80 xl:w-70 shrink-0 flex-col border-r border-border bg-card min-h-0">
+            <DesktopNavigator
+              testMode={testMode}
+              sections={navigatorSections}
+              currentTopicIndex={currentTopicIndex}
+              currentIndex={currentIndex}
+              isFlagged={!!flaggedQuestions[currentIndex]}
+              selectedAnswers={selectedAnswers}
+              correctAnswers={correctAnswers}
+              flaggedQuestions={flaggedQuestions}
+              reviewMode={reviewMode}
+              onResults={handleResults}
+              onToggleFlag={toggleFlag}
+              onJumpToQuestion={jumpToQuestion}
+              onPrev={handlePrev}
+              onNext={handleNextWithFinish}
+              isLastQuestionInSection={sectionIndex === currentSectionQuestionsWithGlobalIndex.length - 1}
+              hasMoreSections={hasMoreSections}
+            />
+          </aside>
+        )}
 
         <div className="flex-1 min-w-0 min-h-0 overflow-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden" style={{ zoom: scale }}>
           <div className="px-8 mx-auto h-full flex flex-col">
@@ -295,6 +324,19 @@ export default function QuestionPage() {
             />
           </div>
         </div>
+
+        {isHintModalOpen && (
+          <aside
+            ref={hintPanelRef}
+            className="hidden lg:flex lg:w-96 xl:w-80 shrink-0 flex-col border-l border-border bg-card min-h-0"
+          >
+            <HintModal
+              keywords={currentQuestion.keywords}
+              hints={currentQuestion.hints}
+              hintStrategy={currentQuestion.hint_strategy}
+            />
+          </aside>
+        )}
       </div>
 
       <ImageModal
