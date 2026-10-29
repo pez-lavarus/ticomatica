@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { render, cleanup } from "@testing-library/react";
 import React from "react";
 import { QuestionExperience } from "./QuestionExperience";
-import type { Explanation, Question } from "@/lib/types";
+import type { Question } from "@/lib/types";
 
 // jsdom does no layout, so element sizes are stubbed with a simple text-flow
 // model: a panel's content is `100 + 40000 / width` tall at any width and
@@ -53,18 +53,11 @@ const question: Question = {
   topic: "Funciones",
 };
 
-const explanation: Explanation = {
-  original_number: 7,
-  display_number: 7,
-  explanation_steps: ["Se sustituye $x = 3$.", "Entonces $f(3) = 7$."],
-};
-
 const baseProps = {
   question,
   currentIndex: 0,
   sectionQuestions: [{ globalIndex: 0, section_number: 7 }],
   testMode: "Funciones" as const,
-  explanation,
   selectedAnswers: {},
   flaggedQuestions: {},
   onSelect: () => {},
@@ -112,39 +105,5 @@ describe("QuestionExperience layout and math rendering", () => {
     // Verify KaTeX math rendering in statement and options
     const katexElements = container.querySelectorAll(".katex");
     expect(katexElements.length).toBeGreaterThan(0);
-  });
-
-  it("adds the explanation as a third panel without overlapping the others and renders KaTeX math in steps", () => {
-    const { container, rerender } = render(<QuestionExperience {...baseProps} />);
-    rerender(<QuestionExperience {...baseProps} selectedAnswer="A" selectedAnswers={{ 0: "A" }} />);
-
-    const rects = panelRects(container);
-    expect(Object.keys(rects).sort()).toEqual(["explanation", "options", "statement"]);
-    const list = Object.values(rects);
-    for (let i = 0; i < list.length; i++) {
-      for (let j = i + 1; j < list.length; j++) {
-        const a = list[i];
-        const b = list[j];
-        const overlap = a.x < b.x + b.width && b.x < a.x + a.width && a.y < b.y + b.height && b.y < a.y + a.height;
-        expect(overlap).toBe(false);
-      }
-    }
-    // The panels that were already on screen animate to their new places; the
-    // explanation is placed without flying in from a corner.
-    const flags = Object.fromEntries(
-      Array.from(container.querySelectorAll<HTMLElement>("[data-panel]")).map((el) => [el.dataset.panel, el.dataset.animate]),
-    );
-    expect(flags.explanation).toBe("false");
-
-    // Check KaTeX inside explanation panel
-    const explanationPanel = container.querySelector("[data-panel='explanation']");
-    expect(explanationPanel?.querySelectorAll(".katex").length).toBe(2);
-  });
-
-  it("does not render the explanation in full-test mode", () => {
-    const { container } = render(
-      <QuestionExperience {...baseProps} testMode="full" selectedAnswer="A" selectedAnswers={{ 0: "A" }} />,
-    );
-    expect(container.querySelector("[data-panel='explanation']")).toBeNull();
   });
 });

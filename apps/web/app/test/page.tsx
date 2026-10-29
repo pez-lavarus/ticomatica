@@ -62,19 +62,7 @@ export default function QuestionPage() {
 
   const assessment = useAssessment({
     quizData,
-    onTimerEnd: () => {
-       // In the original page.tsx, when timeLeft === 0, handleNextSection was called.
-       // handleNextSection would either jump to next section or call handleFinishTest (which opens the modal).
-       // However, handleFinishTest just opens a modal. If the timer actually runs out,
-       // maybe it should force finish?
-       // Looking at original code:
-       /*
-       useEffect(() => {
-         if (timeLeft === 0) handleNextSectionRef.current();
-       }, [timeLeft]);
-       */
-       // We'll handle this in an effect here to keep logic clear.
-    }
+    onTimerEnd: () => {}
   });
 
   const {
@@ -109,6 +97,13 @@ export default function QuestionPage() {
     const timer = setTimeout(() => setIsHintBlinking(false), 3000);
     return () => clearTimeout(timer);
   }, [currentIndex]);
+
+  const handleSelectOption = useCallback((option: string) => {
+    handleSelect(option);
+    if (testMode !== "full" && !reviewMode) {
+      setIsHintModalOpen(true);
+    }
+  }, [handleSelect, testMode, reviewMode]);
 
   const allQuestionsWithGlobalIndex = quizData.questions.map((q, idx) => ({ ...q, globalIndex: idx }));
   const correctAnswers = quizData.questions.reduce<Record<number, string>>((acc, q, idx) => {
@@ -174,10 +169,6 @@ export default function QuestionPage() {
   };
 
   if (!currentQuestion) return null;
-
-  const explanation = quizData.explanations?.find(
-    (e) => e.original_number === currentQuestion.original_number,
-  );
 
   return (
     <AssessmentErrorBoundary>
@@ -269,19 +260,16 @@ export default function QuestionPage() {
         )}
 
         <div key="question" className="font-scaled flex-1 min-w-0 min-h-0 overflow-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-          {/* Side padding is small on phones: the layout engine already centers
-              and sizes the panels, so extra gutter would only waste width. */}
           <div className="px-0 sm:px-4 lg:px-8 mx-auto h-full flex flex-col">
             <QuestionExperience
               question={currentQuestion}
               currentIndex={currentIndex}
               sectionQuestions={currentSectionQuestionsWithGlobalIndex}
               testMode={testMode}
-              explanation={explanation}
               selectedAnswer={selectedAnswers[currentIndex]}
               selectedAnswers={selectedAnswers}
               flaggedQuestions={flaggedQuestions}
-              onSelect={handleSelect}
+              onSelect={handleSelectOption}
               onNext={handleNextWithFinish}
               onPrev={handlePrev}
               onJumpToQuestion={jumpToQuestion}
@@ -308,7 +296,7 @@ export default function QuestionPage() {
               onRevealSolution={
                 testMode !== "full"
                   ? () => {
-                      handleSelect(currentQuestion.correct_answer);
+                      handleSelectOption(currentQuestion.correct_answer);
                       setIsHintModalOpen(false);
                     }
                   : undefined

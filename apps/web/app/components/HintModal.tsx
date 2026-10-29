@@ -1,6 +1,7 @@
 "use client";
 
 import { Eye, Lightbulb } from "lucide-react";
+import { KaTeXText } from "@/lib/katex-utils";
 
 interface HintModalProps {
   keywords?: string[];
@@ -22,7 +23,9 @@ export default function HintModal({ keywords = [], hints = [], hintStrategy, onR
 
       <div className="flex-1 overflow-y-auto p-6 space-y-4">
         {topic && (
-          <p className="text-xs font-bold uppercase tracking-[0.15em] text-primary">{topic}</p>
+          <p className="text-xs font-bold uppercase tracking-[0.15em] text-primary">
+            <KaTeXText text={topic} />
+          </p>
         )}
         {hints.length > 0 ? (
           hints.map((hint, index) => (
@@ -30,7 +33,9 @@ export default function HintModal({ keywords = [], hints = [], hintStrategy, onR
               <p className="text-xs font-bold uppercase tracking-[0.15em] text-primary mb-2">
                 Paso {index + 1}
               </p>
-              <p className="text-sm text-foreground font-serif leading-relaxed">{hint}</p>
+              <div className="text-sm text-foreground font-serif leading-relaxed">
+                <KaTeXText text={hint} />
+              </div>
             </div>
           ))
         ) : (
@@ -42,7 +47,9 @@ export default function HintModal({ keywords = [], hints = [], hintStrategy, onR
 
       {hintStrategy && (
         <div className="p-4 border-t border-border/60 bg-muted/10 shrink-0">
-          <p className="text-xs text-muted-foreground italic">{hintStrategy}</p>
+          <div className="text-xs text-muted-foreground italic">
+            <KaTeXText text={hintStrategy} />
+          </div>
         </div>
       )}
 
