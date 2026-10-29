@@ -170,6 +170,8 @@ export default function QuestionPage() {
 
   if (!currentQuestion) return null;
 
+  const hasSelectedAnswer = Boolean(selectedAnswers[currentIndex]);
+
   return (
     <AssessmentErrorBoundary>
     <div className="h-full flex flex-col bg-background transition-colors">
@@ -294,7 +296,7 @@ export default function QuestionPage() {
               hints={currentQuestion.hints}
               hintStrategy={currentQuestion.hint_strategy}
               onRevealSolution={
-                testMode !== "full"
+                testMode !== "full" && !hasSelectedAnswer
                   ? () => {
                       handleSelectOption(currentQuestion.correct_answer);
                       setIsHintModalOpen(false);
