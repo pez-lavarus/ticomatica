@@ -49,10 +49,22 @@ interface PlanState {
 
 const px = (value: string) => Number.parseFloat(value) || 0;
 
-/** Pinned graph max-height per shared image. Once a graph is sized, sibling
- *  questions and window resizes keep the same graph dimensions instead of
- *  re-shrinking or re-growing it. */
-const graphMaxCache = new Map<string, number | null>();
+/** Graph size a shared image settled on, for the available space it was
+ *  planned in. Sibling questions that show the same graph start from it as a
+ *  ceiling so the graph keeps its size while the student navigates. The entry
+ *  is tied to the container size (which already includes the font scale), so a
+ *  resize or a font change starts over and the graph can grow back. */
+const graphCeilings = new Map<string, { space: string; graphMax: number; owner: number }>();
+
+const spaceKey = (box: ContainerBox) => `${box.width}x${box.height}`;
+
+/** Only a sibling's size limits this question; its own earlier plans must not,
+ *  or a re-plan after a font or image arrives could never grow the graph. */
+function graphCeilingFor(src: string | undefined, box: ContainerBox, owner: number): number | undefined {
+  if (!src) return undefined;
+  const entry = graphCeilings.get(src);
+  return entry && entry.owner !== owner && entry.space === spaceKey(box) ? entry.graphMax : undefined;
+}
 
 function getContentBox(el: HTMLElement): ContainerBox {
   const style = getComputedStyle(el);
@@ -221,8 +233,7 @@ export function useQuestionLayout({
         containerWidth: box.width,
         containerHeight: box.height,
         hasGraph,
-        fixedGraphMax: graphSrc ? graphMaxCache.get(graphSrc) : undefined,
-        graphAspect: graphSrc ? getGraphAspect(graphSrc) : undefined,
+        graphCeiling: graphCeilingFor(graphSrc, box, questionKey),
         previous,
         panels: {
           statement: createMeasurer(
@@ -239,7 +250,11 @@ export function useQuestionLayout({
         },
       });
       lastPlan.current = { plan: next, questionKey, box, hasExplanation };
-      if (graphSrc) graphMaxCache.set(graphSrc, next.graphMax);
+      // The explanation temporarily takes room from the graph; that is not the
+      // size its siblings should inherit.
+      if (graphSrc && next.graphMax !== null && !hasExplanation) {
+        graphCeilings.set(graphSrc, { space: spaceKey(box), graphMax: next.graphMax, owner: questionKey });
+      }
 
       setState((current) => {
         if (samePlan(current.plan, next)) return current;

@@ -4,7 +4,7 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
-import { Clock, Flag, BookOpen, Shapes, BarChart3, Binary, RotateCcw, Lightbulb, ALargeSmall, Maximize2 } from "lucide-react";
+import { Clock, Flag, BookOpen, Shapes, BarChart3, Binary, RotateCcw, Lightbulb } from "lucide-react";
 import type { QuizData } from "@/lib/types";
 import ImageModal from "@/app/components/ImageModal";
 import ConfirmModal from "@/app/components/ConfirmModal";
@@ -15,7 +15,7 @@ import { QuestionExperience } from "@/app/components/assessment/QuestionExperien
 import { DesktopNavigator } from "@/app/components/assessment/DesktopNavigator";
 import { useHintPanelWidth } from "@/app/components/assessment/useQuestionLayout";
 import { useAssessment } from "@/lib/hooks/useAssessment";
-import { useFontScale } from "@/lib/font-scale";
+import { FontScaleControl, HeaderIconButton, HeaderReadout, HeaderTextButton } from "@/app/components/HeaderControls";
 import { AssessmentErrorBoundary } from "@/app/components/error/AssessmentErrorBoundary";
 import { preloadGraphAspects } from "@/lib/graph-aspects";
 
@@ -25,14 +25,9 @@ const quizData: QuizData = quizDataRaw as unknown as QuizData;
 
 import { FULL_TEST_TOPICS } from "@/lib/constants";
 
-const GRAPH_SCALE_STEPS = [0.8, 1, 1.2] as const;
-
 export default function QuestionPage() {
   const router = useRouter();
-  const { scale, scaleIndex, steps, setScaleIndex } = useFontScale();
   const hintWidth = useHintPanelWidth();
-  const [graphScaleIndex, setGraphScaleIndex] = useState(1);
-  const graphScale = GRAPH_SCALE_STEPS[graphScaleIndex];
 
   // Modals state
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
@@ -209,86 +204,58 @@ export default function QuestionPage() {
           <>
             <div className="flex items-center gap-1.5 md:gap-3">
               {!reviewMode && (
-                <div className="flex items-center px-2 md:px-8 h-8 md:h-14 bg-card rounded-sm border border-border shadow-sm">
+                <HeaderReadout>
                   <span className="font-mono text-xs md:text-2xl font-bold tabular-nums text-foreground min-w-[35px] md:min-w-[80px] text-center">
                     {mounted ? formatTime(timeLeft) : "--:--"}
                   </span>
-                </div>
+                </HeaderReadout>
               )}
 
-              <button
+              <HeaderIconButton
+                label="Información de la sección"
+                iconSize="lg"
                 onClick={() => setIsSectionModalOpen(true)}
-                className="flex items-center justify-center w-8 h-8 md:w-14 md:h-14 bg-card rounded-sm border border-border shadow-sm hover:bg-muted transition-colors text-destructive"
-                title="Información de la sección"
+                className="text-destructive"
               >
-                {currentTopic === "Geometría" && <Shapes className="w-4 h-4 md:w-7 md:h-7" />}
-                {currentTopic === "Estadística y Probabilidad" && <BarChart3 className="w-4 h-4 md:w-7 md:h-7" />}
-                {currentTopic === "Funciones" && <Binary className="w-4 h-4 md:w-7 md:h-7" />}
-                {currentTopic === "full" && <Clock className="w-4 h-4 md:w-7 md:h-7" />}
-              </button>
+                {currentTopic === "Geometría" && <Shapes />}
+                {currentTopic === "Estadística y Probabilidad" && <BarChart3 />}
+                {currentTopic === "Funciones" && <Binary />}
+                {currentTopic === "full" && <Clock />}
+              </HeaderIconButton>
             </div>
 
             <div className="flex items-center gap-2 md:gap-6">
-              <button
-                onClick={() => setIsFormulaModalOpen(true)}
-                className="flex items-center gap-1.5 md:gap-2 px-2 md:px-8 py-2 md:py-4 bg-muted border border-border hover:border-accent text-foreground text-xs md:text-xs font-bold uppercase tracking-[0.15em] md:tracking-[0.2em] rounded-sm transition-colors"
-                title="Fórmulas"
-              >
-                <BookOpen className="w-3 h-3 md:w-4 md:h-4" />
-                <span className="hidden md:inline">Fórmulas</span>
-              </button>
+              <HeaderTextButton label="Fórmulas" icon={<BookOpen />} onClick={() => setIsFormulaModalOpen(true)} />
               {!reviewMode && (
-                <button
+                <HeaderTextButton
+                  label="Finalizar"
+                  tone="primary"
+                  icon={<Flag className="transition-colors group-hover:text-destructive group-active:text-destructive" />}
                   onClick={handleFinishTest}
-                  className="flex items-center gap-1.5 md:gap-4 px-3 md:px-10 py-2 md:py-4 bg-primary text-primary-foreground text-xs md:text-xs font-bold uppercase tracking-[0.15em] md:tracking-[0.2em] rounded-sm shadow-md transition-all hover:brightness-90 group"
-                >
-                  <Flag className="w-3 h-3 md:w-4 md:h-4 transition-colors group-hover:text-destructive group-active:text-destructive" />
-                  <span className="hidden sm:inline">Finalizar</span>
-                </button>
+                />
               )}
             </div>
 
-            <div className="flex items-center gap-1 md:gap-2">
-              <button
-                onClick={() => setScaleIndex((scaleIndex + 1) % steps.length)}
-                className="flex items-center justify-center w-8 h-8 md:w-14 md:h-14 bg-card rounded-sm border border-border shadow-sm hover:bg-muted transition-colors"
-                title="Tamaño de texto"
-                aria-label="Tamaño de texto"
-              >
-                <ALargeSmall className="w-4 h-4 md:w-5 md:h-5 text-foreground" />
-              </button>
-              <button
-                onClick={() => setGraphScaleIndex((graphScaleIndex + 1) % GRAPH_SCALE_STEPS.length)}
-                className="flex items-center justify-center w-8 h-8 md:w-14 md:h-14 bg-card rounded-sm border border-border shadow-sm hover:bg-muted transition-colors"
-                title="Tamaño del gráfico"
-                aria-label="Tamaño del gráfico"
-              >
-                <Maximize2 className="w-4 h-4 md:w-5 md:h-5 text-foreground" />
-              </button>
-            </div>
-            
+            <FontScaleControl />
+
             {!reviewMode && (
-              <button
+              <HeaderIconButton
+                label="Limpiar respuesta"
                 onClick={resetCurrentQuestion}
                 disabled={!selectedAnswers[currentIndex]}
-                className="flex items-center justify-center w-8 h-8 md:w-14 md:h-14 bg-card rounded-sm border border-border shadow-sm hover:bg-muted transition-colors disabled:opacity-30"
-                title="Limpiar respuesta"
-                aria-label="Limpiar respuesta"
               >
-                <RotateCcw className="w-4 h-4 md:w-5 md:h-5 text-foreground" />
-              </button>
+                <RotateCcw className="text-foreground" />
+              </HeaderIconButton>
             )}
             {!reviewMode && (
-              <button
+              <HeaderIconButton
+                label="Pistas"
                 onClick={() => setIsHintModalOpen((prev) => !prev)}
-                className="flex items-center justify-center w-8 h-8 md:w-14 md:h-14 bg-card rounded-sm border border-border shadow-sm hover:bg-muted transition-colors"
-                title="Pistas"
-                aria-label="Pistas"
+                onMouseDown={(e) => e.stopPropagation()}
               >
-                <Lightbulb className={`w-4 h-4 md:w-5 md:h-5 text-accent ${isHintBlinking ? "animate-pulse" : ""}`} />
-              </button>
+                <Lightbulb className={`text-accent ${isHintBlinking ? "animate-pulse" : ""}`} />
+              </HeaderIconButton>
             )}
-            
           </>,
           portalContainer,
         )}
@@ -317,8 +284,10 @@ export default function QuestionPage() {
           </aside>
         )}
 
-        <div key="question" className="flex-1 min-w-0 min-h-0 overflow-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden" style={{ zoom: scale, "--graph-zoom": graphScale / scale } as React.CSSProperties}>
-          <div className="px-8 mx-auto h-full flex flex-col">
+        <div key="question" className="font-scaled flex-1 min-w-0 min-h-0 overflow-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+          {/* Side padding is small on phones: the layout engine already centers
+              and sizes the panels, so extra gutter would only waste width. */}
+          <div className="px-0 sm:px-4 lg:px-8 mx-auto h-full flex flex-col">
             <QuestionExperience
               question={currentQuestion}
               currentIndex={currentIndex}
@@ -345,8 +314,8 @@ export default function QuestionPage() {
           <aside
             key="hint"
             ref={hintPanelRef}
-            style={{ width: hintWidth, zoom: scale }}
-            className="hidden lg:flex shrink-0 flex-col border-l border-border bg-card min-h-0"
+            style={{ width: hintWidth }}
+            className="font-scaled hidden lg:flex shrink-0 flex-col border-l border-border bg-card min-h-0"
           >
             <HintModal
               keywords={currentQuestion.keywords}

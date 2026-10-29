@@ -23,7 +23,8 @@
   --success-foreground: #002147;
   --wrong: #C0504A; /* Brick Red for incorrect answers */
   --wrong-foreground: #FDFCF0;
-  --font-scale: 1;
+  /* Keep in step with DEFAULT_SCALE_INDEX in lib/font-scale.tsx. */
+  --font-scale: 1.125;
 }
 
 .dark {
@@ -146,9 +147,33 @@ button:not(:disabled),
 }
 
 /* Response options: keep each formula on a single horizontal line (no line
-   breaks); the option container scrolls horizontally when it is overlong. */
+   breaks); the option scrolls horizontally, without a scrollbar, when a
+   formula is wider than its card. The vertical padding and matching negative
+   margin keep glyph ascenders and descenders from being clipped by the
+   overflow that this implies. */
+.option-math {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-block: 0.25em;
+  margin-block: -0.25em;
+  scrollbar-width: none;
+}
+
+.option-math::-webkit-scrollbar {
+  display: none;
+}
+
 .option-math .katex {
   white-space: nowrap;
+}
+
+/* Font size: one mechanism for every scalable area. The chosen step lives in
+   --font-scale (see lib/font-scale.tsx) and is applied as a CSS zoom, which
+   scales text, spacing, icons and images together. The layout engine measures
+   in the zoomed element's own pixels, so a larger font simply gives it a
+   smaller container to plan for. */
+.font-scaled {
+  zoom: var(--font-scale, 1);
 }
 
 

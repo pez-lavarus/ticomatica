@@ -3,7 +3,7 @@ import { Public_Sans, Source_Serif_4 } from "next/font/google";
 import "katex/dist/katex.min.css";
 import "./globals.css";
 import { ThemeProvider } from "@/lib/theme-provider";
-import { FontScaleProvider } from "@/lib/font-scale";
+import { FONT_SCALE_INIT_SCRIPT, FontScaleProvider } from "@/lib/font-scale";
 import { Header } from "@/app/components/Header";
 
 const publicSans = Public_Sans({
@@ -29,6 +29,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className={`${publicSans.variable} ${sourceSerif.variable} h-full antialiased`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: FONT_SCALE_INIT_SCRIPT }} />
+      </head>
       <body className="h-dvh flex flex-col font-sans overflow-hidden">
         <ThemeProvider defaultTheme="system">
           <FontScaleProvider>

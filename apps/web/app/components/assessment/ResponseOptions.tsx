@@ -63,16 +63,16 @@ export function ResponseOptions({
       columns={columns}
       className="panel-enter"
     >
-      <div className="p-5 md:p-8">
+      <div className="p-5 md:p-6">
         {question.problem && (
-          <div className="prose dark:prose-invert max-w-none text-base md:text-lg leading-[1.6] md:leading-[1.8] text-foreground font-serif mb-6 md:mb-8">
+          <div className="prose dark:prose-invert max-w-none text-base md:text-lg leading-[1.6] md:leading-[1.8] text-foreground font-serif mb-5 md:mb-6">
             <KaTeXText text={question.problem} />
           </div>
         )}
 
         {/* `group-data-[columns=2]` reads the data-columns attribute on the
             panel content, which is how the layout switches the column count. */}
-        <div className="grid grid-cols-1 group-data-[columns=2]:grid-cols-2 gap-3 md:gap-6">
+        <div className="grid grid-cols-1 group-data-[columns=2]:grid-cols-2 gap-3 md:gap-4">
           {question.options.map((option) => {
             const isSelected = selectedAnswer === option.label;
             const isCorrectOption = option.label === correctAnswer;
@@ -103,7 +103,7 @@ export function ResponseOptions({
                 key={option.label}
                 disabled={readOnly}
                 onClick={() => onSelect(option.label)}
-                className={`w-full flex gap-4 md:gap-9 p-3 md:p-5 rounded-sm border-2 text-left transition-all group active:scale-[0.98] disabled:cursor-default disabled:active:scale-100 ${buttonClasses} ${flashClasses}`}
+                className={`w-full flex gap-3 md:gap-5 p-3 md:p-4 rounded-sm border-2 text-left transition-all group active:scale-[0.98] disabled:cursor-default disabled:active:scale-100 ${buttonClasses} ${flashClasses}`}
               >
                 <div
                   className={`w-7 h-7 md:w-9 md:h-9 flex-shrink-0 flex items-center justify-center rounded-sm font-bold text-base md:text-lg border-2 transition-colors ${letterClasses}`}

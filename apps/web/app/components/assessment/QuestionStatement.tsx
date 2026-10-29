@@ -58,9 +58,11 @@ export function QuestionStatement({
     >
       {/* `group-data-[split=true]` reads the data-split attribute on the panel
           content, which is how the layout switches this arrangement. */}
-      <div className="p-5 md:p-8 flex flex-col gap-6 md:gap-10 group-data-[split=true]:flex-row group-data-[split=true]:items-center">
+      <div className="p-5 md:p-6 flex flex-col gap-5 md:gap-6 group-data-[split=true]:flex-row group-data-[split=true]:items-center">
+        {/* The text keeps a readable measure however wide the panel gets, so
+            a wide graph can use the extra width without stretching the lines. */}
         {question.statement && (
-          <div className="prose dark:prose-invert max-w-none text-base md:text-lg leading-[1.6] md:leading-[1.8] text-foreground font-serif min-w-0 group-data-[split=true]:flex-1">
+          <div className="prose dark:prose-invert w-full max-w-[72ch] mx-auto text-base md:text-lg leading-[1.6] md:leading-[1.8] text-foreground font-serif min-w-0 group-data-[split=true]:flex-1 group-data-[split=true]:max-w-none group-data-[split=true]:mx-0">
             <KaTeXText text={question.statement} />
           </div>
         )}
@@ -70,7 +72,6 @@ export function QuestionStatement({
           <div className="min-w-0 flex justify-center group-data-[split=true]:flex-1">
             <div
               className="w-fit max-w-full rounded-sm border border-border overflow-hidden cursor-zoom-in hover:border-accent transition-colors bg-white shadow-sm"
-              style={{ transform: "scale(var(--graph-zoom))" }}
               onDoubleClick={() => onOpenImageModal(sharedImageSrc, "Imagen de apoyo")}
               onTouchStart={() => handleTouchStart(sharedImageSrc, "Imagen de apoyo")}
               onTouchEnd={handleTouchEnd}
@@ -81,7 +82,7 @@ export function QuestionStatement({
                 alt="Imagen de apoyo"
                 width={graphDimensions?.width ?? 800}
                 height={graphDimensions?.height ?? 600}
-                className="graph-image block w-auto h-auto max-w-full max-h-[var(--graph-max,300px)] md:max-h-[var(--graph-max,560px)] object-contain pointer-events-none"
+                className="graph-image block w-auto h-auto max-w-full max-h-[var(--graph-max,450px)] object-contain pointer-events-none"
               />
             </div>
           </div>

@@ -2,6 +2,8 @@ import { describe, expect, it } from "vitest";
 import {
   EXPLANATION_MIN_PX,
   GAP_WIDE_PX,
+  GRAPH_LADDER,
+  GRAPH_SPLIT_WIDTH_CAP_PX,
   IDEAL_WIDTH_CAP_PX,
   OPTIONS_MIN_PX,
   SAFETY_PX,
@@ -185,37 +187,68 @@ describe("planQuestionLayout", () => {
     }
   });
 
-  it("shrinks the graph before it overflows the screen", () => {
+  it("uses the largest graph that fits and shrinks it only as far as needed", () => {
     const tall = textPanel({ chars: 90, graph: { width: 500, height: 500 } });
     const roomy = plan({ containerWidth: 700, containerHeight: 1400, hasGraph: true, statement: tall });
     const tight = plan({ containerWidth: 700, containerHeight: 640, hasGraph: true, statement: tall });
-    expect(roomy.graphMax).toBeNull();
+    expect(roomy.graphMax).toBe(GRAPH_LADDER[0]);
     expect(tight.graphMax).not.toBeNull();
+    expect(tight.graphMax!).toBeLessThan(GRAPH_LADDER[0]);
+    expect(tight.overflow).toBe(false);
   });
 
-  it("pins the shared graph's max height so sibling questions keep its size", () => {
+  it("graph size never shrinks when the container gets taller, and never grows when it gets shorter", () => {
+    const tall = textPanel({ chars: 90, graph: { width: 500, height: 500 } });
+    let previous = 0;
+    for (let height = 360; height <= 1500; height += 20) {
+      const p = plan({ containerWidth: 700, containerHeight: height, hasGraph: true, statement: tall });
+      expect(p.graphMax).not.toBeNull();
+      expect(p.graphMax!).toBeGreaterThanOrEqual(previous);
+      previous = p.graphMax!;
+    }
+  });
+
+  it("only uses ladder sizes, in local pixels, and none without a graph", () => {
+    const withG = plan({ containerWidth: 900, containerHeight: 600, hasGraph: true, statement: withGraph });
+    expect(GRAPH_LADDER).toContain(withG.graphMax);
+    expect(plan({ containerHeight: 600 }).graphMax).toBeNull();
+  });
+
+  it("a sibling's graph size is a ceiling the graph keeps while there is room", () => {
     const tall = textPanel({ chars: 90, graph: { width: 500, height: 500 } });
     const p = plan({
       containerWidth: 700,
       containerHeight: 1400,
       hasGraph: true,
       statement: tall,
-      fixedGraphMax: 220,
+      graphCeiling: 220,
     });
     expect(p.graphMax).toBe(220);
   });
 
-  it("keeps the pinned graph height even when it no longer fits, scrolling instead", () => {
+  it("the ceiling still gives way when the panels need the room", () => {
     const tall = textPanel({ chars: 90, graph: { width: 500, height: 500 } });
-    const p = plan({
+    const capped = plan({
       containerWidth: 700,
-      containerHeight: 500,
+      containerHeight: 560,
       hasGraph: true,
       statement: tall,
-      fixedGraphMax: 340,
+      graphCeiling: 380,
     });
-    expect(p.graphMax).toBe(340);
-    expect(p.overflow).toBe(true);
+    const free = plan({ containerWidth: 700, containerHeight: 560, hasGraph: true, statement: tall });
+    expect(capped.graphMax!).toBeLessThanOrEqual(380);
+    expect(capped.graphMax!).toBeLessThanOrEqual(free.graphMax!);
+    // A ceiling never forces a scroll the free layout would have avoided.
+    expect(capped.overflow).toBe(free.overflow);
+  });
+
+  it("lets a wide graph use more width than a text column", () => {
+    const wide = textPanel({ chars: 90, graph: { width: 1800, height: 400 } });
+    const p = plan({ containerWidth: 1400, containerHeight: 800, hasGraph: true, statement: wide });
+    expect(p.rects.statement!.width).toBeGreaterThan(IDEAL_WIDTH_CAP_PX);
+    expect(p.rects.statement!.width).toBeLessThanOrEqual(GRAPH_SPLIT_WIDTH_CAP_PX);
+    const noGraph = plan({ containerWidth: 1400, containerHeight: 800, statement: textPanel({ chars: 900 }) });
+    expect(noGraph.rects.statement!.width).toBeLessThanOrEqual(IDEAL_WIDTH_CAP_PX);
   });
 
   it("scrolls only when nothing fits, and reports the real content height", () => {
