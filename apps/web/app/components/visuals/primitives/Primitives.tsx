@@ -19,7 +19,7 @@ export const Line: React.FC<LineProps> = ({
   points,
   slope,
   intercept,
-  color = '#1e293b',
+  color = 'var(--foreground)',
   strokeWidth = 2,
   dashed = false,
   transform,
@@ -65,7 +65,7 @@ export interface CirclePrimitiveProps {
 export const CirclePrimitive: React.FC<CirclePrimitiveProps> = ({
   center,
   radius,
-  color = '#2563eb',
+  color = 'var(--foreground)',
   fill = 'none',
   strokeWidth = 2,
   dashed = false,
@@ -98,8 +98,8 @@ export interface PolygonPrimitiveProps {
 
 export const PolygonPrimitive: React.FC<PolygonPrimitiveProps> = ({
   points,
-  color = '#2563eb',
-  fill = 'rgba(37, 99, 235, 0.1)',
+  color = 'var(--foreground)',
+  fill = 'color-mix(in srgb, var(--accent) 15%, transparent)',
   strokeWidth = 2,
   transform,
 }) => {
@@ -130,7 +130,7 @@ export interface PolylinePrimitiveProps {
 
 export const PolylinePrimitive: React.FC<PolylinePrimitiveProps> = ({
   points,
-  color = '#2563eb',
+  color = 'var(--foreground)',
   strokeWidth = 2,
   dashed = false,
   transform,

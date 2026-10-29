@@ -27,14 +27,14 @@ export const TableComponent: React.FC<TableSpecProps> = ({
   return (
     <div className="table-visual-component my-3 overflow-x-auto">
       {title && (
-        <div className="text-sm font-bold text-slate-800 text-center mb-2">{title}</div>
+        <div className="text-sm font-bold text-foreground text-center mb-2">{title}</div>
       )}
-      <table className="min-w-full border-collapse border border-slate-300 text-sm bg-white text-center shadow-sm rounded">
+      <table className="min-w-full border-collapse border border-border text-sm bg-card text-center shadow-sm rounded">
         {headerCells.length > 0 && (
           <thead>
-            <tr className="bg-slate-100 text-slate-700 font-semibold border-b border-slate-300">
+            <tr className="bg-muted text-foreground font-semibold border-b border-border">
               {headerCells.map((h, i) => (
-                <th key={i} className="px-4 py-2 border-r border-slate-300 last:border-r-0">
+                <th key={i} className="px-4 py-2 border-r border-border last:border-r-0">
                   <TextRenderer content={String(h)} />
                 </th>
               ))}
@@ -43,18 +43,18 @@ export const TableComponent: React.FC<TableSpecProps> = ({
         )}
         <tbody>
           {rows.map((row, rIdx) => (
-            <tr key={rIdx} className="border-b border-slate-200 hover:bg-slate-50">
+            <tr key={rIdx} className="border-b border-border hover:bg-muted/50">
               {row.map((cell, cIdx) => (
-                <td key={cIdx} className="px-4 py-2 border-r border-slate-200 last:border-r-0">
+                <td key={cIdx} className="px-4 py-2 border-r border-border last:border-r-0">
                   <TextRenderer content={String(cell)} />
                 </td>
               ))}
             </tr>
           ))}
           {totalCells && (
-            <tr className="bg-slate-100 font-bold border-t-2 border-slate-300">
+            <tr className="bg-muted font-bold border-t-2 border-border">
               {totalCells.map((cell, idx) => (
-                <td key={idx} className="px-4 py-2 border-r border-slate-200 last:border-r-0">
+                <td key={idx} className="px-4 py-2 border-r border-border last:border-r-0">
                   <TextRenderer content={String(cell)} />
                 </td>
               ))}
@@ -130,14 +130,14 @@ export const BoxPlotComponent: React.FC<BoxPlotProps> = ({
       width={width}
       height={height}
       viewBox={`0 0 ${width} ${height}`}
-      className="box-plot-component bg-white border border-slate-200 rounded"
+      className="box-plot-component bg-transparent border border-border rounded-sm"
     >
       {/* Axis line */}
-      <line x1={plotLeft} y1={axisPy} x2={plotRight} y2={axisPy} stroke="#64748b" strokeWidth={1.5} />
+      <line x1={plotLeft} y1={axisPy} x2={plotRight} y2={axisPy} stroke="var(--muted-foreground)" strokeWidth={1.5} />
 
       {/* Axis title */}
       {axis?.label && (
-        <text x={(plotLeft + plotRight) / 2} y={height - 8} fontSize={11} fontWeight="bold" fill="#334155" textAnchor="middle">
+        <text x={(plotLeft + plotRight) / 2} y={height - 8} fontSize={11} fontWeight="bold" fill="var(--foreground)" textAnchor="middle">
           {axis.label}
         </text>
       )}
@@ -147,8 +147,8 @@ export const BoxPlotComponent: React.FC<BoxPlotProps> = ({
         const px = toPx(v);
         return (
           <g key={`tick-${i}`}>
-            <line x1={px} y1={axisPy - 3} x2={px} y2={axisPy + 3} stroke="#64748b" strokeWidth={1} />
-            <text x={px} y={axisPy + 14} fontSize={9} fill="#64748b" textAnchor="middle">
+            <line x1={px} y1={axisPy - 3} x2={px} y2={axisPy + 3} stroke="var(--muted-foreground)" strokeWidth={1} />
+            <text x={px} y={axisPy + 14} fontSize={9} fill="var(--muted-foreground)" textAnchor="middle">
               {v}
             </text>
           </g>
@@ -169,17 +169,17 @@ export const BoxPlotComponent: React.FC<BoxPlotProps> = ({
         return (
           <g key={idx}>
             {/* Label */}
-            <text x={10} y={midY + 4} fontSize={11} fontWeight="bold" fill="#334155">
+            <text x={10} y={midY + 4} fontSize={11} fontWeight="bold" fill="var(--foreground)">
               {group.label || group.name || `Grupo ${idx + 1}`}
             </text>
 
             {/* Whiskers */}
-            <line x1={xMin} y1={midY} x2={xQ1} y2={midY} stroke="#0284c7" strokeWidth={2} />
-            <line x1={xQ3} y1={midY} x2={xMax} y2={midY} stroke="#0284c7" strokeWidth={2} />
+            <line x1={xMin} y1={midY} x2={xQ1} y2={midY} stroke="var(--foreground)" strokeWidth={2} />
+            <line x1={xQ3} y1={midY} x2={xMax} y2={midY} stroke="var(--foreground)" strokeWidth={2} />
 
             {/* End caps */}
-            <line x1={xMin} y1={y + 2} x2={xMin} y2={y + boxH - 2} stroke="#0284c7" strokeWidth={2} />
-            <line x1={xMax} y1={y + 2} x2={xMax} y2={y + boxH - 2} stroke="#0284c7" strokeWidth={2} />
+            <line x1={xMin} y1={y + 2} x2={xMin} y2={y + boxH - 2} stroke="var(--foreground)" strokeWidth={2} />
+            <line x1={xMax} y1={y + 2} x2={xMax} y2={y + boxH - 2} stroke="var(--foreground)" strokeWidth={2} />
 
             {/* Box */}
             <rect
@@ -187,13 +187,13 @@ export const BoxPlotComponent: React.FC<BoxPlotProps> = ({
               y={y}
               width={Math.max(0, xQ3 - xQ1)}
               height={boxH}
-              fill="rgba(56, 189, 248, 0.2)"
-              stroke="#0284c7"
+              fill="color-mix(in srgb, var(--accent) 15%, transparent)"
+              stroke="var(--foreground)"
               strokeWidth={2}
             />
 
             {/* Median */}
-            <line x1={xMed} y1={y} x2={xMed} y2={y + boxH} stroke="#e11d48" strokeWidth={2.5} />
+            <line x1={xMed} y1={y} x2={xMed} y2={y + boxH} stroke="var(--accent)" strokeWidth={2.5} />
           </g>
         );
       })}
@@ -263,13 +263,13 @@ export const DistributionCurveComponent: React.FC<DistributionCurveProps> = ({
       width={width}
       height={height}
       viewBox={`0 0 ${width} ${height}`}
-      className="distribution-curve bg-white border border-slate-200 rounded"
+      className="distribution-curve bg-transparent border border-border rounded-sm"
     >
       {/* Axis */}
-      <line x1={left} y1={baseline} x2={right} y2={baseline} stroke="#334155" strokeWidth={1.5} />
+      <line x1={left} y1={baseline} x2={right} y2={baseline} stroke="var(--foreground)" strokeWidth={1.5} />
 
       {x_axis?.label && (
-        <text x={(left + right) / 2} y={height - 8} fontSize={11} fontWeight="bold" fill="#334155" textAnchor="middle">
+        <text x={(left + right) / 2} y={height - 8} fontSize={11} fontWeight="bold" fill="var(--foreground)" textAnchor="middle">
           {x_axis.label}
         </text>
       )}
@@ -279,8 +279,8 @@ export const DistributionCurveComponent: React.FC<DistributionCurveProps> = ({
         const px = toPx(v);
         return (
           <g key={`tick-${i}`}>
-            <line x1={px} y1={baseline - 3} x2={px} y2={baseline + 3} stroke="#64748b" strokeWidth={1} />
-            <text x={px} y={baseline + 14} fontSize={9} fill="#64748b" textAnchor="middle">
+            <line x1={px} y1={baseline - 3} x2={px} y2={baseline + 3} stroke="var(--muted-foreground)" strokeWidth={1} />
+            <text x={px} y={baseline + 14} fontSize={9} fill="var(--muted-foreground)" textAnchor="middle">
               {v}
             </text>
           </g>
@@ -288,8 +288,8 @@ export const DistributionCurveComponent: React.FC<DistributionCurveProps> = ({
       })}
 
       {/* Curve */}
-      <path d={fillD} fill="rgba(37, 99, 235, 0.1)" stroke="none" />
-      <path d={curveD} fill="none" stroke="#2563eb" strokeWidth={2.5} strokeLinejoin="round" />
+      <path d={fillD} fill="color-mix(in srgb, var(--accent) 15%, transparent)" stroke="none" />
+      <path d={curveD} fill="none" stroke="var(--foreground)" strokeWidth={2.5} strokeLinejoin="round" />
 
       {/* Markers */}
       {markers.map((m, i) => {
@@ -301,14 +301,14 @@ export const DistributionCurveComponent: React.FC<DistributionCurveProps> = ({
               y1={baseline - amplitude * 0.5}
               x2={posX}
               y2={baseline}
-              stroke="#e11d48"
+              stroke="var(--accent)"
               strokeDasharray={m.dashed ? '4,4' : undefined}
               strokeWidth={1.5}
             />
-            <text x={posX} y={baseline - amplitude * 0.5 - 6} fontSize={10} fontWeight="bold" fill="#e11d48" textAnchor="middle">
+            <text x={posX} y={baseline - amplitude * 0.5 - 6} fontSize={10} fontWeight="bold" fill="var(--accent)" textAnchor="middle">
               {m.label}
             </text>
-            <circle cx={posX} cy={baseline} r={3} fill="#e11d48" />
+            <circle cx={posX} cy={baseline} r={3} fill="var(--accent)" />
           </g>
         );
       })}
@@ -326,8 +326,8 @@ export interface VennDiagramProps {
   height?: number;
 }
 
-const VENN_COLORS = ['#2563eb', '#dc2626', '#059669'];
-const VENN_FILLS = ['rgba(59, 130, 246, 0.15)', 'rgba(239, 68, 68, 0.15)', 'rgba(16, 185, 129, 0.15)'];
+const VENN_COLORS = ['var(--accent)', 'var(--wrong)', 'var(--success)'];
+const VENN_FILLS = ['color-mix(in srgb, var(--accent) 15%, transparent)', 'color-mix(in srgb, var(--wrong) 15%, transparent)', 'color-mix(in srgb, var(--success) 15%, transparent)'];
 
 export const VennDiagramComponent: React.FC<VennDiagramProps> = ({
   sets = [],
@@ -370,7 +370,7 @@ export const VennDiagramComponent: React.FC<VennDiagramProps> = ({
       width={width}
       height={height}
       viewBox={`0 0 ${width} ${height}`}
-      className="venn-diagram bg-white border border-slate-200 rounded p-2"
+      className="venn-diagram bg-transparent border border-border rounded-sm p-2"
     >
       {circles.slice(0, sets.length || 3).map((c, i) => (
         <circle
@@ -404,14 +404,14 @@ export const VennDiagramComponent: React.FC<VennDiagramProps> = ({
           if (value === undefined || value === null || value === '') return null;
           const pos = regionPos[key];
           return (
-            <text key={key} x={pos.x} y={pos.y} fontSize={11} fontWeight="bold" fill="#0f172a" textAnchor="middle">
+            <text key={key} x={pos.x} y={pos.y} fontSize={11} fontWeight="bold" fill="var(--foreground)" textAnchor="middle">
               {value}
             </text>
           );
         })}
 
       {total !== undefined && (
-        <text x={width - 12} y={height - 10} fontSize={10} fill="#64748b" textAnchor="end">
+        <text x={width - 12} y={height - 10} fontSize={10} fill="var(--muted-foreground)" textAnchor="end">
           Total: {total}
         </text>
       )}

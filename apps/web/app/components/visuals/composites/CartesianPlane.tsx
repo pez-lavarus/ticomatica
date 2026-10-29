@@ -29,9 +29,9 @@ export interface CartesianCanvasProps {
   overlay?: React.ReactNode;
 }
 
-const AXIS_COLOR = 'currentColor';
-const GRID_COLOR = 'var(--visual-grid, #cbd5e1)';
-const TICK_COLOR = 'var(--visual-tick, #64748b)';
+const AXIS_COLOR = 'var(--foreground)';
+const GRID_COLOR = 'var(--visual-grid, var(--border))';
+const TICK_COLOR = 'var(--visual-tick, var(--muted-foreground))';
 
 const resolveColor = (child: any, fallback: string) =>
   child.color || child.stroke || fallback;
@@ -49,14 +49,14 @@ export function renderPrimitive(child: any, transform: CoordinateTransform, key:
           <CirclePrimitive
             center={child.center || [0, 0]}
             radius={child.radius || 1}
-            color={resolveColor(child, '#2563eb')}
+            color={resolveColor(child, 'var(--foreground)')}
             fill={child.fill || 'none'}
             strokeWidth={resolveWidth(child, 2)}
             dashed={child.dashed}
             transform={transform}
           />
           {child.label && child.center && (
-            <Point coords={child.center} label={child.label} transform={transform} color={resolveColor(child, '#2563eb')} />
+            <Point coords={child.center} label={child.label} transform={transform} color={resolveColor(child, 'var(--foreground)')} />
           )}
         </React.Fragment>
       );
@@ -70,7 +70,7 @@ export function renderPrimitive(child: any, transform: CoordinateTransform, key:
             coords={coords}
             label={child.label}
             toAxis={child.dashed_to_axis || child.dashed}
-            color={resolveColor(child, '#64748b')}
+            color={resolveColor(child, 'var(--muted-foreground)')}
             transform={transform}
           />
         );
@@ -81,7 +81,7 @@ export function renderPrimitive(child: any, transform: CoordinateTransform, key:
           coords={coords}
           label={child.label}
           labelPosition={child.label_position}
-          color={resolveColor(child, '#2563eb')}
+          color={resolveColor(child, 'var(--foreground)')}
           radius={child.radius}
           transform={transform}
         />
@@ -96,7 +96,7 @@ export function renderPrimitive(child: any, transform: CoordinateTransform, key:
           coords={coords}
           toAxis={child.to_axis || child.toAxis || 'both'}
           label={child.label}
-          color={resolveColor(child, '#64748b')}
+          color={resolveColor(child, 'var(--muted-foreground)')}
           transform={transform}
         />
       );
@@ -160,7 +160,7 @@ export function renderPrimitive(child: any, transform: CoordinateTransform, key:
         <PolylinePrimitive
           key={key}
           points={child.points || []}
-          color={resolveColor(child, '#2563eb')}
+          color={resolveColor(child, 'var(--foreground)')}
           strokeWidth={resolveWidth(child, 2)}
           dashed={child.dashed}
           transform={transform}
@@ -192,8 +192,8 @@ export function renderPrimitive(child: any, transform: CoordinateTransform, key:
         <React.Fragment key={key}>
           <PolygonPrimitive
             points={points}
-            color={resolveColor(child, '#2563eb')}
-            fill={child.fill || 'rgba(37, 99, 235, 0.15)'}
+            color={resolveColor(child, 'var(--foreground)')}
+            fill={child.fill || 'color-mix(in srgb, var(--accent) 15%, transparent)'}
             strokeWidth={resolveWidth(child, 2)}
             transform={transform}
           />
@@ -204,7 +204,7 @@ export function renderPrimitive(child: any, transform: CoordinateTransform, key:
                 coords={points[i]}
                 label={label}
                 transform={transform}
-                color={resolveColor(child, '#2563eb')}
+                color={resolveColor(child, 'var(--foreground)')}
               />
             ) : null
           )}
@@ -293,7 +293,7 @@ export const CartesianCanvas: React.FC<CartesianCanvasProps> = ({
       <svg
         viewBox={`0 0 ${width} ${height}`}
         style={{ width: '100%', height: 'auto', maxWidth: `${width}px` }}
-        className="cartesian-plane bg-white dark:bg-zinc-900 rounded-2xl border-2 border-zinc-900 dark:border-zinc-700 shadow-xs text-zinc-900 dark:text-zinc-100 transition-colors"
+        className="cartesian-plane bg-transparent text-foreground transition-colors"
       >
         <defs>
           <clipPath id={clipId}>

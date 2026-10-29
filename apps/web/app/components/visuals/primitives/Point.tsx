@@ -19,7 +19,7 @@ export const Point: React.FC<PointProps> = ({
   y,
   label,
   labelPosition = 'top-right',
-  color = '#2563eb',
+  color = 'var(--foreground)',
   radius = 4,
   transform,
 }) => {
@@ -68,10 +68,10 @@ export const Point: React.FC<PointProps> = ({
 
   return (
     <g className="primitive-point">
-      <circle cx={px} cy={py} r={radius} fill={color} stroke="#ffffff" strokeWidth={1.5} />
+      <circle cx={px} cy={py} r={radius} fill={color} stroke="var(--background)" strokeWidth={1.5} />
       {label && (
         <foreignObject x={px + dx} y={py + dy} width={80} height={30} className="overflow-visible pointer-events-none">
-          <div className="text-xs font-semibold text-slate-800 flex items-center">
+          <div className="text-xs font-semibold text-foreground flex items-center">
             <TextRenderer content={label} />
           </div>
         </foreignObject>

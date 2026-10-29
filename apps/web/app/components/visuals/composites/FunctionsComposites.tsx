@@ -5,8 +5,8 @@ import { createTransform } from '../../../utils/coordinateTransform';
 import { smoothPath } from '../../../utils/smoothPath';
 import { Point } from '../primitives/Point';
 
-const CURVE_COLOR = '#2563eb';
-const ANNOTATION_COLOR = '#e11d48';
+const CURVE_COLOR = 'var(--foreground)';
+const ANNOTATION_COLOR = 'var(--accent)';
 
 interface QuadraticCoeffs {
   a: number;
@@ -257,9 +257,9 @@ export const MultiViewGrid: React.FC<MultiViewGridProps> = ({
   const renderView = (view: any) => {
     const content = renderVisual ? renderVisual(view.visual) : null;
     return (
-      <div className="view-item flex flex-col items-center bg-white p-2 rounded shadow-sm border border-slate-100">
+      <div className="view-item flex flex-col items-center bg-card p-2 rounded-sm shadow-sm border border-border">
         {view.label && (
-          <div className="text-sm font-bold text-slate-700 mb-1">{view.label}</div>
+          <div className="text-sm font-bold text-foreground mb-1">{view.label}</div>
         )}
         {content}
       </div>
@@ -267,11 +267,11 @@ export const MultiViewGrid: React.FC<MultiViewGridProps> = ({
   };
 
   return (
-    <div className="multi-view-grid space-y-3 p-2 bg-slate-50 border border-slate-200 rounded">
+    <div className="multi-view-grid space-y-3 p-2 bg-muted/50 border border-border rounded-sm">
       {original && (
-        <div className="view-item flex flex-col items-center bg-white p-2 rounded shadow-sm border border-slate-100">
+        <div className="view-item flex flex-col items-center bg-card p-2 rounded-sm shadow-sm border border-border">
           {original.label && (
-            <div className="text-sm font-bold text-slate-700 mb-1">{original.label}</div>
+            <div className="text-sm font-bold text-foreground mb-1">{original.label}</div>
           )}
           {renderVisual ? renderVisual(original.visual) : null}
         </div>
@@ -316,13 +316,13 @@ export const CurveRegion: React.FC<CurveRegionProps> = ({
 
   const children: any[] = [];
   if (pathPoints.length > 0) {
-    children.push({ type: 'path', points: pathPoints, color: '#0284c7', strokeWidth: 2.5 });
+    children.push({ type: 'path', points: pathPoints, color: 'var(--foreground)', strokeWidth: 2.5 });
   }
   straight_segments.forEach((seg) => {
-    children.push({ type: 'line', p1: seg.from, p2: seg.to, color: '#1e293b', strokeWidth: 2 });
+    children.push({ type: 'line', p1: seg.from, p2: seg.to, color: 'var(--foreground)', strokeWidth: 2 });
   });
   if (base) {
-    children.push({ type: 'line', p1: base.from, p2: base.to, color: '#1e293b', strokeWidth: 2 });
+    children.push({ type: 'line', p1: base.from, p2: base.to, color: 'var(--foreground)', strokeWidth: 2 });
   }
 
   return (
@@ -378,8 +378,8 @@ export const TransformationOverlay: React.FC<TransformationOverlayProps> = ({
     children.push({
       type: 'polygon',
       vertices: points,
-      color: fig.color || '#2563eb',
-      fill: fig.color ? `${fig.color}22` : 'rgba(37, 99, 235, 0.1)',
+      color: fig.color || 'var(--foreground)',
+      fill: fig.color ? `${fig.color}22` : 'color-mix(in srgb, var(--accent) 15%, transparent)',
       labels,
     });
   });

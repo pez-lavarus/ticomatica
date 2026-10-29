@@ -18,7 +18,7 @@ export const DashedProjection: React.FC<DashedProjectionProps> = ({
   y,
   toAxis = 'both',
   label,
-  color = '#64748b',
+  color = 'var(--muted-foreground)',
   transform,
 }) => {
   const ptX = coords ? coords[0] : x ?? 0;
