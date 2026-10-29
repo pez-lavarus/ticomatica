@@ -53,6 +53,8 @@ export default function HintModal({ keywords = [], hints = [], hintStrategy, onR
         </div>
       )}
 
+      {/* commenting out, functionality deferred */}
+      {/*
       {onRevealSolution && (
         <div className="p-4 border-t border-border/60 bg-muted/10 shrink-0">
           <button
@@ -64,6 +66,7 @@ export default function HintModal({ keywords = [], hints = [], hintStrategy, onR
           </button>
         </div>
       )}
+      */}
     </div>
   );
 }

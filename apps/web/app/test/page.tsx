@@ -43,7 +43,13 @@ export default function QuestionPage() {
   useEffect(() => {
     if (!isHintModalOpen) return;
     const handleClick = (e: MouseEvent) => {
-      if (hintPanelRef.current && !hintPanelRef.current.contains(e.target as Node)) {
+      const target = e.target as HTMLElement | null;
+      if (
+        hintPanelRef.current &&
+        !hintPanelRef.current.contains(target as Node) &&
+        !target?.closest(".response-option-button") &&
+        !target?.closest(".header-hint-button")
+      ) {
         setIsHintModalOpen(false);
       }
     };
@@ -101,9 +107,16 @@ export default function QuestionPage() {
   const handleSelectOption = useCallback((option: string) => {
     handleSelect(option);
     if (testMode !== "full" && !reviewMode) {
-      setIsHintModalOpen(true);
+      const isCorrect = option === currentQuestion?.correct_answer;
+      if (isCorrect) {
+        // Subtle highlight on hint button, do not automatically open modal
+        setIsHintBlinking(true);
+      } else {
+        // Incorrect option selected: open hint modal automatically
+        setIsHintModalOpen(true);
+      }
     }
-  }, [handleSelect, testMode, reviewMode]);
+  }, [handleSelect, testMode, reviewMode, currentQuestion]);
 
   const allQuestionsWithGlobalIndex = quizData.questions.map((q, idx) => ({ ...q, globalIndex: idx }));
   const correctAnswers = quizData.questions.reduce<Record<number, string>>((acc, q, idx) => {
@@ -229,8 +242,9 @@ export default function QuestionPage() {
                 label="Pistas"
                 onClick={() => setIsHintModalOpen((prev) => !prev)}
                 onMouseDown={(e) => e.stopPropagation()}
+                className="header-hint-button"
               >
-                <Lightbulb className={`text-accent ${isHintBlinking ? "animate-pulse" : ""}`} />
+                <Lightbulb className={`text-accent ${isHintBlinking ? "animate-pulse ring-2 ring-primary/50 rounded-sm" : ""}`} />
               </HeaderIconButton>
             )}
           </>,
@@ -289,7 +303,7 @@ export default function QuestionPage() {
             key="hint"
             ref={hintPanelRef}
             style={{ width: hintWidth }}
-            className="font-scaled hidden lg:flex shrink-0 flex-col border-l border-border bg-card min-h-0"
+            className="font-scaled hidden lg:flex shrink-0 flex-col border-l border-border bg-card min-h-0 panel-enter transition-all duration-300 ease-out"
           >
             <HintModal
               keywords={currentQuestion.keywords}
