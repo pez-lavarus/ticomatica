@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { render, cleanup } from "@testing-library/react";
+import React from "react";
 import { QuestionExperience } from "./QuestionExperience";
 import type { Explanation, Question } from "@/lib/types";
 
@@ -89,7 +90,7 @@ function panelRects(container: HTMLElement) {
   return result;
 }
 
-describe("QuestionExperience layout", () => {
+describe("QuestionExperience layout and math rendering", () => {
   beforeEach(stubLayout);
   afterEach(() => {
     cleanup();
@@ -97,7 +98,7 @@ describe("QuestionExperience layout", () => {
     vi.unstubAllGlobals();
   });
 
-  it("places the statement and the options as separate, content-sized panels", () => {
+  it("places the statement and the options as separate, content-sized panels and renders KaTeX math", () => {
     const { container } = render(<QuestionExperience {...baseProps} />);
     const rects = panelRects(container);
     expect(Object.keys(rects).sort()).toEqual(["options", "statement"]);
@@ -107,9 +108,13 @@ describe("QuestionExperience layout", () => {
       expect(r.x + r.width).toBeLessThanOrEqual(CONTAINER.width);
     }
     expect(container.querySelectorAll("[data-panel][data-animate='false']")).toHaveLength(2);
+
+    // Verify KaTeX math rendering in statement and options
+    const katexElements = container.querySelectorAll(".katex");
+    expect(katexElements.length).toBeGreaterThan(0);
   });
 
-  it("adds the explanation as a third panel without overlapping the others", () => {
+  it("adds the explanation as a third panel without overlapping the others and renders KaTeX math in steps", () => {
     const { container, rerender } = render(<QuestionExperience {...baseProps} />);
     rerender(<QuestionExperience {...baseProps} selectedAnswer="A" selectedAnswers={{ 0: "A" }} />);
 
@@ -130,6 +135,10 @@ describe("QuestionExperience layout", () => {
       Array.from(container.querySelectorAll<HTMLElement>("[data-panel]")).map((el) => [el.dataset.panel, el.dataset.animate]),
     );
     expect(flags.explanation).toBe("false");
+
+    // Check KaTeX inside explanation panel
+    const explanationPanel = container.querySelector("[data-panel='explanation']");
+    expect(explanationPanel?.querySelectorAll(".katex").length).toBe(2);
   });
 
   it("does not render the explanation in full-test mode", () => {

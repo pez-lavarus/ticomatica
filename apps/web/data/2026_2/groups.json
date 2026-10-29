@@ -8,7 +8,7 @@
         54
       ],
       "title": "Precio del combustible por semana",
-      "context_text": "La siguiente representación gráfica muestra el precio p(x) por litro de combustible, en colones, en función del tiempo x en semanas con 0 ≤ x ≤ 24.",
+      "context_text": "La siguiente representación gráfica muestra el precio $p(x)$ por litro de combustible, en colones, en función del tiempo $x$ en semanas con $0 \\le x \\le 24$.",
       "visual_spec": {
         "alt": "Plano cartesiano con puntos y elementos geométricos.",
         "visual": {
@@ -477,7 +477,7 @@
             [
               "P",
               17,
-              5.0
+              5
             ]
           ]
         }

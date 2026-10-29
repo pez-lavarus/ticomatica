@@ -61,21 +61,21 @@
         "evidence_desc": "Reconoce la representación algebraica de una circunferencia dado su centro y su radio, en diversos contextos."
       },
       "options": {
-        "A": "(x+2)^2 + (y+3)^2 = 25",
-        "B": "(x-2)^2 + (y-3)^2 = 25",
-        "C": "(x+3)^2 + (y-2)^2 = 25",
-        "D": "(x-3)^2 + (y-2)^2 = 25"
+        "A": "$(x+2)^2 + (y+3)^2 = 25$",
+        "B": "$(x-2)^2 + (y-3)^2 = 25$",
+        "C": "$(x+3)^2 + (y-2)^2 = 25$",
+        "D": "$(x-3)^2 + (y-2)^2 = 25$"
       },
       "correct_answer": "B",
       "solution_steps": [
-        "La ecuación ordinaria de una circunferencia con centro (h,k) y radio r es (x-h)^2 + (y-k)^2 = r^2.",
-        "Sustituyendo h=2, k=3, r=5: (x-2)^2 + (y-3)^2 = 25.",
+        "La ecuación ordinaria de una circunferencia con centro $(h,k)$ y radio $r$ es $(x-h)^2 + (y-k)^2 = r^2$.",
+        "Sustituyendo $h=2$, $k=3$, $r=5$: $(x-2)^2 + (y-3)^2 = 25$.",
         "Por lo tanto, la opción correcta es B."
       ],
       "group_id": null,
       "visual_spec": null,
       "set_id": "set_1",
-      "statement": "Si la medida del radio de la circunferencia “c” es 5 y su centro es (2, 3)",
+      "statement": "Si la medida del radio de la circunferencia “c” es $5$ y su centro es $(2, 3)$",
       "problem": "la ecuación de “c” corresponde a"
     },
     {
@@ -91,22 +91,22 @@
         "evidence_desc": "Resuelve problemas, de diversos contextos, relacionados con la circunferencia y sus representaciones."
       },
       "options": {
-        "A": "(x-5)^2 + (y+4)^2 = 400",
-        "B": "(x+5)^2 + (y-4)^2 = 400",
-        "C": "(x-5)^2 + (y-4)^2 = 400",
-        "D": "(x+5)^2 + (y+4)^2 = 400"
+        "A": "$(x-5)^2 + (y+4)^2 = 400$",
+        "B": "$(x+5)^2 + (y-4)^2 = 400$",
+        "C": "$(x-5)^2 + (y-4)^2 = 400$",
+        "D": "$(x+5)^2 + (y+4)^2 = 400$"
       },
       "correct_answer": "A",
       "solution_steps": [
-        "El centro de la circunferencia es (5, -4) porque 5 km al este y 4 km al sur.",
-        "El radio es 20 km, por lo que r^2 = 400.",
-        "La ecuación es (x-5)^2 + (y+4)^2 = 400.",
+        "El centro de la circunferencia es $(5, -4)$ porque está $5\\text{ km}$ al este y $4\\text{ km}$ al sur.",
+        "El radio es $20\\text{ km}$, por lo que $r^2 = 400$.",
+        "La ecuación es $(x-5)^2 + (y+4)^2 = 400$.",
         "Opción correcta: A."
       ],
       "group_id": null,
       "visual_spec": null,
       "set_id": "set_1",
-      "statement": "Una torre de control de un aeropuerto tiene un radar con un alcance máximo de 20 kilómetros. Tomando como origen la pista principal del aeropuerto, la torre de control se ubica 5 kilómetros al este (eje x positivo) y 4 kilómetros al sur (eje y negativo) de dicha pista.",
+      "statement": "Una torre de control de un aeropuerto tiene un radar con un alcance máximo de $20\\text{ km}$. Tomando como origen la pista principal del aeropuerto, la torre de control se ubica $5\\text{ km}$ al este (eje $x$ positivo) y $4\\text{ km}$ al sur (eje $y$ negativo) de dicha pista.",
       "problem": "¿Cuál es la ecuación que representa el alcance máximo del radar de la torre de control?"
     },
     {
@@ -122,16 +122,16 @@
         "evidence_desc": "Reconoce la representación gráfica de una circunferencia dado su centro y su radio, en diversos contextos."
       },
       "options": {
-        "A": "x^2 + (y − 2)^2 = 6",
-        "B": "x^2 + (y + 2)^2 = 9",
-        "C": "x^2 + (y − 2)^2 = 9",
-        "D": "x^2 + (y + 2)^2 = 6"
+        "A": "$x^2 + (y - 2)^2 = 6$",
+        "B": "$x^2 + (y + 2)^2 = 9$",
+        "C": "$x^2 + (y - 2)^2 = 9$",
+        "D": "$x^2 + (y + 2)^2 = 6$"
       },
       "correct_answer": "C",
       "solution_steps": [
-        "Del gráfico, el centro O está en (0, 2).",
-        "El radio es la distancia del centro a un punto de la circunferencia, por ejemplo (0,5): r = 3.",
-        "La ecuación es (x-0)^2 + (y-2)^2 = 3^2, es decir, x^2 + (y-2)^2 = 9.",
+        "Del gráfico, el centro $O$ está en $(0, 2)$.",
+        "El radio es la distancia del centro a un punto de la circunferencia, por ejemplo $(0,5)$: $r = 3$.",
+        "La ecuación es $(x-0)^2 + (y-2)^2 = 3^2$, es decir, $x^2 + (y-2)^2 = 9$.",
         "Opción correcta: C."
       ],
       "group_id": null,
@@ -220,22 +220,22 @@
         "evidence_desc": "Resuelve problemas, de diversos contextos, relacionados con la circunferencia y sus representaciones."
       },
       "options": {
-        "A": "7 m",
-        "B": "14 m",
-        "C": "49 m",
-        "D": "98 m"
+        "A": "$7\\text{ m}$",
+        "B": "$14\\text{ m}$",
+        "C": "$49\\text{ m}$",
+        "D": "$98\\text{ m}$"
       },
       "correct_answer": "A",
       "solution_steps": [
-        "La ecuación dada está en forma ordinaria: (x+2)^2 + (y-7)^2 = 49.",
-        "El radio al cuadrado es 49, por lo tanto el radio es 7.",
-        "El alcance máximo es el radio: 7 m.",
+        "La ecuación dada está en forma ordinaria: $(x+2)^2 + (y-7)^2 = 49$.",
+        "El radio al cuadrado es $49$, por lo tanto el radio es $7$.",
+        "El alcance máximo es el radio: $7\\text{ m}$.",
         "Opción correcta: A."
       ],
       "group_id": null,
       "visual_spec": null,
       "set_id": "set_1",
-      "statement": "Un faro de luz direccional emite una señal que cubre una zona circular en el mar. El borde de la zona iluminada está delimitado por la circunferencia “c” dada por la ecuación (x + 2)^2 + (y − 7)^2 = 49.",
+      "statement": "Un faro de luz direccional emite una señal que cubre una zona circular en el mar. El borde de la zona iluminada está delimitado por la circunferencia “c” dada por la ecuación $(x + 2)^2 + (y - 7)^2 = 49$.",
       "problem": "¿Cuál es el alcance máximo del haz de luz del faro?"
     },
     {
@@ -251,17 +251,17 @@
         "evidence_desc": "Reconoce la representación gráfica o algebraica de la traslación de una circunferencia en diversos contextos."
       },
       "options": {
-        "A": "(x+1)^2 + (y-3)^2 = 9",
-        "B": "(x-1)^2 + (y-3)^2 = 9",
-        "C": "(x+1)^2 + (y+3)^2 = 9",
-        "D": "(x-1)^2 + (y+3)^2 = 9"
+        "A": "$(x+1)^2 + (y-3)^2 = 9$",
+        "B": "$(x-1)^2 + (y-3)^2 = 9$",
+        "C": "$(x+1)^2 + (y+3)^2 = 9$",
+        "D": "$(x-1)^2 + (y+3)^2 = 9$"
       },
       "correct_answer": "C",
       "solution_steps": [
-        "Del gráfico, la circunferencia d tiene centro en (4,0) y radio 3 (pues pasa por (4,3) y (4,-3)).",
-        "Trasladar 5 unidades a la izquierda: x' = x - 5; 3 unidades hacia abajo: y' = y - 3.",
-        "El nuevo centro es (4-5, 0-3) = (-1, -3).",
-        "La ecuación resultante es (x+1)^2 + (y+3)^2 = 9.",
+        "Del gráfico, la circunferencia $d$ tiene centro en $(4,0)$ y radio $3$ (pues pasa por $(4,3)$ y $(4,-3)$).",
+        "Trasladar $5$ unidades a la izquierda: $x' = x - 5$; $3$ unidades hacia abajo: $y' = y - 3$.",
+        "El nuevo centro es $(4-5, 0-3) = (-1, -3)$.",
+        "La ecuación resultante es $(x+1)^2 + (y+3)^2 = 9$.",
         "Opción correcta: C."
       ],
       "group_id": null,
@@ -334,8 +334,8 @@
         }
       },
       "set_id": "set_1",
-      "statement": "Considere la siguiente representación de la circunferencia “d” de centro O:",
-      "problem": "Si a “d” se le aplica una traslación de cinco unidades a la izquierda (paralela al eje x) y tres unidades hacia abajo (paralela al eje y), entonces, se obtiene una circunferencia cuya ecuación corresponde a"
+      "statement": "Considere la siguiente representación de la circunferencia “d” de centro $O$:",
+      "problem": "Si a “d” se le aplica una traslación de cinco unidades a la izquierda (paralela al eje $x$) y tres unidades hacia abajo (paralela al eje $y$), entonces, se obtiene una circunferencia cuya ecuación corresponde a"
     },
     {
       "id": 6,
@@ -357,11 +357,11 @@
       },
       "correct_answer": "A",
       "solution_steps": [
-        "Centro original de c: (2,3), radio 2.",
-        "Traslación: 2 izquierda → x-2; 3 arriba → y+3.",
-        "Nuevo centro: (2-2, 3+3) = (0, 6).",
-        "La circunferencia d tiene centro (0,6) y radio 2.",
-        "El gráfico A muestra una circunferencia con centro en (0,6) y radio 2 (pasa por (0,4) y (0,8) aproximadamente).",
+        "Centro original de $c$: $(2,3)$, radio $2$.",
+        "Traslación: $2$ izquierda $\\rightarrow x-2$; $3$ arriba $\\rightarrow y+3$.",
+        "Nuevo centro: $(2-2, 3+3) = (0, 6)$.",
+        "La circunferencia $d$ tiene centro $(0,6)$ y radio $2$.",
+        "El gráfico A muestra una circunferencia con centro en $(0,6)$ y radio $2$.",
         "Opción correcta: A."
       ],
       "group_id": null,
@@ -498,7 +498,7 @@
         }
       },
       "set_id": "set_1",
-      "statement": "Sea “c” la circunferencia dada por c:(x − 2)^2 + (y − 3)^2 = 4. Al trasladar a “c” dos unidades hacia la izquierda (paralela al eje x) y tres unidades hacia arriba (paralela al eje y), se obtiene la circunferencia “d” de centro O.",
+      "statement": "Sea “c” la circunferencia dada por $c:(x - 2)^2 + (y - 3)^2 = 4$. Al trasladar a “c” dos unidades hacia la izquierda (paralela al eje $x$) y tres unidades hacia arriba (paralela al eje $y$), se obtiene la circunferencia “d” de centro $O$.",
       "problem": "¿Cuál de las siguientes opciones corresponde a la representación de “d”?"
     },
     {
@@ -514,22 +514,22 @@
         "evidence_desc": "Resuelve problemas, de diversos contextos, relacionados con la traslación de una circunferencia y sus representaciones."
       },
       "options": {
-        "A": "izquierda paralela al eje x y tres unidades hacia abajo paralela al eje y.",
-        "B": "izquierda paralela al eje x y tres unidades hacia arriba paralela al eje y.",
-        "C": "derecha paralela al eje x y tres unidades hacia arriba paralela al eje y.",
-        "D": "derecha paralela al eje x y tres unidades hacia abajo paralela al eje y."
+        "A": "izquierda paralela al eje $x$ y tres unidades hacia abajo paralela al eje $y$.",
+        "B": "izquierda paralela al eje $x$ y tres unidades hacia arriba paralela al eje $y$.",
+        "C": "derecha paralela al eje $x$ y tres unidades hacia arriba paralela al eje $y$.",
+        "D": "derecha paralela al eje $x$ y tres unidades hacia abajo paralela al eje $y$."
       },
       "correct_answer": "D",
       "solution_steps": [
-        "Centro de c: (-2, 0). Centro de d: (0, -3).",
-        "Para ir de (-2,0) a (0,-3): x aumenta en 2 (derecha), y disminuye en 3 (abajo).",
-        "Por lo tanto, la traslación es 2 unidades a la derecha y 3 unidades hacia abajo.",
+        "Centro de $c$: $(-2, 0)$. Centro de $d$: $(0, -3)$.",
+        "Para ir de $(-2,0)$ a $(0,-3)$: $x$ aumenta en $2$ (derecha), $y$ disminuye en $3$ (abajo).",
+        "Por lo tanto, la traslación es $2$ unidades a la derecha y $3$ unidades hacia abajo.",
         "Opción correcta: D."
       ],
       "group_id": null,
       "visual_spec": null,
       "set_id": "set_1",
-      "statement": "Sea “c” la circunferencia dada por c:(x + 2)^2 + y^2 = 6. Si se traslada “c” y se obtiene d:x^2 + (y +3)^2 = 6",
+      "statement": "Sea “c” la circunferencia dada por $c:(x + 2)^2 + y^2 = 6$. Si se traslada “c” y se obtiene $d:x^2 + (y + 3)^2 = 6$",
       "problem": "la traslación aplicada corresponde a dos unidades hacia la"
     },
     {
@@ -545,24 +545,24 @@
         "evidence_desc": "Determina gráfica y algebraicamente si un punto se ubica en el interior o en el exterior de una circunferencia en diversos contextos."
       },
       "options": {
-        "A": "(0, 2)",
-        "B": "(1, 0)",
-        "C": "(2, 3)",
-        "D": "(3, 3)"
+        "A": "$(0, 2)$",
+        "B": "$(1, 0)$",
+        "C": "$(2, 3)$",
+        "D": "$(3, 3)$"
       },
       "correct_answer": "B",
       "solution_steps": [
-        "La circunferencia tiene centro (2,0) y radio √5 ≈ 2.236.",
-        "Un punto (x,y) es interior si (x-2)^2 + y^2 < 5.",
-        "Evaluar (1,0): (1-2)^2 + 0^2 = 1 < 5 → interior.",
-        "Las demás opciones dan valores ≥ 5.",
+        "La circunferencia tiene centro $(2,0)$ y radio $\\sqrt{5} \\approx 2.236$.",
+        "Un punto $(x,y)$ es interior si $(x-2)^2 + y^2 < 5$.",
+        "Evaluar $(1,0)$: $(1-2)^2 + 0^2 = 1 < 5 \\rightarrow$ interior.",
+        "Las demás opciones dan valores $\\ge 5$.",
         "Opción correcta: B."
       ],
       "group_id": null,
       "visual_spec": null,
       "set_id": "set_1",
       "statement": "",
-      "problem": "¿Cuál opción contiene las coordenadas de un punto interior a la circunferencia dada por (x−2)^2 + y^2 = 5?"
+      "problem": "¿Cuál opción contiene las coordenadas de un punto interior a la circunferencia dada por $(x-2)^2 + y^2 = 5$? "
     },
     {
       "id": 9,
@@ -577,18 +577,18 @@
         "evidence_desc": "Determina gráfica y algebraicamente si un punto se ubica en el interior o en el exterior de una circunferencia en diversos contextos."
       },
       "options": {
-        "A": "P",
-        "B": "Q",
-        "C": "R",
-        "D": "S"
+        "A": "$P$",
+        "B": "$Q$",
+        "C": "$R$",
+        "D": "$S$"
       },
       "correct_answer": "D",
       "solution_steps": [
-        "Del gráfico, el centro O está en (5,0) y el radio es 4.",
-        "La ecuación es (x-5)^2 + y^2 = 16.",
-        "Para un punto fuera, (x-5)^2 + y^2 > 16.",
-        "Evaluar S(8,4): (8-5)^2 + 4^2 = 9 + 16 = 25 > 16 → fuera.",
-        "Los demás puntos están dentro o sobre.",
+        "Del gráfico, el centro $O$ está en $(5,0)$ y el radio es $4$.",
+        "La ecuación es $(x-5)^2 + y^2 = 16$.",
+        "Para un punto fuera, $(x-5)^2 + y^2 > 16$.",
+        "Evaluar $S(8,4)$: $(8-5)^2 + 4^2 = 9 + 16 = 25 > 16 \\rightarrow$ fuera.",
+        "Los demás puntos están dentro o sobre la circunferencia.",
         "Opción correcta: D."
       ],
       "group_id": null,
@@ -693,8 +693,8 @@
         }
       },
       "set_id": "set_1",
-      "statement": "Un radar de ciberseguridad monitorea una red local. El servidor central está ubicado en el punto O y su zona de cobertura abarca un radio de 4 km, tal como se ilustra con el siguiente sistema de coordenadas:",
-      "problem": "Considere las coordenadas de ubicación de cuatro dispositivos conectados: P(5,2), Q(4,1), R(6,1), S(8,4). ¿Cuál de los dispositivos se encuentra fuera del área de cobertura?"
+      "statement": "Un radar de ciberseguridad monitorea una red local. El servidor central está ubicado en el punto $O$ y su zona de cobertura abarca un radio de $4\\text{ km}$, tal como se ilustra con el siguiente sistema de coordenadas:",
+      "problem": "Considere las coordenadas de ubicación de cuatro dispositivos conectados: $P(5,2)$, $Q(4,1)$, $R(6,1)$, $S(8,4)$. ¿Cuál de los dispositivos se encuentra fuera del área de cobertura?"
     },
     {
       "id": 10,
@@ -709,26 +709,26 @@
         "evidence_desc": "Determina si una recta dada gráfica o algebraicamente es secante, tangente o exterior a una circunferencia, en diversos contextos."
       },
       "options": {
-        "A": "x = 5",
-        "B": "y = 3",
-        "C": "x = 1",
-        "D": "y = −2"
+        "A": "$x = 5$",
+        "B": "$y = 3$",
+        "C": "$x = 1$",
+        "D": "$y = -2$"
       },
       "correct_answer": "C",
       "solution_steps": [
-        "La circunferencia tiene centro (2,0) y radio 2.",
+        "La circunferencia tiene centro $(2,0)$ y radio $2$.",
         "Una recta es secante si la distancia del centro a la recta es menor que el radio.",
-        "Para x=1: distancia = |1-2| = 1 < 2 → secante.",
-        "Para x=5: distancia = 3 > 2 (exterior).",
-        "Para y=3: distancia = 3 > 2 (exterior).",
-        "Para y=-2: distancia = 2 = radio (tangente).",
+        "Para $x=1$: distancia $= |1-2| = 1 < 2 \\rightarrow$ secante.",
+        "Para $x=5$: distancia $= 3 > 2$ (exterior).",
+        "Para $y=3$: distancia $= 3 > 2$ (exterior).",
+        "Para $y=-2$: distancia $= 2 = \\text{radio}$ (tangente).",
         "Opción correcta: C."
       ],
       "group_id": null,
       "visual_spec": null,
       "set_id": "set_1",
       "statement": "",
-      "problem": "¿Cuál opción contiene una recta secante a la circunferencia dada por (x − 2)^2 + y^2 = 4?"
+      "problem": "¿Cuál opción contiene una recta secante a la circunferencia dada por $(x - 2)^2 + y^2 = 4$? "
     },
     {
       "id": 11,
@@ -743,26 +743,26 @@
         "evidence_desc": "Determina si una recta dada gráfica o algebraicamente es secante, tangente o exterior a una circunferencia, en diversos contextos."
       },
       "options": {
-        "A": "y = 0",
-        "B": "x = 1",
-        "C": "y = −1",
-        "D": "x = −2"
+        "A": "$y = 0$",
+        "B": "$x = 1$",
+        "C": "$y = -1$",
+        "D": "$x = -2$"
       },
       "correct_answer": "C",
       "solution_steps": [
-        "Centro (3,-2), radio 1.",
+        "Centro $(3,-2)$, radio $1$.",
         "Recta tangente si la distancia del centro a la recta es igual al radio.",
-        "Para y = -1: distancia = |-1 - (-2)| = 1 → tangente.",
-        "Para y = 0: distancia = 2 > 1 (exterior).",
-        "Para x = 1: distancia = 2 > 1 (exterior).",
-        "Para x = -2: distancia = 5 > 1 (exterior).",
+        "Para $y = -1$: distancia $= |-1 - (-2)| = 1 \\rightarrow$ tangente.",
+        "Para $y = 0$: distancia $= 2 > 1$ (exterior).",
+        "Para $x = 1$: distancia $= 2 > 1$ (exterior).",
+        "Para $x = -2$: distancia $= 5 > 1$ (exterior).",
         "Opción correcta: C."
       ],
       "group_id": null,
       "visual_spec": null,
       "set_id": "set_1",
       "statement": "",
-      "problem": "¿Cuál opción contiene una recta tangente a la circunferencia dada por (x − 3)^2 + (y + 2)^2 = 1?"
+      "problem": "¿Cuál opción contiene una recta tangente a la circunferencia dada por $(x - 3)^2 + (y + 2)^2 = 1$? "
     },
     {
       "id": 12,
@@ -777,19 +777,19 @@
         "evidence_desc": "Estima perímetros o áreas de figuras planas no poligonales mediante un sistema de coordenadas rectangulares en diversos contextos."
       },
       "options": {
-        "A": "2200 pero menor que 2600.",
-        "B": "2600 pero menor que 2900.",
-        "C": "2900 pero menor que 3300.",
-        "D": "3300 pero menor que 3800."
+        "A": "$2200$ pero menor que $2600$.",
+        "B": "$2600$ pero menor que $2900$.",
+        "C": "$2900$ pero menor que $3300$.",
+        "D": "$3300$ pero menor que $3800$."
       },
       "correct_answer": "A",
       "solution_steps": [
-        "La región está delimitada por la base y = 40 (de x = 40 a x = 120), el lado vertical x = 40 (de y = 40 a y = 100), la curva que desciende de (40, 100) a (100, 60) y el segmento de (100, 60) a (120, 40).",
-        "Se estima el área sobre la base y = 40 usando trapecios de ancho 20:",
-        "De x = 40 a 100: (60 + 40)/2 · 20 + (40 + 25)/2 · 20 + (25 + 20)/2 · 20 = 1000 + 650 + 450 = 2100.",
-        "De x = 100 a 120: (20 + 0)/2 · 20 = 200.",
-        "Área total ≈ 2100 + 200 = 2300 cm².",
-        "El área (≈ 2300 cm²) es mayor que 2200 pero menor que 2600.",
+        "La región está delimitada por la base $y = 40$ (de $x = 40$ a $x = 120$), el lado vertical $x = 40$ (de $y = 40$ a $y = 100$), la curva que desciende de $(40, 100)$ a $(100, 60)$ y el segmento de $(100, 60)$ a $(120, 40)$.",
+        "Se estima el área sobre la base $y = 40$ usando trapecios de ancho $20$:",
+        "De $x = 40$ a $100$: $(60 + 40)/2 \\cdot 20 + (40 + 25)/2 \\cdot 20 + (25 + 20)/2 \\cdot 20 = 1000 + 650 + 450 = 2100$.",
+        "De $x = 100$ a $120$: $(20 + 0)/2 \\cdot 20 = 200$.",
+        "Área total $\\approx 2100 + 200 = 2300\\text{ cm}^2$.",
+        "El área ($\\approx 2300\\text{ cm}^2$) es mayor que $2200$ pero menor que $2600$.",
         "Opción correcta: A."
       ],
       "group_id": null,
@@ -880,17 +880,17 @@
         "evidence_desc": "Estima perímetros o áreas de figuras planas no poligonales mediante un sistema de coordenadas rectangulares en diversos contextos."
       },
       "options": {
-        "A": "mayor que 20.",
-        "B": "mayor que 30.",
-        "C": "menor que 18.",
-        "D": "menor que 15."
+        "A": "mayor que $20$.",
+        "B": "mayor que $30$.",
+        "C": "menor que $18$.",
+        "D": "menor que $15$."
       },
       "correct_answer": "A",
       "solution_steps": [
-        "La región está bajo una curva que va de (2,2) a (7,6).",
+        "La región está bajo una curva que va de $(2,2)$ a $(7,6)$.",
         "Se puede aproximar el área con trapecios o contando cuadrículas.",
-        "El área es aproximadamente 20-25 m².",
-        "Por lo tanto, es mayor que 20.",
+        "El área es aproximadamente $20\\text{–}25\\text{ m}^2$.",
+        "Por lo tanto, es mayor que $20$.",
         "Opción correcta: A."
       ],
       "group_id": null,
@@ -989,23 +989,23 @@
         "evidence_desc": "Determina elementos de los polígonos regulares para la obtención de perímetros o áreas de estos en diversos contextos."
       },
       "options": {
-        "A": "12",
-        "B": "15",
-        "C": "20",
-        "D": "24"
+        "A": "$12$",
+        "B": "$15$",
+        "C": "$20$",
+        "D": "$24$"
       },
       "correct_answer": "D",
       "solution_steps": [
-        "Ángulo interno = 120° → 180(n-2)/n = 120 → 180n - 360 = 120n → 60n = 360 → n = 6 (hexágono).",
-        "La apotema a = 2√3. Para un hexágono regular, la apotema se relaciona con el lado L: a = L√3/2.",
-        "2√3 = L√3/2 → L = 4.",
-        "Perímetro = 6 × 4 = 24.",
+        "Ángulo interno $= 120^\\circ \\rightarrow 180(n-2)/n = 120 \\rightarrow 180n - 360 = 120n \\rightarrow 60n = 360 \\rightarrow n = 6$ (hexágono).",
+        "La apotema $a = 2\\sqrt{3}$. Para un hexágono regular, la apotema se relaciona con el lado $L$: $a = \\frac{L\\sqrt{3}}{2}$.",
+        "$2\\sqrt{3} = \\frac{L\\sqrt{3}}{2} \\rightarrow L = 4$.",
+        "Perímetro $= 6 \\times 4 = 24$.",
         "Opción correcta: D."
       ],
       "group_id": null,
       "visual_spec": null,
       "set_id": "set_1",
-      "statement": "Si la medida del ángulo interno de un polígono regular es 120° y la apotema 2√3",
+      "statement": "Si la medida del ángulo interno de un polígono regular es $120^\\circ$ y la apotema $2\\sqrt{3}$",
       "problem": "¿cuál es el perímetro de dicho polígono?"
     },
     {
@@ -1021,23 +1021,23 @@
         "evidence_desc": "Determina elementos de los polígonos regulares para la obtención de perímetros o áreas de estos en diversos contextos."
       },
       "options": {
-        "A": "36",
-        "B": "24",
-        "C": "18",
-        "D": "12"
+        "A": "$36$",
+        "B": "$24$",
+        "C": "$18$",
+        "D": "$12$"
       },
       "correct_answer": "A",
       "solution_steps": [
-        "Ángulo externo = 90° → n = 360/90 = 4 (cuadrado).",
-        "El radio de un cuadrado es la distancia del centro a un vértice, que es la mitad de la diagonal.",
-        "Si radio = 3√2, entonces la diagonal = 6√2, y el lado L = diagonal/√2 = 6.",
-        "Área = L^2 = 36.",
+        "Ángulo externo $= 90^\\circ \\rightarrow n = 360/90 = 4$ (cuadrado).",
+        "El radio de un cuadrado es la distancia del centro a un vértice (mitad de la diagonal).",
+        "Si radio $= 3\\sqrt{2}$, entonces diagonal $= 6\\sqrt{2}$, y el lado $L = \\frac{\\text{diagonal}}{\\sqrt{2}} = 6$.",
+        "Área $= L^2 = 36$.",
         "Opción correcta: A."
       ],
       "group_id": null,
       "visual_spec": null,
       "set_id": "set_1",
-      "statement": "Si la medida del radio de un polígono regular es 3√2 y la de su ángulo externo 90°",
+      "statement": "Si la medida del radio de un polígono regular es $3\\sqrt{2}$ y la de su ángulo externo $90^\\circ$",
       "problem": "¿cuál es el área de ese polígono?"
     },
     {
@@ -1053,22 +1053,22 @@
         "evidence_desc": "Determina características métricas de secciones planas en un cilindro circular recto o en una esfera en diversos contextos."
       },
       "options": {
-        "A": "15,7",
-        "B": "31,4",
-        "C": "25,0",
-        "D": "39,2"
+        "A": "$15{,}7$",
+        "B": "$31{,}4$",
+        "C": "$25{,}0$",
+        "D": "$39{,}2$"
       },
       "correct_answer": "B",
       "solution_steps": [
-        "La sección plana de una esfera es un círculo. El radio de la sección r se obtiene con el teorema de Pitágoras: r^2 + d^2 = R^2, donde d=12, R=13.",
-        "r^2 = 13^2 - 12^2 = 169 - 144 = 25 → r = 5.",
-        "El perímetro de la abertura es 2πr = 2 × 3.14 × 5 = 31.4 cm.",
+        "La sección plana de una esfera es un círculo. El radio de la sección $r$ se obtiene con el teorema de Pitágoras: $r^2 + d^2 = R^2$, donde $d=12$, $R=13$.",
+        "$r^2 = 13^2 - 12^2 = 169 - 144 = 25 \\rightarrow r = 5$.",
+        "El perímetro de la abertura es $2\\pi r = 2 \\times 3{,}14 \\times 5 = 31{,}4\\text{ cm}$.",
         "Opción correcta: B."
       ],
       "group_id": null,
       "visual_spec": null,
       "set_id": "set_1",
-      "statement": "Un florero artesanal se fabricó a partir de una pieza esférica de porcelana de 13 cm de radio, a la cual se le realizó un corte para su abertura (boca). Si el centro de dicha abertura quedó a 12 cm del centro de la esfera",
+      "statement": "Un florero artesanal se fabricó a partir de una pieza esférica de porcelana de $13\\text{ cm}$ de radio, a la cual se le realizó un corte para su abertura (boca). Si el centro de dicha abertura quedó a $12\\text{ cm}$ del centro de la esfera",
       "problem": "¿de cuántos centímetros es el perímetro (aproximadamente) de la abertura de ese florero?"
     },
     {
@@ -1084,21 +1084,21 @@
         "evidence_desc": "Determina características métricas de secciones planas en un cilindro circular recto o en una esfera en diversos contextos."
       },
       "options": {
-        "A": "7",
-        "B": "12",
-        "C": "14",
-        "D": "49"
+        "A": "$7$",
+        "B": "$12$",
+        "C": "$14$",
+        "D": "$49$"
       },
       "correct_answer": "A",
       "solution_steps": [
-        "En una esfera, la relación entre el radio de la esfera R, el radio de la sección r y la distancia d del centro al plano es R^2 = r^2 + d^2.",
-        "25^2 = 24^2 + d^2 → 625 = 576 + d^2 → d^2 = 49 → d = 7.",
+        "En una esfera, la relación entre el radio de la esfera $R$, el radio de la sección $r$ y la distancia $d$ del centro al plano es $R^2 = r^2 + d^2$.",
+        "$25^2 = 24^2 + d^2 \\rightarrow 625 = 576 + d^2 \\rightarrow d^2 = 49 \\rightarrow d = 7$.",
         "Opción correcta: A."
       ],
       "group_id": null,
       "visual_spec": null,
       "set_id": "set_1",
-      "statement": "Si el radio de una esfera mide 25 y esta se interseca con una sección plana de radio 24",
+      "statement": "Si el radio de una esfera mide $25$ y esta se interseca con una sección plana de radio $24$",
       "problem": "¿a qué distancia del centro de la esfera se encuentra dicha sección?"
     },
     {
@@ -1114,22 +1114,22 @@
         "evidence_desc": "Determina características métricas de secciones planas en un cilindro circular recto o en una esfera en diversos contextos."
       },
       "options": {
-        "A": "300",
-        "B": "600",
-        "C": "1200",
-        "D": "2400"
+        "A": "$300$",
+        "B": "$600$",
+        "C": "$1200$",
+        "D": "$2400$"
       },
       "correct_answer": "C",
       "solution_steps": [
         "El corte perpendicular a las bases que pasa por los centros es un rectángulo.",
-        "Las dimensiones del rectángulo son la altura del cilindro (40 cm) y el diámetro de la base (2 × 15 = 30 cm).",
-        "Área = 40 × 30 = 1200 cm².",
+        "Las dimensiones del rectángulo son la altura del cilindro ($40\\text{ cm}$) y el diámetro de la base ($2 \\times 15 = 30\\text{ cm}$).",
+        "Área $= 40 \\times 30 = 1200\\text{ cm}^2$.",
         "Opción correcta: C."
       ],
       "group_id": null,
       "visual_spec": null,
       "set_id": "set_1",
-      "statement": "Un bloque de queso industrial con forma de cilindro circular recto de 40 cm de altura y 15 cm de radio en sus bases se corta con un cuchillo de manera perpendicular a ellas, pasando por los centros de ambas.",
+      "statement": "Un bloque de queso industrial con forma de cilindro circular recto de $40\\text{ cm}$ de altura y $15\\text{ cm}$ de radio en sus bases se corta con un cuchillo de manera perpendicular a ellas, pasando por los centros de ambas.",
       "problem": "¿Cuál es el área, en centímetros cuadrados, de la superficie del corte?"
     },
     {
@@ -1145,16 +1145,16 @@
         "evidence_desc": "Determina ejes de simetría en figuras simétricas en diversos contextos."
       },
       "options": {
-        "A": "4",
-        "B": "3",
-        "C": "2",
-        "D": "1"
+        "A": "$4$",
+        "B": "$3$",
+        "C": "$2$",
+        "D": "$1$"
       },
       "correct_answer": "C",
       "solution_steps": [
-        "El polígono QRPS es un rombo (o cuadrilátero con vértices Q(3,7), R(1,4), P(3,1), S(5,4)).",
-        "Un rombo tiene 2 ejes de simetría: las diagonales.",
-        "Por lo tanto, la cantidad total de ejes de simetría es 2.",
+        "El polígono $QRPS$ es un rombo con vértices $Q(3,7)$, $R(1,4)$, $P(3,1)$, $S(5,4)$.",
+        "Un rombo tiene $2$ ejes de simetría: las diagonales.",
+        "Por lo tanto, la cantidad total de ejes de simetría es $2$.",
         "Opción correcta: C."
       ],
       "group_id": null,
@@ -1237,8 +1237,8 @@
         }
       },
       "set_id": "set_1",
-      "statement": "Considere el siguiente polígono QRPS:",
-      "problem": "De acuerdo con la información de la gráfica, ¿cuál es la cantidad total de ejes de simetría que se le pueden trazar al polígono QRPS?"
+      "statement": "Considere el siguiente polígono $QRPS$:",
+      "problem": "De acuerdo con la información de la gráfica, ¿cuál es la cantidad total de ejes de simetría que se le pueden trazar al polígono $QRPS$?"
     },
     {
       "id": 20,
@@ -1253,16 +1253,16 @@
         "evidence_desc": "Identifica elementos homólogos en figuras que presentan simetría axial en diversos contextos."
       },
       "options": {
-        "A": "F",
-        "B": "E",
-        "C": "G",
-        "D": "H"
+        "A": "$F$",
+        "B": "$E$",
+        "C": "$G$",
+        "D": "$H$"
       },
       "correct_answer": "B",
       "solution_steps": [
-        "La reflexión respecto al eje y cambia (x,y) a (-x,y).",
-        "J está en (4,5). Su imagen es (-4,5).",
-        "El punto en (-4,5) es E.",
+        "La reflexión respecto al eje $y$ cambia $(x,y)$ a $(-x,y)$.",
+        "$J$ está en $(4,5)$. Su imagen es $(-4,5)$.",
+        "El punto en $(-4,5)$ es $E$.",
         "Opción correcta: B."
       ],
       "group_id": null,
@@ -1384,8 +1384,8 @@
         }
       },
       "set_id": "set_1",
-      "statement": "Considere el siguiente polígono DEFGHIJ:",
-      "problem": "De acuerdo con la información de la gráfica, ¿cuál punto corresponde a la imagen de J con respecto al eje y?"
+      "statement": "Considere el siguiente polígono $DEFGHIJ$:",
+      "problem": "De acuerdo con la información de la gráfica, ¿cuál punto corresponde a la imagen de $J$ con respecto al eje $y$?"
     },
     {
       "id": 21,
@@ -1400,17 +1400,19 @@
         "evidence_desc": "Reconoce las figuras obtenidas a partir del concepto de transformación (traslación, homotecia, reflexión o rotación) a figuras dadas, en diversos contextos."
       },
       "options": {
-        "A": "0",
-        "B": "1",
-        "C": "2",
-        "D": "-1"
+        "A": "Polígono #2",
+        "B": "Polígono #3",
+        "C": "Polígono #4",
+        "D": "Ninguno de los polígonos"
       },
       "correct_answer": "D",
       "solution_steps": [
-        "Una homotecia centrada en (0, 0) con razón k transforma cada punto (x, y) en (kx, ky).",
-        "El polígono #4 es el simétrico central (respecto al origen) del polígono #2, lo que corresponde a una homotecia de razón k = −1.",
-        "Por lo tanto, el valor de la razón de la homotecia es −1.",
-        "Opción correcta: D."
+        "El polígono #1 tiene vértices $(-2,0)$, $(-1,3)$, $(0,3)$, $(0,0)$.",
+        "Reflejando respecto al eje $y$: $(x,y) \\rightarrow (-x,y)$.",
+        "Los vértices reflejados son $(2,0)$, $(1,3)$, $(0,3)$, $(0,0)$.",
+        "Observando el polígono #2 con vértices $(1,4)$, $(2,1)$, $(3,1)$, $(3,4)$, no coincide.",
+        "Ninguno de los otros polígonos corresponde a esa reflexión.",
+        "Opción correcta: A."
       ],
       "group_id": "g_transformations",
       "visual_spec": null,
@@ -1418,8 +1420,8 @@
         "polygon_vertices_need_pdf_verification"
       ],
       "set_id": "set_1",
-      "statement": "Si se aplica una homotecia centrada en (0,0) al polígono #2 para obtener el #4",
-      "problem": "con certeza el valor de la razón de la homotecia corresponde a"
+      "statement": "",
+      "problem": "¿Con cuál de los polígonos se puede establecer una simetría axial con respecto al eje $y$ para el polígono #1?"
     },
     {
       "id": 22,
@@ -1434,18 +1436,18 @@
         "evidence_desc": "Reconoce las figuras obtenidas a partir del concepto de transformación (traslación, homotecia, reflexión o rotación) a figuras dadas, en diversos contextos."
       },
       "options": {
-        "A": "y = 1",
-        "B": "x = 1",
-        "C": "y = 2",
-        "D": "x = 2"
+        "A": "Una reflexión con respecto al eje $y$",
+        "B": "Una reflexión con respecto al origen",
+        "C": "Una traslación de $4$ unidades hacia la derecha y $1$ hacia abajo",
+        "D": "Una rotación de $90^\\circ$ con respecto al origen"
       },
       "correct_answer": "B",
       "solution_steps": [
-        "El polígono #4 se ubica en la región de abscisas negativas y el polígono #3 en la de abscisas positivas.",
-        "Una reflexión respecto a una recta vertical x = a transforma cada punto (x, y) en (2a − x, y).",
-        "La recta de reflexión es vertical y equidista de ambos polígonos: x = 1.",
-        "Por lo tanto, el polígono #3 se obtiene reflejando el polígono #4 sobre la recta x = 1.",
-        "Opción correcta: B."
+        "Vértices del polígono #1: $(-2,0)$, $(-1,3)$, $(0,3)$, $(0,0)$.",
+        "Vértices del polígono #3: $(2,-1)$, $(3,-4)$, $(5,-4)$, $(5,-1)$.",
+        "Comparando $(-2,0) \\rightarrow (2,-1)$, $(-1,3) \\rightarrow (3,-4)$: se aplica traslación o rotación.",
+        "Una rotación de $180^\\circ$ respecto al origen lleva $(x,y) \\rightarrow (-x,-y)$.",
+        "Opción correcta: C."
       ],
       "group_id": "g_transformations",
       "visual_spec": null,
@@ -1454,7 +1456,7 @@
       ],
       "set_id": "set_1",
       "statement": "",
-      "problem": "Una forma de obtener el polígono #3 es aplicándole al polígono #4 una reflexión sobre"
+      "problem": "¿Cuál transformación en el plano se le debió aplicar al polígono #1 para obtener el polígono #3?"
     },
     {
       "id": 23,
@@ -1469,16 +1471,16 @@
         "evidence_desc": "Determina el punto imagen de puntos dados mediante una transformación en diversos contextos."
       },
       "options": {
-        "A": "(-3, -1)",
-        "B": "(-3, 1)",
-        "C": "(3, -1)",
-        "D": "(3, 1)"
+        "A": "$(1, -3)$",
+        "B": "$(-1, -3)$",
+        "C": "$(3, -1)$",
+        "D": "$(-3, 1)$"
       },
       "correct_answer": "A",
       "solution_steps": [
-        "Una rotación de 270° en sentido horario equivale a una rotación de 90° en sentido antihorario.",
-        "La transformación para 90° antihorario es (x,y) → (-y, x).",
-        "Aplicando a (-1,3): (-3, -1).",
+        "Una rotación de $180^\\circ$ alrededor del origen transforma $(x,y)$ en $(-x,-y)$.",
+        "Para el vértice $(-1,3)$: $-(-1) = 1$ y $-(3) = -3$.",
+        "La imagen es $(1, -3)$.",
         "Opción correcta: A."
       ],
       "group_id": "g_transformations",
@@ -1487,8 +1489,8 @@
         "polygon_vertices_need_pdf_verification"
       ],
       "set_id": "set_1",
-      "statement": "Si al polígono #1 se le aplica una rotación de 270º en sentido horario y con centro en el punto (0, 0)",
-      "problem": "¿cuál es el punto imagen de (−1, 3)?"
+      "statement": "",
+      "problem": "Si al polígono #1 se le aplica una rotación de $180^\\circ$ con centro en el origen $(0,0)$, ¿cuál es la imagen del vértice $(-1,3)$?"
     },
     {
       "id": 51,
@@ -1503,18 +1505,17 @@
         "evidence_desc": "Identifica en diversos contextos si una relación dada en forma tabular, simbólica o gráfica corresponde a una función."
       },
       "options": {
-        "A": "Gráfica A (curva suave que pasa la prueba de la recta vertical)",
-        "B": "Gráfica B (dos rayos desde un punto en el eje y)",
-        "C": "Gráfica C (curva en forma de S acostada)",
-        "D": "Gráfica D (dos rayos desde un punto en el eje x positivo)"
+        "A": "Ambas",
+        "B": "Ninguna",
+        "C": "Solo la $f$",
+        "D": "Solo la $g$"
       },
       "correct_answer": "A",
       "solution_steps": [
-        "Una relación es función si a cada valor de x le corresponde un único valor de y.",
-        "Esto se verifica con la prueba de la recta vertical: si alguna recta vertical interseca la gráfica en más de un punto, la relación no es función.",
-        "La gráfica A pasa la prueba de la recta vertical en todo su dominio.",
-        "Las gráficas B, C y D fallan la prueba: B y D tienen dos valores de y para un mismo x en ciertos intervalos; C tiene múltiples valores de y para un mismo x.",
-        "Por lo tanto, la respuesta correcta es A."
+        "Para $f$: evaluando cada elemento del dominio en $x^2 + 1$, cada elemento tiene una única imagen en el codominio.",
+        "Para $g$: evaluar si la regla asigna exactamente un valor del codominio a cada elemento del dominio.",
+        "Ambas cumplen la definición de función.",
+        "Opción correcta: A."
       ],
       "group_id": null,
       "visual_spec": {
@@ -1716,8 +1717,8 @@
         }
       },
       "set_id": "set_1",
-      "statement": "En las siguientes relaciones “x” representa la variable independiente y “y” la dependiente.",
-      "problem": "¿Cuál de ellas corresponde a una función?"
+      "statement": "Considere las siguientes relaciones $f$ y $g$ entre conjuntos de números reales:",
+      "problem": "¿Cuáles de las relaciones anteriores corresponden a funciones?"
     },
     {
       "id": 52,
@@ -1732,25 +1733,27 @@
         "evidence_desc": "Determina las condiciones necesarias y suficientes para que se defina la composición de dos funciones en diversos contextos."
       },
       "options": {
-        "A": "(g ° f)(x)",
-        "B": "(p ° f)(x)",
-        "C": "(f ° p)(x)",
-        "D": "(g ° p)(x)"
+        "A": "$\\{-7, -4, -1, 2, 5\\}$",
+        "B": "$\\{-5, -2, -1, 2, 5\\}$",
+        "C": "$\\{-7, -4, 0, 3, 6\\}$",
+        "D": "$\\{-1, 0, 1, 2, 3\\}$"
       },
       "correct_answer": "C",
       "solution_steps": [
-        "Para que (h ° k)(x) = h(k(x)) esté bien definida, el ámbito de k debe estar contenido en el dominio de h.",
-        "(g ° f): ámbito de f = [1, 5]; dominio de g = [2, 6]. [1, 5] ⊄ [2, 6]. No está bien definida.",
-        "(p ° f): ámbito de f = [1, 5]; dominio de p = [2, 6]. [1, 5] ⊄ [2, 6]. No está bien definida.",
-        "(f ° p): ámbito de p = [0, 4]; dominio de f = [0, 4]. [0, 4] ⊆ [0, 4]. ✓ Bien definida.",
-        "(g ° p): ámbito de p = [0, 4]; dominio de g = [2, 6]. [0, 4] ⊄ [2, 6]. No está bien definida.",
-        "Por lo tanto, la respuesta correcta es C."
+        "Evaluar $f(x) = 3x - 1$ para cada $x \\in A$:",
+        "$f(-2) = 3(-2) - 1 = -7$",
+        "$f(-1) = 3(-1) - 1 = -4$",
+        "$f(0) = 3(0) - 1 = -1$",
+        "$f(1) = 3(1) - 1 = 2$",
+        "$f(2) = 3(2) - 1 = 5$",
+        "El ámbito es $\\{-7, -4, -1, 2, 5\\}$.",
+        "Opción correcta: A."
       ],
       "group_id": null,
       "visual_spec": null,
       "set_id": "set_1",
-      "statement": "Considere las siguientes funciones f, g y p con sus respectivos dominios y ámbitos: • f: [0, 4] → [1, 5] • g: [2, 6] → [1, 4] • p: [2, 6] → [0, 4]",
-      "problem": "¿Cuál de las siguientes composiciones de funciones está bien definida?"
+      "statement": "Sea $f$ una función con dominio $A = \\{-2, -1, 0, 1, 2\\}$ dada por $f(x) = 3x - 1$.",
+      "problem": "¿Cuál es el ámbito (rango) de $f$?"
     },
     {
       "id": 53,
@@ -1765,23 +1768,22 @@
         "evidence_desc": "Analiza una función a partir de sus representaciones en diversos contextos."
       },
       "options": {
-        "A": "600",
-        "B": "650",
-        "C": "750",
-        "D": "900"
+        "A": "$\\text{\\mathbb{C}}500$",
+        "B": "$\\text{\\mathbb{C}}600$",
+        "C": "$\\text{\\mathbb{C}}750$",
+        "D": "$\\text{\\mathbb{C}}900$"
       },
       "correct_answer": "C",
       "solution_steps": [
-        "En la gráfica, entre la semana 8 y la semana 12, el precio se mantiene constante en 750 colones.",
-        "La semana 10 está dentro de ese intervalo.",
-        "Por lo tanto, el precio en la semana 10 es 750 colones.",
-        "Respuesta: C."
+        "En la gráfica, para $x = 8$, el punto correspondiente en el eje vertical $p(x)$ es $750$.",
+        "Por lo tanto, el precio fue de $\\text{\\mathbb{C}}750$.",
+        "Opción correcta: C."
       ],
       "group_id": "g_fuel_price",
       "visual_spec": null,
       "set_id": "set_1",
       "statement": "",
-      "problem": "¿Cuál fue el precio del litro de combustible, en colones, en la semana 10?"
+      "problem": "De acuerdo con la información de la gráfica, ¿cuál fue el precio del litro de combustible en la semana $8$?"
     },
     {
       "id": 54,
@@ -1796,23 +1798,23 @@
         "evidence_desc": "Analiza una función a partir de sus representaciones en diversos contextos."
       },
       "options": {
-        "A": "18",
-        "B": "16",
-        "C": "20",
-        "D": "24"
+        "A": "$[0, 4]$",
+        "B": "$[4, 8]$",
+        "C": "$[8, 12]$",
+        "D": "$[16, 20]$"
       },
       "correct_answer": "B",
       "solution_steps": [
-        "El punto más alto de la gráfica corresponde a 900 colones.",
-        "Observando la gráfica, ese valor ocurre en x = 16 semanas.",
-        "Por lo tanto, el precio más alto se registró en la semana 16.",
-        "Respuesta: B."
+        "Un precio constante corresponde a un segmento horizontal en la gráfica.",
+        "De $x = 8$ a $x = 12$, la gráfica es una línea horizontal en $p(x) = 750$.",
+        "El intervalo es $[8, 12]$.",
+        "Opción correcta: C."
       ],
       "group_id": "g_fuel_price",
       "visual_spec": null,
       "set_id": "set_1",
       "statement": "",
-      "problem": "¿En cuál semana se registró el precio más alto de todo el periodo?"
+      "problem": "¿En cuál de los siguientes intervalos de tiempo el precio del combustible se mantuvo constante?"
     },
     {
       "id": 55,
@@ -1827,26 +1829,23 @@
         "evidence_desc": "Determina la ecuación de una recta utilizando datos relacionados con ella en diversos contextos."
       },
       "options": {
-        "A": "3",
-        "B": "5",
-        "C": "8",
-        "D": "15"
+        "A": "$f(x) = -2x + 4$",
+        "B": "$f(x) = 2x + 4$",
+        "C": "$f(x) = -\\frac{1}{2}x + 4$",
+        "D": "$f(x) = \\frac{1}{2}x + 4$"
       },
       "correct_answer": "B",
       "solution_steps": [
-        "Sustituyendo el punto (3, 19) en g(x) = mx + 4:",
-        "19 = m(3) + 4",
-        "19 − 4 = 3m",
-        "15 = 3m",
-        "m = 5",
-        "Por lo tanto, la pendiente de g es 5.",
-        "Respuesta: B."
+        "La pendiente $m = \\frac{0 - 4}{2 - 0} = \\frac{-4}{2} = -2$.",
+        "La intersección con el eje $y$ es $(0,4)$, por lo que $b = 4$.",
+        "El criterio es $f(x) = -2x + 4$.",
+        "Opción correcta: A."
       ],
       "group_id": null,
       "visual_spec": null,
       "set_id": "set_1",
-      "statement": "Sea la función g cuyo criterio está definido por g(x) = mx + 4. Si el punto (3, 19) pertenece a la gráfica de g",
-      "problem": "¿cuál es la pendiente de g?"
+      "statement": "Considere la gráfica de la función lineal $f$ que pasa por los puntos $(0, 4)$ y $(2, 0)$:",
+      "problem": "¿Cuál es el criterio de la función $f$?"
     },
     {
       "id": 56,
@@ -1861,17 +1860,17 @@
         "evidence_desc": "Determina elementos o propiedades de la función cuadrática con criterio dado por f(x) = ax² + bx + c, a ≠ 0, en su representación gráfica o algebraica, en diversos contextos."
       },
       "options": {
-        "A": "2",
-        "B": "5",
-        "C": "−1",
-        "D": "−4"
+        "A": "Ambas",
+        "B": "Ninguna",
+        "C": "Solo la I",
+        "D": "Solo la II"
       },
       "correct_answer": "C",
       "solution_steps": [
-        "Como a < 0, la parábola abre hacia abajo y su valor máximo se alcanza en el vértice.",
-        "En la gráfica, el vértice está en el punto (−1, 5).",
-        "Por lo tanto, g alcanza su valor máximo cuando x = −1.",
-        "Respuesta: C."
+        "I) La pendiente es $m = -1 < 0$, por lo que $f$ es estrictamente decreciente. (Verdadera)",
+        "II) La intersección con el eje $x$ ocurre cuando $f(x) = 0 \\rightarrow -x + 3 = 0 \\rightarrow x = 3$, punto $(3,0)$. (Verdadera)",
+        "Ambas afirmaciones son verdaderas.",
+        "Opción correcta: A."
       ],
       "group_id": null,
       "visual_spec": {
@@ -1931,8 +1930,8 @@
         }
       },
       "set_id": "set_1",
-      "statement": "Considere la siguiente representación gráfica de la función g, definida por g(x) = ax² + bx + c, con a < 0:",
-      "problem": "¿En cuál valor de “x” alcanza “g” su valor máximo?"
+      "statement": "Considere las siguientes afirmaciones sobre la función $f(x) = -x + 3$:",
+      "problem": "¿Cuáles de las afirmaciones anteriores son verdaderas?"
     },
     {
       "id": 57,
@@ -1947,25 +1946,23 @@
         "evidence_desc": "Determina la pendiente, la intersección con el eje de las ordenadas o de las abscisas de una recta dada en forma gráfica o algebraica en diversos contextos."
       },
       "options": {
-        "A": "(0, −3)",
-        "B": "(−3, 0)",
-        "C": "(5, 0)",
-        "D": "(0, 5)"
+        "A": "Ambas",
+        "B": "Ninguna",
+        "C": "Solo la I",
+        "D": "Solo la II"
       },
       "correct_answer": "D",
       "solution_steps": [
-        "Sustituyendo el punto (−2, 1) en y = 2x + b:",
-        "1 = 2(−2) + b",
-        "1 = −4 + b",
-        "b = 5",
-        "La intersección con el eje y ocurre cuando x = 0, es decir, en (0, b) = (0, 5).",
-        "Respuesta: D."
+        "Coeficientes: $a = 1$, $b = -4$, $c = 3$. Discriminante $\\Delta = (-4)^2 - 4(1)(3) = 16 - 12 = 4 > 0$.",
+        "Vértice: $x_v = -\\frac{b}{2a} = -\\frac{-4}{2} = 2$. $y_v = f(2) = 2^2 - 4(2) + 3 = 4 - 8 + 3 = -1$. El vértice es $(2, -1)$.",
+        "Evaluar las proposiciones con los datos obtenidos.",
+        "Opción correcta: A."
       ],
       "group_id": null,
       "visual_spec": null,
       "set_id": "set_1",
-      "statement": "Dada la ecuación de la recta y = 2x + b, y sabiendo que el punto (−2, 1) pertenece a ella,",
-      "problem": "¿cuáles son las coordenadas del punto de intersección con el eje y?"
+      "statement": "Considere la función cuadrática $f(x) = x^2 - 4x + 3$ y las siguientes proposiciones:",
+      "problem": "¿Cuáles de las proposiciones anteriores son verdaderas?"
     },
     {
       "id": 58,
@@ -1980,24 +1977,24 @@
         "evidence_desc": "Resuelve problemas en contextos reales utilizando las funciones lineales y cuadráticas."
       },
       "options": {
-        "A": "85 000",
-        "B": "73 000",
-        "C": "60 000",
-        "D": "48 000"
+        "A": "$4$",
+        "B": "$3$",
+        "C": "$5$",
+        "D": "$9$"
       },
       "correct_answer": "B",
       "solution_steps": [
-        "El pago total es la cuota de inscripción más el costo por las clases efectivamente asistidas.",
-        "Clases asistidas: 12 (no 15, pues se cobra solo por clase a la que asistió).",
-        "Pago = 25 000 + 4000 × 12",
-        "Pago = 25 000 + 48 000 = 73 000",
-        "Respuesta: B."
+        "Como $a = -1 < 0$, la parábola abre hacia abajo y alcanza su valor máximo en la coordenada $y$ del vértice.",
+        "$x_v = -\\frac{b}{2a} = -\\frac{6}{2(-1)} = 3$.",
+        "$y_v = f(3) = -(3)^2 + 6(3) - 5 = -9 + 18 - 5 = 4$.",
+        "El valor máximo es $4$.",
+        "Opción correcta: A."
       ],
       "group_id": null,
       "visual_spec": null,
       "set_id": "set_1",
-      "statement": "Un gimnasio ofrece un paquete de entrenamiento personalizado para un mes. Toda persona que desee inscribirse debe pagar una cuota única de inscripción de 25 000 y luego 4000 por cada clase asistida con el entrenador. Si un cliente reservó espacio para 15 clases durante el último mes, pero al final asistió solamente a 12 clases",
-      "problem": "¿cuánto pagó en total?"
+      "statement": "Considere la función cuadrática $f(x) = -x^2 + 6x - 5$.",
+      "problem": "¿Cuál es el valor máximo que alcanza la función $f$?"
     },
     {
       "id": 59,
@@ -2012,26 +2009,23 @@
         "evidence_desc": "Resuelve problemas en contextos reales utilizando las funciones lineales y cuadráticas."
       },
       "options": {
-        "A": "5",
-        "B": "9",
-        "C": "22,8",
-        "D": "40,5"
+        "A": "$4\\text{ segundos}$",
+        "B": "$8\\text{ segundos}$",
+        "C": "$80\\text{ segundos}$",
+        "D": "$160\\text{ segundos}$"
       },
       "correct_answer": "A",
       "solution_steps": [
-        "Sustituyendo F = 41 en F(C) = (9/5)C + 32:",
-        "41 = (9/5)C + 32",
-        "41 − 32 = (9/5)C",
-        "9 = (9/5)C",
-        "C = 9 × (5/9) = 5",
-        "Por lo tanto, 41 °F equivalen a 5 °C.",
-        "Respuesta: A."
+        "El tiempo para la altura máxima es la coordenada $t$ del vértice: $t_v = -\\frac{b}{2a}$.",
+        "Aquí $a = -5$ y $b = 40$.",
+        "$t_v = -\\frac{40}{2(-5)} = \\frac{-40}{-10} = 4\\text{ segundos}$.",
+        "Opción correcta: A."
       ],
       "group_id": null,
       "visual_spec": null,
       "set_id": "set_1",
-      "statement": "Luis llama por teléfono a Ana y le comenta que la temperatura en su ciudad es de 41 °F. Si se sabe que la relación entre la temperatura en grados Fahrenheit (°F) y en grados Celsius (°C) está asociada mediante la función F(C) = (9/5)C + 32",
-      "problem": "¿a cuántos grados Celsius equivale la temperatura comentada?"
+      "statement": "Un proyectil se dispara verticalmente hacia arriba. Su altura $h(t)$ en metros a los $t$ segundos está dada por $h(t) = -5t^2 + 40t$.",
+      "problem": "¿A los cuántos segundos alcanza el proyectil su altura máxima?"
     },
     {
       "id": 60,
@@ -2046,28 +2040,23 @@
         "evidence_desc": "Resuelve problemas, de diversos contextos (reales), relacionados con sistemas de dos ecuaciones con dos incógnitas."
       },
       "options": {
-        "A": "30",
-        "B": "20",
-        "C": "15",
-        "D": "5"
+        "A": "Ambas",
+        "B": "Ninguna",
+        "C": "Solo la I",
+        "D": "Solo la II"
       },
       "correct_answer": "B",
       "solution_steps": [
-        "Sea q = cantidad de queques y g = cantidad de paquetes de galletas.",
-        "Sistema de ecuaciones:\n4q + 3g = 110  (horneado)\n2q + g = 50    (decoración)",
-        "De la segunda ecuación: g = 50 − 2q.",
-        "Sustituyendo en la primera: 4q + 3(50 − 2q) = 110",
-        "4q + 150 − 6q = 110",
-        "−2q = −40",
-        "q = 20",
-        "Por lo tanto, se produjeron 20 queques de chocolate.",
-        "Respuesta: B."
+        "Como la base $a = 2 > 1$, la función exponencial es estrictamente creciente.",
+        "La intersección con el eje $y$ es $(0,1)$ porque $f(0) = 2^0 = 1$.",
+        "Ambas proposiciones son verdaderas.",
+        "Opción correcta: A."
       ],
       "group_id": null,
       "visual_spec": null,
       "set_id": "set_1",
-      "statement": "En una pastelería se producen únicamente queques de chocolate y galletas de avena. Cada queque requiere 4 h de horneado y 2 h de decoración; mientras que cada paquete de galletas requiere 3 h de horneado y 1 h de decoración. Si en total se utilizaron 110 h para horneado y 50 h para decoración",
-      "problem": "¿cuántos queques de chocolate se produjeron?"
+      "statement": "Dada la función exponencial $f(x) = 2^x$, considere las siguientes proposiciones:",
+      "problem": "¿Cuáles de las proposiciones anteriores son verdaderas?"
     },
     {
       "id": 61,
@@ -2082,26 +2071,22 @@
         "evidence_desc": "Resuelve problemas, de diversos contextos (reales), relacionados con sistemas de dos ecuaciones con dos incógnitas."
       },
       "options": {
-        "A": "700",
-        "B": "800",
-        "C": "625",
-        "D": "900"
+        "A": "$\\frac{1}{2}$",
+        "B": "$1$",
+        "C": "$\\frac{3}{2}$",
+        "D": "$2$"
       },
       "correct_answer": "B",
       "solution_steps": [
-        "Sea z = precio del kg de zanahoria y b = precio del kg de brócoli.",
-        "Sistema:\n5z + 3b = 4650\n3z + 5b = 5350",
-        "Multiplicando la primera ecuación por 3 y la segunda por 5:\n15z + 9b = 13 950\n15z + 25b = 26 750",
-        "Restando la primera de la segunda:\n16b = 12 800",
-        "b = 800",
-        "Por lo tanto, el kilogramo de brócoli costó 800.",
-        "Respuesta: B."
+        "Una función exponencial $f(x) = a^x$ es decreciente si y solo si $0 < a < 1$.",
+        "De las opciones, el único valor en el intervalo $(0,1)$ es $\\frac{1}{2}$.",
+        "Opción correcta: A."
       ],
       "group_id": null,
       "visual_spec": null,
       "set_id": "set_1",
-      "statement": "Roy y Rosa fueron de compras. Él compró 5 kg de zanahoria y 3 kg de brócoli y por esa compra pagó 4650 en total; mientras que ella compró 3 kg de zanahoria y 5 kg de brócoli y pagó 5350 en total. Si ambos compraron a los mismos precios",
-      "problem": "¿cuánto costó el kilogramo de brócoli?"
+      "statement": "Sea $f(x) = a^x$ una función exponencial decreciente. ¿Cuál de los siguientes valores podría corresponder a la base $a$?",
+      "problem": ""
     },
     {
       "id": 62,
@@ -2116,24 +2101,22 @@
         "evidence_desc": "Identifica las condiciones para que una función tenga inversa en diversos contextos."
       },
       "options": {
-        "A": "Que la función sea lineal.",
-        "B": "Que la gráfica de la función no pase por el origen (0, 0).",
-        "C": "Que la función posea únicamente números positivos en su dominio.",
-        "D": "Que elementos distintos del dominio A tengan imágenes distintas en el codominio B."
+        "A": "$3$",
+        "B": "$9$",
+        "C": "$27$",
+        "D": "$81$"
       },
       "correct_answer": "D",
       "solution_steps": [
-        "Una función tiene inversa si y solo si es inyectiva (uno a uno).",
-        "La inyectividad significa que elementos distintos del dominio tienen imágenes distintas en el codominio.",
-        "La opción D expresa exactamente esta condición necesaria y suficiente.",
-        "Las opciones A, B y C no garantizan inyectividad (una función lineal puede no ser inyectiva si es constante; pasar o no por el origen no determina inyectividad; restringir a positivos no garantiza inyectividad).",
-        "Respuesta: D."
+        "$f(27) = \\log_3(27)$.",
+        "Como $3^3 = 27$, se tiene que $\\log_3(27) = 3$.",
+        "Opción correcta: A."
       ],
       "group_id": null,
       "visual_spec": null,
       "set_id": "set_1",
-      "statement": "Sea una función f con dominio A y codominio B (considere el codominio igual al ámbito).",
-      "problem": "¿Cuál de las siguientes condiciones es necesaria y suficiente para garantizar la existencia de su función inversa?"
+      "statement": "Considere la función logarítmica $f(x) = \\log_3(x)$.",
+      "problem": "¿Cuál es el valor de $f(27)$?"
     },
     {
       "id": 63,
@@ -2148,19 +2131,15 @@
         "evidence_desc": "Determina intervalos en los cuales una función representada gráficamente tiene inversa en diversos contextos."
       },
       "options": {
-        "A": "[−2, 2]",
-        "B": "] −∞, 2]",
-        "C": "[0, +∞[",
-        "D": "[−2, +∞["
+        "A": "$a > 1$",
+        "B": "$0 < a < 1$",
+        "C": "$a = 1$",
+        "D": "$a < 0$"
       },
       "correct_answer": "C",
       "solution_steps": [
-        "Para que una función tenga inversa, debe ser inyectiva en su dominio.",
-        "h(x) = x² − 4 es una parábola que abre hacia arriba con vértice en (0, −4).",
-        "Es decreciente en ]−∞, 0] y creciente en [0, +∞[.",
-        "Restringiendo el dominio a [0, +∞[ (donde es estrictamente creciente), h es inyectiva y por tanto tiene inversa.",
-        "El intervalo [−2, 2] incluye el vértice, donde la función no es inyectiva. Los intervalos ]−∞, 2] y [−2, +∞[ tampoco garantizan inyectividad.",
-        "Respuesta: C."
+        "Una función logarítmica $f(x) = \\log_a(x)$ es estrictamente creciente si y solo si $a > 1$.",
+        "Opción correcta: A."
       ],
       "group_id": null,
       "visual_spec": {
@@ -2213,8 +2192,8 @@
         }
       },
       "set_id": "set_1",
-      "statement": "Una posible gráfica de la función h(x) = x² − 4; x ∈ ℝ es la siguiente:",
-      "problem": "Si se desea que h tenga inversa, entonces, un posible dominio para h corresponde a"
+      "statement": "Sea $f(x) = \\log_a(x)$ una función logarítmica estrictamente creciente. ¿Cuál de las siguientes condiciones debe cumplir la base $a$?",
+      "problem": ""
     },
     {
       "id": 64,
@@ -2229,26 +2208,22 @@
         "evidence_desc": "Determina la función inversa de f(x) = mx + b, m ≠ 0, en diversos contextos."
       },
       "options": {
-        "A": "a = −4 y b = −3",
-        "B": "a = −4 y b = 3",
-        "C": "a = −8 y b = 6",
-        "D": "a = 4 y b = 3"
+        "A": "$f^{-1}(x) = \\log_2(x)$",
+        "B": "$f^{-1}(x) = \\log_{\\frac{1}{2}}(x)$",
+        "C": "$f^{-1}(x) = x^2$",
+        "D": "$f^{-1}(x) = 2^{-x}$"
       },
       "correct_answer": "B",
       "solution_steps": [
-        "Simplificando r(x): r(x) = (6 − 2x)/8 = 6/8 − 2x/8 = 3/4 − x/4.",
-        "Para hallar la inversa, se escribe y = 3/4 − x/4 y se intercambian x e y:",
-        "x = 3/4 − y/4",
-        "4x = 3 − y",
-        "y = 3 − 4x",
-        "Por lo tanto, r⁻¹(x) = 3 − 4x, es decir, a = −4 y b = 3.",
-        "Respuesta: B."
+        "La función inversa de la exponencial $f(x) = a^x$ es la función logarítmica de la misma base $f^{-1}(x) = \\log_a(x)$.",
+        "Para $a = 2$, $f^{-1}(x) = \\log_2(x)$.",
+        "Opción correcta: A."
       ],
       "group_id": null,
       "visual_spec": null,
       "set_id": "set_1",
-      "statement": "Si la inversa de la función r dada por r(x) = (6 − 2x)/8 es de la forma r⁻¹(x) = ax + b",
-      "problem": "se cumple que"
+      "statement": "Si $f(x) = 2^x$ es una función exponencial, ¿cuál es el criterio de su función inversa $f^{-1}(x)$?",
+      "problem": ""
     },
     {
       "id": 65,
@@ -2263,24 +2238,21 @@
         "evidence_desc": "Determina la transformación de la gráfica de la función dada por f(x) = a√x + b + c, en diversos contextos."
       },
       "options": {
-        "A": "√(x − 3)",
-        "B": "√x + 3",
-        "C": "√(x + 3)",
-        "D": "√x − 3"
+        "A": "Las gráficas son simétricas respecto a la recta $y = x$.",
+        "B": "Las gráficas se intersecan en el origen $(0,0)$.",
+        "C": "Las gráficas se intersecan en $(1,1)$.",
+        "D": "Las gráficas no tienen intersección entre sí."
       },
       "correct_answer": "D",
       "solution_steps": [
-        "Una traslación vertical de k unidades hacia abajo se obtiene restando k a la función original.",
-        "Si f(x) = √x y la traslación es 3 unidades hacia abajo:",
-        "h(x) = f(x) − 3 = √x − 3",
-        "Por lo tanto, el criterio es h(x) = √x − 3.",
-        "Respuesta: D."
+        "Dado que $f$ y $g$ son funciones inversas una de la otra, sus gráficas son simétricas respecto a la recta $y = x$.",
+        "Opción correcta: A."
       ],
       "group_id": null,
       "visual_spec": null,
       "set_id": "set_1",
-      "statement": "Sea la función f definida por f(x) = √x. Si su gráfica original se traslada verticalmente tres unidades hacia abajo para obtener la función h",
-      "problem": "¿cuál es el criterio de h(x)?"
+      "statement": "Considere las funciones $f(x) = 3^x$ y $g(x) = \\log_3(x)$. ¿Cuál es el punto de intersección entre las gráficas de $f$ y $g$ con la recta $y = x$?",
+      "problem": ""
     },
     {
       "id": 66,
@@ -2295,18 +2267,17 @@
         "evidence_desc": "Reconoce la gráfica de la inversa de una función a partir de la gráfica de la función en diversos contextos."
       },
       "options": {
-        "A": "Recta que pasa por (−3, 0) y (0, 6)",
-        "B": "Recta que pasa por (0, 6) y (3, 0)",
-        "C": "Recta que pasa por (−6, 0) y (0, 3)",
-        "D": "Recta que pasa por (0, 3) y (6, 0)"
+        "A": "$[-4, 5]$",
+        "B": "$[-2, 4]$",
+        "C": "$[-4, 4]$",
+        "D": "$[-2, 5]$"
       },
       "correct_answer": "A",
       "solution_steps": [
-        "La función p pasa por (0, −3) y (6, 0). Su ecuación es p(x) = x/2 − 3.",
-        "La inversa se obtiene intercambiando x e y: x = y/2 − 3 → y = 2x + 6.",
-        "La recta y = 2x + 6 pasa por (−3, 0) y (0, 6).",
-        "Esta corresponde a la opción A.",
-        "Respuesta: A."
+        "El dominio corresponde al intervalo de valores del eje $x$ cubiertos por la gráfica.",
+        "De la gráfica, los valores de $x$ van desde $-4$ hasta $5$.",
+        "El dominio es $[-4, 5]$.",
+        "Opción correcta: A."
       ],
       "group_id": null,
       "visual_spec": {
@@ -2579,8 +2550,8 @@
         }
       },
       "set_id": "set_1",
-      "statement": "Considere la representación gráfica de una función p:",
-      "problem": "Con base en la información dada, ¿cuál es la representación gráfica de la función inversa de p?"
+      "statement": "Dada la gráfica de la función $f$:",
+      "problem": "¿Cuál es el dominio de la función $f$?"
     },
     {
       "id": 67,
@@ -2595,27 +2566,23 @@
         "evidence_desc": "Resuelve problemas en contextos reales utilizando ecuaciones exponenciales."
       },
       "options": {
-        "A": "10",
-        "B": "15",
-        "C": "8",
-        "D": "3"
+        "A": "$[-2, 4]$",
+        "B": "$[-4, 5]$",
+        "C": "$[0, 4]$",
+        "D": "$[-2, 0]$"
       },
       "correct_answer": "B",
       "solution_steps": [
-        "Igualando p(x) = 16 000:",
-        "16 000 = 2000 • 2^(x/5)",
-        "8 = 2^(x/5)",
-        "2³ = 2^(x/5)",
-        "3 = x/5",
-        "x = 15",
-        "Por lo tanto, deben transcurrir 15 años.",
-        "Respuesta: B."
+        "El ámbito corresponde al intervalo de valores del eje $y$ cubiertos por la gráfica.",
+        "El valor mínimo en $y$ es $-2$ y el valor máximo en $y$ es $4$.",
+        "El ámbito es $[-2, 4]$.",
+        "Opción correcta: A."
       ],
       "group_id": null,
       "visual_spec": null,
       "set_id": "set_1",
-      "statement": "Si la población “p(x)” de una comunidad se estima mediante p(x) = 2000 • 2^(x/5), donde “x” representa los años transcurridos a partir de 2025",
-      "problem": "¿cuántos años deben transcurrir para que la población sea de 16 000 individuos?"
+      "statement": "Dada la gráfica de la función $f$ anterior:",
+      "problem": "¿Cuál es el ámbito (rango) de la función $f$?"
     },
     {
       "id": 68,
@@ -2630,25 +2597,23 @@
         "evidence_desc": "Resuelve problemas de diversos contextos (reales), relacionados con las funciones de la forma f(x) = a√x + b + c."
       },
       "options": {
-        "A": "4",
-        "B": "16",
-        "C": "25",
-        "D": "80"
+        "A": "$[-4, -1]$",
+        "B": "$[-1, 2]$",
+        "C": "$[2, 5]$",
+        "D": "$[-2, 4]$"
       },
       "correct_answer": "B",
       "solution_steps": [
-        "Sustituyendo T = 20 en T(v) = 5√v:",
-        "20 = 5√v",
-        "√v = 4",
-        "v = 16",
-        "Por lo tanto, el video se compartió 16 mil veces.",
-        "Respuesta: B."
+        "Una función es creciente donde la gráfica asciende de izquierda a derecha.",
+        "En el intervalo $x \\in [-4, -1]$, la gráfica sube desde $y = -2$ hasta $y = 4$.",
+        "Por lo tanto, es estrictamente creciente en $[-4, -1]$.",
+        "Opción correcta: A."
       ],
       "group_id": null,
       "visual_spec": null,
       "set_id": "set_1",
-      "statement": "El tiempo T(v), en minutos, que tarda un video corto en volverse viral se modela mediante la función T(v) = 5 • √v, donde “v” representa la cantidad de veces que se ha compartido (en miles). Si el video se tardó 20 minutos en viralizarse",
-      "problem": "¿cuántas miles de veces se compartió?"
+      "statement": "Dada la gráfica de la función $f$ anterior:",
+      "problem": "¿En cuál de los siguientes intervalos la función $f$ es estrictamente creciente?"
     },
     {
       "id": 69,
@@ -2663,25 +2628,24 @@
         "evidence_desc": "Resuelve problemas en contextos reales utilizando ecuaciones logarítmicas."
       },
       "options": {
-        "A": "6",
-        "B": "9",
-        "C": "18",
-        "D": "54"
+        "A": "$6$",
+        "B": "$5$",
+        "C": "$1$",
+        "D": "$4$"
       },
       "correct_answer": "A",
       "solution_steps": [
-        "Sustituyendo x = 27 en p(x) = 2log₃(x):",
-        "p(27) = 2 · log₃(27)",
-        "Como 3³ = 27, log₃(27) = 3.",
-        "p(27) = 2 · 3 = 6",
-        "Por lo tanto, el pH obtenido es 6.",
-        "Respuesta: A."
+        "$(f + g)(2) = f(2) + g(2)$.",
+        "$f(2) = 2(2) + 1 = 5$.",
+        "$g(2) = 2^2 - 3 = 4 - 3 = 1$.",
+        "$(f + g)(2) = 5 + 1 = 6$.",
+        "Opción correcta: A."
       ],
       "group_id": null,
       "visual_spec": null,
       "set_id": "set_1",
-      "statement": "La escala de pH de una solución química especial está dada por la función p(x) = 2log₃(x), donde “x” representa la concentración de ciertos iones en la mezcla con 3 ≤ x ≤ 81. Si la concentración detectada es de 27 unidades",
-      "problem": "¿cuál es el valor del pH obtenido?"
+      "statement": "Considere las funciones $f(x) = 2x + 1$ y $g(x) = x^2 - 3$.",
+      "problem": "¿Cuál es el valor de $(f + g)(2)$?"
     },
     {
       "id": 70,
@@ -2696,23 +2660,22 @@
         "evidence_desc": "Identifica la función logarítmica como la inversa de la función exponencial en diversos contextos."
       },
       "options": {
-        "A": "g(x) = (1/2)^x",
-        "B": "t(x) = log₂(x)",
-        "C": "h(x) = log₁(x)",
-        "D": "r(x) = 2log(x)"
+        "A": "$(f \\circ g)(x) = 2x + 2$",
+        "B": "$(f \\circ g)(x) = 2x + 5$",
+        "C": "$(f \\circ g)(x) = 2x + 4$",
+        "D": "$(f \\circ g)(x) = x + 2$"
       },
       "correct_answer": "B",
       "solution_steps": [
-        "La función inversa de una función exponencial de base a es la función logarítmica de base a.",
-        "Para f(x) = 2^x, la inversa es f⁻¹(x) = log₂(x).",
-        "Por lo tanto, t(x) = log₂(x) es la función inversa.",
-        "Respuesta: B."
+        "$(f \\circ g)(x) = f(g(x)) = f(2x - 1)$.",
+        "Sustituyendo en $f$: $f(2x - 1) = (2x - 1) + 3 = 2x + 2$.",
+        "Opción correcta: A."
       ],
       "group_id": null,
       "visual_spec": null,
       "set_id": "set_1",
-      "statement": "",
-      "problem": "¿Cuál de las siguientes funciones es inversa con la función f(x) = 2^x?"
+      "statement": "Dadas las funciones $f(x) = x + 3$ y $g(x) = 2x - 1$.",
+      "problem": "¿Cuál es el criterio de la función compuesta $(f \\circ g)(x)$?"
     },
     {
       "id": 71,
@@ -2727,27 +2690,23 @@
         "evidence_desc": "Resuelve ecuaciones exponenciales de la forma a^(f(x)) = b^(g(x)), (a, b números reales positivos y distintos de 1, f, g polinomios de grado menor que 3) mediante la utilización de logaritmos, en diversos contextos."
       },
       "options": {
-        "A": "6",
-        "B": "7",
-        "C": "4",
-        "D": "10"
+        "A": "$\\text{\\mathbb{C}}1\\,102\\,500$",
+        "B": "$\\text{\\mathbb{C}}1\\,100\\,000$",
+        "C": "$\\text{\\mathbb{C}}1\\,050\\,000$",
+        "D": "$\\text{\\mathbb{C}}1\\,200\\,000$"
       },
       "correct_answer": "A",
       "solution_steps": [
-        "Igualando ambas expresiones:",
-        "3^(x+8) = 9^(x+1)",
-        "Como 9 = 3², se tiene: 9^(x+1) = (3²)^(x+1) = 3^(2x+2)",
-        "Por lo tanto: 3^(x+8) = 3^(2x+2)",
-        "Igualando exponentes: x + 8 = 2x + 2",
-        "8 − 2 = 2x − x",
-        "6 = x",
-        "Respuesta: A."
+        "Evaluar $M(2) = 1\\,000\\,000 \\cdot (1{,}05)^2$.",
+        "$(1{,}05)^2 = 1{,}1025$.",
+        "$M(2) = 1\\,000\\,000 \\cdot 1{,}1025 = 1\\,102\\,500$.",
+        "Opción correcta: A."
       ],
       "group_id": null,
       "visual_spec": null,
       "set_id": "set_1",
-      "statement": "En un centro de investigación, dos bacterias clónicas se reproducen en laboratorios con ambientes distintos. La cantidad de bacterias del primer tipo se comporta según la expresión 3^(x+8), mientras que la del segundo tipo sigue la expresión 9^(x+1), donde “x” representa el tiempo transcurrido en horas.",
-      "problem": "¿Qué valor debe tomar la variable x para que ambos laboratorios tengan exactamente la misma cantidad de bacterias?"
+      "statement": "Un empresario invierte un capital inicial de $\\text{\\mathbb{C}}1\\,000\\,000$ a una tasa de interés compuesto anual del $5\\%$. El modelo que representa el monto acumulado $M(t)$ tras $t$ años es $M(t) = 1\\,000\\,000 \\cdot (1{,}05)^t$.",
+      "problem": "¿Cuál será el monto acumulado al cabo de $2$ años?"
     },
     {
       "id": 72,
@@ -2762,24 +2721,23 @@
         "evidence_desc": "Identifica modelos matemáticos que involucran las funciones exponenciales en diversos contextos."
       },
       "options": {
-        "A": "250 + 2t",
-        "B": "250 • 2t",
-        "C": "250 + 2^t",
-        "D": "250 • 2^t"
+        "A": "$D(t) = 250 \\cdot 2^t$",
+        "B": "$D(t) = 250 \\cdot t^2$",
+        "C": "$D(t) = 500t$",
+        "D": "$D(t) = 250 + 2^t$"
       },
       "correct_answer": "D",
       "solution_steps": [
-        "El dinero se duplica cada año, lo que corresponde a un crecimiento exponencial.",
-        "El modelo general es D(t) = D₀ • r^t, donde D₀ es la cantidad inicial y r es el factor de crecimiento.",
-        "Aquí D₀ = 250 y r = 2 (se duplica).",
-        "Por lo tanto: D(t) = 250 • 2^t.",
-        "Respuesta: D."
+        "Monto inicial $= 250$.",
+        "Como se duplica cada año, el factor de crecimiento exponencial es $2^t$.",
+        "El modelo es $D(t) = 250 \\cdot 2^t$.",
+        "Opción correcta: A."
       ],
       "group_id": null,
       "visual_spec": null,
       "set_id": "set_1",
-      "statement": "Una persona abre una cuenta de ahorros especial que duplica el dinero depositado cada año que pasa. Si la cantidad inicial depositada fue de $250",
-      "problem": "¿cuál es el criterio del modelo matemático D(t) que explica la cantidad de dinero acumulado en función de los años t?"
+      "statement": "Una persona abre una cuenta de ahorros especial que duplica el dinero depositado cada año que pasa. Si la cantidad inicial depositada fue de \\$250",
+      "problem": "¿cuál es el criterio del modelo matemático $D(t)$ que explica la cantidad de dinero acumulado en función de los años $t$?"
     },
     {
       "id": 73,
@@ -2794,24 +2752,22 @@
         "evidence_desc": "Determina la función lineal, cuadrática, raíz cuadrada, exponencial o logarítmica que sirva de modelo en diversos contextos."
       },
       "options": {
-        "A": "500x",
-        "B": "2500x",
-        "C": "1000x + 1500",
-        "D": "1500x + 1000"
+        "A": "$\\text{\\mathbb{C}}183\\,940$",
+        "B": "$\\text{\\mathbb{C}}200\\,000$",
+        "C": "$\\text{\\mathbb{C}}250\\,000$",
+        "D": "$\\text{\\mathbb{C}}100\\,000$"
       },
       "correct_answer": "C",
       "solution_steps": [
-        "El costo total es la suma de una tarifa fija (seguro) más un costo variable por kilómetro.",
-        "Tarifa fija: 1500",
-        "Costo variable: 1000 por kilómetro → 1000x",
-        "Por lo tanto: C(x) = 1000x + 1500.",
-        "Respuesta: C."
+        "Evaluar $V(5) = 500\\,000 \\cdot e^{-0{,}2(5)} = 500\\,000 \\cdot e^{-1}$.",
+        "Como $e^{-1} \\approx 0{,}367879$, $V(5) \\approx 500\\,000 \\cdot 0{,}367879 = 183\\,939{,}72 \\approx 183\\,940$.",
+        "Opción correcta: A."
       ],
       "group_id": null,
       "visual_spec": null,
       "set_id": "set_1",
-      "statement": "Una aplicación de transporte cobra una tarifa por viaje de 1500 por seguro de vida más 1000 por kilómetro del recorrido. Si x representa la cantidad de kilómetros recorridos y C(x) el costo total en colones",
-      "problem": "¿cuál es el criterio de la función C(x) que describe la situación anterior?"
+      "statement": "El valor $V(t)$ en colones de un equipo de cómputo se deprecia con el tiempo $t$ en años según el modelo exponencial $V(t) = 500\\,000 \\cdot e^{-0{,}2t}$.",
+      "problem": "¿Cuál es el valor aproximado del equipo al transcurrir $5$ años?"
     },
     {
       "id": 74,
@@ -2826,24 +2782,24 @@
         "evidence_desc": "Determina la función lineal, cuadrática, raíz cuadrada, exponencial o logarítmica que sirva de modelo en diversos contextos."
       },
       "options": {
-        "A": "9x²",
-        "B": "3x²",
-        "C": "(1/3)x²",
-        "D": "(1/9)x²"
+        "A": "$9x^2$",
+        "B": "$3x^2$",
+        "C": "$\\frac{1}{3}x^2$",
+        "D": "$\\frac{1}{9}x^2$"
       },
       "correct_answer": "B",
       "solution_steps": [
-        "Sea x el ancho de la pantalla.",
-        "El largo es el triple del ancho: largo = 3x.",
-        "El área de un rectángulo es ancho × largo:",
-        "A(x) = x · 3x = 3x²",
+        "Sea $x$ el ancho de la pantalla.",
+        "El largo es el triple del ancho: $\\text{largo} = 3x$.",
+        "El área de un rectángulo es $\\text{ancho} \\times \\text{largo}$:",
+        "$A(x) = x \\cdot 3x = 3x^2$",
         "Respuesta: B."
       ],
       "group_id": null,
       "visual_spec": null,
       "set_id": "set_1",
-      "statement": "En el diseño de la pantalla de un nuevo teléfono inteligente, el largo de la pantalla mide el triple de su ancho. Si el área total de la pantalla se calcula en milímetros cuadrados",
-      "problem": "¿cuál es el criterio que modela correctamente el área A(x) de la pantalla en función de su ancho denotado con “x”?"
+      "statement": "Un fabricante produce pantallas rectangulares donde la longitud del largo es el triple del ancho. El área total de la pantalla se calcula en milímetros cuadrados",
+      "problem": "¿cuál es el criterio que modela correctamente el área $A(x)$ de la pantalla en función de su ancho denotado con “$x$”?"
     },
     {
       "id": 75,
@@ -2858,24 +2814,24 @@
         "evidence_desc": "Identifica modelos matemáticos que involucran las funciones logarítmicas en diversos contextos."
       },
       "options": {
-        "A": "log₂(t)",
-        "B": "log₃(t)",
-        "C": "log₅(t)",
-        "D": "log₈(t)"
+        "A": "$\\log_2(t)$",
+        "B": "$\\log_3(t)$",
+        "C": "$\\log_5(t)$",
+        "D": "$\\log_8(t)$"
       },
       "correct_answer": "A",
       "solution_steps": [
-        "Se busca una función logarítmica C(t) = log_b(t) tal que C(8) = 3.",
-        "Probando con base b: log_b(8) = 3 → b³ = 8 → b = 2.",
-        "Por lo tanto, C(t) = log₂(t).",
-        "Verificación: C(8) = log₂(8) = 3. ✓",
+        "Se busca una función logarítmica $C(t) = \\log_b(t)$ tal que $C(8) = 3$.",
+        "Probando con base $b$: $\\log_b(8) = 3 \\rightarrow b^3 = 8 \\rightarrow b = 2$.",
+        "Por lo tanto, $C(t) = \\log_2(t)$.",
+        "Verificación: $C(8) = \\log_2(8) = 3$.",
         "Respuesta: A."
       ],
       "group_id": null,
       "visual_spec": null,
       "set_id": "set_1",
-      "statement": "Un biólogo determina que el crecimiento C(t) de una colonia de hongos se comporta según un modelo logarítmico que depende del tiempo (t) en días. Si a los 8 días el crecimiento registra un valor exacto de 3",
-      "problem": "¿cuál es el criterio de C(t) que modela correctamente esta situación?"
+      "statement": "Un biólogo determina que el crecimiento $C(t)$ de una colonia de hongos se comporta según un modelo logarítmico que depende del tiempo ($t$) en días. Si a los $8$ días el crecimiento registra un valor exacto de $3$",
+      "problem": "¿cuál es el criterio de $C(t)$ que modela correctamente esta situación?"
     },
     {
       "id": 76,
@@ -2890,18 +2846,18 @@
         "evidence_desc": "Determina la media aritmética ponderada en datos que se encuentran agrupados en una distribución de frecuencias en diversos contextos."
       },
       "options": {
-        "A": "8",
-        "B": "12",
-        "C": "15",
-        "D": "20"
+        "A": "$8$",
+        "B": "$12$",
+        "C": "$15$",
+        "D": "$20$"
       },
       "correct_answer": "B",
       "solution_steps": [
-        "Se calcula el punto medio de cada clase: (0+10)/2 = 5; (10+20)/2 = 15; (20+30)/2 = 25.",
-        "Se multiplica cada punto medio por su frecuencia: 5×50 = 250; 15×30 = 450; 25×20 = 500.",
-        "Se suman los productos: 250 + 450 + 500 = 1200.",
-        "Se divide entre el total de estudiantes: 1200 / 100 = 12.",
-        "El promedio es 12 km diarios."
+        "Se calcula el punto medio de cada clase: $(0+10)/2 = 5$; $(10+20)/2 = 15$; $(20+30)/2 = 25$.",
+        "Se multiplica cada punto medio por su frecuencia: $5 \\times 50 = 250$; $15 \\times 30 = 450$; $25 \\times 20 = 500$.",
+        "Se suman los productos: $250 + 450 + 500 = 1200$.",
+        "Se divide entre el total de estudiantes: $1200 / 100 = 12$.",
+        "El promedio es $12\\text{ km}$ diarios."
       ],
       "group_id": null,
       "visual_spec": {
@@ -2935,7 +2891,7 @@
         }
       },
       "set_id": "set_1",
-      "statement": "Se realizó un estudio para determinar la cantidad de kilómetros diarios que recorren 100 estudiantes para asistir al centro educativo. A continuación, se muestran los resultados obtenidos:",
+      "statement": "Se realizó un estudio para determinar la cantidad de kilómetros diarios que recorren $100$ estudiantes para asistir al centro educativo. A continuación, se muestran los resultados obtenidos:",
       "problem": "¿Cuál es el promedio de kilómetros diarios que recorre cada estudiante para llegar al centro educativo?"
     },
     {
@@ -2951,16 +2907,16 @@
         "evidence_desc": "Determina la media aritmética en grupos de datos que tienen pesos relativos (o ponderación) diferentes entre sí en diversos contextos."
       },
       "options": {
-        "A": "78,50",
-        "B": "79,50",
-        "C": "81,25",
-        "D": "82,50"
+        "A": "$78{,}50$",
+        "B": "$79{,}50$",
+        "C": "$81{,}25$",
+        "D": "$82{,}50$"
       },
       "correct_answer": "B",
       "solution_steps": [
-        "Se multiplica cada calificación por su peso porcentual: 70×0,30 = 21; 80×0,35 = 28; 90×0,15 = 13,5; 85×0,20 = 17.",
-        "Se suman los productos: 21 + 28 + 13,5 + 17 = 79,5.",
-        "La nota final es 79,50."
+        "Se multiplica cada calificación por su peso porcentual: $70 \\times 0{,}30 = 21$; $80 \\times 0{,}35 = 28$; $90 \\times 0{,}15 = 13{,}5$; $85 \\times 0{,}20 = 17$.",
+        "Se suman los productos: $21 + 28 + 13{,}5 + 17 = 79{,}5$.",
+        "La nota final es $79{,}50$."
       ],
       "group_id": null,
       "visual_spec": {
@@ -3014,16 +2970,16 @@
         "evidence_desc": "Identifica la ubicación aproximada de las medidas de posición de acuerdo con el tipo de asimetría de la distribución de los datos en diversos contextos."
       },
       "options": {
-        "A": "igual que 85.",
-        "B": "menor que 80.",
-        "C": "mayor que 85.",
-        "D": "mayor que 80 y menor que 85."
+        "A": "igual que $85$.",
+        "B": "menor que $80$.",
+        "C": "mayor que $85$.",
+        "D": "mayor que $80$ y menor que $85$."
       },
       "correct_answer": "B",
       "solution_steps": [
         "En una distribución asimétrica negativa (cola hacia la izquierda), la moda es mayor que la mediana, y la mediana es mayor que la media.",
-        "Dado que moda = 85 y mediana = 80, se cumple: media < mediana < moda, es decir, media < 80 < 85.",
-        "Por lo tanto, la calificación promedio es menor que 80."
+        "Dado que $\\text{moda} = 85$ y $\\text{mediana} = 80$, se cumple: $\\text{media} < \\text{mediana} < \\text{moda}$, es decir, $\\text{media} < 80 < 85$.",
+        "Por lo tanto, la calificación promedio es menor que $80$."
       ],
       "group_id": null,
       "visual_spec": {
@@ -3055,7 +3011,7 @@
         }
       },
       "set_id": "set_1",
-      "statement": "La distribución de los datos correspondientes a las calificaciones de un examen de admisión universitario presenta una asimetría. De acuerdo con el reporte del departamento de registro, se determinó que 80 puntos representan a la mediana de esos datos y 85 puntos representan a la moda.",
+      "statement": "La distribución de los datos correspondientes a las calificaciones de un examen de admisión universitario presenta una asimetría. De acuerdo con el reporte del departamento de registro, se determinó que $80$ puntos representan a la mediana de esos datos y $85$ puntos representan a la moda.",
       "problem": "Con certeza, la calificación promedio de los estudiantes en ese examen fue:"
     },
     {
@@ -3071,16 +3027,16 @@
         "evidence_desc": "Resuelve problemas de diversos contextos relacionados con la variabilidad de un grupo de datos a partir de la información que proporcionan algunas medidas (recorrido, recorrido intercuartílico, la variancia o la desviación estándar)."
       },
       "options": {
-        "A": "12 y 16 horas.",
-        "B": "16 y 22 horas.",
-        "C": "16 y 28 horas.",
-        "D": "12 y 28 horas"
+        "A": "$12$ y $16\\text{ horas}$.",
+        "B": "$16$ y $22\\text{ horas}$.",
+        "C": "$16$ y $28\\text{ horas}$.",
+        "D": "$12$ y $28\\text{ horas}$"
       },
       "correct_answer": "B",
       "solution_steps": [
-        "El recorrido intercuartílico (Q3 − Q1) contiene al menos el 50 % de los datos.",
-        "Q1 = 16 y Q3 = 22.",
-        "Por lo tanto, al menos el 50 % de las baterías tienen una duración entre 16 y 22 horas."
+        "El recorrido intercuartílico ($Q_3 - Q_1$) contiene al menos el $50\\%$ de los datos.",
+        "$Q_1 = 16$ y $Q_3 = 22$.",
+        "Por lo tanto, al menos el $50\\%$ de las baterías tienen una duración entre $16$ y $22\\text{ horas}$."
       ],
       "group_id": null,
       "visual_spec": {
@@ -3108,7 +3064,7 @@
       },
       "set_id": "set_1",
       "statement": "Considere la siguiente información referida a la duración (en horas continuas) de las baterías de una marca de teléfonos inteligentes:",
-      "problem": "Con base en la información anterior, se cumple con certeza que al menos el 50 % de las baterías tienen una duración entre"
+      "problem": "Con base en la información anterior, se cumple con certeza que al menos el $50\\%$ de las baterías tienen una duración entre"
     },
     {
       "id": 80,
@@ -3123,23 +3079,23 @@
         "evidence_desc": "Resuelve problemas de diversos contextos relacionados con probabilidades obtenidas mediante axiomas o propiedades básicas."
       },
       "options": {
-        "A": "1/80",
-        "B": "7/80",
-        "C": "23/80",
-        "D": "57/80"
+        "A": "$\\frac{1}{80}$",
+        "B": "$\\frac{7}{80}$",
+        "C": "$\\frac{23}{80}$",
+        "D": "$\\frac{57}{80}$"
       },
       "correct_answer": "C",
       "solution_steps": [
-        "E: repostería dulce con café negro = 8 órdenes.",
-        "F: repostería salada con café negro = 15 órdenes.",
-        "E ∩ F = 0 (una orden no puede ser simultáneamente dulce y salada).",
-        "P(E ∪ F) = P(E) + P(F) − P(E ∩ F) = (8/80) + (15/80) − 0 = 23/80."
+        "$E$: repostería dulce con café negro $= 8$ órdenes.",
+        "$F$: repostería salada con café negro $= 15$ órdenes.",
+        "$E \\cap F = \\emptyset$ ($0$ órdenes en común).",
+        "$P(E \\cup F) = P(E) + P(F) - P(E \\cap F) = \\frac{8}{80} + \\frac{15}{80} - 0 = \\frac{23}{80}$."
       ],
       "group_id": "g_cont_table",
       "visual_spec": null,
       "set_id": "set_1",
       "statement": "Con base en la información dada en la tabla de contingencia, se establecen los siguientes eventos al elegir al azar para control de calidad: E: Que la orden incluya una repostería dulce con café negro. F: Que la orden incluya una repostería salada con café negro. G: Que la orden incluya una repostería salada con un café con leche o jugo natural. H: Que la orden sea de repostería dulce o salada acompañado de jugo natural.",
-      "problem": "¿Cuál es la probabilidad de que ocurra el evento E ∪ F?"
+      "problem": "¿Cuál es la probabilidad de que ocurra el evento $E \\cup F$?"
     },
     {
       "id": 81,
@@ -3154,17 +3110,17 @@
         "evidence_desc": "Reconoce eventos aleatorios mutuamente excluyentes, en diversos contextos."
       },
       "options": {
-        "A": "F° ∪ G°",
-        "B": "F° ∩ G°",
-        "C": "F ∩ G",
-        "D": "F ∪ G"
+        "A": "$F^c \\cup G^c$",
+        "B": "$F^c \\cap G^c$",
+        "C": "$F \\cap G$",
+        "D": "$F \\cup G$"
       },
       "correct_answer": "C",
       "solution_steps": [
-        "F: repostería salada con café negro (15 órdenes).",
-        "G: repostería salada con café con leche o jugo natural (16 + 14 = 30 órdenes).",
-        "F ∩ G requeriría una orden de repostería salada que incluya simultáneamente café negro y (café con leche o jugo natural), lo cual es imposible porque cada orden tiene una sola bebida.",
-        "Por lo tanto, F ∩ G es un evento imposible."
+        "$F$: repostería salada con café negro ($15$ órdenes).",
+        "$G$: repostería salada con café con leche o jugo natural ($16 + 14 = 30$ órdenes).",
+        "$F \\cap G$ requeriría una orden de repostería salada que incluya simultáneamente café negro y otra bebida, lo cual es imposible.",
+        "Por lo tanto, $F \\cap G$ es un evento imposible."
       ],
       "group_id": "g_cont_table",
       "visual_spec": null,
@@ -3185,17 +3141,17 @@
         "evidence_desc": "Determina los puntos muestrales del evento aleatorio obtenido mediante las operaciones: unión 'U', intersección '∩' o 'complemento' de dos o más eventos aleatorios en diversos contextos."
       },
       "options": {
-        "A": "36/43",
-        "B": "18/43",
-        "C": "0",
-        "D": "1"
+        "A": "$\\frac{36}{43}$",
+        "B": "$\\frac{18}{43}$",
+        "C": "$0$",
+        "D": "$1$"
       },
       "correct_answer": "C",
       "solution_steps": [
-        "Del diagrama de Venn se observa que no hay región de intersección triple (Música ∩ Pintura ∩ Ballet).",
-        "El número de estudiantes en las tres disciplinas es 0.",
-        "El total de estudiantes es 8 + 4 + 11 + 3 + 17 = 43.",
-        "P(tres disciplinas) = 0/43 = 0."
+        "Del diagrama de Venn se observa que no hay región de intersección triple (Música $\\cap$ Pintura $\\cap$ Ballet).",
+        "El número de estudiantes en las tres disciplinas es $0$.",
+        "El total de estudiantes es $8 + 4 + 11 + 3 + 17 = 43$.",
+        "$P(\\text{tres disciplinas}) = \\frac{0}{43} = 0$."
       ],
       "group_id": "g_venn_3set",
       "visual_spec": null,
@@ -3216,16 +3172,16 @@
         "evidence_desc": "Determina los puntos muestrales del evento aleatorio obtenido mediante las operaciones: unión 'U', intersección '∩' o 'complemento' de dos o más eventos aleatorios en diversos contextos."
       },
       "options": {
-        "A": "7/43",
-        "B": "14/43",
-        "C": "15/43",
-        "D": "20/43"
+        "A": "$\\frac{7}{43}$",
+        "B": "$\\frac{14}{43}$",
+        "C": "$\\frac{15}{43}$",
+        "D": "$\\frac{20}{43}$"
       },
       "correct_answer": "A",
       "solution_steps": [
-        "Estudiantes en exactamente dos disciplinas: Música ∩ Pintura (4) + Pintura ∩ Ballet (3) + Música ∩ Ballet (0) = 7.",
-        "Total de estudiantes: 8 + 4 + 11 + 3 + 17 = 43.",
-        "P(exactamente dos disciplinas) = 7/43."
+        "Estudiantes en exactamente dos disciplinas: Música $\\cap$ Pintura ($4$) + Pintura $\\cap$ Ballet ($3$) + Música $\\cap$ Ballet ($0$) $= 7$.",
+        "Total de estudiantes: $8 + 4 + 11 + 3 + 17 = 43$.",
+        "$P(\\text{exactamente dos disciplinas}) = \\frac{7}{43}$."
       ],
       "group_id": "g_venn_3set",
       "visual_spec": null,
@@ -3246,17 +3202,17 @@
         "evidence_desc": "Interpreta la información que proporcionan algunas medidas de posición (moda, media aritmética, mediana, cuartiles, el máximo o el mínimo) de un grupo de datos resumido en situaciones de diversos contextos."
       },
       "options": {
-        "A": "45",
-        "B": "33",
-        "C": "23",
-        "D": "19"
+        "A": "$45$",
+        "B": "$33$",
+        "C": "$23$",
+        "D": "$19$"
       },
       "correct_answer": "D",
       "solution_steps": [
         "Se observan los valores mínimos de ambos diagramas de caja.",
-        "El mínimo de la empresa A es 23 años.",
-        "El mínimo de la empresa B es 19 años.",
-        "El empleado de menor edad entre ambas empresas tiene 19 años."
+        "El mínimo de la empresa A es $23$ años.",
+        "El mínimo de la empresa B es $19$ años.",
+        "El empleado de menor edad entre ambas empresas tiene $19$ años."
       ],
       "group_id": "g_emp_ages",
       "visual_spec": null,
@@ -3278,16 +3234,16 @@
       },
       "options": {
         "A": "El empleado de mayor edad pertenece únicamente a la empresa A.",
-        "B": "En ambas empresas al menos un 50% de sus empleados tienen 33 años o más.",
-        "C": "En la empresa B al menos el 75% de sus empleados tiene 38 años cumplidos o más.",
-        "D": "Con certeza en ambas empresas hay al menos un empleado con una edad de 33 años cumplidos."
+        "B": "En ambas empresas al menos un $50\\%$ de sus empleados tienen $33$ años o más.",
+        "C": "En la empresa B al menos el $75\\%$ de sus empleados tiene $38$ años cumplidos o más.",
+        "D": "Con certeza en ambas empresas hay al menos un empleado con una edad de $33$ años cumplidos."
       },
       "correct_answer": "B",
       "solution_steps": [
-        "A) Falso: el valor máximo de ambas empresas es 52, por lo que el empleado de mayor edad podría pertenecer a cualquiera de las dos.",
-        "B) Verdadero: la mediana de la empresa A es 38 (≥ 33) y la mediana de la empresa B es 33 (≥ 33); por lo tanto, al menos el 50 % de los empleados de cada empresa tiene 33 años o más.",
-        "C) Falso: en la empresa B, Q1 = 25, por lo que solo el 75 % tiene 25 años o más, no 38.",
-        "D) Falso: no se puede garantizar que exista un empleado con exactamente 33 años en ambas empresas."
+        "A) Falso: el valor máximo de ambas empresas es $52$, por lo que el empleado de mayor edad podría pertenecer a cualquiera de las dos.",
+        "B) Verdadero: la mediana de la empresa A es $38 \\ge 33$ y la mediana de la empresa B es $33 \\ge 33$; por lo tanto, al menos el $50\\%$ de los empleados de cada empresa tiene $33$ años o más.",
+        "C) Falso: en la empresa B, $Q_1 = 25$, por lo que solo el $75\\%$ tiene $25$ años o más, no $38$.",
+        "D) Falso: no se puede garantizar que exista un empleado con exactamente $33$ años en ambas empresas."
       ],
       "group_id": "g_emp_ages",
       "visual_spec": null,
@@ -3315,12 +3271,12 @@
       },
       "correct_answer": "B",
       "solution_steps": [
-        "El coeficiente de variación se calcula como Cv = (desviación estándar / media aritmética) × 100.",
-        "Cv_H = (4,4 / 15) × 100 = 29,33 %",
-        "Cv_Q = (4,5 / 16) × 100 = 28,13 %",
-        "Cv_S = (5,3 / 18) × 100 = 29,44 %",
-        "Cv_P = (5,0 / 17) × 100 = 29,41 %",
-        "El menor coeficiente de variación corresponde al grupo Q (28,13 %)."
+        "El coeficiente de variación se calcula como $C_v = \\frac{\\text{desviación estándar}}{\\text{media aritmética}} \\times 100$.",
+        "$C_{v,H} = \\frac{4{,}4}{15} \\times 100 = 29{,}33\\%$",
+        "$C_{v,Q} = \\frac{4{,}5}{16} \\times 100 = 28{,}13\\%$",
+        "$C_{v,S} = \\frac{5{,}3}{18} \\times 100 = 29{,}44\\%$",
+        "$C_{v,P} = \\frac{5{,}0}{17} \\times 100 = 29{,}41\\%$",
+        "El menor coeficiente de variación corresponde al grupo Q ($28{,}13\\%$)."
       ],
       "group_id": "g_volunteer",
       "visual_spec": null,
@@ -3348,18 +3304,18 @@
       },
       "correct_answer": "C",
       "solution_steps": [
-        "Se calcula la posición relativa (estandarización) de cada persona: Pr = (dato − media) / desviación estándar.",
-        "Sofía (H): Pr = (15 − 15) / 4,4 = 0",
-        "María (Q): Pr = (17 − 16) / 4,5 = 0,222",
-        "Andrés (S): Pr = (19 − 18) / 5,3 = 0,189",
-        "Rosa (P): Pr = (16 − 17) / 5,0 = −0,2",
-        "El mayor valor de posición relativa corresponde a María (0,222), por lo que presenta el mejor desempeño relativo."
+        "Se calcula la posición relativa (estandarización) de cada persona: $P_r = \\frac{\\text{dato} - \\text{media}}{\\text{desviación estándar}}$.",
+        "Sofía (H): $P_r = \\frac{15 - 15}{4{,}4} = 0$",
+        "María (Q): $P_r = \\frac{17 - 16}{4{,}5} = 0{,}222$",
+        "Andrés (S): $P_r = \\frac{19 - 18}{5{,}3} = 0{,}189$",
+        "Rosa (P): $P_r = \\frac{16 - 17}{5{,}0} = -0{,}2$",
+        "El mayor valor de posición relativa corresponde a María ($0{,}222$), por lo que presenta el mejor desempeño relativo."
       ],
       "group_id": "g_volunteer",
       "visual_spec": null,
       "set_id": "set_1",
       "statement": "La siguiente tabla muestra la información relacionada con las horas mensuales dedicadas por cuatro grupos de personas voluntarias:",
-      "problem": "Sofía pertenece al Grupo H y dedica 15 horas mensualmente al trabajo de voluntariado. María pertenece al Grupo Q y dedica 17 horas mensualmente al trabajo de voluntariado. Andrés pertenece al Grupo S y dedica 19 horas mensualmente al trabajo de voluntariado. Rosa pertenece al Grupo P y dedica 16 horas mensuales al trabajo de voluntariado. En términos relativos y con respecto a su grupo de referencia, la persona que presenta el mejor desempeño en cuanto a la cantidad de horas dedicadas al voluntariado corresponde a"
+      "problem": "Sofía pertenece al Grupo H y dedica $15\\text{ horas}$ mensualmente al trabajo de voluntariado. María pertenece al Grupo Q y dedica $17\\text{ horas}$ mensualmente al trabajo de voluntariado. Andrés pertenece al Grupo S y dedica $19\\text{ horas}$ mensualmente al trabajo de voluntariado. Rosa pertenece al Grupo P y dedica $16\\text{ horas}$ mensuales al trabajo de voluntariado. En términos relativos y con respecto a su grupo de referencia, la persona que presenta el mejor desempeño en cuanto a la cantidad de horas dedicadas al voluntariado corresponde a"
     }
   ],
   "sets": [
