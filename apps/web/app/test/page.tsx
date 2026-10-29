@@ -4,7 +4,7 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
-import { Clock, Flag, BookOpen, Shapes, BarChart3, Binary, RotateCcw, Lightbulb } from "lucide-react";
+import { Clock, Flag, BookOpen, Shapes, BarChart3, Binary, RotateCcw, Lightbulb, ALargeSmall, Maximize2 } from "lucide-react";
 import type { QuizData } from "@/lib/types";
 import ImageModal from "@/app/components/ImageModal";
 import ConfirmModal from "@/app/components/ConfirmModal";
@@ -25,10 +25,14 @@ const quizData: QuizData = quizDataRaw as unknown as QuizData;
 
 import { FULL_TEST_TOPICS } from "@/lib/constants";
 
+const GRAPH_SCALE_STEPS = [0.8, 1, 1.2] as const;
+
 export default function QuestionPage() {
   const router = useRouter();
-  const { increase, decrease, scale, scaleIndex, steps } = useFontScale();
+  const { scale, scaleIndex, steps, setScaleIndex } = useFontScale();
   const hintWidth = useHintPanelWidth();
+  const [graphScaleIndex, setGraphScaleIndex] = useState(1);
+  const graphScale = GRAPH_SCALE_STEPS[graphScaleIndex];
 
   // Modals state
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
@@ -246,22 +250,20 @@ export default function QuestionPage() {
 
             <div className="flex items-center gap-1 md:gap-2">
               <button
-                onClick={decrease}
-                disabled={scaleIndex === 0}
-                className="flex items-center justify-center w-8 h-8 md:w-14 md:h-14 bg-card rounded-sm border border-border shadow-sm hover:bg-muted transition-colors disabled:opacity-30"
-                title="Reducir tamaño de texto"
-                aria-label="Reducir tamaño de texto"
+                onClick={() => setScaleIndex((scaleIndex + 1) % steps.length)}
+                className="flex items-center justify-center w-8 h-8 md:w-14 md:h-14 bg-card rounded-sm border border-border shadow-sm hover:bg-muted transition-colors"
+                title="Tamaño de texto"
+                aria-label="Tamaño de texto"
               >
-                <span className="text-xs md:text-sm font-bold text-foreground">A−</span>
+                <ALargeSmall className="w-4 h-4 md:w-5 md:h-5 text-foreground" />
               </button>
               <button
-                onClick={increase}
-                disabled={scaleIndex === steps.length - 1}
-                className="flex items-center justify-center w-8 h-8 md:w-14 md:h-14 bg-card rounded-sm border border-border shadow-sm hover:bg-muted transition-colors disabled:opacity-30"
-                title="Aumentar tamaño de texto"
-                aria-label="Aumentar tamaño de texto"
+                onClick={() => setGraphScaleIndex((graphScaleIndex + 1) % GRAPH_SCALE_STEPS.length)}
+                className="flex items-center justify-center w-8 h-8 md:w-14 md:h-14 bg-card rounded-sm border border-border shadow-sm hover:bg-muted transition-colors"
+                title="Tamaño del gráfico"
+                aria-label="Tamaño del gráfico"
               >
-                <span className="text-base md:text-xl font-bold text-foreground">A+</span>
+                <Maximize2 className="w-4 h-4 md:w-5 md:h-5 text-foreground" />
               </button>
             </div>
             
@@ -315,7 +317,7 @@ export default function QuestionPage() {
           </aside>
         )}
 
-        <div key="question" className="flex-1 min-w-0 min-h-0 overflow-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden" style={{ zoom: scale }}>
+        <div key="question" className="flex-1 min-w-0 min-h-0 overflow-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden" style={{ zoom: scale, "--graph-zoom": graphScale / scale } as React.CSSProperties}>
           <div className="px-8 mx-auto h-full flex flex-col">
             <QuestionExperience
               question={currentQuestion}

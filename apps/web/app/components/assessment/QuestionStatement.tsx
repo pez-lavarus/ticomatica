@@ -70,6 +70,7 @@ export function QuestionStatement({
           <div className="min-w-0 flex justify-center group-data-[split=true]:flex-1">
             <div
               className="w-fit max-w-full rounded-sm border border-border overflow-hidden cursor-zoom-in hover:border-accent transition-colors bg-white shadow-sm"
+              style={{ transform: "scale(var(--graph-zoom))" }}
               onDoubleClick={() => onOpenImageModal(sharedImageSrc, "Imagen de apoyo")}
               onTouchStart={() => handleTouchStart(sharedImageSrc, "Imagen de apoyo")}
               onTouchEnd={handleTouchEnd}
