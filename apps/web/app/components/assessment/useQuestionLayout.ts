@@ -222,6 +222,7 @@ export function useQuestionLayout({
         containerHeight: box.height,
         hasGraph,
         fixedGraphMax: graphSrc ? graphMaxCache.get(graphSrc) : undefined,
+        graphAspect: graphSrc ? getGraphAspect(graphSrc) : undefined,
         previous,
         panels: {
           statement: createMeasurer(

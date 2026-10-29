@@ -80,7 +80,7 @@ export function QuestionStatement({
                 alt="Imagen de apoyo"
                 width={graphDimensions?.width ?? 800}
                 height={graphDimensions?.height ?? 600}
-                className="graph-image block w-auto h-auto max-w-full max-h-[var(--graph-max,300px)] md:max-h-[var(--graph-max,450px)] object-contain pointer-events-none"
+                className="graph-image block w-auto h-auto max-w-full max-h-[var(--graph-max,300px)] md:max-h-[var(--graph-max,560px)] object-contain pointer-events-none"
               />
             </div>
           </div>

@@ -72,6 +72,9 @@ export interface PlanInput {
    *  graph keeps a fixed, consistent size: it is never re-shrunk or re-grown,
    *  even when the question changes or the window resizes. */
   fixedGraphMax?: number | null;
+  /** Natural aspect ratio (width / height) of the graph, used to avoid the
+   *  split arrangement for very wide figures. */
+  graphAspect?: number | null;
 }
 
 export interface LayoutPlan {
@@ -101,8 +104,18 @@ export const GAP_BREAKPOINT_PX = 720;
 /** Widest a text-led panel gets: about 75 characters of the serif body font. */
 export const IDEAL_WIDTH_CAP_PX = 760;
 
+/** Widest a graph-led statement gets. Anchored to the wide "Estadística y
+ *  Probabilidad" item 9 chart (1920x558), so graphs are given more horizontal
+ *  space to stay clear instead of being capped at the text measure. */
+export const GRAPH_WIDTH_CAP_PX = 1600;
+
+/** Graphs wider than this aspect ratio are never placed beside the text
+ *  (split), because splitting would squeeze the wide figure into a tiny,
+ *  unreadable box. */
+export const GRAPH_SPLIT_MAX_ASPECT = 2;
+
 export const STATEMENT_MIN_PX = 300;
-export const STATEMENT_WITH_GRAPH_MIN_PX = 340;
+export const STATEMENT_WITH_GRAPH_MIN_PX = 400;
 export const STATEMENT_SPLIT_MIN_PX = 620;
 export const OPTIONS_MIN_PX = 240;
 // padding (64) + two columns of at least 200 + their gap (24).
@@ -110,7 +123,7 @@ export const OPTIONS_TWO_COLUMN_MIN_PX = 64 + 2 * 200 + 24;
 export const EXPLANATION_MIN_PX = 340;
 
 /** Graph max-heights tried, largest first, when the screen would overflow. */
-export const GRAPH_LADDER: ReadonlyArray<number | null> = [null, 340, 280, 220, 170, 140];
+export const GRAPH_LADDER: ReadonlyArray<number | null> = [null, 440, 360, 300, 240, 180, 140];
 
 /** Sub-pixel slack so rounding never clips the last row of a panel. */
 export const SAFETY_PX = 1;
@@ -264,7 +277,8 @@ function layoutCandidate(
     const v = variantOf(id);
     const min = minPanelWidth(id, v, ctx.hasGraph);
     const content = measurer(id).maxContentWidth(v, graphValue);
-    return Math.min(clamp(content, min, Math.max(min, IDEAL_WIDTH_CAP_PX)), Math.max(ctx.width, 1));
+    const cap = id === S && ctx.hasGraph && !v.split ? GRAPH_WIDTH_CAP_PX : IDEAL_WIDTH_CAP_PX;
+    return Math.min(clamp(content, min, Math.max(min, cap)), Math.max(ctx.width, 1));
   };
 
   const columnInfo = template.bands.map((band) =>
@@ -367,7 +381,9 @@ function scoreCandidate(c: Candidate, ctx: Context, previous?: LayoutPlan | null
     area += a;
     waste += a * Math.max(0, 1 - contentWidth / rect.width);
     score += W_TALL * Math.max(0, rect.height / rect.width - TALL_RATIO);
-    score += W_LONG_LINE * Math.max(0, (rect.width - IDEAL_WIDTH_CAP_PX) / IDEAL_WIDTH_CAP_PX);
+    if (id !== S || !ctx.hasGraph) {
+      score += W_LONG_LINE * Math.max(0, (rect.width - IDEAL_WIDTH_CAP_PX) / IDEAL_WIDTH_CAP_PX);
+    }
   }
   if (area > 0) score += W_WASTE * (waste / area);
 
@@ -412,6 +428,9 @@ export function planQuestionLayout(input: PlanInput): LayoutPlan {
   };
 
   const templates = withExplanation ? TEMPLATES_THREE : TEMPLATES_TWO;
+  const statementVariants = input.panels.statement.variants.filter(
+    (v) => !(v.split && input.graphAspect && input.graphAspect > GRAPH_SPLIT_MAX_ASPECT),
+  );
   const ladder =
     hasGraph && input.fixedGraphMax !== undefined
       ? [input.fixedGraphMax]
@@ -422,7 +441,7 @@ export function planQuestionLayout(input: PlanInput): LayoutPlan {
   let best: { candidate: Candidate; score: number } | null = null;
 
   for (const template of templates) {
-    for (const sv of input.panels.statement.variants) {
+    for (const sv of statementVariants) {
       for (const ov of input.panels.options.variants) {
         // Shrink the graph only as far as needed to fit this arrangement.
         let chosen: Candidate | null = null;

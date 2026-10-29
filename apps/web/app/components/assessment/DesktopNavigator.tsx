@@ -33,7 +33,7 @@ interface DesktopNavigatorProps {
   onNext: () => void;
   isLastQuestionInSection: boolean;
   hasMoreSections: boolean;
-}
+} 
 
 export function DesktopNavigator({
   testMode,
