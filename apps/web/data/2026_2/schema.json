@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/mep-ea-01/content.schema.json",
+  "title": "MEP-EA-01 Content Schema (questions.json)",
+  "type": "object",
+  "required": ["schema_version", "exam", "convocatoria", "items"],
+  "properties": {
+    "schema_version": { "const": "1.0" },
+    "exam": { "type": "string" },
+    "convocatoria": { "type": "string" },
+    "language": { "type": "string" },
+    "source": { "type": "string" },
+    "specification": { "type": "string" },
+    "solucionario_verified": { "type": "boolean" },
+    "total_items": { "type": "integer" },
+    "sections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "item_range", "total_items"],
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "item_range": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "type": "integer" } },
+          "total_items": { "type": "integer" },
+          "distribution": { "type": "object" }
+        }
+      }
+    },
+    "sets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "description", "total_items"],
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "total_items": { "type": "integer" }
+        }
+      }
+    },
+    "notes": { "type": "array", "items": { "type": "string" } },
+    "items": { "type": "array", "items": { "$ref": "#/$defs/item" } }
+  },
+  "$defs": {
+    "item": {
+      "type": "object",
+      "required": ["id", "area", "area_id", "topic", "spec", "stem", "options", "correct_answer", "solution_steps", "group_id", "visual_spec"],
+      "properties": {
+        "id": { "type": "integer", "minimum": 1 },
+        "set_id": { "type": "string" },
+        "area": { "type": "string" },
+        "area_id": { "enum": ["geometry", "functions", "statistics"] },
+        "topic": { "type": "string" },
+        "spec": { "$ref": "#/$defs/spec" },
+        "stem": { "type": "string" },
+        "options": {
+          "type": "object",
+          "required": ["A", "B", "C", "D"],
+          "properties": {
+            "A": { "type": "string" },
+            "B": { "type": "string" },
+            "C": { "type": "string" },
+            "D": { "type": "string" }
+          },
+          "additionalProperties": false
+        },
+        "correct_answer": { "enum": ["A", "B", "C", "D"] },
+        "solution_steps": { "type": "array", "items": { "type": "string" } },
+        "group_id": { "type": ["string", "null"] },
+        "visual_spec": { "$ref": "#/$defs/visual_spec" },
+        "flags": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    },
+    "spec": {
+      "type": "object",
+      "required": ["block", "affirmation", "evidence", "evidence_desc"],
+      "properties": {
+        "block": { "type": "string" },
+        "affirmation": { "type": "string", "pattern": "^A[0-9]+$" },
+        "affirmation_desc": { "type": ["string", "null"] },
+        "evidence": { "type": "string", "pattern": "^A[0-9]+\\.[0-9]+$" },
+        "evidence_desc": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "visual_spec": {
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "required": ["alt", "visual"],
+          "properties": {
+            "alt": { "type": "string" },
+            "visual": { "$ref": "#/$defs/visual" }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "visual": {
+      "type": "object",
+      "required": ["type"],
+      "oneOf": [
+        { "properties": { "type": { "const": "cartesian_2d" }, "domain": { "$ref": "#/$defs/domain" }, "children": { "type": "array", "items": { "$ref": "#/$defs/primitive" } } }, "additionalProperties": true },
+        { "properties": { "type": { "const": "multi_view_grid" }, "layout": { "type": "object" }, "views": { "type": "array", "items": { "type": "object", "required": ["label", "visual"], "properties": { "label": { "type": "string" }, "visual": { "$ref": "#/$defs/visual" } } } } }, "additionalProperties": true },
+        { "properties": { "type": { "const": "function_plot" }, "form": { "enum": ["linear", "quadratic", "piecewise", "sqrt", "exponential", "logarithmic"] }, "params": { "type": "object" }, "annotations": { "type": "object" } }, "additionalProperties": true },
+        { "properties": { "type": { "const": "curve_region" }, "path": { "type": "object" }, "straight_segments": { "type": "array" }, "base": { "type": "object" } }, "additionalProperties": true },
+        { "properties": { "type": { "const": "transformation_overlay" }, "figures": { "type": "array", "items": { "$ref": "#/$defs/primitive" } } }, "additionalProperties": true },
+        { "properties": { "type": { "const": "table" }, "variant": { "enum": ["frequency", "weighted", "summary", "contingency", "stats"] } }, "additionalProperties": true },
+        { "properties": { "type": { "const": "box_plot" }, "groups": { "type": "array" } }, "additionalProperties": true },
+        { "properties": { "type": { "const": "distribution_curve" }, "skew": { "enum": ["negative", "positive", "symmetric"] } }, "additionalProperties": true },
+        { "properties": { "type": { "const": "venn_diagram" }, "sets": { "type": "array" }, "region_values": { "type": "object" } }, "additionalProperties": true }
+      ]
+    },
+    "domain": {
+      "type": "object",
+      "required": ["x", "y"],
+      "properties": {
+        "x": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "type": "number" } },
+        "y": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "type": "number" } }
+      },
+      "additionalProperties": false
+    },
+    "primitive": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": { "enum": ["point", "label", "circle", "line", "ray", "polyline", "path", "polygon", "dashed_projection", "arrow"] }
+      },
+      "additionalProperties": true
+    }
+  }
+}

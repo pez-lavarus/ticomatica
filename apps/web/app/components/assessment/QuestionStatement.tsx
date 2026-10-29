@@ -5,12 +5,16 @@ import Image from "next/image";
 import { KaTeXText } from "@/lib/katex-utils";
 import { getGraphDimensions } from "@/lib/graph-aspects";
 import type { Question } from "@/lib/types";
+import type { VisualSpec } from "@/app/types";
+import { VisualRenderer } from "@/app/components/visuals/VisualRenderer";
 import { QuestionPanel } from "./QuestionPanel";
 import type { PanelSlot } from "./QuestionPanel";
 
 interface QuestionStatementProps {
   question: Question;
   sharedImageSrc?: string;
+  /** Structured graph spec rendered by `VisualRenderer`. */
+  visualSpec?: VisualSpec | null;
   onOpenImageModal: (src: string, alt: string) => void;
   /** Placement and measuring hooks from `useQuestionLayout`. */
   slot: PanelSlot;
@@ -23,6 +27,7 @@ interface QuestionStatementProps {
 export function QuestionStatement({
   question,
   sharedImageSrc,
+  visualSpec,
   onOpenImageModal,
   slot,
   split,
@@ -67,8 +72,16 @@ export function QuestionStatement({
           </div>
         )}
 
-        {/* Shared image */}
-        {sharedImageSrc && (
+        {visualSpec ? (
+          <div className="min-w-0 flex justify-center group-data-[split=true]:flex-1 w-full">
+            <VisualRenderer
+              spec={visualSpec}
+              itemId={question.original_number}
+              className="w-full"
+            />
+          </div>
+        ) : sharedImageSrc ? (
+          /* Legacy PNG placeholder fallback. */
           <div className="min-w-0 flex justify-center group-data-[split=true]:flex-1">
             <div
               className="w-fit max-w-full rounded-sm border border-border overflow-hidden cursor-zoom-in hover:border-accent transition-colors bg-white shadow-sm"
@@ -86,7 +99,7 @@ export function QuestionStatement({
               />
             </div>
           </div>
-        )}
+        ) : null}
       </div>
     </QuestionPanel>
   );

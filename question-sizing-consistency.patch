@@ -1,0 +1,1053 @@
+diff --git a/apps/web/app/components/HeaderControls.test.tsx b/apps/web/app/components/HeaderControls.test.tsx
+new file mode 100644
+index 0000000..b699647
+--- /dev/null
++++ b/apps/web/app/components/HeaderControls.test.tsx
+@@ -0,0 +1,85 @@
++import { afterEach, beforeEach, describe, expect, it } from "vitest";
++import { act, cleanup, fireEvent, render, screen } from "@testing-library/react";
++import { FontScaleProvider, FONT_SCALE_STEPS, FONT_SCALE_STORAGE_KEY, DEFAULT_SCALE_INDEX } from "@/lib/font-scale";
++import { FontScaleControl, HeaderIconButton, HeaderReadout, HeaderTextButton } from "./HeaderControls";
++
++const heightClasses = (el: Element) => el.className.split(/\s+/).filter((c) => /^(md:)?h-\d+$/.test(c));
++
++describe("header controls", () => {
++  beforeEach(() => {
++    window.localStorage.clear();
++    document.documentElement.style.removeProperty("--font-scale");
++  });
++  afterEach(cleanup);
++
++  it("gives every control the same height at both breakpoints", () => {
++    render(
++      <FontScaleProvider>
++        <HeaderReadout>
++          <span>10:00</span>
++        </HeaderReadout>
++        <HeaderIconButton label="Pistas">i</HeaderIconButton>
++        <HeaderTextButton label="Fórmulas" icon={<i />} />
++        <HeaderTextButton label="Finalizar" tone="primary" icon={<i />} />
++        <FontScaleControl />
++      </FontScaleProvider>,
++    );
++    const controls = [
++      screen.getByText("10:00").parentElement!,
++      screen.getByRole("button", { name: "Pistas" }),
++      screen.getByRole("button", { name: "Fórmulas" }),
++      screen.getByRole("button", { name: "Finalizar" }),
++      screen.getByRole("button", { name: "Reducir tamaño de texto" }),
++      screen.getByRole("button", { name: "Aumentar tamaño de texto" }),
++    ];
++    const reference = heightClasses(controls[0]);
++    expect(reference).toEqual(["h-8", "md:h-14"]);
++    for (const control of controls) expect(heightClasses(control)).toEqual(reference);
++  });
++
++  it("makes the two font-size buttons identical apart from their sign", () => {
++    render(
++      <FontScaleProvider>
++        <FontScaleControl />
++      </FontScaleProvider>,
++    );
++    const smaller = screen.getByRole("button", { name: "Reducir tamaño de texto" });
++    const larger = screen.getByRole("button", { name: "Aumentar tamaño de texto" });
++    expect(smaller.className).toBe(larger.className);
++    expect(smaller.innerHTML.replace("−", "+")).toBe(larger.innerHTML);
++  });
++
++  it("steps the scale, applies it to the page and remembers it", () => {
++    render(
++      <FontScaleProvider>
++        <FontScaleControl />
++      </FontScaleProvider>,
++    );
++    const smaller = screen.getByRole("button", { name: "Reducir tamaño de texto" });
++    const larger = screen.getByRole("button", { name: "Aumentar tamaño de texto" });
++    const applied = () => document.documentElement.style.getPropertyValue("--font-scale");
++
++    expect(applied()).toBe(String(FONT_SCALE_STEPS[DEFAULT_SCALE_INDEX]));
++    act(() => fireEvent.click(larger));
++    expect(applied()).toBe(String(FONT_SCALE_STEPS[2]));
++    expect(larger).toBeDisabled();
++    expect(window.localStorage.getItem(FONT_SCALE_STORAGE_KEY)).toBe("2");
++
++    act(() => fireEvent.click(smaller));
++    act(() => fireEvent.click(smaller));
++    expect(applied()).toBe(String(FONT_SCALE_STEPS[0]));
++    expect(smaller).toBeDisabled();
++  });
++
++  it("starts from the saved size without first writing the default over it", () => {
++    window.localStorage.setItem(FONT_SCALE_STORAGE_KEY, "0");
++    render(
++      <FontScaleProvider>
++        <FontScaleControl />
++      </FontScaleProvider>,
++    );
++    expect(window.localStorage.getItem(FONT_SCALE_STORAGE_KEY)).toBe("0");
++    expect(document.documentElement.style.getPropertyValue("--font-scale")).toBe("1");
++    expect(screen.getByRole("button", { name: "Reducir tamaño de texto" })).toBeDisabled();
++  });
++});
+diff --git a/apps/web/app/components/HeaderControls.tsx b/apps/web/app/components/HeaderControls.tsx
+new file mode 100644
+index 0000000..f50b6e4
+--- /dev/null
++++ b/apps/web/app/components/HeaderControls.tsx
+@@ -0,0 +1,123 @@
++"use client";
++
++import type { ButtonHTMLAttributes, ReactNode } from "react";
++import { useFontScale } from "@/lib/font-scale";
++
++// Every control that the test screen puts in the header is built from the
++// pieces in this file, so they share one height, one surface and one icon size
++// at each breakpoint. Change the sizes here and the whole bar follows.
++
++/** One height for every control, text or icon. Compact below `md`. */
++const CONTROL_HEIGHT = "h-8 md:h-14";
++const CONTROL_SQUARE = `${CONTROL_HEIGHT} w-8 md:w-14`;
++const CONTROL_SURFACE = "bg-card rounded-sm border border-border shadow-sm";
++const CONTROL_LABEL = "text-xs font-bold uppercase tracking-[0.15em] md:tracking-[0.2em]";
++
++const ICON_SIZES = {
++  md: "[&_svg]:w-4 [&_svg]:h-4 md:[&_svg]:w-5 md:[&_svg]:h-5",
++  lg: "[&_svg]:w-4 [&_svg]:h-4 md:[&_svg]:w-7 md:[&_svg]:h-7",
++} as const;
++
++interface HeaderIconButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "title"> {
++  /** Accessible name and tooltip. */
++  label: string;
++  /** Extra tooltip text that does not belong in the accessible name. */
++  hint?: string;
++  /** `lg` is for the status icon (current section); everything else is `md`. */
++  iconSize?: keyof typeof ICON_SIZES;
++  children: ReactNode;
++}
++
++export function HeaderIconButton({
++  label,
++  hint,
++  iconSize = "md",
++  className = "",
++  children,
++  ...props
++}: HeaderIconButtonProps) {
++  return (
++    <button
++      type="button"
++      title={hint ? `${label} (${hint})` : label}
++      aria-label={label}
++      className={`flex items-center justify-center shrink-0 ${CONTROL_SQUARE} ${CONTROL_SURFACE} ${ICON_SIZES[iconSize]} hover:bg-muted transition-colors disabled:opacity-30 ${className}`}
++      {...props}
++    >
++      {children}
++    </button>
++  );
++}
++
++interface HeaderTextButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "title"> {
++  label: string;
++  icon: ReactNode;
++  /** `primary` is the call to action; `muted` is a secondary tool. */
++  tone?: "primary" | "muted";
++}
++
++export function HeaderTextButton({ label, icon, tone = "muted", className = "", ...props }: HeaderTextButtonProps) {
++  const tones =
++    tone === "primary"
++      ? "bg-primary text-primary-foreground shadow-md hover:brightness-90"
++      : "bg-muted text-foreground border border-border hover:border-accent";
++  return (
++    <button
++      type="button"
++      title={label}
++      aria-label={label}
++      className={`group flex items-center justify-center gap-2 md:gap-3 shrink-0 ${CONTROL_HEIGHT} px-2.5 md:px-8 rounded-sm transition-colors ${CONTROL_LABEL} ${ICON_SIZES.md} [&_svg]:shrink-0 ${tones} ${className}`}
++      {...props}
++    >
++      {icon}
++      {/* Both labelled buttons switch to icon-only at the same breakpoint. */}
++      <span className="hidden md:inline">{label}</span>
++    </button>
++  );
++}
++
++/** A read-only value (the timer) with the same height as the buttons. */
++export function HeaderReadout({ children }: { children: ReactNode }) {
++  return (
++    <div className={`flex items-center justify-center shrink-0 px-2 md:px-8 ${CONTROL_HEIGHT} ${CONTROL_SURFACE}`}>
++      {children}
++    </div>
++  );
++}
++
++/**
++ * Text size: two identical square buttons, one "A" glyph at the same size in
++ * both with only the sign changing, so neither looks more important than the
++ * other. The tooltip reports the current size.
++ */
++export function FontScaleControl() {
++  const { increase, decrease, scale, scaleIndex, steps } = useFontScale();
++  const percent = `${Math.round(scale * 100)}%`;
++
++  const glyph = (sign: string) => (
++    <span aria-hidden className="flex items-start font-bold leading-none text-foreground text-sm md:text-xl">
++      A<span className="text-[0.6em] leading-none mt-px md:mt-0.5">{sign}</span>
++    </span>
++  );
++
++  return (
++    <div role="group" aria-label="Tamaño de texto" className="flex items-center gap-1 md:gap-2">
++      <HeaderIconButton
++        label="Reducir tamaño de texto"
++        hint={percent}
++        onClick={decrease}
++        disabled={scaleIndex === 0}
++      >
++        {glyph("−")}
++      </HeaderIconButton>
++      <HeaderIconButton
++        label="Aumentar tamaño de texto"
++        hint={percent}
++        onClick={increase}
++        disabled={scaleIndex === steps.length - 1}
++      >
++        {glyph("+")}
++      </HeaderIconButton>
++    </div>
++  );
++}
+diff --git a/apps/web/app/components/assessment/QuestionStatement.tsx b/apps/web/app/components/assessment/QuestionStatement.tsx
+index 75da068..221b111 100644
+--- a/apps/web/app/components/assessment/QuestionStatement.tsx
++++ b/apps/web/app/components/assessment/QuestionStatement.tsx
+@@ -58,9 +58,11 @@ export function QuestionStatement({
+     >
+       {/* `group-data-[split=true]` reads the data-split attribute on the panel
+           content, which is how the layout switches this arrangement. */}
+-      <div className="p-5 md:p-8 flex flex-col gap-6 md:gap-10 group-data-[split=true]:flex-row group-data-[split=true]:items-center">
++      <div className="p-5 md:p-6 flex flex-col gap-5 md:gap-6 group-data-[split=true]:flex-row group-data-[split=true]:items-center">
++        {/* The text keeps a readable measure however wide the panel gets, so
++            a wide graph can use the extra width without stretching the lines. */}
+         {question.statement && (
+-          <div className="prose dark:prose-invert max-w-none text-base md:text-lg leading-[1.6] md:leading-[1.8] text-foreground font-serif min-w-0 group-data-[split=true]:flex-1">
++          <div className="prose dark:prose-invert w-full max-w-[72ch] mx-auto text-base md:text-lg leading-[1.6] md:leading-[1.8] text-foreground font-serif min-w-0 group-data-[split=true]:flex-1 group-data-[split=true]:max-w-none group-data-[split=true]:mx-0">
+             <KaTeXText text={question.statement} />
+           </div>
+         )}
+@@ -80,7 +82,7 @@ export function QuestionStatement({
+                 alt="Imagen de apoyo"
+                 width={graphDimensions?.width ?? 800}
+                 height={graphDimensions?.height ?? 600}
+-                className="graph-image block w-auto h-auto max-w-full max-h-[var(--graph-max,300px)] md:max-h-[var(--graph-max,450px)] object-contain pointer-events-none"
++                className="graph-image block w-auto h-auto max-w-full max-h-[var(--graph-max,450px)] object-contain pointer-events-none"
+               />
+             </div>
+           </div>
+diff --git a/apps/web/app/components/assessment/ResponseOptions.tsx b/apps/web/app/components/assessment/ResponseOptions.tsx
+index ceb2941..97da37b 100644
+--- a/apps/web/app/components/assessment/ResponseOptions.tsx
++++ b/apps/web/app/components/assessment/ResponseOptions.tsx
+@@ -63,16 +63,16 @@ export function ResponseOptions({
+       columns={columns}
+       className="panel-enter"
+     >
+-      <div className="p-5 md:p-8">
++      <div className="p-5 md:p-6">
+         {question.problem && (
+-          <div className="prose dark:prose-invert max-w-none text-base md:text-lg leading-[1.6] md:leading-[1.8] text-foreground font-serif mb-6 md:mb-8">
++          <div className="prose dark:prose-invert max-w-none text-base md:text-lg leading-[1.6] md:leading-[1.8] text-foreground font-serif mb-5 md:mb-6">
+             <KaTeXText text={question.problem} />
+           </div>
+         )}
+ 
+         {/* `group-data-[columns=2]` reads the data-columns attribute on the
+             panel content, which is how the layout switches the column count. */}
+-        <div className="grid grid-cols-1 group-data-[columns=2]:grid-cols-2 gap-3 md:gap-6">
++        <div className="grid grid-cols-1 group-data-[columns=2]:grid-cols-2 gap-3 md:gap-4">
+           {question.options.map((option) => {
+             const isSelected = selectedAnswer === option.label;
+             const isCorrectOption = option.label === correctAnswer;
+@@ -103,7 +103,7 @@ export function ResponseOptions({
+                 key={option.label}
+                 disabled={readOnly}
+                 onClick={() => onSelect(option.label)}
+-                className={`w-full flex gap-4 md:gap-9 p-3 md:p-5 rounded-sm border-2 text-left transition-all group active:scale-[0.98] disabled:cursor-default disabled:active:scale-100 ${buttonClasses} ${flashClasses}`}
++                className={`w-full flex gap-3 md:gap-5 p-3 md:p-4 rounded-sm border-2 text-left transition-all group active:scale-[0.98] disabled:cursor-default disabled:active:scale-100 ${buttonClasses} ${flashClasses}`}
+               >
+                 <div
+                   className={`w-7 h-7 md:w-9 md:h-9 flex-shrink-0 flex items-center justify-center rounded-sm font-bold text-base md:text-lg border-2 transition-colors ${letterClasses}`}
+diff --git a/apps/web/app/components/assessment/useQuestionLayout.ts b/apps/web/app/components/assessment/useQuestionLayout.ts
+index 0d38326..62c7ff8 100644
+--- a/apps/web/app/components/assessment/useQuestionLayout.ts
++++ b/apps/web/app/components/assessment/useQuestionLayout.ts
+@@ -49,10 +49,22 @@ interface PlanState {
+ 
+ const px = (value: string) => Number.parseFloat(value) || 0;
+ 
+-/** Pinned graph max-height per shared image. Once a graph is sized, sibling
+- *  questions and window resizes keep the same graph dimensions instead of
+- *  re-shrinking or re-growing it. */
+-const graphMaxCache = new Map<string, number | null>();
++/** Graph size a shared image settled on, for the available space it was
++ *  planned in. Sibling questions that show the same graph start from it as a
++ *  ceiling so the graph keeps its size while the student navigates. The entry
++ *  is tied to the container size (which already includes the font scale), so a
++ *  resize or a font change starts over and the graph can grow back. */
++const graphCeilings = new Map<string, { space: string; graphMax: number; owner: number }>();
++
++const spaceKey = (box: ContainerBox) => `${box.width}x${box.height}`;
++
++/** Only a sibling's size limits this question; its own earlier plans must not,
++ *  or a re-plan after a font or image arrives could never grow the graph. */
++function graphCeilingFor(src: string | undefined, box: ContainerBox, owner: number): number | undefined {
++  if (!src) return undefined;
++  const entry = graphCeilings.get(src);
++  return entry && entry.owner !== owner && entry.space === spaceKey(box) ? entry.graphMax : undefined;
++}
+ 
+ function getContentBox(el: HTMLElement): ContainerBox {
+   const style = getComputedStyle(el);
+@@ -221,7 +233,7 @@ export function useQuestionLayout({
+         containerWidth: box.width,
+         containerHeight: box.height,
+         hasGraph,
+-        fixedGraphMax: graphSrc ? graphMaxCache.get(graphSrc) : undefined,
++        graphCeiling: graphCeilingFor(graphSrc, box, questionKey),
+         previous,
+         panels: {
+           statement: createMeasurer(
+@@ -238,7 +250,11 @@ export function useQuestionLayout({
+         },
+       });
+       lastPlan.current = { plan: next, questionKey, box, hasExplanation };
+-      if (graphSrc) graphMaxCache.set(graphSrc, next.graphMax);
++      // The explanation temporarily takes room from the graph; that is not the
++      // size its siblings should inherit.
++      if (graphSrc && next.graphMax !== null && !hasExplanation) {
++        graphCeilings.set(graphSrc, { space: spaceKey(box), graphMax: next.graphMax, owner: questionKey });
++      }
+ 
+       setState((current) => {
+         if (samePlan(current.plan, next)) return current;
+diff --git a/apps/web/app/globals.css b/apps/web/app/globals.css
+index 38bbb41..251e8e9 100644
+--- a/apps/web/app/globals.css
++++ b/apps/web/app/globals.css
+@@ -23,7 +23,8 @@
+   --success-foreground: #002147;
+   --wrong: #C0504A; /* Brick Red for incorrect answers */
+   --wrong-foreground: #FDFCF0;
+-  --font-scale: 1;
++  /* Keep in step with DEFAULT_SCALE_INDEX in lib/font-scale.tsx. */
++  --font-scale: 1.125;
+ }
+ 
+ .dark {
+@@ -146,11 +147,35 @@ button:not(:disabled),
+ }
+ 
+ /* Response options: keep each formula on a single horizontal line (no line
+-   breaks); the option container scrolls horizontally when it is overlong. */
++   breaks); the option scrolls horizontally, without a scrollbar, when a
++   formula is wider than its card. The vertical padding and matching negative
++   margin keep glyph ascenders and descenders from being clipped by the
++   overflow that this implies. */
++.option-math {
++  overflow-x: auto;
++  overflow-y: hidden;
++  padding-block: 0.25em;
++  margin-block: -0.25em;
++  scrollbar-width: none;
++}
++
++.option-math::-webkit-scrollbar {
++  display: none;
++}
++
+ .option-math .katex {
+   white-space: nowrap;
+ }
+ 
++/* Font size: one mechanism for every scalable area. The chosen step lives in
++   --font-scale (see lib/font-scale.tsx) and is applied as a CSS zoom, which
++   scales text, spacing, icons and images together. The layout engine measures
++   in the zoomed element's own pixels, so a larger font simply gives it a
++   smaller container to plan for. */
++.font-scaled {
++  zoom: var(--font-scale, 1);
++}
++
+ 
+ /* Hide scrollbar for horizontal scroll areas */
+ .hide-scrollbar::-webkit-scrollbar {
+diff --git a/apps/web/app/layout.tsx b/apps/web/app/layout.tsx
+index 7dacaad..4ea0e6f 100644
+--- a/apps/web/app/layout.tsx
++++ b/apps/web/app/layout.tsx
+@@ -3,7 +3,7 @@ import { Public_Sans, Source_Serif_4 } from "next/font/google";
+ import "katex/dist/katex.min.css";
+ import "./globals.css";
+ import { ThemeProvider } from "@/lib/theme-provider";
+-import { FontScaleProvider } from "@/lib/font-scale";
++import { FONT_SCALE_INIT_SCRIPT, FontScaleProvider } from "@/lib/font-scale";
+ import { Header } from "@/app/components/Header";
+ 
+ const publicSans = Public_Sans({
+@@ -29,6 +29,9 @@ export default function RootLayout({
+ }>) {
+   return (
+     <html lang="es" className={`${publicSans.variable} ${sourceSerif.variable} h-full antialiased`} suppressHydrationWarning>
++      <head>
++        <script dangerouslySetInnerHTML={{ __html: FONT_SCALE_INIT_SCRIPT }} />
++      </head>
+       <body className="h-dvh flex flex-col font-sans overflow-hidden">
+         <ThemeProvider defaultTheme="system">
+           <FontScaleProvider>
+diff --git a/apps/web/app/test/page.tsx b/apps/web/app/test/page.tsx
+index 8fa521e..0fd385c 100644
+--- a/apps/web/app/test/page.tsx
++++ b/apps/web/app/test/page.tsx
+@@ -14,7 +14,7 @@ import HintModal from "@/app/components/HintModal";
+ import { QuestionExperience } from "@/app/components/assessment/QuestionExperience";
+ import { DesktopNavigator } from "@/app/components/assessment/DesktopNavigator";
+ import { useAssessment } from "@/lib/hooks/useAssessment";
+-import { useFontScale } from "@/lib/font-scale";
++import { FontScaleControl, HeaderIconButton, HeaderReadout, HeaderTextButton } from "@/app/components/HeaderControls";
+ import { AssessmentErrorBoundary } from "@/app/components/error/AssessmentErrorBoundary";
+ import { preloadGraphAspects } from "@/lib/graph-aspects";
+ 
+@@ -26,7 +26,6 @@ import { FULL_TEST_TOPICS } from "@/lib/constants";
+ 
+ export default function QuestionPage() {
+   const router = useRouter();
+-  const { increase, decrease, scale, scaleIndex, steps } = useFontScale();
+ 
+   // Modals state
+   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
+@@ -198,89 +197,58 @@ export default function QuestionPage() {
+           <>
+             <div className="flex items-center gap-1.5 md:gap-3">
+               {!reviewMode && (
+-                <div className="flex items-center px-2 md:px-8 h-8 md:h-14 bg-card rounded-sm border border-border shadow-sm">
++                <HeaderReadout>
+                   <span className="font-mono text-xs md:text-2xl font-bold tabular-nums text-foreground min-w-[35px] md:min-w-[80px] text-center">
+                     {mounted ? formatTime(timeLeft) : "--:--"}
+                   </span>
+-                </div>
++                </HeaderReadout>
+               )}
+ 
+-              <button
++              <HeaderIconButton
++                label="Información de la sección"
++                iconSize="lg"
+                 onClick={() => setIsSectionModalOpen(true)}
+-                className="flex items-center justify-center w-8 h-8 md:w-14 md:h-14 bg-card rounded-sm border border-border shadow-sm hover:bg-muted transition-colors text-destructive"
+-                title="Información de la sección"
++                className="text-destructive"
+               >
+-                {currentTopic === "Geometría" && <Shapes className="w-4 h-4 md:w-7 md:h-7" />}
+-                {currentTopic === "Estadística y Probabilidad" && <BarChart3 className="w-4 h-4 md:w-7 md:h-7" />}
+-                {currentTopic === "Funciones" && <Binary className="w-4 h-4 md:w-7 md:h-7" />}
+-                {currentTopic === "full" && <Clock className="w-4 h-4 md:w-7 md:h-7" />}
+-              </button>
++                {currentTopic === "Geometría" && <Shapes />}
++                {currentTopic === "Estadística y Probabilidad" && <BarChart3 />}
++                {currentTopic === "Funciones" && <Binary />}
++                {currentTopic === "full" && <Clock />}
++              </HeaderIconButton>
+             </div>
+ 
+             <div className="flex items-center gap-2 md:gap-6">
+-              <button
+-                onClick={() => setIsFormulaModalOpen(true)}
+-                className="flex items-center gap-1.5 md:gap-2 px-2 md:px-8 py-2 md:py-4 bg-muted border border-border hover:border-accent text-foreground text-xs md:text-xs font-bold uppercase tracking-[0.15em] md:tracking-[0.2em] rounded-sm transition-colors"
+-                title="Fórmulas"
+-              >
+-                <BookOpen className="w-3 h-3 md:w-4 md:h-4" />
+-                <span className="hidden md:inline">Fórmulas</span>
+-              </button>
++              <HeaderTextButton label="Fórmulas" icon={<BookOpen />} onClick={() => setIsFormulaModalOpen(true)} />
+               {!reviewMode && (
+-                <button
++                <HeaderTextButton
++                  label="Finalizar"
++                  tone="primary"
++                  icon={<Flag className="transition-colors group-hover:text-destructive group-active:text-destructive" />}
+                   onClick={handleFinishTest}
+-                  className="flex items-center gap-1.5 md:gap-4 px-3 md:px-10 py-2 md:py-4 bg-primary text-primary-foreground text-xs md:text-xs font-bold uppercase tracking-[0.15em] md:tracking-[0.2em] rounded-sm shadow-md transition-all hover:brightness-90 group"
+-                >
+-                  <Flag className="w-3 h-3 md:w-4 md:h-4 transition-colors group-hover:text-destructive group-active:text-destructive" />
+-                  <span className="hidden sm:inline">Finalizar</span>
+-                </button>
++                />
+               )}
+             </div>
+ 
+-            <div className="flex items-center gap-1 md:gap-2">
+-              <button
+-                onClick={decrease}
+-                disabled={scaleIndex === 0}
+-                className="flex items-center justify-center w-8 h-8 md:w-14 md:h-14 bg-card rounded-sm border border-border shadow-sm hover:bg-muted transition-colors disabled:opacity-30"
+-                title="Reducir tamaño de texto"
+-                aria-label="Reducir tamaño de texto"
+-              >
+-                <span className="text-xs md:text-sm font-bold text-foreground">A−</span>
+-              </button>
+-              <button
+-                onClick={increase}
+-                disabled={scaleIndex === steps.length - 1}
+-                className="flex items-center justify-center w-8 h-8 md:w-14 md:h-14 bg-card rounded-sm border border-border shadow-sm hover:bg-muted transition-colors disabled:opacity-30"
+-                title="Aumentar tamaño de texto"
+-                aria-label="Aumentar tamaño de texto"
+-              >
+-                <span className="text-base md:text-xl font-bold text-foreground">A+</span>
+-              </button>
+-            </div>
+-            
++            <FontScaleControl />
++
+             {!reviewMode && (
+-              <button
++              <HeaderIconButton
++                label="Limpiar respuesta"
+                 onClick={resetCurrentQuestion}
+                 disabled={!selectedAnswers[currentIndex]}
+-                className="flex items-center justify-center w-8 h-8 md:w-14 md:h-14 bg-card rounded-sm border border-border shadow-sm hover:bg-muted transition-colors disabled:opacity-30"
+-                title="Limpiar respuesta"
+-                aria-label="Limpiar respuesta"
+               >
+-                <RotateCcw className="w-4 h-4 md:w-5 md:h-5 text-foreground" />
+-              </button>
++                <RotateCcw className="text-foreground" />
++              </HeaderIconButton>
+             )}
+             {!reviewMode && (
+-              <button
++              <HeaderIconButton
++                label="Pistas"
+                 onClick={() => setIsHintModalOpen((prev) => !prev)}
+                 onMouseDown={(e) => e.stopPropagation()}
+-                className="flex items-center justify-center w-8 h-8 md:w-14 md:h-14 bg-card rounded-sm border border-border shadow-sm hover:bg-muted transition-colors"
+-                title="Pistas"
+-                aria-label="Pistas"
+               >
+-                <Lightbulb className={`w-4 h-4 md:w-5 md:h-5 text-accent ${isHintBlinking ? "animate-pulse" : ""}`} />
+-              </button>
++                <Lightbulb className={`text-accent ${isHintBlinking ? "animate-pulse" : ""}`} />
++              </HeaderIconButton>
+             )}
+-            
+           </>,
+           portalContainer,
+         )}
+@@ -309,8 +277,10 @@ export default function QuestionPage() {
+           </aside>
+         )}
+ 
+-        <div className="flex-1 min-w-0 min-h-0 overflow-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden" style={{ zoom: scale }}>
+-          <div className="px-8 mx-auto h-full flex flex-col">
++        <div className="font-scaled flex-1 min-w-0 min-h-0 overflow-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
++          {/* Side padding is small on phones: the layout engine already centers
++              and sizes the panels, so extra gutter would only waste width. */}
++          <div className="px-0 sm:px-4 lg:px-8 mx-auto h-full flex flex-col">
+             <QuestionExperience
+               question={currentQuestion}
+               currentIndex={currentIndex}
+diff --git a/apps/web/lib/font-scale.tsx b/apps/web/lib/font-scale.tsx
+index 5cb2ab7..8c9754b 100644
+--- a/apps/web/lib/font-scale.tsx
++++ b/apps/web/lib/font-scale.tsx
+@@ -1,16 +1,69 @@
+ "use client";
+ 
+-import { createContext, useContext, useEffect, useState } from "react";
++import { createContext, useCallback, useContext, useEffect, useMemo, useSyncExternalStore } from "react";
+ 
+-// Available font scale steps. The active step is applied to the `--font-scale`
+-// custom property, which scales the root font size. Because Tailwind text
+-// utilities use rem units, every rem-based size scales system-wide at once.
++// Font size has one mechanism. The active step is written to the `--font-scale`
++// custom property on <html>, and every scalable area opts in with the
++// `.font-scaled` class (see globals.css), which applies it as a CSS `zoom`.
++// Text, spacing, icons and images therefore grow together, and the question
++// layout engine (measured in the zoomed element's own pixels) re-plans for the
++// smaller container without knowing anything about the scale itself.
++//
+ // The current size is the smallest step; two larger steps are provided, and the
+ // default is the middle step.
+-const FONT_SCALE_STEPS = [1, 1.125, 1.25] as const;
++export const FONT_SCALE_STEPS = [1, 1.125, 1.25] as const;
+ 
+-const DEFAULT_SCALE_INDEX = 1;
+-const STORAGE_KEY = "bxm-pilot-font-scale";
++export const DEFAULT_SCALE_INDEX = 1;
++export const FONT_SCALE_STORAGE_KEY = "bxm-pilot-font-scale";
++
++/** Runs in <head> before first paint so a saved size never flashes the default
++ *  and the layout is planned once, at the right size. */
++export const FONT_SCALE_INIT_SCRIPT = `try{var i=parseInt(localStorage.getItem(${JSON.stringify(
++  FONT_SCALE_STORAGE_KEY,
++)}),10),s=${JSON.stringify(FONT_SCALE_STEPS)};if(i>=0&&i<s.length)document.documentElement.style.setProperty("--font-scale",String(s[i]))}catch(e){}`;
++
++function parseIndex(raw: string | null): number | null {
++  if (raw === null) return null;
++  const parsed = Number.parseInt(raw, 10);
++  return Number.isInteger(parsed) && parsed >= 0 && parsed < FONT_SCALE_STEPS.length ? parsed : null;
++}
++
++// localStorage as an external store: the server and the first client render use
++// the default step, then React switches to the saved one without an effect that
++// sets state (and without writing the default over the saved value first).
++const listeners = new Set<() => void>();
++
++function readIndex(): number {
++  try {
++    return parseIndex(window.localStorage.getItem(FONT_SCALE_STORAGE_KEY)) ?? DEFAULT_SCALE_INDEX;
++  } catch {
++    return DEFAULT_SCALE_INDEX;
++  }
++}
++
++function applyScale(index: number) {
++  document.documentElement.style.setProperty("--font-scale", String(FONT_SCALE_STEPS[index]));
++}
++
++function writeIndex(index: number) {
++  // Applied synchronously so the zoom changes in the same frame as the click.
++  applyScale(index);
++  try {
++    window.localStorage.setItem(FONT_SCALE_STORAGE_KEY, String(index));
++  } catch {
++    // Private mode or storage disabled: the size just does not persist.
++  }
++  listeners.forEach((listener) => listener());
++}
++
++function subscribe(listener: () => void) {
++  listeners.add(listener);
++  window.addEventListener("storage", listener);
++  return () => {
++    listeners.delete(listener);
++    window.removeEventListener("storage", listener);
++  };
++}
+ 
+ interface FontScaleContextValue {
+   scale: number;
+@@ -25,42 +78,33 @@ interface FontScaleContextValue {
+ const FontScaleContext = createContext<FontScaleContextValue | undefined>(undefined);
+ 
+ export function FontScaleProvider({ children }: { children: React.ReactNode }) {
+-  const [scaleIndex, setScaleIndex] = useState(DEFAULT_SCALE_INDEX);
+-
+-  useEffect(() => {
+-    const saved = localStorage.getItem(STORAGE_KEY);
+-    if (saved) {
+-      const parsed = Number.parseInt(saved, 10);
+-      if (Number.isInteger(parsed) && parsed >= 0 && parsed < FONT_SCALE_STEPS.length) {
+-        setTimeout(() => setScaleIndex(parsed), 0);
+-      }
+-    }
+-  }, []);
++  const scaleIndex = useSyncExternalStore(subscribe, readIndex, () => DEFAULT_SCALE_INDEX);
+ 
+   useEffect(() => {
+-    localStorage.setItem(STORAGE_KEY, scaleIndex.toString());
+-    document.documentElement.style.setProperty("--font-scale", String(FONT_SCALE_STEPS[scaleIndex]));
++    applyScale(scaleIndex);
+   }, [scaleIndex]);
+ 
+-  const increase = () => setScaleIndex((i) => Math.min(i + 1, FONT_SCALE_STEPS.length - 1));
+-  const decrease = () => setScaleIndex((i) => Math.max(i - 1, 0));
+-  const reset = () => setScaleIndex(DEFAULT_SCALE_INDEX);
+-
+-  return (
+-    <FontScaleContext.Provider
+-      value={{
+-        scale: FONT_SCALE_STEPS[scaleIndex],
+-        scaleIndex,
+-        steps: FONT_SCALE_STEPS,
+-        setScaleIndex,
+-        increase,
+-        decrease,
+-        reset,
+-      }}
+-    >
+-      {children}
+-    </FontScaleContext.Provider>
++  const setScaleIndex = useCallback((index: number) => {
++    writeIndex(Math.min(Math.max(index, 0), FONT_SCALE_STEPS.length - 1));
++  }, []);
++  const increase = useCallback(() => writeIndex(Math.min(readIndex() + 1, FONT_SCALE_STEPS.length - 1)), []);
++  const decrease = useCallback(() => writeIndex(Math.max(readIndex() - 1, 0)), []);
++  const reset = useCallback(() => writeIndex(DEFAULT_SCALE_INDEX), []);
++
++  const value = useMemo<FontScaleContextValue>(
++    () => ({
++      scale: FONT_SCALE_STEPS[scaleIndex],
++      scaleIndex,
++      steps: FONT_SCALE_STEPS,
++      setScaleIndex,
++      increase,
++      decrease,
++      reset,
++    }),
++    [scaleIndex, setScaleIndex, increase, decrease, reset],
+   );
++
++  return <FontScaleContext.Provider value={value}>{children}</FontScaleContext.Provider>;
+ }
+ 
+ export function useFontScale() {
+diff --git a/apps/web/lib/question-layout-plan.test.ts b/apps/web/lib/question-layout-plan.test.ts
+index 814d2aa..55380e4 100644
+--- a/apps/web/lib/question-layout-plan.test.ts
++++ b/apps/web/lib/question-layout-plan.test.ts
+@@ -2,6 +2,8 @@ import { describe, expect, it } from "vitest";
+ import {
+   EXPLANATION_MIN_PX,
+   GAP_WIDE_PX,
++  GRAPH_LADDER,
++  GRAPH_SPLIT_WIDTH_CAP_PX,
+   IDEAL_WIDTH_CAP_PX,
+   OPTIONS_MIN_PX,
+   SAFETY_PX,
+@@ -185,37 +187,68 @@ describe("planQuestionLayout", () => {
+     }
+   });
+ 
+-  it("shrinks the graph before it overflows the screen", () => {
++  it("uses the largest graph that fits and shrinks it only as far as needed", () => {
+     const tall = textPanel({ chars: 90, graph: { width: 500, height: 500 } });
+     const roomy = plan({ containerWidth: 700, containerHeight: 1400, hasGraph: true, statement: tall });
+     const tight = plan({ containerWidth: 700, containerHeight: 640, hasGraph: true, statement: tall });
+-    expect(roomy.graphMax).toBeNull();
++    expect(roomy.graphMax).toBe(GRAPH_LADDER[0]);
+     expect(tight.graphMax).not.toBeNull();
++    expect(tight.graphMax!).toBeLessThan(GRAPH_LADDER[0]);
++    expect(tight.overflow).toBe(false);
+   });
+ 
+-  it("pins the shared graph's max height so sibling questions keep its size", () => {
++  it("graph size never shrinks when the container gets taller, and never grows when it gets shorter", () => {
++    const tall = textPanel({ chars: 90, graph: { width: 500, height: 500 } });
++    let previous = 0;
++    for (let height = 360; height <= 1500; height += 20) {
++      const p = plan({ containerWidth: 700, containerHeight: height, hasGraph: true, statement: tall });
++      expect(p.graphMax).not.toBeNull();
++      expect(p.graphMax!).toBeGreaterThanOrEqual(previous);
++      previous = p.graphMax!;
++    }
++  });
++
++  it("only uses ladder sizes, in local pixels, and none without a graph", () => {
++    const withG = plan({ containerWidth: 900, containerHeight: 600, hasGraph: true, statement: withGraph });
++    expect(GRAPH_LADDER).toContain(withG.graphMax);
++    expect(plan({ containerHeight: 600 }).graphMax).toBeNull();
++  });
++
++  it("a sibling's graph size is a ceiling the graph keeps while there is room", () => {
+     const tall = textPanel({ chars: 90, graph: { width: 500, height: 500 } });
+     const p = plan({
+       containerWidth: 700,
+       containerHeight: 1400,
+       hasGraph: true,
+       statement: tall,
+-      fixedGraphMax: 220,
++      graphCeiling: 220,
+     });
+     expect(p.graphMax).toBe(220);
+   });
+ 
+-  it("keeps the pinned graph height even when it no longer fits, scrolling instead", () => {
++  it("the ceiling still gives way when the panels need the room", () => {
+     const tall = textPanel({ chars: 90, graph: { width: 500, height: 500 } });
+-    const p = plan({
++    const capped = plan({
+       containerWidth: 700,
+-      containerHeight: 500,
++      containerHeight: 560,
+       hasGraph: true,
+       statement: tall,
+-      fixedGraphMax: 340,
++      graphCeiling: 380,
+     });
+-    expect(p.graphMax).toBe(340);
+-    expect(p.overflow).toBe(true);
++    const free = plan({ containerWidth: 700, containerHeight: 560, hasGraph: true, statement: tall });
++    expect(capped.graphMax!).toBeLessThanOrEqual(380);
++    expect(capped.graphMax!).toBeLessThanOrEqual(free.graphMax!);
++    // A ceiling never forces a scroll the free layout would have avoided.
++    expect(capped.overflow).toBe(free.overflow);
++  });
++
++  it("lets a wide graph use more width than a text column", () => {
++    const wide = textPanel({ chars: 90, graph: { width: 1800, height: 400 } });
++    const p = plan({ containerWidth: 1400, containerHeight: 800, hasGraph: true, statement: wide });
++    expect(p.rects.statement!.width).toBeGreaterThan(IDEAL_WIDTH_CAP_PX);
++    expect(p.rects.statement!.width).toBeLessThanOrEqual(GRAPH_SPLIT_WIDTH_CAP_PX);
++    const noGraph = plan({ containerWidth: 1400, containerHeight: 800, statement: textPanel({ chars: 900 }) });
++    expect(noGraph.rects.statement!.width).toBeLessThanOrEqual(IDEAL_WIDTH_CAP_PX);
+   });
+ 
+   it("scrolls only when nothing fits, and reports the real content height", () => {
+diff --git a/apps/web/lib/question-layout-plan.ts b/apps/web/lib/question-layout-plan.ts
+index bc2eee2..598991b 100644
+--- a/apps/web/lib/question-layout-plan.ts
++++ b/apps/web/lib/question-layout-plan.ts
+@@ -11,7 +11,8 @@
+ //    allowed around the panels, never inside them.
+ //  - Every candidate arrangement x panel variant (statement text beside the
+ //    graph, options in one or two columns) x graph size is laid out and
+-//    scored; the lowest score wins. When the explanation shows, it is simply
++//    scored; the lowest score wins. The graph is always sized in local pixels
++//    from `GRAPH_LADDER`: the largest rung whose arrangement still fits. When the explanation shows, it is simply
+ //    one more panel in the search, so the others resize or move only when that
+ //    yields a better whole.
+ //
+@@ -67,11 +68,13 @@ export interface PlanInput {
+   /** Plan on screen for this same question and container, used to limit how
+    *  much the existing panels move when the explanation appears. */
+   previous?: LayoutPlan | null;
+-  /** Graph max-height to pin (px; null means the CSS default). Questions that
+-   *  share the same graph pass the value chosen for a sibling question so the
+-   *  graph keeps a fixed, consistent size: it is never re-shrunk or re-grown,
+-   *  even when the question changes or the window resizes. */
+-  fixedGraphMax?: number | null;
++  /** Largest graph max-height (px) this question may use. Questions that share
++   *  a graph pass the size a sibling settled on, so the graph does not jump
++   *  around while navigating. It is a ceiling, not a pin: the graph still
++   *  shrinks when the panels need the room (for example when the explanation
++   *  opens), and the caller drops the ceiling when the available space changes
++   *  so the graph can grow back. */
++  graphCeiling?: number | null;
+ }
+ 
+ export interface LayoutPlan {
+@@ -79,7 +82,7 @@ export interface LayoutPlan {
+   rects: Partial<Record<PanelId, Rect>>;
+   statementVariant: PanelVariant;
+   optionsVariant: PanelVariant;
+-  /** Max graph height in px; null means the CSS default. */
++  /** Max graph height in px; null only when the question has no graph. */
+   graphMax: number | null;
+   /** Height of the positioning stage: the container when everything fits. */
+   stageHeight: number;
+@@ -100,17 +103,30 @@ export const GAP_BREAKPOINT_PX = 720;
+ 
+ /** Widest a text-led panel gets: about 75 characters of the serif body font. */
+ export const IDEAL_WIDTH_CAP_PX = 760;
++/** Widest a statement that carries a graph gets. The text inside is held to a
++ *  readable measure by the panel itself, so the extra width only goes to the
++ *  graph (wide, short graphs are otherwise stuck at a text-column width). */
++export const GRAPH_WIDTH_CAP_PX = 1040;
++/** Same, when the text sits beside the graph. */
++export const GRAPH_SPLIT_WIDTH_CAP_PX = 1160;
++
++/** Horizontal padding of a panel (`p-5 md:p-6`), border included. Shared with
++ *  the CSS so minimum widths describe what the panels really need. */
++export const PANEL_PADDING_X_PX = 50;
++/** Gap between option columns (`md:gap-4`). */
++export const OPTIONS_COLUMN_GAP_PX = 16;
+ 
+ export const STATEMENT_MIN_PX = 300;
+ export const STATEMENT_WITH_GRAPH_MIN_PX = 340;
+ export const STATEMENT_SPLIT_MIN_PX = 620;
+ export const OPTIONS_MIN_PX = 240;
+-// padding (64) + two columns of at least 200 + their gap (24).
+-export const OPTIONS_TWO_COLUMN_MIN_PX = 64 + 2 * 200 + 24;
++// padding + two columns of at least 200 + their gap.
++export const OPTIONS_TWO_COLUMN_MIN_PX = PANEL_PADDING_X_PX + 2 * 200 + OPTIONS_COLUMN_GAP_PX;
+ export const EXPLANATION_MIN_PX = 340;
+ 
+-/** Graph max-heights tried, largest first, when the screen would overflow. */
+-export const GRAPH_LADDER: ReadonlyArray<number | null> = [null, 340, 280, 220, 170, 140];
++/** Graph max-heights tried, largest first. Always local pixels (the same unit
++ *  as the container), never a viewport breakpoint. */
++export const GRAPH_LADDER: ReadonlyArray<number> = [600, 520, 450, 380, 320, 260, 210, 170, 140];
+ 
+ /** Sub-pixel slack so rounding never clips the last row of a panel. */
+ export const SAFETY_PX = 1;
+@@ -123,6 +139,14 @@ export function gapFor(containerWidth: number) {
+   return containerWidth >= GAP_BREAKPOINT_PX ? GAP_WIDE_PX : GAP_NARROW_PX;
+ }
+ 
++/** Widest a panel is allowed to grow before the layout stops giving it room. */
++export function widthCap(id: PanelId, variant: PanelVariant, hasGraph: boolean) {
++  if (id === "statement" && hasGraph) {
++    return variant.split ? GRAPH_SPLIT_WIDTH_CAP_PX : GRAPH_WIDTH_CAP_PX;
++  }
++  return IDEAL_WIDTH_CAP_PX;
++}
++
+ export function minPanelWidth(id: PanelId, variant: PanelVariant, hasGraph: boolean) {
+   if (id === "statement") {
+     if (variant.split) return STATEMENT_SPLIT_MIN_PX;
+@@ -174,8 +198,8 @@ const W_WASTE = 3; // empty space inside panels (width beyond the content)
+ const W_RAGGED = 2; // empty space beside a shorter column in a band
+ const W_TALL = 0.8; // panels much taller than wide
+ const W_LONG_LINE = 1; // panels wider than a comfortable reading measure
+-const W_WRAP_COLUMNS = 1.2; // two option columns that are narrower than their content
+-const W_GRAPH_STEP = 0.3; // each step the graph is shrunk
++const W_CLIPPED_OPTIONS = 3; // options narrower than their widest line (it would scroll)
++const W_GRAPH_STEP = 0.3; // each ladder rung the graph is below the largest
+ const W_MOVE = 2.5; // displacement of panels that were already on screen
+ const TALL_RATIO = 1.4;
+ 
+@@ -231,6 +255,7 @@ interface Candidate {
+   statementVariant: PanelVariant;
+   optionsVariant: PanelVariant;
+   graphMax: number | null;
++  /** Rungs of `GRAPH_LADDER` above the chosen graph size. */
+   graphStep: number;
+   stats: PanelStat[];
+   layoutWidth: number;
+@@ -244,6 +269,8 @@ interface Context {
+   height: number;
+   gap: number;
+   hasGraph: boolean;
++  /** Rungs to try, largest first; `[null]` when there is no graph. */
++  ladder: ReadonlyArray<number | null>;
+   measurers: Partial<Record<PanelId, PanelMeasurer>>;
+ }
+ 
+@@ -252,7 +279,6 @@ function layoutCandidate(
+   template: Template,
+   statementVariant: PanelVariant,
+   optionsVariant: PanelVariant,
+-  graphStep: number,
+   graphValue: number | null,
+ ): Candidate | null {
+   const { gap } = ctx;
+@@ -264,7 +290,8 @@ function layoutCandidate(
+     const v = variantOf(id);
+     const min = minPanelWidth(id, v, ctx.hasGraph);
+     const content = measurer(id).maxContentWidth(v, graphValue);
+-    return Math.min(clamp(content, min, Math.max(min, IDEAL_WIDTH_CAP_PX)), Math.max(ctx.width, 1));
++    const cap = widthCap(id, v, ctx.hasGraph);
++    return Math.min(clamp(content, min, Math.max(min, cap)), Math.max(ctx.width, 1));
+   };
+ 
+   const columnInfo = template.bands.map((band) =>
+@@ -343,7 +370,7 @@ function layoutCandidate(
+     statementVariant,
+     optionsVariant,
+     graphMax: graphValue,
+-    graphStep,
++    graphStep: graphValue === null ? 0 : GRAPH_LADDER.filter((rung) => rung > graphValue).length,
+     stats,
+     layoutWidth,
+     totalHeight: y - gap,
+@@ -360,14 +387,17 @@ function scoreCandidate(c: Candidate, ctx: Context, previous?: LayoutPlan | null
+   let area = 0;
+   let waste = 0;
+   for (const { id, rect, contentWidth } of c.stats) {
+-    if (id === O && c.optionsVariant.columns === 2 && rect.width < contentWidth) {
+-      score += W_WRAP_COLUMNS * (1 - rect.width / contentWidth);
++    // Options never wrap a formula, so a panel narrower than its widest line
++    // makes that option scroll sideways. Cheap to avoid, so avoid it.
++    if (id === O && rect.width < contentWidth) {
++      score += W_CLIPPED_OPTIONS * (1 - rect.width / contentWidth);
+     }
+     const a = rect.width * rect.height;
+     area += a;
+     waste += a * Math.max(0, 1 - contentWidth / rect.width);
+     score += W_TALL * Math.max(0, rect.height / rect.width - TALL_RATIO);
+-    score += W_LONG_LINE * Math.max(0, (rect.width - IDEAL_WIDTH_CAP_PX) / IDEAL_WIDTH_CAP_PX);
++    const cap = widthCap(id, id === S ? c.statementVariant : id === O ? c.optionsVariant : {}, ctx.hasGraph);
++    score += W_LONG_LINE * Math.max(0, (rect.width - cap) / cap);
+   }
+   if (area > 0) score += W_WASTE * (waste / area);
+ 
+@@ -396,14 +426,50 @@ function scoreCandidate(c: Candidate, ctx: Context, previous?: LayoutPlan | null
+ // Entry point
+ // ---------------------------------------------------------------------------
+ 
++/**
++ * Largest graph size at which this arrangement fits the container; the
++ * smallest rung when none does (the screen then scrolls). Layout height only
++ * shrinks as the graph shrinks, so a bisection over the ladder finds it with
++ * a handful of layouts instead of one per rung.
++ */
++function fitGraph(
++  ctx: Context,
++  template: Template,
++  statementVariant: PanelVariant,
++  optionsVariant: PanelVariant,
++): Candidate | null {
++  const at = (index: number) =>
++    layoutCandidate(ctx, template, statementVariant, optionsVariant, ctx.ladder[index]);
++  let lo = 0;
++  let hi = ctx.ladder.length - 1;
++  while (lo < hi) {
++    const mid = (lo + hi) >> 1;
++    const candidate = at(mid);
++    if (!candidate) return null;
++    if (candidate.totalHeight <= ctx.height) hi = mid;
++    else lo = mid + 1;
++  }
++  return at(lo);
++}
++
++/** Rungs a question may use: the ladder at or below the ceiling. */
++export function graphLadder(hasGraph: boolean, ceiling?: number | null): ReadonlyArray<number | null> {
++  if (!hasGraph) return [null];
++  if (ceiling === undefined || ceiling === null) return GRAPH_LADDER;
++  const below = GRAPH_LADDER.filter((rung) => rung < ceiling);
++  return [ceiling, ...below];
++}
++
+ export function planQuestionLayout(input: PlanInput): LayoutPlan {
+   const { containerWidth, containerHeight, hasGraph } = input;
+   const withExplanation = Boolean(input.panels.explanation);
++  const ladder = graphLadder(hasGraph, input.graphCeiling);
+   const ctx: Context = {
+     width: Math.max(containerWidth, 1),
+     height: containerHeight,
+     gap: gapFor(containerWidth),
+     hasGraph,
++    ladder,
+     measurers: {
+       statement: memoized(input.panels.statement),
+       options: memoized(input.panels.options),
+@@ -412,26 +478,13 @@ export function planQuestionLayout(input: PlanInput): LayoutPlan {
+   };
+ 
+   const templates = withExplanation ? TEMPLATES_THREE : TEMPLATES_TWO;
+-  const ladder =
+-    hasGraph && input.fixedGraphMax !== undefined
+-      ? [input.fixedGraphMax]
+-      : hasGraph
+-        ? GRAPH_LADDER
+-        : [null];
+ 
+   let best: { candidate: Candidate; score: number } | null = null;
+ 
+   for (const template of templates) {
+     for (const sv of input.panels.statement.variants) {
+       for (const ov of input.panels.options.variants) {
+-        // Shrink the graph only as far as needed to fit this arrangement.
+-        let chosen: Candidate | null = null;
+-        for (let step = 0; step < ladder.length; step++) {
+-          const candidate = layoutCandidate(ctx, template, sv, ov, step, ladder[step]);
+-          if (!candidate) break;
+-          chosen = candidate;
+-          if (candidate.totalHeight <= ctx.height) break;
+-        }
++        const chosen = fitGraph(ctx, template, sv, ov);
+         if (!chosen) continue;
+         const score = scoreCandidate(chosen, ctx, input.previous);
+         if (!best || score < best.score - 1e-9) best = { candidate: chosen, score };
+@@ -446,8 +499,7 @@ export function planQuestionLayout(input: PlanInput): LayoutPlan {
+       templates[0],
+       input.panels.statement.variants[0],
+       input.panels.options.variants[0],
+-      0,
+-      null,
++      ladder[ladder.length - 1],
+     ) as Candidate;
+     best = { candidate: fallback, score: 0 };
+   }

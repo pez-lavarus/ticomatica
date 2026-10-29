@@ -5,7 +5,7 @@ import { useState, useCallback, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { Clock, Flag, BookOpen, Shapes, BarChart3, Binary, RotateCcw, Lightbulb } from "lucide-react";
-import type { QuizData } from "@/lib/types";
+import { quizData } from "@/lib/question-bank";
 import ImageModal from "@/app/components/ImageModal";
 import ConfirmModal from "@/app/components/ConfirmModal";
 import FormulaModal from "@/app/components/FormulaModal";
@@ -17,11 +17,6 @@ import { useHintPanelWidth } from "@/app/components/assessment/useQuestionLayout
 import { useAssessment } from "@/lib/hooks/useAssessment";
 import { FontScaleControl, HeaderIconButton, HeaderReadout, HeaderTextButton } from "@/app/components/HeaderControls";
 import { AssessmentErrorBoundary } from "@/app/components/error/AssessmentErrorBoundary";
-import { preloadGraphAspects } from "@/lib/graph-aspects";
-
-// Import the normalized JSON manifest
-import quizDataRaw from "@/data/BXM_Math_Full_02_2026_questions_answers.json";
-const quizData: QuizData = quizDataRaw as unknown as QuizData;
 
 import { FULL_TEST_TOPICS } from "@/lib/constants";
 
@@ -148,17 +143,6 @@ export default function QuestionPage() {
       }
     }
   }, [timeLeft, mounted, testMode, currentTopicIndex, handleNextSection, handleFinishTest]);
-
-  // Preload every graph's aspect ratio so question switching never has to wait
-  // for an image decode and the layout engine stays stable across navigation.
-  useEffect(() => {
-    const optionImages = quizData.questions.flatMap((question) =>
-      question.options
-        .map((option) => option.image)
-        .filter((image): image is string => Boolean(image)),
-    );
-    void preloadGraphAspects([...Object.values(quizData.shared_images), ...optionImages]);
-  }, []);
 
   const confirmFinishTest = () => {
     update({ phase: "results", review: false });
@@ -304,7 +288,7 @@ export default function QuestionPage() {
               onOpenImageModal={openImageModal}
               isLastQuestionInSection={sectionIndex === currentSectionQuestionsWithGlobalIndex.length - 1}
               hasMoreSections={hasMoreSections}
-              sharedImageSrc={currentQuestion.shared_image ? quizData.shared_images[currentQuestion.shared_image] : undefined}
+              visualSpec={currentQuestion.visual_spec ?? null}
               reviewMode={reviewMode}
             />
           </div>

@@ -5,14 +5,11 @@ import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { Trophy, RotateCcw } from "lucide-react";
-import type { QuizData } from "@/lib/types";
 import { DesktopNavigator } from "@/app/components/assessment/DesktopNavigator";
 import { loadTestSession, resetTestSession, saveTestSession, type TestSession } from "@/lib/test-session";
+import { quizData } from "@/lib/question-bank";
 
-// Import the normalized JSON manifest
-import quizDataRaw from "@/data/BXM_Math_Full_02_2026_questions_answers.json";
 import { SECTION_TIME, FULL_TEST_TIME, FULL_TEST_TOPICS } from "@/lib/constants";
-const quizData: QuizData = quizDataRaw as unknown as QuizData;
 
 export default function ResultsPage() {
   const router = useRouter();

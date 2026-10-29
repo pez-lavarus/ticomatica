@@ -9,6 +9,7 @@ import {
   ChevronDown
 } from "lucide-react";
 import type { Explanation, Question, TestMode } from "@/lib/types";
+import type { VisualSpec } from "@/app/types";
 import { getModeBehavior } from "@/lib/practice-mode";
 import { QuestionStatement } from "./QuestionStatement";
 import { ResponseOptions } from "./ResponseOptions";
@@ -39,6 +40,8 @@ interface QuestionExperienceProps {
   isLastQuestionInSection: boolean;
   hasMoreSections: boolean;
   sharedImageSrc?: string;
+  /** Structured graph spec rendered by `VisualRenderer`. */
+  visualSpec?: VisualSpec | null;
   /** Review mode: force practice behavior (feedback + explanation) regardless of testMode. */
   reviewMode?: boolean;
 }
@@ -60,6 +63,7 @@ export const QuestionExperience = memo(function QuestionExperience({
   isLastQuestionInSection,
   hasMoreSections,
   sharedImageSrc,
+  visualSpec,
   reviewMode,
 }: QuestionExperienceProps) {
   const [isNavigatorExpanded, setIsNavigatorExpanded] = useState(false);
@@ -76,14 +80,11 @@ export const QuestionExperience = memo(function QuestionExperience({
 
   // Every image that affects panel sizes, so the layout can re-plan once their
   // dimensions are known.
-  const imageSources = [
-    ...(sharedImageSrc ? [sharedImageSrc] : []),
-    ...question.options.flatMap((option) => (option.image ? [option.image] : [])),
-  ];
+  const imageSources = question.options.flatMap((option) => (option.image ? [option.image] : []));
 
   const { containerRef, slot, stageHeight, statementSplit, optionsColumns, graphMax } = useQuestionLayout({
     questionKey: question.original_number,
-    hasGraph: Boolean(sharedImageSrc),
+    hasGraph: Boolean(visualSpec),
     hasStatementText: Boolean(question.statement),
     optionCount: question.options.length,
     hasExplanation: showPanel,
@@ -159,6 +160,7 @@ export const QuestionExperience = memo(function QuestionExperience({
           <QuestionStatement
             question={question}
             sharedImageSrc={sharedImageSrc}
+            visualSpec={visualSpec}
             onOpenImageModal={onOpenImageModal}
             slot={slot("statement")}
             split={statementSplit}

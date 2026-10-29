@@ -11,10 +11,7 @@ interface HintModalProps {
 }
 
 export default function HintModal({ keywords = [], hints = [], hintStrategy, onRevealSolution }: HintModalProps) {
-  const pairs = keywords.map((keyword, index) => ({
-    keyword,
-    hint: hints[index] ?? "",
-  }));
+  const topic = keywords[0];
 
   return (
     <div className="flex flex-col flex-1 min-h-0">
@@ -24,11 +21,14 @@ export default function HintModal({ keywords = [], hints = [], hintStrategy, onR
       </div>
 
       <div className="flex-1 overflow-y-auto p-6 space-y-4">
-        {pairs.length > 0 ? (
-          pairs.map(({ keyword, hint }, index) => (
+        {topic && (
+          <p className="text-xs font-bold uppercase tracking-[0.15em] text-primary">{topic}</p>
+        )}
+        {hints.length > 0 ? (
+          hints.map((hint, index) => (
             <div key={index} className="p-4 rounded-sm border border-border/60 bg-muted/20">
               <p className="text-xs font-bold uppercase tracking-[0.15em] text-primary mb-2">
-                {index + 1}. {keyword}
+                Paso {index + 1}
               </p>
               <p className="text-sm text-foreground font-serif leading-relaxed">{hint}</p>
             </div>

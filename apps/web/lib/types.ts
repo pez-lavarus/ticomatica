@@ -1,5 +1,7 @@
 // Shared TypeScript interfaces for Ticomatica
 
+import type { VisualSpec } from "@/app/types";
+
 export interface QuestionOption {
   label: "A" | "B" | "C" | "D";
   text?: string;
@@ -11,10 +13,17 @@ export interface Question {
   section_number: number;
   statement: string;
   problem: string;
+  /** Legacy PNG graph key (no longer used; visuals drive the graph). */
   shared_image?: string;
+  /** Structured graph spec rendered by `VisualRenderer`. */
+  visual_spec?: VisualSpec | null;
   options: QuestionOption[];
   correct_answer: "A" | "B" | "C" | "D";
   topic: string;
+  /** Specific knowledge topic from the item bank (e.g. "Circunferencia"). */
+  knowledge_topic?: string;
+  /** Shared-context group id (same graph/statement across sibling items). */
+  group_id?: string | null;
   keywords?: string[];
   hints?: string[];
   hint_strategy?: string;
