@@ -1768,15 +1768,15 @@
         "evidence_desc": "Analiza una función a partir de sus representaciones en diversos contextos."
       },
       "options": {
-        "A": "$\\text{\\mathbb{C}}500$",
-        "B": "$\\text{\\mathbb{C}}600$",
-        "C": "$\\text{\\mathbb{C}}750$",
-        "D": "$\\text{\\mathbb{C}}900$"
+        "A": "$\\mathbb{C}500$",
+        "B": "$\\mathbb{C}600$",
+        "C": "$\\mathbb{C}750$",
+        "D": "$\\mathbb{C}900$"
       },
       "correct_answer": "C",
       "solution_steps": [
         "En la gráfica, para $x = 8$, el punto correspondiente en el eje vertical $p(x)$ es $750$.",
-        "Por lo tanto, el precio fue de $\\text{\\mathbb{C}}750$.",
+        "Por lo tanto, el precio fue de $\\mathbb{C}750$.",
         "Opción correcta: C."
       ],
       "group_id": "g_fuel_price",
@@ -2690,10 +2690,10 @@
         "evidence_desc": "Resuelve ecuaciones exponenciales de la forma a^(f(x)) = b^(g(x)), (a, b números reales positivos y distintos de 1, f, g polinomios de grado menor que 3) mediante la utilización de logaritmos, en diversos contextos."
       },
       "options": {
-        "A": "$\\text{\\mathbb{C}}1\\,102\\,500$",
-        "B": "$\\text{\\mathbb{C}}1\\,100\\,000$",
-        "C": "$\\text{\\mathbb{C}}1\\,050\\,000$",
-        "D": "$\\text{\\mathbb{C}}1\\,200\\,000$"
+        "A": "$\\mathbb{C}1\\,102\\,500$",
+        "B": "$\\mathbb{C}1\\,100\\,000$",
+        "C": "$\\mathbb{C}1\\,050\\,000$",
+        "D": "$\\mathbb{C}1\\,200\\,000$"
       },
       "correct_answer": "A",
       "solution_steps": [
@@ -2705,7 +2705,7 @@
       "group_id": null,
       "visual_spec": null,
       "set_id": "set_1",
-      "statement": "Un empresario invierte un capital inicial de $\\text{\\mathbb{C}}1\\,000\\,000$ a una tasa de interés compuesto anual del $5\\%$. El modelo que representa el monto acumulado $M(t)$ tras $t$ años es $M(t) = 1\\,000\\,000 \\cdot (1{,}05)^t$.",
+      "statement": "Un empresario invierte un capital inicial de $\\mathbb{C}1\\,000\\,000$ a una tasa de interés compuesto anual del $5\\%$. El modelo que representa el monto acumulado $M(t)$ tras $t$ años es $M(t) = 1\\,000\\,000 \\cdot (1{,}05)^t$.",
       "problem": "¿Cuál será el monto acumulado al cabo de $2$ años?"
     },
     {
@@ -2752,10 +2752,10 @@
         "evidence_desc": "Determina la función lineal, cuadrática, raíz cuadrada, exponencial o logarítmica que sirva de modelo en diversos contextos."
       },
       "options": {
-        "A": "$\\text{\\mathbb{C}}183\\,940$",
-        "B": "$\\text{\\mathbb{C}}200\\,000$",
-        "C": "$\\text{\\mathbb{C}}250\\,000$",
-        "D": "$\\text{\\mathbb{C}}100\\,000$"
+        "A": "$\\mathbb{C}183\\,940$",
+        "B": "$\\mathbb{C}200\\,000$",
+        "C": "$\\mathbb{C}250\\,000$",
+        "D": "$\\mathbb{C}100\\,000$"
       },
       "correct_answer": "C",
       "solution_steps": [
