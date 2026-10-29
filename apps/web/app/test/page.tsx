@@ -43,12 +43,28 @@ export default function QuestionPage() {
   useEffect(() => {
     if (!isHintModalOpen) return;
     const handleClick = (e: MouseEvent) => {
+      const path = e.composedPath ? e.composedPath() : [];
+      const isInsideHintPanel = hintPanelRef.current && path.includes(hintPanelRef.current);
+      const isOptionButton = path.some(
+        (el) => el instanceof HTMLElement && (el.classList.contains("response-option-button") || el.closest?.(".response-option-button"))
+      );
+      const isHeaderHintButton = path.some(
+        (el) => el instanceof HTMLElement && (el.classList.contains("header-hint-button") || el.closest?.(".header-hint-button"))
+      );
+
+      // Fallback target check in case composedPath is unavailable or target was connected
       const target = e.target as HTMLElement | null;
+      const isTargetInHintPanel = hintPanelRef.current?.contains(target as Node);
+      const isTargetOptionButton = Boolean(target?.closest(".response-option-button"));
+      const isTargetHeaderHintButton = Boolean(target?.closest(".header-hint-button"));
+
       if (
-        hintPanelRef.current &&
-        !hintPanelRef.current.contains(target as Node) &&
-        !target?.closest(".response-option-button") &&
-        !target?.closest(".header-hint-button")
+        !isInsideHintPanel &&
+        !isOptionButton &&
+        !isHeaderHintButton &&
+        !isTargetInHintPanel &&
+        !isTargetOptionButton &&
+        !isTargetHeaderHintButton
       ) {
         setIsHintModalOpen(false);
       }
