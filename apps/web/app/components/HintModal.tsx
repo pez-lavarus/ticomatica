@@ -33,13 +33,13 @@ export default function HintModal({ keywords = [], hints = [], hintStrategy, onR
               <p className="text-xs font-bold uppercase tracking-[0.15em] text-primary mb-2">
                 Paso {index + 1}
               </p>
-              <div className="text-sm text-foreground font-serif leading-relaxed">
+              <div className="text-base md:text-lg text-foreground font-serif leading-[1.6] md:leading-[1.8]">
                 <KaTeXText text={hint} />
               </div>
             </div>
           ))
         ) : (
-          <p className="text-sm text-muted-foreground font-serif">
+          <p className="text-base md:text-lg text-muted-foreground font-serif">
             No hay pistas disponibles para esta pregunta.
           </p>
         )}
@@ -47,7 +47,7 @@ export default function HintModal({ keywords = [], hints = [], hintStrategy, onR
 
       {hintStrategy && (
         <div className="p-4 border-t border-border/60 bg-muted/10 shrink-0">
-          <div className="text-xs text-muted-foreground italic">
+          <div className="text-sm md:text-base text-muted-foreground font-serif italic leading-relaxed">
             <KaTeXText text={hintStrategy} />
           </div>
         </div>
