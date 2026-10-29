@@ -25,7 +25,8 @@ type RawItem = {
   id: number;
   area_id?: string;
   topic?: string;
-  stem?: string;
+  statement?: string;
+  problem?: string;
   options?: Record<string, string>;
   correct_answer?: string;
   solution_steps?: (string | { explanation?: string })[];
@@ -108,11 +109,14 @@ function buildBank(): QuizData {
     const inheritedVisual = item.group_id ? groupVisual.get(item.group_id) ?? null : null;
     const visualSpec = withVisualWidth(ownVisual ?? inheritedVisual, VISUAL_WIDTH);
 
+    const itemStatement = item.statement ?? "";
+    const groupStatement = item.group_id ? (groupContext.get(item.group_id) ?? "") : "";
+
     return {
       original_number: item.id,
       section_number: sectionNumber,
-      statement: item.group_id ? (groupContext.get(item.group_id) ?? "") : "",
-      problem: item.stem ?? "",
+      statement: itemStatement || groupStatement,
+      problem: item.problem ?? "",
       visual_spec: visualSpec,
       options,
       correct_answer: (item.correct_answer as Question["correct_answer"]) ?? "A",

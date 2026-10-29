@@ -46,7 +46,7 @@
   "$defs": {
     "item": {
       "type": "object",
-      "required": ["id", "area", "area_id", "topic", "spec", "stem", "options", "correct_answer", "solution_steps", "group_id", "visual_spec"],
+      "required": ["id", "area", "area_id", "topic", "spec", "statement", "problem", "options", "correct_answer", "solution_steps", "group_id", "visual_spec"],
       "properties": {
         "id": { "type": "integer", "minimum": 1 },
         "set_id": { "type": "string" },
@@ -54,7 +54,8 @@
         "area_id": { "enum": ["geometry", "functions", "statistics"] },
         "topic": { "type": "string" },
         "spec": { "$ref": "#/$defs/spec" },
-        "stem": { "type": "string" },
+        "statement": { "type": "string" },
+        "problem": { "type": "string" },
         "options": {
           "type": "object",
           "required": ["A", "B", "C", "D"],

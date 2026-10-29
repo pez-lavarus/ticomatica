@@ -60,7 +60,6 @@
         "evidence": "A1.2",
         "evidence_desc": "Reconoce la representación algebraica de una circunferencia dado su centro y su radio, en diversos contextos."
       },
-      "stem": "Si la medida del radio de la circunferencia “c” es 5 y su centro es (2, 3), entonces, la ecuación de “c” corresponde a",
       "options": {
         "A": "(x+2)^2 + (y+3)^2 = 25",
         "B": "(x-2)^2 + (y-3)^2 = 25",
@@ -75,7 +74,9 @@
       ],
       "group_id": null,
       "visual_spec": null,
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "Si la medida del radio de la circunferencia “c” es 5 y su centro es (2, 3)",
+      "problem": "la ecuación de “c” corresponde a"
     },
     {
       "id": 2,
@@ -89,7 +90,6 @@
         "evidence": "A1.3",
         "evidence_desc": "Resuelve problemas, de diversos contextos, relacionados con la circunferencia y sus representaciones."
       },
-      "stem": "Una torre de control de un aeropuerto tiene un radar con un alcance máximo de 20 kilómetros. Tomando como origen la pista principal del aeropuerto, la torre de control se ubica 5 kilómetros al este (eje x positivo) y 4 kilómetros al sur (eje y negativo) de dicha pista. ¿Cuál es la ecuación que representa el alcance máximo del radar de la torre de control?",
       "options": {
         "A": "(x-5)^2 + (y+4)^2 = 400",
         "B": "(x+5)^2 + (y-4)^2 = 400",
@@ -105,7 +105,9 @@
       ],
       "group_id": null,
       "visual_spec": null,
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "Una torre de control de un aeropuerto tiene un radar con un alcance máximo de 20 kilómetros. Tomando como origen la pista principal del aeropuerto, la torre de control se ubica 5 kilómetros al este (eje x positivo) y 4 kilómetros al sur (eje y negativo) de dicha pista.",
+      "problem": "¿Cuál es la ecuación que representa el alcance máximo del radar de la torre de control?"
     },
     {
       "id": 3,
@@ -119,7 +121,6 @@
         "evidence": "A1.1",
         "evidence_desc": "Reconoce la representación gráfica de una circunferencia dado su centro y su radio, en diversos contextos."
       },
-      "stem": "Considere la siguiente representación gráfica de la circunferencia “c”, de centro “O”: [imagen]. De acuerdo con la información dada la ecuación de “c” corresponde a",
       "options": {
         "A": "x^2 + (y − 2)^2 = 6",
         "B": "x^2 + (y + 2)^2 = 9",
@@ -202,7 +203,9 @@
           ]
         }
       },
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "Considere la siguiente representación gráfica de la circunferencia “c”, de centro “O”:",
+      "problem": "De acuerdo con la información dada la ecuación de “c” corresponde a"
     },
     {
       "id": 4,
@@ -216,7 +219,6 @@
         "evidence": "A1.3",
         "evidence_desc": "Resuelve problemas, de diversos contextos, relacionados con la circunferencia y sus representaciones."
       },
-      "stem": "Un faro de luz direccional emite una señal que cubre una zona circular en el mar. El borde de la zona iluminada está delimitado por la circunferencia “c” dada por la ecuación (x + 2)^2 + (y − 7)^2 = 49. ¿Cuál es el alcance máximo del haz de luz del faro?",
       "options": {
         "A": "7 m",
         "B": "14 m",
@@ -232,7 +234,9 @@
       ],
       "group_id": null,
       "visual_spec": null,
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "Un faro de luz direccional emite una señal que cubre una zona circular en el mar. El borde de la zona iluminada está delimitado por la circunferencia “c” dada por la ecuación (x + 2)^2 + (y − 7)^2 = 49.",
+      "problem": "¿Cuál es el alcance máximo del haz de luz del faro?"
     },
     {
       "id": 5,
@@ -246,7 +250,6 @@
         "evidence": "A2.1",
         "evidence_desc": "Reconoce la representación gráfica o algebraica de la traslación de una circunferencia en diversos contextos."
       },
-      "stem": "Considere la siguiente representación de la circunferencia “d” de centro O: [imagen]. Si a “d” se le aplica una traslación de cinco unidades a la izquierda (paralela al eje x) y tres unidades hacia abajo (paralela al eje y), entonces, se obtiene una circunferencia cuya ecuación corresponde a",
       "options": {
         "A": "(x+1)^2 + (y-3)^2 = 9",
         "B": "(x-1)^2 + (y-3)^2 = 9",
@@ -330,7 +333,9 @@
           ]
         }
       },
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "Considere la siguiente representación de la circunferencia “d” de centro O:",
+      "problem": "Si a “d” se le aplica una traslación de cinco unidades a la izquierda (paralela al eje x) y tres unidades hacia abajo (paralela al eje y), entonces, se obtiene una circunferencia cuya ecuación corresponde a"
     },
     {
       "id": 6,
@@ -344,7 +349,6 @@
         "evidence": "A2.1",
         "evidence_desc": "Reconoce la representación gráfica o algebraica de la traslación de una circunferencia en diversos contextos."
       },
-      "stem": "Sea “c” la circunferencia dada por c:(x − 2)^2 + (y − 3)^2 = 4. Al trasladar a “c” dos unidades hacia la izquierda (paralela al eje x) y tres unidades hacia arriba (paralela al eje y), se obtiene la circunferencia “d” de centro O. ¿Cuál de las siguientes opciones corresponde a la representación de “d”?",
       "options": {
         "A": "Gráfico A",
         "B": "Gráfico B",
@@ -493,7 +497,9 @@
           ]
         }
       },
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "Sea “c” la circunferencia dada por c:(x − 2)^2 + (y − 3)^2 = 4. Al trasladar a “c” dos unidades hacia la izquierda (paralela al eje x) y tres unidades hacia arriba (paralela al eje y), se obtiene la circunferencia “d” de centro O.",
+      "problem": "¿Cuál de las siguientes opciones corresponde a la representación de “d”?"
     },
     {
       "id": 7,
@@ -507,7 +513,6 @@
         "evidence": "A2.2",
         "evidence_desc": "Resuelve problemas, de diversos contextos, relacionados con la traslación de una circunferencia y sus representaciones."
       },
-      "stem": "Sea “c” la circunferencia dada por c:(x + 2)^2 + y^2 = 6. Si se traslada “c” y se obtiene d:x^2 + (y +3)^2 = 6, entonces, la traslación aplicada corresponde a dos unidades hacia la",
       "options": {
         "A": "izquierda paralela al eje x y tres unidades hacia abajo paralela al eje y.",
         "B": "izquierda paralela al eje x y tres unidades hacia arriba paralela al eje y.",
@@ -523,7 +528,9 @@
       ],
       "group_id": null,
       "visual_spec": null,
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "Sea “c” la circunferencia dada por c:(x + 2)^2 + y^2 = 6. Si se traslada “c” y se obtiene d:x^2 + (y +3)^2 = 6",
+      "problem": "la traslación aplicada corresponde a dos unidades hacia la"
     },
     {
       "id": 8,
@@ -537,7 +544,6 @@
         "evidence": "A3.1",
         "evidence_desc": "Determina gráfica y algebraicamente si un punto se ubica en el interior o en el exterior de una circunferencia en diversos contextos."
       },
-      "stem": "¿Cuál opción contiene las coordenadas de un punto interior a la circunferencia dada por (x−2)^2 + y^2 = 5?",
       "options": {
         "A": "(0, 2)",
         "B": "(1, 0)",
@@ -554,7 +560,9 @@
       ],
       "group_id": null,
       "visual_spec": null,
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "",
+      "problem": "¿Cuál opción contiene las coordenadas de un punto interior a la circunferencia dada por (x−2)^2 + y^2 = 5?"
     },
     {
       "id": 9,
@@ -568,7 +576,6 @@
         "evidence": "A3.1",
         "evidence_desc": "Determina gráfica y algebraicamente si un punto se ubica en el interior o en el exterior de una circunferencia en diversos contextos."
       },
-      "stem": "Un radar de ciberseguridad monitorea una red local. El servidor central está ubicado en el punto O y su zona de cobertura abarca un radio de 4 km, tal como se ilustra con el siguiente sistema de coordenadas: [imagen]. Considere las coordenadas de ubicación de cuatro dispositivos conectados: P(5,2), Q(4,1), R(6,1), S(8,4). ¿Cuál de los dispositivos se encuentra fuera del área de cobertura?",
       "options": {
         "A": "P",
         "B": "Q",
@@ -685,7 +692,9 @@
           ]
         }
       },
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "Un radar de ciberseguridad monitorea una red local. El servidor central está ubicado en el punto O y su zona de cobertura abarca un radio de 4 km, tal como se ilustra con el siguiente sistema de coordenadas:",
+      "problem": "Considere las coordenadas de ubicación de cuatro dispositivos conectados: P(5,2), Q(4,1), R(6,1), S(8,4). ¿Cuál de los dispositivos se encuentra fuera del área de cobertura?"
     },
     {
       "id": 10,
@@ -699,7 +708,6 @@
         "evidence": "A3.2",
         "evidence_desc": "Determina si una recta dada gráfica o algebraicamente es secante, tangente o exterior a una circunferencia, en diversos contextos."
       },
-      "stem": "¿Cuál opción contiene una recta secante a la circunferencia dada por (x − 2)^2 + y^2 = 4?",
       "options": {
         "A": "x = 5",
         "B": "y = 3",
@@ -718,7 +726,9 @@
       ],
       "group_id": null,
       "visual_spec": null,
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "",
+      "problem": "¿Cuál opción contiene una recta secante a la circunferencia dada por (x − 2)^2 + y^2 = 4?"
     },
     {
       "id": 11,
@@ -732,7 +742,6 @@
         "evidence": "A3.2",
         "evidence_desc": "Determina si una recta dada gráfica o algebraicamente es secante, tangente o exterior a una circunferencia, en diversos contextos."
       },
-      "stem": "¿Cuál opción contiene una recta tangente a la circunferencia dada por (x − 3)^2 + (y + 2)^2 = 1?",
       "options": {
         "A": "y = 0",
         "B": "x = 1",
@@ -751,7 +760,9 @@
       ],
       "group_id": null,
       "visual_spec": null,
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "",
+      "problem": "¿Cuál opción contiene una recta tangente a la circunferencia dada por (x − 3)^2 + (y + 2)^2 = 1?"
     },
     {
       "id": 12,
@@ -765,7 +776,6 @@
         "evidence": "A4.3",
         "evidence_desc": "Estima perímetros o áreas de figuras planas no poligonales mediante un sistema de coordenadas rectangulares en diversos contextos."
       },
-      "stem": "La siguiente representación gráfica corresponde al diseño de una pieza de metal para el logotipo de una empresa automotriz, cuyas dimensiones están dadas en centímetros: [imagen]. De acuerdo con la información anterior, el área en centímetros cuadrados de esa pieza de metal es mayor que:",
       "options": {
         "A": "2200 pero menor que 2600.",
         "B": "2600 pero menor que 2900.",
@@ -853,7 +863,9 @@
           }
         }
       },
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "La siguiente representación gráfica corresponde al diseño de una pieza de metal para el logotipo de una empresa automotriz, cuyas dimensiones están dadas en centímetros:",
+      "problem": "De acuerdo con la información anterior, el área en centímetros cuadrados de esa pieza de metal es mayor que:"
     },
     {
       "id": 13,
@@ -867,7 +879,6 @@
         "evidence": "A4.3",
         "evidence_desc": "Estima perímetros o áreas de figuras planas no poligonales mediante un sistema de coordenadas rectangulares en diversos contextos."
       },
-      "stem": "La siguiente representación gráfica ilustra el perfil lateral de una rampa de acceso para un puente colgante, la cual asciende de forma curva desde el pilar lateral del soporte hasta alcanzar la torre central de suspensión, cuyas dimensiones de los ejes están en metros: [imagen]. De acuerdo con la información anterior, el área de la superficie lateral bajo esta sección del puente en metros cuadrados es",
       "options": {
         "A": "mayor que 20.",
         "B": "mayor que 30.",
@@ -961,7 +972,9 @@
           }
         }
       },
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "La siguiente representación gráfica ilustra el perfil lateral de una rampa de acceso para un puente colgante, la cual asciende de forma curva desde el pilar lateral del soporte hasta alcanzar la torre central de suspensión, cuyas dimensiones de los ejes están en metros:",
+      "problem": "De acuerdo con la información anterior, el área de la superficie lateral bajo esta sección del puente en metros cuadrados es"
     },
     {
       "id": 14,
@@ -975,7 +988,6 @@
         "evidence": "A4.1",
         "evidence_desc": "Determina elementos de los polígonos regulares para la obtención de perímetros o áreas de estos en diversos contextos."
       },
-      "stem": "Si la medida del ángulo interno de un polígono regular es 120° y la apotema 2√3, entonces, ¿cuál es el perímetro de dicho polígono?",
       "options": {
         "A": "12",
         "B": "15",
@@ -992,7 +1004,9 @@
       ],
       "group_id": null,
       "visual_spec": null,
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "Si la medida del ángulo interno de un polígono regular es 120° y la apotema 2√3",
+      "problem": "¿cuál es el perímetro de dicho polígono?"
     },
     {
       "id": 15,
@@ -1006,7 +1020,6 @@
         "evidence": "A4.1",
         "evidence_desc": "Determina elementos de los polígonos regulares para la obtención de perímetros o áreas de estos en diversos contextos."
       },
-      "stem": "Si la medida del radio de un polígono regular es 3√2 y la de su ángulo externo 90°, entonces, ¿cuál es el área de ese polígono?",
       "options": {
         "A": "36",
         "B": "24",
@@ -1023,7 +1036,9 @@
       ],
       "group_id": null,
       "visual_spec": null,
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "Si la medida del radio de un polígono regular es 3√2 y la de su ángulo externo 90°",
+      "problem": "¿cuál es el área de ese polígono?"
     },
     {
       "id": 16,
@@ -1037,7 +1052,6 @@
         "evidence": "A5.3",
         "evidence_desc": "Determina características métricas de secciones planas en un cilindro circular recto o en una esfera en diversos contextos."
       },
-      "stem": "Un florero artesanal se fabricó a partir de una pieza esférica de porcelana de 13 cm de radio, a la cual se le realizó un corte para su abertura (boca). Si el centro de dicha abertura quedó a 12 cm del centro de la esfera, entonces, ¿de cuántos centímetros es el perímetro (aproximadamente) de la abertura de ese florero?",
       "options": {
         "A": "15,7",
         "B": "31,4",
@@ -1053,7 +1067,9 @@
       ],
       "group_id": null,
       "visual_spec": null,
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "Un florero artesanal se fabricó a partir de una pieza esférica de porcelana de 13 cm de radio, a la cual se le realizó un corte para su abertura (boca). Si el centro de dicha abertura quedó a 12 cm del centro de la esfera",
+      "problem": "¿de cuántos centímetros es el perímetro (aproximadamente) de la abertura de ese florero?"
     },
     {
       "id": 17,
@@ -1067,7 +1083,6 @@
         "evidence": "A5.3",
         "evidence_desc": "Determina características métricas de secciones planas en un cilindro circular recto o en una esfera en diversos contextos."
       },
-      "stem": "Si el radio de una esfera mide 25 y esta se interseca con una sección plana de radio 24, entonces, ¿a qué distancia del centro de la esfera se encuentra dicha sección?",
       "options": {
         "A": "7",
         "B": "12",
@@ -1082,7 +1097,9 @@
       ],
       "group_id": null,
       "visual_spec": null,
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "Si el radio de una esfera mide 25 y esta se interseca con una sección plana de radio 24",
+      "problem": "¿a qué distancia del centro de la esfera se encuentra dicha sección?"
     },
     {
       "id": 18,
@@ -1096,7 +1113,6 @@
         "evidence": "A5.3",
         "evidence_desc": "Determina características métricas de secciones planas en un cilindro circular recto o en una esfera en diversos contextos."
       },
-      "stem": "Un bloque de queso industrial con forma de cilindro circular recto de 40 cm de altura y 15 cm de radio en sus bases se corta con un cuchillo de manera perpendicular a ellas, pasando por los centros de ambas. ¿Cuál es el área, en centímetros cuadrados, de la superficie del corte?",
       "options": {
         "A": "300",
         "B": "600",
@@ -1112,7 +1128,9 @@
       ],
       "group_id": null,
       "visual_spec": null,
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "Un bloque de queso industrial con forma de cilindro circular recto de 40 cm de altura y 15 cm de radio en sus bases se corta con un cuchillo de manera perpendicular a ellas, pasando por los centros de ambas.",
+      "problem": "¿Cuál es el área, en centímetros cuadrados, de la superficie del corte?"
     },
     {
       "id": 19,
@@ -1126,7 +1144,6 @@
         "evidence": "A6.1",
         "evidence_desc": "Determina ejes de simetría en figuras simétricas en diversos contextos."
       },
-      "stem": "Considere el siguiente polígono QRPS: [imagen]. De acuerdo con la información de la gráfica, ¿cuál es la cantidad total de ejes de simetría que se le pueden trazar al polígono QRPS?",
       "options": {
         "A": "4",
         "B": "3",
@@ -1219,7 +1236,9 @@
           ]
         }
       },
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "Considere el siguiente polígono QRPS:",
+      "problem": "De acuerdo con la información de la gráfica, ¿cuál es la cantidad total de ejes de simetría que se le pueden trazar al polígono QRPS?"
     },
     {
       "id": 20,
@@ -1233,7 +1252,6 @@
         "evidence": "A6.2",
         "evidence_desc": "Identifica elementos homólogos en figuras que presentan simetría axial en diversos contextos."
       },
-      "stem": "Considere el siguiente polígono DEFGHIJ: [imagen]. De acuerdo con la información de la gráfica, ¿cuál punto corresponde a la imagen de J con respecto al eje y?",
       "options": {
         "A": "F",
         "B": "E",
@@ -1365,7 +1383,9 @@
           ]
         }
       },
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "Considere el siguiente polígono DEFGHIJ:",
+      "problem": "De acuerdo con la información de la gráfica, ¿cuál punto corresponde a la imagen de J con respecto al eje y?"
     },
     {
       "id": 21,
@@ -1379,7 +1399,6 @@
         "evidence": "A7.1",
         "evidence_desc": "Reconoce las figuras obtenidas a partir del concepto de transformación (traslación, homotecia, reflexión o rotación) a figuras dadas, en diversos contextos."
       },
-      "stem": "Si se aplica una homotecia centrada en (0,0) al polígono #2 para obtener el #4, entonces, con certeza el valor de la razón de la homotecia corresponde a",
       "options": {
         "A": "0",
         "B": "1",
@@ -1398,7 +1417,9 @@
       "flags": [
         "polygon_vertices_need_pdf_verification"
       ],
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "Si se aplica una homotecia centrada en (0,0) al polígono #2 para obtener el #4",
+      "problem": "con certeza el valor de la razón de la homotecia corresponde a"
     },
     {
       "id": 22,
@@ -1412,7 +1433,6 @@
         "evidence": "A7.1",
         "evidence_desc": "Reconoce las figuras obtenidas a partir del concepto de transformación (traslación, homotecia, reflexión o rotación) a figuras dadas, en diversos contextos."
       },
-      "stem": "Una forma de obtener el polígono #3 es aplicándole al polígono #4 una reflexión sobre",
       "options": {
         "A": "y = 1",
         "B": "x = 1",
@@ -1432,7 +1452,9 @@
       "flags": [
         "polygon_vertices_need_pdf_verification"
       ],
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "",
+      "problem": "Una forma de obtener el polígono #3 es aplicándole al polígono #4 una reflexión sobre"
     },
     {
       "id": 23,
@@ -1446,7 +1468,6 @@
         "evidence": "A7.3",
         "evidence_desc": "Determina el punto imagen de puntos dados mediante una transformación en diversos contextos."
       },
-      "stem": "Si al polígono #1 se le aplica una rotación de 270º en sentido horario y con centro en el punto (0, 0), entonces, ¿cuál es el punto imagen de (−1, 3)?",
       "options": {
         "A": "(-3, -1)",
         "B": "(-3, 1)",
@@ -1465,7 +1486,9 @@
       "flags": [
         "polygon_vertices_need_pdf_verification"
       ],
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "Si al polígono #1 se le aplica una rotación de 270º en sentido horario y con centro en el punto (0, 0)",
+      "problem": "¿cuál es el punto imagen de (−1, 3)?"
     },
     {
       "id": 51,
@@ -1479,7 +1502,6 @@
         "evidence": "A1.1",
         "evidence_desc": "Identifica en diversos contextos si una relación dada en forma tabular, simbólica o gráfica corresponde a una función."
       },
-      "stem": "En las siguientes relaciones “x” representa la variable independiente y “y” la dependiente. ¿Cuál de ellas corresponde a una función?",
       "options": {
         "A": "Gráfica A (curva suave que pasa la prueba de la recta vertical)",
         "B": "Gráfica B (dos rayos desde un punto en el eje y)",
@@ -1693,7 +1715,9 @@
           ]
         }
       },
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "En las siguientes relaciones “x” representa la variable independiente y “y” la dependiente.",
+      "problem": "¿Cuál de ellas corresponde a una función?"
     },
     {
       "id": 52,
@@ -1707,7 +1731,6 @@
         "evidence": "A1.4",
         "evidence_desc": "Determina las condiciones necesarias y suficientes para que se defina la composición de dos funciones en diversos contextos."
       },
-      "stem": "Considere las siguientes funciones f, g y p con sus respectivos dominios y ámbitos:\n• f: [0, 4] → [1, 5]\n• g: [2, 6] → [1, 4]\n• p: [2, 6] → [0, 4]\n¿Cuál de las siguientes composiciones de funciones está bien definida?",
       "options": {
         "A": "(g ° f)(x)",
         "B": "(p ° f)(x)",
@@ -1725,7 +1748,9 @@
       ],
       "group_id": null,
       "visual_spec": null,
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "Considere las siguientes funciones f, g y p con sus respectivos dominios y ámbitos: • f: [0, 4] → [1, 5] • g: [2, 6] → [1, 4] • p: [2, 6] → [0, 4]",
+      "problem": "¿Cuál de las siguientes composiciones de funciones está bien definida?"
     },
     {
       "id": 53,
@@ -1739,7 +1764,6 @@
         "evidence": "A2.1",
         "evidence_desc": "Analiza una función a partir de sus representaciones en diversos contextos."
       },
-      "stem": "¿Cuál fue el precio del litro de combustible, en colones, en la semana 10?",
       "options": {
         "A": "600",
         "B": "650",
@@ -1755,7 +1779,9 @@
       ],
       "group_id": "g_fuel_price",
       "visual_spec": null,
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "",
+      "problem": "¿Cuál fue el precio del litro de combustible, en colones, en la semana 10?"
     },
     {
       "id": 54,
@@ -1769,7 +1795,6 @@
         "evidence": "A2.1",
         "evidence_desc": "Analiza una función a partir de sus representaciones en diversos contextos."
       },
-      "stem": "¿En cuál semana se registró el precio más alto de todo el periodo?",
       "options": {
         "A": "18",
         "B": "16",
@@ -1785,7 +1810,9 @@
       ],
       "group_id": "g_fuel_price",
       "visual_spec": null,
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "",
+      "problem": "¿En cuál semana se registró el precio más alto de todo el periodo?"
     },
     {
       "id": 55,
@@ -1799,7 +1826,6 @@
         "evidence": "A2.4",
         "evidence_desc": "Determina la ecuación de una recta utilizando datos relacionados con ella en diversos contextos."
       },
-      "stem": "Sea la función g cuyo criterio está definido por g(x) = mx + 4. Si el punto (3, 19) pertenece a la gráfica de g, entonces, ¿cuál es la pendiente de g?",
       "options": {
         "A": "3",
         "B": "5",
@@ -1818,7 +1844,9 @@
       ],
       "group_id": null,
       "visual_spec": null,
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "Sea la función g cuyo criterio está definido por g(x) = mx + 4. Si el punto (3, 19) pertenece a la gráfica de g",
+      "problem": "¿cuál es la pendiente de g?"
     },
     {
       "id": 56,
@@ -1832,7 +1860,6 @@
         "evidence": "A2.5",
         "evidence_desc": "Determina elementos o propiedades de la función cuadrática con criterio dado por f(x) = ax² + bx + c, a ≠ 0, en su representación gráfica o algebraica, en diversos contextos."
       },
-      "stem": "Considere la siguiente representación gráfica de la función g, definida por g(x) = ax² + bx + c, con a < 0:\n[gráfica de parábola que abre hacia abajo, con vértice en (−1, 5) y raíces en −4 y 2]\n¿En cuál valor de “x” alcanza “g” su valor máximo?",
       "options": {
         "A": "2",
         "B": "5",
@@ -1903,7 +1930,9 @@
           }
         }
       },
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "Considere la siguiente representación gráfica de la función g, definida por g(x) = ax² + bx + c, con a < 0:",
+      "problem": "¿En cuál valor de “x” alcanza “g” su valor máximo?"
     },
     {
       "id": 57,
@@ -1917,7 +1946,6 @@
         "evidence": "A2.3",
         "evidence_desc": "Determina la pendiente, la intersección con el eje de las ordenadas o de las abscisas de una recta dada en forma gráfica o algebraica en diversos contextos."
       },
-      "stem": "Dada la ecuación de la recta y = 2x + b, y sabiendo que el punto (−2, 1) pertenece a ella, ¿cuáles son las coordenadas del punto de intersección con el eje y?",
       "options": {
         "A": "(0, −3)",
         "B": "(−3, 0)",
@@ -1935,7 +1963,9 @@
       ],
       "group_id": null,
       "visual_spec": null,
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "Dada la ecuación de la recta y = 2x + b, y sabiendo que el punto (−2, 1) pertenece a ella,",
+      "problem": "¿cuáles son las coordenadas del punto de intersección con el eje y?"
     },
     {
       "id": 58,
@@ -1949,7 +1979,6 @@
         "evidence": "A3.1",
         "evidence_desc": "Resuelve problemas en contextos reales utilizando las funciones lineales y cuadráticas."
       },
-      "stem": "Un gimnasio ofrece un paquete de entrenamiento personalizado para un mes. Toda persona que desee inscribirse debe pagar una cuota única de inscripción de 25 000 y luego 4000 por cada clase asistida con el entrenador. Si un cliente reservó espacio para 15 clases durante el último mes, pero al final asistió solamente a 12 clases, entonces, ¿cuánto pagó en total?",
       "options": {
         "A": "85 000",
         "B": "73 000",
@@ -1966,7 +1995,9 @@
       ],
       "group_id": null,
       "visual_spec": null,
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "Un gimnasio ofrece un paquete de entrenamiento personalizado para un mes. Toda persona que desee inscribirse debe pagar una cuota única de inscripción de 25 000 y luego 4000 por cada clase asistida con el entrenador. Si un cliente reservó espacio para 15 clases durante el último mes, pero al final asistió solamente a 12 clases",
+      "problem": "¿cuánto pagó en total?"
     },
     {
       "id": 59,
@@ -1980,7 +2011,6 @@
         "evidence": "A3.1",
         "evidence_desc": "Resuelve problemas en contextos reales utilizando las funciones lineales y cuadráticas."
       },
-      "stem": "Luis llama por teléfono a Ana y le comenta que la temperatura en su ciudad es de 41 °F. Si se sabe que la relación entre la temperatura en grados Fahrenheit (°F) y en grados Celsius (°C) está asociada mediante la función F(C) = (9/5)C + 32, entonces, ¿a cuántos grados Celsius equivale la temperatura comentada?",
       "options": {
         "A": "5",
         "B": "9",
@@ -1999,7 +2029,9 @@
       ],
       "group_id": null,
       "visual_spec": null,
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "Luis llama por teléfono a Ana y le comenta que la temperatura en su ciudad es de 41 °F. Si se sabe que la relación entre la temperatura en grados Fahrenheit (°F) y en grados Celsius (°C) está asociada mediante la función F(C) = (9/5)C + 32",
+      "problem": "¿a cuántos grados Celsius equivale la temperatura comentada?"
     },
     {
       "id": 60,
@@ -2013,7 +2045,6 @@
         "evidence": "A3.3",
         "evidence_desc": "Resuelve problemas, de diversos contextos (reales), relacionados con sistemas de dos ecuaciones con dos incógnitas."
       },
-      "stem": "En una pastelería se producen únicamente queques de chocolate y galletas de avena. Cada queque requiere 4 h de horneado y 2 h de decoración; mientras que cada paquete de galletas requiere 3 h de horneado y 1 h de decoración. Si en total se utilizaron 110 h para horneado y 50 h para decoración, entonces, ¿cuántos queques de chocolate se produjeron?",
       "options": {
         "A": "30",
         "B": "20",
@@ -2034,7 +2065,9 @@
       ],
       "group_id": null,
       "visual_spec": null,
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "En una pastelería se producen únicamente queques de chocolate y galletas de avena. Cada queque requiere 4 h de horneado y 2 h de decoración; mientras que cada paquete de galletas requiere 3 h de horneado y 1 h de decoración. Si en total se utilizaron 110 h para horneado y 50 h para decoración",
+      "problem": "¿cuántos queques de chocolate se produjeron?"
     },
     {
       "id": 61,
@@ -2048,7 +2081,6 @@
         "evidence": "A3.3",
         "evidence_desc": "Resuelve problemas, de diversos contextos (reales), relacionados con sistemas de dos ecuaciones con dos incógnitas."
       },
-      "stem": "Roy y Rosa fueron de compras. Él compró 5 kg de zanahoria y 3 kg de brócoli y por esa compra pagó 4650 en total; mientras que ella compró 3 kg de zanahoria y 5 kg de brócoli y pagó 5350 en total. Si ambos compraron a los mismos precios, entonces, ¿cuánto costó el kilogramo de brócoli?",
       "options": {
         "A": "700",
         "B": "800",
@@ -2067,7 +2099,9 @@
       ],
       "group_id": null,
       "visual_spec": null,
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "Roy y Rosa fueron de compras. Él compró 5 kg de zanahoria y 3 kg de brócoli y por esa compra pagó 4650 en total; mientras que ella compró 3 kg de zanahoria y 5 kg de brócoli y pagó 5350 en total. Si ambos compraron a los mismos precios",
+      "problem": "¿cuánto costó el kilogramo de brócoli?"
     },
     {
       "id": 62,
@@ -2081,7 +2115,6 @@
         "evidence": "A4.1",
         "evidence_desc": "Identifica las condiciones para que una función tenga inversa en diversos contextos."
       },
-      "stem": "Sea una función f con dominio A y codominio B (considere el codominio igual al ámbito). ¿Cuál de las siguientes condiciones es necesaria y suficiente para garantizar la existencia de su función inversa?",
       "options": {
         "A": "Que la función sea lineal.",
         "B": "Que la gráfica de la función no pase por el origen (0, 0).",
@@ -2098,7 +2131,9 @@
       ],
       "group_id": null,
       "visual_spec": null,
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "Sea una función f con dominio A y codominio B (considere el codominio igual al ámbito).",
+      "problem": "¿Cuál de las siguientes condiciones es necesaria y suficiente para garantizar la existencia de su función inversa?"
     },
     {
       "id": 63,
@@ -2112,7 +2147,6 @@
         "evidence": "A4.3",
         "evidence_desc": "Determina intervalos en los cuales una función representada gráficamente tiene inversa en diversos contextos."
       },
-      "stem": "Una posible gráfica de la función h(x) = x² − 4; x ∈ ℝ es la siguiente:\n[gráfica de parábola que abre hacia arriba, vértice en (0, −4), raíces en −2 y 2]\nSi se desea que h tenga inversa, entonces, un posible dominio para h corresponde a",
       "options": {
         "A": "[−2, 2]",
         "B": "] −∞, 2]",
@@ -2178,7 +2212,9 @@
           }
         }
       },
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "Una posible gráfica de la función h(x) = x² − 4; x ∈ ℝ es la siguiente:",
+      "problem": "Si se desea que h tenga inversa, entonces, un posible dominio para h corresponde a"
     },
     {
       "id": 64,
@@ -2192,7 +2228,6 @@
         "evidence": "A4.4",
         "evidence_desc": "Determina la función inversa de f(x) = mx + b, m ≠ 0, en diversos contextos."
       },
-      "stem": "Si la inversa de la función r dada por r(x) = (6 − 2x)/8 es de la forma r⁻¹(x) = ax + b, entonces, se cumple que",
       "options": {
         "A": "a = −4 y b = −3",
         "B": "a = −4 y b = 3",
@@ -2211,7 +2246,9 @@
       ],
       "group_id": null,
       "visual_spec": null,
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "Si la inversa de la función r dada por r(x) = (6 − 2x)/8 es de la forma r⁻¹(x) = ax + b",
+      "problem": "se cumple que"
     },
     {
       "id": 65,
@@ -2225,7 +2262,6 @@
         "evidence": "A4.5",
         "evidence_desc": "Determina la transformación de la gráfica de la función dada por f(x) = a√x + b + c, en diversos contextos."
       },
-      "stem": "Sea la función f definida por f(x) = √x. Si su gráfica original se traslada verticalmente tres unidades hacia abajo para obtener la función h, entonces, ¿cuál es el criterio de h(x)?",
       "options": {
         "A": "√(x − 3)",
         "B": "√x + 3",
@@ -2242,7 +2278,9 @@
       ],
       "group_id": null,
       "visual_spec": null,
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "Sea la función f definida por f(x) = √x. Si su gráfica original se traslada verticalmente tres unidades hacia abajo para obtener la función h",
+      "problem": "¿cuál es el criterio de h(x)?"
     },
     {
       "id": 66,
@@ -2256,7 +2294,6 @@
         "evidence": "A4.2",
         "evidence_desc": "Reconoce la gráfica de la inversa de una función a partir de la gráfica de la función en diversos contextos."
       },
-      "stem": "Considere la representación gráfica de una función p:\n[recta que pasa por (0, −3) y (6, 0)]\nCon base en la información dada, ¿cuál es la representación gráfica de la función inversa de p?",
       "options": {
         "A": "Recta que pasa por (−3, 0) y (0, 6)",
         "B": "Recta que pasa por (0, 6) y (3, 0)",
@@ -2541,7 +2578,9 @@
           ]
         }
       },
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "Considere la representación gráfica de una función p:",
+      "problem": "Con base en la información dada, ¿cuál es la representación gráfica de la función inversa de p?"
     },
     {
       "id": 67,
@@ -2555,7 +2594,6 @@
         "evidence": "A5.4",
         "evidence_desc": "Resuelve problemas en contextos reales utilizando ecuaciones exponenciales."
       },
-      "stem": "Si la población “p(x)” de una comunidad se estima mediante p(x) = 2000 • 2^(x/5), donde “x” representa los años transcurridos a partir de 2025, entonces, ¿cuántos años deben transcurrir para que la población sea de 16 000 individuos?",
       "options": {
         "A": "10",
         "B": "15",
@@ -2575,7 +2613,9 @@
       ],
       "group_id": null,
       "visual_spec": null,
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "Si la población “p(x)” de una comunidad se estima mediante p(x) = 2000 • 2^(x/5), donde “x” representa los años transcurridos a partir de 2025",
+      "problem": "¿cuántos años deben transcurrir para que la población sea de 16 000 individuos?"
     },
     {
       "id": 68,
@@ -2589,7 +2629,6 @@
         "evidence": "A4.6",
         "evidence_desc": "Resuelve problemas de diversos contextos (reales), relacionados con las funciones de la forma f(x) = a√x + b + c."
       },
-      "stem": "El tiempo T(v), en minutos, que tarda un video corto en volverse viral se modela mediante la función T(v) = 5 • √v, donde “v” representa la cantidad de veces que se ha compartido (en miles). Si el video se tardó 20 minutos en viralizarse, entonces, ¿cuántas miles de veces se compartió?",
       "options": {
         "A": "4",
         "B": "16",
@@ -2607,7 +2646,9 @@
       ],
       "group_id": null,
       "visual_spec": null,
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "El tiempo T(v), en minutos, que tarda un video corto en volverse viral se modela mediante la función T(v) = 5 • √v, donde “v” representa la cantidad de veces que se ha compartido (en miles). Si el video se tardó 20 minutos en viralizarse",
+      "problem": "¿cuántas miles de veces se compartió?"
     },
     {
       "id": 69,
@@ -2621,7 +2662,6 @@
         "evidence": "A5.7",
         "evidence_desc": "Resuelve problemas en contextos reales utilizando ecuaciones logarítmicas."
       },
-      "stem": "La escala de pH de una solución química especial está dada por la función p(x) = 2log₃(x), donde “x” representa la concentración de ciertos iones en la mezcla con 3 ≤ x ≤ 81. Si la concentración detectada es de 27 unidades, entonces, ¿cuál es el valor del pH obtenido?",
       "options": {
         "A": "6",
         "B": "9",
@@ -2639,7 +2679,9 @@
       ],
       "group_id": null,
       "visual_spec": null,
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "La escala de pH de una solución química especial está dada por la función p(x) = 2log₃(x), donde “x” representa la concentración de ciertos iones en la mezcla con 3 ≤ x ≤ 81. Si la concentración detectada es de 27 unidades",
+      "problem": "¿cuál es el valor del pH obtenido?"
     },
     {
       "id": 70,
@@ -2653,7 +2695,6 @@
         "evidence": "A5.1",
         "evidence_desc": "Identifica la función logarítmica como la inversa de la función exponencial en diversos contextos."
       },
-      "stem": "¿Cuál de las siguientes funciones es inversa con la función f(x) = 2^x?",
       "options": {
         "A": "g(x) = (1/2)^x",
         "B": "t(x) = log₂(x)",
@@ -2669,7 +2710,9 @@
       ],
       "group_id": null,
       "visual_spec": null,
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "",
+      "problem": "¿Cuál de las siguientes funciones es inversa con la función f(x) = 2^x?"
     },
     {
       "id": 71,
@@ -2683,7 +2726,6 @@
         "evidence": "A5.8",
         "evidence_desc": "Resuelve ecuaciones exponenciales de la forma a^(f(x)) = b^(g(x)), (a, b números reales positivos y distintos de 1, f, g polinomios de grado menor que 3) mediante la utilización de logaritmos, en diversos contextos."
       },
-      "stem": "En un centro de investigación, dos bacterias clónicas se reproducen en laboratorios con ambientes distintos. La cantidad de bacterias del primer tipo se comporta según la expresión 3^(x+8), mientras que la del segundo tipo sigue la expresión 9^(x+1), donde “x” representa el tiempo transcurrido en horas. ¿Qué valor debe tomar la variable x para que ambos laboratorios tengan exactamente la misma cantidad de bacterias?",
       "options": {
         "A": "6",
         "B": "7",
@@ -2703,7 +2745,9 @@
       ],
       "group_id": null,
       "visual_spec": null,
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "En un centro de investigación, dos bacterias clónicas se reproducen en laboratorios con ambientes distintos. La cantidad de bacterias del primer tipo se comporta según la expresión 3^(x+8), mientras que la del segundo tipo sigue la expresión 9^(x+1), donde “x” representa el tiempo transcurrido en horas.",
+      "problem": "¿Qué valor debe tomar la variable x para que ambos laboratorios tengan exactamente la misma cantidad de bacterias?"
     },
     {
       "id": 72,
@@ -2717,7 +2761,6 @@
         "evidence": "A6.1",
         "evidence_desc": "Identifica modelos matemáticos que involucran las funciones exponenciales en diversos contextos."
       },
-      "stem": "Una persona abre una cuenta de ahorros especial que duplica el dinero depositado cada año que pasa. Si la cantidad inicial depositada fue de $250, entonces, ¿cuál es el criterio del modelo matemático D(t) que explica la cantidad de dinero acumulado en función de los años t?",
       "options": {
         "A": "250 + 2t",
         "B": "250 • 2t",
@@ -2734,7 +2777,9 @@
       ],
       "group_id": null,
       "visual_spec": null,
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "Una persona abre una cuenta de ahorros especial que duplica el dinero depositado cada año que pasa. Si la cantidad inicial depositada fue de $250",
+      "problem": "¿cuál es el criterio del modelo matemático D(t) que explica la cantidad de dinero acumulado en función de los años t?"
     },
     {
       "id": 73,
@@ -2748,7 +2793,6 @@
         "evidence": "A6.5",
         "evidence_desc": "Determina la función lineal, cuadrática, raíz cuadrada, exponencial o logarítmica que sirva de modelo en diversos contextos."
       },
-      "stem": "Una aplicación de transporte cobra una tarifa por viaje de 1500 por seguro de vida más 1000 por kilómetro del recorrido. Si x representa la cantidad de kilómetros recorridos y C(x) el costo total en colones, entonces, ¿cuál es el criterio de la función C(x) que describe la situación anterior?",
       "options": {
         "A": "500x",
         "B": "2500x",
@@ -2765,7 +2809,9 @@
       ],
       "group_id": null,
       "visual_spec": null,
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "Una aplicación de transporte cobra una tarifa por viaje de 1500 por seguro de vida más 1000 por kilómetro del recorrido. Si x representa la cantidad de kilómetros recorridos y C(x) el costo total en colones",
+      "problem": "¿cuál es el criterio de la función C(x) que describe la situación anterior?"
     },
     {
       "id": 74,
@@ -2779,7 +2825,6 @@
         "evidence": "A6.5",
         "evidence_desc": "Determina la función lineal, cuadrática, raíz cuadrada, exponencial o logarítmica que sirva de modelo en diversos contextos."
       },
-      "stem": "En el diseño de la pantalla de un nuevo teléfono inteligente, el largo de la pantalla mide el triple de su ancho. Si el área total de la pantalla se calcula en milímetros cuadrados, entonces, ¿cuál es el criterio que modela correctamente el área A(x) de la pantalla en función de su ancho denotado con “x”?",
       "options": {
         "A": "9x²",
         "B": "3x²",
@@ -2796,7 +2841,9 @@
       ],
       "group_id": null,
       "visual_spec": null,
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "En el diseño de la pantalla de un nuevo teléfono inteligente, el largo de la pantalla mide el triple de su ancho. Si el área total de la pantalla se calcula en milímetros cuadrados",
+      "problem": "¿cuál es el criterio que modela correctamente el área A(x) de la pantalla en función de su ancho denotado con “x”?"
     },
     {
       "id": 75,
@@ -2810,7 +2857,6 @@
         "evidence": "A6.3",
         "evidence_desc": "Identifica modelos matemáticos que involucran las funciones logarítmicas en diversos contextos."
       },
-      "stem": "Un biólogo determina que el crecimiento C(t) de una colonia de hongos se comporta según un modelo logarítmico que depende del tiempo (t) en días. Si a los 8 días el crecimiento registra un valor exacto de 3, entonces, ¿cuál es el criterio de C(t) que modela correctamente esta situación?",
       "options": {
         "A": "log₂(t)",
         "B": "log₃(t)",
@@ -2827,7 +2873,9 @@
       ],
       "group_id": null,
       "visual_spec": null,
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "Un biólogo determina que el crecimiento C(t) de una colonia de hongos se comporta según un modelo logarítmico que depende del tiempo (t) en días. Si a los 8 días el crecimiento registra un valor exacto de 3",
+      "problem": "¿cuál es el criterio de C(t) que modela correctamente esta situación?"
     },
     {
       "id": 76,
@@ -2841,7 +2889,6 @@
         "evidence": "A1.5",
         "evidence_desc": "Determina la media aritmética ponderada en datos que se encuentran agrupados en una distribución de frecuencias en diversos contextos."
       },
-      "stem": "Se realizó un estudio para determinar la cantidad de kilómetros diarios que recorren 100 estudiantes para asistir al centro educativo. A continuación, se muestran los resultados obtenidos:\n\n[Ver tabla de frecuencia]\n\n¿Cuál es el promedio de kilómetros diarios que recorre cada estudiante para llegar al centro educativo?",
       "options": {
         "A": "8",
         "B": "12",
@@ -2887,7 +2934,9 @@
           ]
         }
       },
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "Se realizó un estudio para determinar la cantidad de kilómetros diarios que recorren 100 estudiantes para asistir al centro educativo. A continuación, se muestran los resultados obtenidos:",
+      "problem": "¿Cuál es el promedio de kilómetros diarios que recorre cada estudiante para llegar al centro educativo?"
     },
     {
       "id": 77,
@@ -2901,7 +2950,6 @@
         "evidence": "A1.4",
         "evidence_desc": "Determina la media aritmética en grupos de datos que tienen pesos relativos (o ponderación) diferentes entre sí en diversos contextos."
       },
-      "stem": "El siguiente cuadro muestra las calificaciones obtenidas por un estudiante en el curso universitario de Química Orgánica, así como el valor porcentual de cada rubro calificado. La nota final se obtiene a partir de la sumatoria de los porcentajes obtenidos:\n\n[Ver tabla de ponderaciones]\n\n¿Cuál fue la nota final que obtuvo el estudiante en el curso de Química?",
       "options": {
         "A": "78,50",
         "B": "79,50",
@@ -2949,7 +2997,9 @@
           ]
         }
       },
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "El siguiente cuadro muestra las calificaciones obtenidas por un estudiante en el curso universitario de Química Orgánica, así como el valor porcentual de cada rubro calificado. La nota final se obtiene a partir de la sumatoria de los porcentajes obtenidos:",
+      "problem": "¿Cuál fue la nota final que obtuvo el estudiante en el curso de Química?"
     },
     {
       "id": 78,
@@ -2963,7 +3013,6 @@
         "evidence": "A1.3",
         "evidence_desc": "Identifica la ubicación aproximada de las medidas de posición de acuerdo con el tipo de asimetría de la distribución de los datos en diversos contextos."
       },
-      "stem": "La distribución de los datos correspondientes a las calificaciones de un examen de admisión universitario presenta una asimetría. De acuerdo con el reporte del departamento de registro, se determinó que 80 puntos representan a la mediana de esos datos y 85 puntos representan a la moda.\n\n[Ver curva de distribución asimétrica]\n\nCon certeza, la calificación promedio de los estudiantes en ese examen fue:",
       "options": {
         "A": "igual que 85.",
         "B": "menor que 80.",
@@ -3005,7 +3054,9 @@
           ]
         }
       },
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "La distribución de los datos correspondientes a las calificaciones de un examen de admisión universitario presenta una asimetría. De acuerdo con el reporte del departamento de registro, se determinó que 80 puntos representan a la mediana de esos datos y 85 puntos representan a la moda.",
+      "problem": "Con certeza, la calificación promedio de los estudiantes en ese examen fue:"
     },
     {
       "id": 79,
@@ -3019,7 +3070,6 @@
         "evidence": "A3.1",
         "evidence_desc": "Resuelve problemas de diversos contextos relacionados con la variabilidad de un grupo de datos a partir de la información que proporcionan algunas medidas (recorrido, recorrido intercuartílico, la variancia o la desviación estándar)."
       },
-      "stem": "Considere la siguiente información referida a la duración (en horas continuas) de las baterías de una marca de teléfonos inteligentes:\n\n[Ver resumen de cinco números]\n\nCon base en la información anterior, se cumple con certeza que al menos el 50 % de las baterías tienen una duración entre",
       "options": {
         "A": "12 y 16 horas.",
         "B": "16 y 22 horas.",
@@ -3056,7 +3106,9 @@
           ]
         }
       },
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "Considere la siguiente información referida a la duración (en horas continuas) de las baterías de una marca de teléfonos inteligentes:",
+      "problem": "Con base en la información anterior, se cumple con certeza que al menos el 50 % de las baterías tienen una duración entre"
     },
     {
       "id": 80,
@@ -3070,7 +3122,6 @@
         "evidence": "A2.4",
         "evidence_desc": "Resuelve problemas de diversos contextos relacionados con probabilidades obtenidas mediante axiomas o propiedades básicas."
       },
-      "stem": "Con base en la información dada en la tabla de contingencia, se establecen los siguientes eventos al elegir al azar para control de calidad:\n\nE: Que la orden incluya una repostería dulce con café negro.\nF: Que la orden incluya una repostería salada con café negro.\nG: Que la orden incluya una repostería salada con un café con leche o jugo natural.\nH: Que la orden sea de repostería dulce o salada acompañado de jugo natural.\n\n¿Cuál es la probabilidad de que ocurra el evento E ∪ F?",
       "options": {
         "A": "1/80",
         "B": "7/80",
@@ -3086,7 +3137,9 @@
       ],
       "group_id": "g_cont_table",
       "visual_spec": null,
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "Con base en la información dada en la tabla de contingencia, se establecen los siguientes eventos al elegir al azar para control de calidad: E: Que la orden incluya una repostería dulce con café negro. F: Que la orden incluya una repostería salada con café negro. G: Que la orden incluya una repostería salada con un café con leche o jugo natural. H: Que la orden sea de repostería dulce o salada acompañado de jugo natural.",
+      "problem": "¿Cuál es la probabilidad de que ocurra el evento E ∪ F?"
     },
     {
       "id": 81,
@@ -3100,7 +3153,6 @@
         "evidence": "A2.3",
         "evidence_desc": "Reconoce eventos aleatorios mutuamente excluyentes, en diversos contextos."
       },
-      "stem": "Con base en la información dada en la tabla de contingencia, se establecen los siguientes eventos al elegir al azar para control de calidad:\n\nE: Que la orden incluya una repostería dulce con café negro.\nF: Que la orden incluya una repostería salada con café negro.\nG: Que la orden incluya una repostería salada con un café con leche o jugo natural.\nH: Que la orden sea de repostería dulce o salada acompañado de jugo natural.\n\n¿Cuál evento es imposible que ocurra?",
       "options": {
         "A": "F° ∪ G°",
         "B": "F° ∩ G°",
@@ -3116,7 +3168,9 @@
       ],
       "group_id": "g_cont_table",
       "visual_spec": null,
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "Con base en la información dada en la tabla de contingencia, se establecen los siguientes eventos al elegir al azar para control de calidad: E: Que la orden incluya una repostería dulce con café negro. F: Que la orden incluya una repostería salada con café negro. G: Que la orden incluya una repostería salada con un café con leche o jugo natural. H: Que la orden sea de repostería dulce o salada acompañado de jugo natural.",
+      "problem": "¿Cuál evento es imposible que ocurra?"
     },
     {
       "id": 82,
@@ -3130,7 +3184,6 @@
         "evidence": "A2.1",
         "evidence_desc": "Determina los puntos muestrales del evento aleatorio obtenido mediante las operaciones: unión 'U', intersección '∩' o 'complemento' de dos o más eventos aleatorios en diversos contextos."
       },
-      "stem": "En una academia de artes se imparte música, pintura y ballet. El siguiente diagrama muestra la cantidad de estudiantes matriculados en esas disciplinas:\n\n[Ver diagrama de Venn]\n\nSi se selecciona al azar un estudiante de esa academia, entonces, la probabilidad de que esté matriculado en las tres disciplinas corresponde a",
       "options": {
         "A": "36/43",
         "B": "18/43",
@@ -3146,7 +3199,9 @@
       ],
       "group_id": "g_venn_3set",
       "visual_spec": null,
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "En una academia de artes se imparte música, pintura y ballet. El siguiente diagrama muestra la cantidad de estudiantes matriculados en esas disciplinas:",
+      "problem": "Si se selecciona al azar un estudiante de esa academia, entonces, la probabilidad de que esté matriculado en las tres disciplinas corresponde a"
     },
     {
       "id": 83,
@@ -3160,7 +3215,6 @@
         "evidence": "A2.1",
         "evidence_desc": "Determina los puntos muestrales del evento aleatorio obtenido mediante las operaciones: unión 'U', intersección '∩' o 'complemento' de dos o más eventos aleatorios en diversos contextos."
       },
-      "stem": "En una academia de artes se imparte música, pintura y ballet. El siguiente diagrama muestra la cantidad de estudiantes matriculados en esas disciplinas:\n\n[Ver diagrama de Venn]\n\nSi se selecciona al azar un estudiante de esa academia, entonces, la probabilidad de que esté matriculado en dos de esas disciplinas corresponde a",
       "options": {
         "A": "7/43",
         "B": "14/43",
@@ -3175,7 +3229,9 @@
       ],
       "group_id": "g_venn_3set",
       "visual_spec": null,
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "En una academia de artes se imparte música, pintura y ballet. El siguiente diagrama muestra la cantidad de estudiantes matriculados en esas disciplinas:",
+      "problem": "Si se selecciona al azar un estudiante de esa academia, entonces, la probabilidad de que esté matriculado en dos de esas disciplinas corresponde a"
     },
     {
       "id": 84,
@@ -3189,7 +3245,6 @@
         "evidence": "A1.2",
         "evidence_desc": "Interpreta la información que proporcionan algunas medidas de posición (moda, media aritmética, mediana, cuartiles, el máximo o el mínimo) de un grupo de datos resumido en situaciones de diversos contextos."
       },
-      "stem": "Considere la información de los diagramas de caja sobre las edades de los empleados de dos empresas, A y B.\n\n[Ver diagramas de caja]\n\nEntre ambas empresas, ¿cuántos años tiene el empleado de menor edad?",
       "options": {
         "A": "45",
         "B": "33",
@@ -3205,7 +3260,9 @@
       ],
       "group_id": "g_emp_ages",
       "visual_spec": null,
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "Considere la información de los diagramas de caja sobre las edades de los empleados de dos empresas, A y B.",
+      "problem": "Entre ambas empresas, ¿cuántos años tiene el empleado de menor edad?"
     },
     {
       "id": 85,
@@ -3219,7 +3276,6 @@
         "evidence": "A3.2",
         "evidence_desc": "Compara medidas de posición o de variabilidad de dos grupos de datos mediante la utilización de diagramas de cajas en diversos contextos."
       },
-      "stem": "Considere la información de los diagramas de caja sobre las edades de los empleados de dos empresas, A y B.\n\n[Ver diagramas de caja]\n\n¿Cuál de las siguientes afirmaciones es verdadera?",
       "options": {
         "A": "El empleado de mayor edad pertenece únicamente a la empresa A.",
         "B": "En ambas empresas al menos un 50% de sus empleados tienen 33 años o más.",
@@ -3235,7 +3291,9 @@
       ],
       "group_id": "g_emp_ages",
       "visual_spec": null,
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "Considere la información de los diagramas de caja sobre las edades de los empleados de dos empresas, A y B.",
+      "problem": "¿Cuál de las siguientes afirmaciones es verdadera?"
     },
     {
       "id": 86,
@@ -3249,7 +3307,6 @@
         "evidence": "A3.3",
         "evidence_desc": "Aplica estandarización y el coeficiente de variación para la comparación de la posición o variabilidad de dos o más grupos de datos, en diversos contextos."
       },
-      "stem": "La siguiente tabla muestra la información relacionada con las horas mensuales dedicadas por cuatro grupos de personas voluntarias:\n\n[Ver tabla de grupos]\n\nEl grupo que presenta menor variabilidad relativa corresponde al",
       "options": {
         "A": "H",
         "B": "Q",
@@ -3267,7 +3324,9 @@
       ],
       "group_id": "g_volunteer",
       "visual_spec": null,
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "La siguiente tabla muestra la información relacionada con las horas mensuales dedicadas por cuatro grupos de personas voluntarias:",
+      "problem": "El grupo que presenta menor variabilidad relativa corresponde al"
     },
     {
       "id": 87,
@@ -3281,7 +3340,6 @@
         "evidence": "A3.3",
         "evidence_desc": "Aplica estandarización y el coeficiente de variación para la comparación de la posición o variabilidad de dos o más grupos de datos, en diversos contextos."
       },
-      "stem": "La siguiente tabla muestra la información relacionada con las horas mensuales dedicadas por cuatro grupos de personas voluntarias:\n\n[Ver tabla de grupos]\n\nSofía pertenece al Grupo H y dedica 15 horas mensualmente al trabajo de voluntariado.\nMaría pertenece al Grupo Q y dedica 17 horas mensualmente al trabajo de voluntariado.\nAndrés pertenece al Grupo S y dedica 19 horas mensualmente al trabajo de voluntariado.\nRosa pertenece al Grupo P y dedica 16 horas mensuales al trabajo de voluntariado.\n\nEn términos relativos y con respecto a su grupo de referencia, la persona que presenta el mejor desempeño en cuanto a la cantidad de horas dedicadas al voluntariado corresponde a",
       "options": {
         "A": "Andrés.",
         "B": "Sofía.",
@@ -3299,7 +3357,9 @@
       ],
       "group_id": "g_volunteer",
       "visual_spec": null,
-      "set_id": "set_1"
+      "set_id": "set_1",
+      "statement": "La siguiente tabla muestra la información relacionada con las horas mensuales dedicadas por cuatro grupos de personas voluntarias:",
+      "problem": "Sofía pertenece al Grupo H y dedica 15 horas mensualmente al trabajo de voluntariado. María pertenece al Grupo Q y dedica 17 horas mensualmente al trabajo de voluntariado. Andrés pertenece al Grupo S y dedica 19 horas mensualmente al trabajo de voluntariado. Rosa pertenece al Grupo P y dedica 16 horas mensuales al trabajo de voluntariado. En términos relativos y con respecto a su grupo de referencia, la persona que presenta el mejor desempeño en cuanto a la cantidad de horas dedicadas al voluntariado corresponde a"
     }
   ],
   "sets": [
