@@ -1,35 +1,60 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
-import { Clock, Flag, BookOpen, Shapes, BarChart3, Binary } from "lucide-react";
-import type { QuizData } from "@/lib/types";
-import { ThemeToggle } from "@/app/components/ThemeToggle";
-import { Logo } from "@/app/components/Logo";
+import { Clock, Flag, BookOpen, Shapes, BarChart3, Binary, RotateCcw, Lightbulb } from "lucide-react";
+import { quizData } from "@/lib/question-bank";
 import ImageModal from "@/app/components/ImageModal";
 import ConfirmModal from "@/app/components/ConfirmModal";
 import FormulaModal from "@/app/components/FormulaModal";
 import SectionModal from "@/app/components/SectionModal";
+import HintModal from "@/app/components/HintModal";
 import { QuestionExperience } from "@/app/components/assessment/QuestionExperience";
+import { DesktopNavigator } from "@/app/components/assessment/DesktopNavigator";
+import { useHintPanelWidth } from "@/app/components/assessment/useQuestionLayout";
 import { useAssessment } from "@/lib/hooks/useAssessment";
+import { FontScaleControl, HeaderIconButton, HeaderReadout, HeaderTextButton } from "@/app/components/HeaderControls";
 import { AssessmentErrorBoundary } from "@/app/components/error/AssessmentErrorBoundary";
-
-// Import the normalized JSON manifest
-import quizDataRaw from "@/data/BXM_Math_Full_02_2026_questions_answers.json";
-const quizData: QuizData = quizDataRaw as unknown as QuizData;
 
 import { FULL_TEST_TOPICS } from "@/lib/constants";
 
 export default function QuestionPage() {
   const router = useRouter();
- 
+  const hintWidth = useHintPanelWidth();
+
   // Modals state
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [isFormulaModalOpen, setIsFormulaModalOpen] = useState(false);
   const [isSectionModalOpen, setIsSectionModalOpen] = useState(false);
+  const [isHintModalOpen, setIsHintModalOpen] = useState(false);
+  const [isHintBlinking, setIsHintBlinking] = useState(false);
   const [modalImage, setModalImage] = useState({ src: "", alt: "" });
+  const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
+
+  useEffect(() => {
+    setPortalContainer(document.getElementById("test-header-controls"));
+  }, []);
+
+  const hintPanelRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (!isHintModalOpen) return;
+    const handleClick = (e: MouseEvent) => {
+      if (hintPanelRef.current && !hintPanelRef.current.contains(e.target as Node)) {
+        setIsHintModalOpen(false);
+      }
+    };
+    const timer = setTimeout(() => {
+      document.addEventListener("click", handleClick);
+    }, 0);
+    return () => {
+      clearTimeout(timer);
+      document.removeEventListener("click", handleClick);
+    };
+  }, [isHintModalOpen]);
 
   const handleFinishTest = useCallback(() => {
     setIsConfirmModalOpen(true);
@@ -60,23 +85,45 @@ export default function QuestionPage() {
     selectedAnswers,
     flaggedQuestions,
     timeLeft,
+    reviewMode,
+    update,
     currentTopic,
     currentQuestion,
     currentSectionQuestionsWithGlobalIndex,
     sectionIndex,
-    progress,
     isComplete,
     remainingCount,
     handleSelect,
     toggleFlag,
     handleNext,
     handlePrev,
-    handleJumpToSection,
     jumpToQuestion,
     handleNextSection,
     testMode: currentTestMode,
     hasMoreSections,
   } = assessment;
+
+  // Blink the hint lightbulb for a few seconds whenever a new question opens.
+  useEffect(() => {
+    setIsHintBlinking(true);
+    const timer = setTimeout(() => setIsHintBlinking(false), 3000);
+    return () => clearTimeout(timer);
+  }, [currentIndex]);
+
+  const allQuestionsWithGlobalIndex = quizData.questions.map((q, idx) => ({ ...q, globalIndex: idx }));
+  const correctAnswers = quizData.questions.reduce<Record<number, string>>((acc, q, idx) => {
+    acc[idx] = q.correct_answer;
+    return acc;
+  }, {});
+  const navigatorSections = (testMode === "full" ? FULL_TEST_TOPICS : [testMode]).map((topic) => ({
+    topic,
+    questions: allQuestionsWithGlobalIndex
+      .filter((q) => q.topic === topic)
+      .map((q) => ({
+        globalIndex: q.globalIndex,
+        section_number: testMode === "full" ? q.globalIndex + 1 : q.section_number,
+      })),
+  }));
 
   const handleNextWithFinish = useCallback(() => {
     if (sectionIndex === currentSectionQuestionsWithGlobalIndex.length - 1 && (!hasMoreSections || currentTestMode !== "full")) {
@@ -98,10 +145,22 @@ export default function QuestionPage() {
   }, [timeLeft, mounted, testMode, currentTopicIndex, handleNextSection, handleFinishTest]);
 
   const confirmFinishTest = () => {
-    localStorage.setItem("bxm-pilot-answers", JSON.stringify(selectedAnswers));
-    localStorage.setItem("bxm-pilot-time-left", timeLeft.toString());
+    update({ phase: "results", review: false });
     router.push("/results");
   };
+
+  const handleResults = () => {
+    update({ phase: "results", review: false });
+    router.push("/results");
+  };
+
+  const resetCurrentQuestion = useCallback(() => {
+    update((prev) => {
+      const answers = { ...prev.answers };
+      delete answers[currentIndex];
+      return { answers };
+    });
+  }, [currentIndex, update]);
 
   const formatTime = (seconds: number) => {
     const min = Math.floor(seconds / 60);
@@ -116,101 +175,147 @@ export default function QuestionPage() {
 
   if (!currentQuestion) return null;
 
+  const explanation = quizData.explanations?.find(
+    (e) => e.original_number === currentQuestion.original_number,
+  );
+
   return (
     <AssessmentErrorBoundary>
-    <div className="min-h-screen bg-background transition-colors">
-      {/* Top Professional Bar */}
-      <div className="sticky top-0 z-50 bg-card border-b border-border shadow-sm">
-        <div className="max-w-6xl mx-auto px-4 md:px-8 py-3 md:py-8 flex items-center justify-between gap-2 md:gap-4">
-          <div className="flex items-center gap-2 md:gap-6">
-            <button
-              onClick={() => {
-                localStorage.setItem("bxm-pilot-answers", JSON.stringify(selectedAnswers));
-                localStorage.setItem("bxm-pilot-flags", JSON.stringify(flaggedQuestions));
-                localStorage.setItem("bxm-pilot-index", currentIndex.toString());
-                localStorage.setItem("bxm-pilot-topic-index", currentTopicIndex.toString());
-                localStorage.setItem("bxm-pilot-time-left", timeLeft.toString());
-                router.push("/welcome");
-              }}
-              className="flex items-center gap-2 md:gap-3 group"
-            >
-              <Logo className="w-8 h-8 md:w-10 md:h-10 rounded-sm shadow-md group-hover:brightness-110 transition-all" />
-            </button>
-          </div>
+    <div className="h-full flex flex-col bg-background transition-colors">
 
-          {/* Section Indicator & Timer - Separated but adjacent */}
-          <div className="flex items-center gap-1.5 md:gap-3">
-            <button
-              onClick={() => setIsSectionModalOpen(true)}
-              className="flex items-center justify-center w-8 h-8 md:w-14 md:h-14 bg-card rounded-sm border border-border shadow-sm hover:bg-muted transition-colors text-destructive"
-              title="Información de la sección"
-            >
-              {currentTopic === "Geometría" && <Shapes className="w-4 h-4 md:w-7 md:h-7" />}
-              {currentTopic === "Estadística y Probabilidad" && <BarChart3 className="w-4 h-4 md:w-7 md:h-7" />}
-              {currentTopic === "Funciones" && <Binary className="w-4 h-4 md:w-7 md:h-7" />}
-              {currentTopic === "full" && <Clock className="w-4 h-4 md:w-7 md:h-7" />}
-            </button>
+      {portalContainer &&
+        createPortal(
+          <>
+            <div className="flex items-center gap-1.5 md:gap-3">
+              {!reviewMode && (
+                <HeaderReadout>
+                  <span className="font-mono text-xs md:text-2xl font-bold tabular-nums text-foreground min-w-[35px] md:min-w-[80px] text-center">
+                    {mounted ? formatTime(timeLeft) : "--:--"}
+                  </span>
+                </HeaderReadout>
+              )}
 
-            <div className="flex items-center px-2 md:px-8 h-8 md:h-14 bg-card rounded-sm border border-border shadow-sm">
-              <span className="font-mono text-xs md:text-2xl font-bold tabular-nums text-foreground min-w-[35px] md:min-w-[80px] text-center">
-                {mounted ? formatTime(timeLeft) : "--:--"}
-              </span>
+              <HeaderIconButton
+                label="Información de la sección"
+                iconSize="lg"
+                onClick={() => setIsSectionModalOpen(true)}
+                className="text-destructive"
+              >
+                {currentTopic === "Geometría" && <Shapes />}
+                {currentTopic === "Estadística y Probabilidad" && <BarChart3 />}
+                {currentTopic === "Funciones" && <Binary />}
+                {currentTopic === "full" && <Clock />}
+              </HeaderIconButton>
             </div>
-          </div>
 
-          <div className="flex items-center gap-2 md:gap-10">
-            <div>
-              <ThemeToggle />
+            <div className="flex items-center gap-2 md:gap-6">
+              <HeaderTextButton label="Fórmulas" icon={<BookOpen />} onClick={() => setIsFormulaModalOpen(true)} />
+              {!reviewMode && (
+                <HeaderTextButton
+                  label="Finalizar"
+                  tone="primary"
+                  icon={<Flag className="transition-colors group-hover:text-destructive group-active:text-destructive" />}
+                  onClick={handleFinishTest}
+                />
+              )}
             </div>
-            <button
-              onClick={() => setIsFormulaModalOpen(true)}
-              className="flex items-center gap-1.5 md:gap-2 px-2 md:px-8 py-2 md:py-4 bg-muted border border-border hover:border-accent text-foreground text-[8px] md:text-xs font-bold uppercase tracking-[0.15em] md:tracking-[0.2em] rounded-sm transition-colors"
-              title="Fórmulas"
-            >
-              <BookOpen className="w-3 h-3 md:w-4 md:h-4" />
-              <span className="hidden md:inline">Fórmulas</span>
-            </button>
-            <button
-              onClick={handleFinishTest}
-              className="flex items-center gap-1.5 md:gap-4 px-3 md:px-10 py-2 md:py-4 bg-primary text-primary-foreground text-[8px] md:text-xs font-bold uppercase tracking-[0.15em] md:tracking-[0.2em] rounded-sm shadow-md transition-all hover:brightness-90 group"
-            >
-              <Flag className="w-3 h-3 md:w-4 md:h-4 transition-colors group-hover:text-destructive group-active:text-destructive" />
-              <span className="hidden sm:inline">Finalizar</span>
-            </button>
+
+            <FontScaleControl />
+
+            {!reviewMode && (
+              <HeaderIconButton
+                label="Limpiar respuesta"
+                onClick={resetCurrentQuestion}
+                disabled={!selectedAnswers[currentIndex]}
+              >
+                <RotateCcw className="text-foreground" />
+              </HeaderIconButton>
+            )}
+            {!reviewMode && (
+              <HeaderIconButton
+                label="Pistas"
+                onClick={() => setIsHintModalOpen((prev) => !prev)}
+                onMouseDown={(e) => e.stopPropagation()}
+              >
+                <Lightbulb className={`text-accent ${isHintBlinking ? "animate-pulse" : ""}`} />
+              </HeaderIconButton>
+            )}
+          </>,
+          portalContainer,
+        )}
+
+      <div className="flex flex-1 min-h-0">
+        {!isHintModalOpen && (
+          <aside key="navigator" className="hidden lg:flex lg:w-80 xl:w-70 shrink-0 flex-col border-r border-border bg-card min-h-0">
+            <DesktopNavigator
+              testMode={testMode}
+              sections={navigatorSections}
+              currentTopicIndex={currentTopicIndex}
+              currentIndex={currentIndex}
+              isFlagged={!!flaggedQuestions[currentIndex]}
+              selectedAnswers={selectedAnswers}
+              correctAnswers={correctAnswers}
+              flaggedQuestions={flaggedQuestions}
+              reviewMode={reviewMode}
+              onResults={handleResults}
+              onToggleFlag={toggleFlag}
+              onJumpToQuestion={jumpToQuestion}
+              onPrev={handlePrev}
+              onNext={handleNextWithFinish}
+              isLastQuestionInSection={sectionIndex === currentSectionQuestionsWithGlobalIndex.length - 1}
+              hasMoreSections={hasMoreSections}
+            />
+          </aside>
+        )}
+
+        <div key="question" className="font-scaled flex-1 min-w-0 min-h-0 overflow-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+          {/* Side padding is small on phones: the layout engine already centers
+              and sizes the panels, so extra gutter would only waste width. */}
+          <div className="px-0 sm:px-4 lg:px-8 mx-auto h-full flex flex-col">
+            <QuestionExperience
+              question={currentQuestion}
+              currentIndex={currentIndex}
+              sectionQuestions={currentSectionQuestionsWithGlobalIndex}
+              testMode={testMode}
+              explanation={explanation}
+              selectedAnswer={selectedAnswers[currentIndex]}
+              selectedAnswers={selectedAnswers}
+              flaggedQuestions={flaggedQuestions}
+              onSelect={handleSelect}
+              onNext={handleNextWithFinish}
+              onPrev={handlePrev}
+              onJumpToQuestion={jumpToQuestion}
+              onOpenImageModal={openImageModal}
+              isLastQuestionInSection={sectionIndex === currentSectionQuestionsWithGlobalIndex.length - 1}
+              hasMoreSections={hasMoreSections}
+              visualSpec={currentQuestion.visual_spec ?? null}
+              reviewMode={reviewMode}
+            />
           </div>
         </div>
 
-        {/* Progress Bar */}
-        <div className="h-1 bg-muted">
-          <div
-            className="h-1 bg-primary transition-all duration-300"
-            style={{ width: `${progress}%` }}
-          />
-        </div>
-      </div>
-
-      <div className="max-w-6xl mx-auto px-4 md:px-8 py-6 md:py-10">
-        <QuestionExperience
-          question={currentQuestion}
-          currentIndex={currentIndex}
-          sectionQuestions={currentSectionQuestionsWithGlobalIndex}
-          testMode={testMode}
-          currentTopicIndex={currentTopicIndex}
-          selectedAnswer={selectedAnswers[currentIndex]}
-          isFlagged={!!flaggedQuestions[currentIndex]}
-          selectedAnswers={selectedAnswers}
-          flaggedQuestions={flaggedQuestions}
-          onSelect={handleSelect}
-          onToggleFlag={toggleFlag}
-          onNext={handleNextWithFinish}
-          onPrev={handlePrev}
-          onJumpToQuestion={jumpToQuestion}
-          onJumpToSection={handleJumpToSection}
-          onOpenImageModal={openImageModal}
-          isLastQuestionInSection={sectionIndex === currentSectionQuestionsWithGlobalIndex.length - 1}
-          hasMoreSections={hasMoreSections}
-          sharedImageSrc={currentQuestion.shared_image ? quizData.shared_images[currentQuestion.shared_image] : undefined}
-        />
+        {isHintModalOpen && (
+          <aside
+            key="hint"
+            ref={hintPanelRef}
+            style={{ width: hintWidth }}
+            className="font-scaled hidden lg:flex shrink-0 flex-col border-l border-border bg-card min-h-0"
+          >
+            <HintModal
+              keywords={currentQuestion.keywords}
+              hints={currentQuestion.hints}
+              hintStrategy={currentQuestion.hint_strategy}
+              onRevealSolution={
+                testMode !== "full"
+                  ? () => {
+                      handleSelect(currentQuestion.correct_answer);
+                      setIsHintModalOpen(false);
+                    }
+                  : undefined
+              }
+            />
+          </aside>
+        )}
       </div>
 
       <ImageModal
@@ -240,6 +345,7 @@ export default function QuestionPage() {
       <FormulaModal
         isOpen={isFormulaModalOpen}
         onClose={() => setIsFormulaModalOpen(false)}
+        section={currentTopic}
       />
 
       <SectionModal

@@ -67,7 +67,7 @@ export default function SectionModal({ isOpen, onClose, currentTopic, testMode }
                     <div className="flex items-center gap-3">
                       <h4 className="font-bold text-base uppercase tracking-wider">{sectionKey}</h4>
                       {isCurrent && (
-                        <span className="px-2 py-0.5 bg-primary/10 text-primary text-[8px] font-bold uppercase tracking-widest rounded-sm border border-primary/20">
+                        <span className="px-2 py-0.5 bg-primary/10 text-primary text-xs font-bold uppercase tracking-widest rounded-sm border border-primary/20">
                           Actual
                         </span>
                       )}
@@ -80,7 +80,7 @@ export default function SectionModal({ isOpen, onClose, currentTopic, testMode }
 
                 <div className="flex flex-wrap gap-2 mt-4">
                   {info.topics.map((topic) => (
-                    <span key={topic} className="px-3 py-1 bg-muted/50 border border-border/40 text-[9px] font-bold text-foreground/80 uppercase tracking-widest rounded-sm">
+                    <span key={topic} className="px-3 py-1 bg-muted/50 border border-border/40 text-xs font-bold text-foreground/80 uppercase tracking-widest rounded-sm">
                       {topic}
                     </span>
                   ))}

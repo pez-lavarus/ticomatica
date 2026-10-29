@@ -1,7 +1,7 @@
 # Monorepo
 
-- pnpm workspace rooted here; `apps/web` is the Next.js front end and `infra`
-  is the AWS CDK telemetry stack.
+- pnpm workspace rooted here; `apps/web` is the Next.js front end and
+  `apps/infrastructure` is the AWS CDK stack (web hosting + telemetry).
 - Use the root scripts (`pnpm dev`, `pnpm build`, `pnpm lint`, `pnpm test`,
   `pnpm infra:synth`, ...) or run per-package commands with
   `pnpm --filter <name>`.

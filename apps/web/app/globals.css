@@ -21,6 +21,10 @@
   --ring: #002147;
   --success: #A3C1AD; /* Cambridge Blue */
   --success-foreground: #002147;
+  --wrong: #C0504A; /* Brick Red for incorrect answers */
+  --wrong-foreground: #FDFCF0;
+  /* Keep in step with DEFAULT_SCALE_INDEX in lib/font-scale.tsx. */
+  --font-scale: 1.125;
 }
 
 .dark {
@@ -43,6 +47,8 @@
   --ring: #FDFCF0;
   --success: #A3C1AD;
   --success-foreground: #0F172A;
+  --wrong: #C0504A;
+  --wrong-foreground: #FDFCF0;
 }
 
 @theme inline {
@@ -65,6 +71,8 @@
   --color-ring: var(--ring);
   --color-success: var(--success);
   --color-success-foreground: var(--success-foreground);
+  --color-wrong: var(--wrong);
+  --color-wrong-foreground: var(--wrong-foreground);
 
   --font-sans: var(--font-public-sans);
   --font-serif: var(--font-source-serif);
@@ -111,9 +119,20 @@ textarea,
   transition-duration: 250ms;
 }
 
-/* Ensure images and certain elements don't transition inappropriately */
-img, video, .no-transition, .no-transition * {
+/* Ensure images and certain elements don't transition inappropriately. The
+   graph image is exempt so its max-height can animate on resize. */
+img:not(.graph-image), video, .no-transition, .no-transition * {
   transition: none !important;
+}
+
+.graph-image {
+  transition: max-height 240ms ease;
+}
+
+/* Clickable elements show a pointer cursor. */
+button:not(:disabled),
+[role="button"]:not(:disabled) {
+  cursor: pointer;
 }
 
 /* KaTeX alignment refinements */
@@ -127,6 +146,36 @@ img, video, .no-transition, .no-transition * {
   overflow-y: hidden;
 }
 
+/* Response options: keep each formula on a single horizontal line (no line
+   breaks); the option scrolls horizontally, without a scrollbar, when a
+   formula is wider than its card. The vertical padding and matching negative
+   margin keep glyph ascenders and descenders from being clipped by the
+   overflow that this implies. */
+.option-math {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-block: 0.25em;
+  margin-block: -0.25em;
+  scrollbar-width: none;
+}
+
+.option-math::-webkit-scrollbar {
+  display: none;
+}
+
+.option-math .katex {
+  white-space: nowrap;
+}
+
+/* Font size: one mechanism for every scalable area. The chosen step lives in
+   --font-scale (see lib/font-scale.tsx) and is applied as a CSS zoom, which
+   scales text, spacing, icons and images together. The layout engine measures
+   in the zoomed element's own pixels, so a larger font simply gives it a
+   smaller container to plan for. */
+.font-scaled {
+  zoom: var(--font-scale, 1);
+}
+
 
 /* Hide scrollbar for horizontal scroll areas */
 .hide-scrollbar::-webkit-scrollbar {
@@ -135,4 +184,85 @@ img, video, .no-transition, .no-transition * {
 .hide-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* Logo wordmark: in dark mode invert to a light version for proper contrast. */
+.dark .ticomatica-logo-title {
+  filter: invert(100%) hue-rotate(180deg);
+}
+
+/* Practice-mode answer flash: pulse the selected option a few times before it
+   settles into its solid success/destructive state. */
+@keyframes answer-flash-correct {
+  0% { box-shadow: 0 0 0 0 rgba(163, 193, 173, 0); }
+  16.66% { box-shadow: 0 0 0 6px rgba(163, 193, 173, 0.6); }
+  33.33% { box-shadow: 0 0 0 0 rgba(163, 193, 173, 0); }
+  50% { box-shadow: 0 0 0 6px rgba(163, 193, 173, 0.6); }
+  66.66% { box-shadow: 0 0 0 0 rgba(163, 193, 173, 0); }
+  83.33% { box-shadow: 0 0 0 6px rgba(163, 193, 173, 0.6); }
+  100% { box-shadow: 0 0 0 0 rgba(163, 193, 173, 0); }
+}
+
+@keyframes answer-flash-incorrect {
+  0% { box-shadow: 0 0 0 0 rgba(192, 80, 74, 0); }
+  16.66% { box-shadow: 0 0 0 6px rgba(192, 80, 74, 0.6); }
+  33.33% { box-shadow: 0 0 0 0 rgba(192, 80, 74, 0); }
+  50% { box-shadow: 0 0 0 6px rgba(192, 80, 74, 0.6); }
+  66.66% { box-shadow: 0 0 0 0 rgba(192, 80, 74, 0); }
+  83.33% { box-shadow: 0 0 0 6px rgba(192, 80, 74, 0.6); }
+  100% { box-shadow: 0 0 0 0 rgba(192, 80, 74, 0); }
+}
+
+.answer-flash-correct {
+  animation: answer-flash-correct 0.8s ease-in-out 1;
+}
+
+.answer-flash-incorrect {
+  animation: answer-flash-incorrect 0.8s ease-in-out 1;
+}
+
+/* Explanation panel entrance: subtle fade + rise when it mounts. */
+@keyframes panel-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.panel-enter {
+  animation: panel-enter 260ms ease-out;
+}
+
+/* Question screen: panels are placed by the layout engine (see
+   useQuestionLayout). The frame animates its position and size to the new
+   plan; the stage animates the scroll height. A panel's first placement is
+   not animated (data-animate="false"), so it never flies in from a corner. */
+.question-panel {
+  transition:
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    width 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    height 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.question-panel[data-animate="false"] {
+  transition: none;
+}
+
+.question-stage {
+  transition: height 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .question-panel,
+  .question-stage {
+    transition: none;
+  }
+
+  .panel-enter {
+    animation: none;
+  }
 }

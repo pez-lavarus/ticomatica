@@ -1,0 +1,3373 @@
+{
+  "schema_version": "1.0",
+  "exam": "Bachillerato por Madurez Suficiente — Matemáticas",
+  "convocatoria": "02-2026",
+  "language": "es-CR",
+  "source": "Práctica BXM Matemáticas 02-2026",
+  "specification": "Tabla de especificaciones MATEMÁTICAS — Bachillerato por Madurez Suficiente, convocatoria 02-2026",
+  "solucionario_verified": true,
+  "total_items": 60,
+  "sections": [
+    {
+      "id": "geometry",
+      "name": "Geometría",
+      "item_range": [
+        1,
+        23
+      ],
+      "total_items": 23
+    },
+    {
+      "id": "functions",
+      "name": "Relaciones y Álgebra",
+      "item_range": [
+        51,
+        75
+      ],
+      "total_items": 25
+    },
+    {
+      "id": "statistics",
+      "name": "Estadística y Probabilidad",
+      "item_range": [
+        76,
+        87
+      ],
+      "total_items": 12,
+      "distribution": {
+        "A1": 4,
+        "A2": 4,
+        "A3": 4
+      }
+    }
+  ],
+  "notes": [
+    "spec.affirmation_desc está vacío (null) para Geometría y Relaciones y Álgebra: la Tabla de especificaciones (PDF escaneado, sin capa de texto) no pudo digitalizarse; debe completarse a partir de dicho documento.",
+    "Los códigos de evidencia se normalizaron al formato A<n>.<m> (p. ej., A1-E5 -> A1.5) para unificar Estadística con Geometría/Funciones.",
+    "El campo topic corresponde al nivel 'Conocimiento' de la Tabla de especificaciones.",
+    "La convención de flechas en los ejes difiere entre secciones: las figuras de Funciones declaran axes.arrows=true mientras que las de Geometría no lo declaraban; debe unificarse."
+  ],
+  "items": [
+    {
+      "id": 1,
+      "area": "Geometría",
+      "area_id": "geometry",
+      "topic": "Circunferencia",
+      "spec": {
+        "block": "1. Geometría",
+        "affirmation": "A1",
+        "affirmation_desc": null,
+        "evidence": "A1.2",
+        "evidence_desc": "Reconoce la representación algebraica de una circunferencia dado su centro y su radio, en diversos contextos."
+      },
+      "options": {
+        "A": "(x+2)^2 + (y+3)^2 = 25",
+        "B": "(x-2)^2 + (y-3)^2 = 25",
+        "C": "(x+3)^2 + (y-2)^2 = 25",
+        "D": "(x-3)^2 + (y-2)^2 = 25"
+      },
+      "correct_answer": "B",
+      "solution_steps": [
+        "La ecuación ordinaria de una circunferencia con centro (h,k) y radio r es (x-h)^2 + (y-k)^2 = r^2.",
+        "Sustituyendo h=2, k=3, r=5: (x-2)^2 + (y-3)^2 = 25.",
+        "Por lo tanto, la opción correcta es B."
+      ],
+      "group_id": null,
+      "visual_spec": null,
+      "set_id": "set_1",
+      "statement": "Si la medida del radio de la circunferencia “c” es 5 y su centro es (2, 3)",
+      "problem": "la ecuación de “c” corresponde a"
+    },
+    {
+      "id": 2,
+      "area": "Geometría",
+      "area_id": "geometry",
+      "topic": "Circunferencia",
+      "spec": {
+        "block": "1. Geometría",
+        "affirmation": "A1",
+        "affirmation_desc": null,
+        "evidence": "A1.3",
+        "evidence_desc": "Resuelve problemas, de diversos contextos, relacionados con la circunferencia y sus representaciones."
+      },
+      "options": {
+        "A": "(x-5)^2 + (y+4)^2 = 400",
+        "B": "(x+5)^2 + (y-4)^2 = 400",
+        "C": "(x-5)^2 + (y-4)^2 = 400",
+        "D": "(x+5)^2 + (y+4)^2 = 400"
+      },
+      "correct_answer": "A",
+      "solution_steps": [
+        "El centro de la circunferencia es (5, -4) porque 5 km al este y 4 km al sur.",
+        "El radio es 20 km, por lo que r^2 = 400.",
+        "La ecuación es (x-5)^2 + (y+4)^2 = 400.",
+        "Opción correcta: A."
+      ],
+      "group_id": null,
+      "visual_spec": null,
+      "set_id": "set_1",
+      "statement": "Una torre de control de un aeropuerto tiene un radar con un alcance máximo de 20 kilómetros. Tomando como origen la pista principal del aeropuerto, la torre de control se ubica 5 kilómetros al este (eje x positivo) y 4 kilómetros al sur (eje y negativo) de dicha pista.",
+      "problem": "¿Cuál es la ecuación que representa el alcance máximo del radar de la torre de control?"
+    },
+    {
+      "id": 3,
+      "area": "Geometría",
+      "area_id": "geometry",
+      "topic": "Circunferencia",
+      "spec": {
+        "block": "1. Geometría",
+        "affirmation": "A1",
+        "affirmation_desc": null,
+        "evidence": "A1.1",
+        "evidence_desc": "Reconoce la representación gráfica de una circunferencia dado su centro y su radio, en diversos contextos."
+      },
+      "options": {
+        "A": "x^2 + (y − 2)^2 = 6",
+        "B": "x^2 + (y + 2)^2 = 9",
+        "C": "x^2 + (y − 2)^2 = 9",
+        "D": "x^2 + (y + 2)^2 = 6"
+      },
+      "correct_answer": "C",
+      "solution_steps": [
+        "Del gráfico, el centro O está en (0, 2).",
+        "El radio es la distancia del centro a un punto de la circunferencia, por ejemplo (0,5): r = 3.",
+        "La ecuación es (x-0)^2 + (y-2)^2 = 3^2, es decir, x^2 + (y-2)^2 = 9.",
+        "Opción correcta: C."
+      ],
+      "group_id": null,
+      "visual_spec": {
+        "alt": "Circunferencia con centro en (0, 2) y radio 3 en un plano cartesiano.",
+        "visual": {
+          "type": "cartesian_2d",
+          "domain": {
+            "x": [
+              -6,
+              6
+            ],
+            "y": [
+              -2,
+              6
+            ]
+          },
+          "grid": false,
+          "children": [
+            {
+              "type": "circle",
+              "center": [
+                0,
+                2
+              ],
+              "radius": 3,
+              "label": "c"
+            },
+            {
+              "type": "point",
+              "coords": [
+                0,
+                2
+              ],
+              "label": "O"
+            },
+            {
+              "type": "point",
+              "coords": [
+                0,
+                5
+              ],
+              "label": "5"
+            },
+            {
+              "type": "dashed_projection",
+              "from": [
+                0,
+                5
+              ],
+              "to_axis": "y"
+            },
+            {
+              "type": "point",
+              "coords": [
+                0,
+                -1
+              ],
+              "label": "-1"
+            },
+            {
+              "type": "dashed_projection",
+              "from": [
+                0,
+                -1
+              ],
+              "to_axis": "y"
+            }
+          ]
+        }
+      },
+      "set_id": "set_1",
+      "statement": "Considere la siguiente representación gráfica de la circunferencia “c”, de centro “O”:",
+      "problem": "De acuerdo con la información dada la ecuación de “c” corresponde a"
+    },
+    {
+      "id": 4,
+      "area": "Geometría",
+      "area_id": "geometry",
+      "topic": "Circunferencia",
+      "spec": {
+        "block": "1. Geometría",
+        "affirmation": "A1",
+        "affirmation_desc": null,
+        "evidence": "A1.3",
+        "evidence_desc": "Resuelve problemas, de diversos contextos, relacionados con la circunferencia y sus representaciones."
+      },
+      "options": {
+        "A": "7 m",
+        "B": "14 m",
+        "C": "49 m",
+        "D": "98 m"
+      },
+      "correct_answer": "A",
+      "solution_steps": [
+        "La ecuación dada está en forma ordinaria: (x+2)^2 + (y-7)^2 = 49.",
+        "El radio al cuadrado es 49, por lo tanto el radio es 7.",
+        "El alcance máximo es el radio: 7 m.",
+        "Opción correcta: A."
+      ],
+      "group_id": null,
+      "visual_spec": null,
+      "set_id": "set_1",
+      "statement": "Un faro de luz direccional emite una señal que cubre una zona circular en el mar. El borde de la zona iluminada está delimitado por la circunferencia “c” dada por la ecuación (x + 2)^2 + (y − 7)^2 = 49.",
+      "problem": "¿Cuál es el alcance máximo del haz de luz del faro?"
+    },
+    {
+      "id": 5,
+      "area": "Geometría",
+      "area_id": "geometry",
+      "topic": "Traslación de circunferencia",
+      "spec": {
+        "block": "1. Geometría",
+        "affirmation": "A2",
+        "affirmation_desc": null,
+        "evidence": "A2.1",
+        "evidence_desc": "Reconoce la representación gráfica o algebraica de la traslación de una circunferencia en diversos contextos."
+      },
+      "options": {
+        "A": "(x+1)^2 + (y-3)^2 = 9",
+        "B": "(x-1)^2 + (y-3)^2 = 9",
+        "C": "(x+1)^2 + (y+3)^2 = 9",
+        "D": "(x-1)^2 + (y+3)^2 = 9"
+      },
+      "correct_answer": "C",
+      "solution_steps": [
+        "Del gráfico, la circunferencia d tiene centro en (4,0) y radio 3 (pues pasa por (4,3) y (4,-3)).",
+        "Trasladar 5 unidades a la izquierda: x' = x - 5; 3 unidades hacia abajo: y' = y - 3.",
+        "El nuevo centro es (4-5, 0-3) = (-1, -3).",
+        "La ecuación resultante es (x+1)^2 + (y+3)^2 = 9.",
+        "Opción correcta: C."
+      ],
+      "group_id": null,
+      "visual_spec": {
+        "alt": "Circunferencia con centro en (4, 0) y radio 3 en un plano cartesiano.",
+        "visual": {
+          "type": "cartesian_2d",
+          "domain": {
+            "x": [
+              -2,
+              8
+            ],
+            "y": [
+              -5,
+              5
+            ]
+          },
+          "grid": false,
+          "children": [
+            {
+              "type": "circle",
+              "center": [
+                4,
+                0
+              ],
+              "radius": 3,
+              "label": "d"
+            },
+            {
+              "type": "point",
+              "coords": [
+                4,
+                0
+              ],
+              "label": "O"
+            },
+            {
+              "type": "point",
+              "coords": [
+                4,
+                3
+              ],
+              "label": "3"
+            },
+            {
+              "type": "dashed_projection",
+              "from": [
+                4,
+                3
+              ],
+              "to_axis": "y"
+            },
+            {
+              "type": "point",
+              "coords": [
+                4,
+                -3
+              ],
+              "label": "-3"
+            },
+            {
+              "type": "dashed_projection",
+              "from": [
+                4,
+                -3
+              ],
+              "to_axis": "y"
+            }
+          ]
+        }
+      },
+      "set_id": "set_1",
+      "statement": "Considere la siguiente representación de la circunferencia “d” de centro O:",
+      "problem": "Si a “d” se le aplica una traslación de cinco unidades a la izquierda (paralela al eje x) y tres unidades hacia abajo (paralela al eje y), entonces, se obtiene una circunferencia cuya ecuación corresponde a"
+    },
+    {
+      "id": 6,
+      "area": "Geometría",
+      "area_id": "geometry",
+      "topic": "Traslación de circunferencia",
+      "spec": {
+        "block": "1. Geometría",
+        "affirmation": "A2",
+        "affirmation_desc": null,
+        "evidence": "A2.1",
+        "evidence_desc": "Reconoce la representación gráfica o algebraica de la traslación de una circunferencia en diversos contextos."
+      },
+      "options": {
+        "A": "Gráfico A",
+        "B": "Gráfico B",
+        "C": "Gráfico C",
+        "D": "Gráfico D"
+      },
+      "correct_answer": "A",
+      "solution_steps": [
+        "Centro original de c: (2,3), radio 2.",
+        "Traslación: 2 izquierda → x-2; 3 arriba → y+3.",
+        "Nuevo centro: (2-2, 3+3) = (0, 6).",
+        "La circunferencia d tiene centro (0,6) y radio 2.",
+        "El gráfico A muestra una circunferencia con centro en (0,6) y radio 2 (pasa por (0,4) y (0,8) aproximadamente).",
+        "Opción correcta: A."
+      ],
+      "group_id": null,
+      "visual_spec": {
+        "alt": "Cuadrícula de 4 gráficas en planos cartesianos.",
+        "visual": {
+          "type": "multi_view_grid",
+          "layout": {
+            "rows": 2,
+            "cols": 2
+          },
+          "views": [
+            {
+              "label": "A",
+              "visual": {
+                "type": "cartesian_2d",
+                "domain": {
+                  "x": [
+                    -3,
+                    3
+                  ],
+                  "y": [
+                    2,
+                    10
+                  ]
+                },
+                "grid": false,
+                "children": [
+                  {
+                    "type": "circle",
+                    "center": [
+                      0,
+                      6
+                    ],
+                    "radius": 2,
+                    "label": "d"
+                  },
+                  {
+                    "type": "point",
+                    "coords": [
+                      0,
+                      6
+                    ],
+                    "label": "O"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "B",
+              "visual": {
+                "type": "cartesian_2d",
+                "domain": {
+                  "x": [
+                    -4,
+                    4
+                  ],
+                  "y": [
+                    -4,
+                    4
+                  ]
+                },
+                "grid": false,
+                "children": [
+                  {
+                    "type": "circle",
+                    "center": [
+                      0,
+                      0
+                    ],
+                    "radius": 2,
+                    "label": "d"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "C",
+              "visual": {
+                "type": "cartesian_2d",
+                "domain": {
+                  "x": [
+                    -2,
+                    6
+                  ],
+                  "y": [
+                    0,
+                    6
+                  ]
+                },
+                "grid": false,
+                "children": [
+                  {
+                    "type": "circle",
+                    "center": [
+                      2,
+                      3
+                    ],
+                    "radius": 2,
+                    "label": "d"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "D",
+              "visual": {
+                "type": "cartesian_2d",
+                "domain": {
+                  "x": [
+                    -2,
+                    6
+                  ],
+                  "y": [
+                    0,
+                    6
+                  ]
+                },
+                "grid": false,
+                "children": [
+                  {
+                    "type": "circle",
+                    "center": [
+                      3,
+                      3
+                    ],
+                    "radius": 2,
+                    "label": "d"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "set_id": "set_1",
+      "statement": "Sea “c” la circunferencia dada por c:(x − 2)^2 + (y − 3)^2 = 4. Al trasladar a “c” dos unidades hacia la izquierda (paralela al eje x) y tres unidades hacia arriba (paralela al eje y), se obtiene la circunferencia “d” de centro O.",
+      "problem": "¿Cuál de las siguientes opciones corresponde a la representación de “d”?"
+    },
+    {
+      "id": 7,
+      "area": "Geometría",
+      "area_id": "geometry",
+      "topic": "Traslación de circunferencia",
+      "spec": {
+        "block": "1. Geometría",
+        "affirmation": "A2",
+        "affirmation_desc": null,
+        "evidence": "A2.2",
+        "evidence_desc": "Resuelve problemas, de diversos contextos, relacionados con la traslación de una circunferencia y sus representaciones."
+      },
+      "options": {
+        "A": "izquierda paralela al eje x y tres unidades hacia abajo paralela al eje y.",
+        "B": "izquierda paralela al eje x y tres unidades hacia arriba paralela al eje y.",
+        "C": "derecha paralela al eje x y tres unidades hacia arriba paralela al eje y.",
+        "D": "derecha paralela al eje x y tres unidades hacia abajo paralela al eje y."
+      },
+      "correct_answer": "D",
+      "solution_steps": [
+        "Centro de c: (-2, 0). Centro de d: (0, -3).",
+        "Para ir de (-2,0) a (0,-3): x aumenta en 2 (derecha), y disminuye en 3 (abajo).",
+        "Por lo tanto, la traslación es 2 unidades a la derecha y 3 unidades hacia abajo.",
+        "Opción correcta: D."
+      ],
+      "group_id": null,
+      "visual_spec": null,
+      "set_id": "set_1",
+      "statement": "Sea “c” la circunferencia dada por c:(x + 2)^2 + y^2 = 6. Si se traslada “c” y se obtiene d:x^2 + (y +3)^2 = 6",
+      "problem": "la traslación aplicada corresponde a dos unidades hacia la"
+    },
+    {
+      "id": 8,
+      "area": "Geometría",
+      "area_id": "geometry",
+      "topic": "Posición de puntos respecto a una circunferencia",
+      "spec": {
+        "block": "1. Geometría",
+        "affirmation": "A3",
+        "affirmation_desc": null,
+        "evidence": "A3.1",
+        "evidence_desc": "Determina gráfica y algebraicamente si un punto se ubica en el interior o en el exterior de una circunferencia en diversos contextos."
+      },
+      "options": {
+        "A": "(0, 2)",
+        "B": "(1, 0)",
+        "C": "(2, 3)",
+        "D": "(3, 3)"
+      },
+      "correct_answer": "B",
+      "solution_steps": [
+        "La circunferencia tiene centro (2,0) y radio √5 ≈ 2.236.",
+        "Un punto (x,y) es interior si (x-2)^2 + y^2 < 5.",
+        "Evaluar (1,0): (1-2)^2 + 0^2 = 1 < 5 → interior.",
+        "Las demás opciones dan valores ≥ 5.",
+        "Opción correcta: B."
+      ],
+      "group_id": null,
+      "visual_spec": null,
+      "set_id": "set_1",
+      "statement": "",
+      "problem": "¿Cuál opción contiene las coordenadas de un punto interior a la circunferencia dada por (x−2)^2 + y^2 = 5?"
+    },
+    {
+      "id": 9,
+      "area": "Geometría",
+      "area_id": "geometry",
+      "topic": "Posición de puntos respecto a una circunferencia",
+      "spec": {
+        "block": "1. Geometría",
+        "affirmation": "A3",
+        "affirmation_desc": null,
+        "evidence": "A3.1",
+        "evidence_desc": "Determina gráfica y algebraicamente si un punto se ubica en el interior o en el exterior de una circunferencia en diversos contextos."
+      },
+      "options": {
+        "A": "P",
+        "B": "Q",
+        "C": "R",
+        "D": "S"
+      },
+      "correct_answer": "D",
+      "solution_steps": [
+        "Del gráfico, el centro O está en (5,0) y el radio es 4.",
+        "La ecuación es (x-5)^2 + y^2 = 16.",
+        "Para un punto fuera, (x-5)^2 + y^2 > 16.",
+        "Evaluar S(8,4): (8-5)^2 + 4^2 = 9 + 16 = 25 > 16 → fuera.",
+        "Los demás puntos están dentro o sobre.",
+        "Opción correcta: D."
+      ],
+      "group_id": null,
+      "visual_spec": {
+        "alt": "Circunferencia con centro en (5, 0) y radio 4 en un plano cartesiano.",
+        "visual": {
+          "type": "cartesian_2d",
+          "domain": {
+            "x": [
+              0,
+              10
+            ],
+            "y": [
+              -5,
+              5
+            ]
+          },
+          "grid": false,
+          "children": [
+            {
+              "type": "circle",
+              "center": [
+                5,
+                0
+              ],
+              "radius": 4,
+              "label": "cobertura"
+            },
+            {
+              "type": "point",
+              "coords": [
+                5,
+                0
+              ],
+              "label": "O"
+            },
+            {
+              "type": "point",
+              "coords": [
+                5,
+                4
+              ],
+              "label": "4"
+            },
+            {
+              "type": "dashed_projection",
+              "from": [
+                5,
+                4
+              ],
+              "to_axis": "y"
+            },
+            {
+              "type": "point",
+              "coords": [
+                5,
+                -4
+              ],
+              "label": "-4"
+            },
+            {
+              "type": "dashed_projection",
+              "from": [
+                5,
+                -4
+              ],
+              "to_axis": "y"
+            },
+            {
+              "type": "point",
+              "coords": [
+                5,
+                2
+              ],
+              "label": "P"
+            },
+            {
+              "type": "point",
+              "coords": [
+                4,
+                1
+              ],
+              "label": "Q"
+            },
+            {
+              "type": "point",
+              "coords": [
+                6,
+                1
+              ],
+              "label": "R"
+            },
+            {
+              "type": "point",
+              "coords": [
+                8,
+                4
+              ],
+              "label": "S"
+            }
+          ]
+        }
+      },
+      "set_id": "set_1",
+      "statement": "Un radar de ciberseguridad monitorea una red local. El servidor central está ubicado en el punto O y su zona de cobertura abarca un radio de 4 km, tal como se ilustra con el siguiente sistema de coordenadas:",
+      "problem": "Considere las coordenadas de ubicación de cuatro dispositivos conectados: P(5,2), Q(4,1), R(6,1), S(8,4). ¿Cuál de los dispositivos se encuentra fuera del área de cobertura?"
+    },
+    {
+      "id": 10,
+      "area": "Geometría",
+      "area_id": "geometry",
+      "topic": "Recta secante a una circunferencia",
+      "spec": {
+        "block": "1. Geometría",
+        "affirmation": "A3",
+        "affirmation_desc": null,
+        "evidence": "A3.2",
+        "evidence_desc": "Determina si una recta dada gráfica o algebraicamente es secante, tangente o exterior a una circunferencia, en diversos contextos."
+      },
+      "options": {
+        "A": "x = 5",
+        "B": "y = 3",
+        "C": "x = 1",
+        "D": "y = −2"
+      },
+      "correct_answer": "C",
+      "solution_steps": [
+        "La circunferencia tiene centro (2,0) y radio 2.",
+        "Una recta es secante si la distancia del centro a la recta es menor que el radio.",
+        "Para x=1: distancia = |1-2| = 1 < 2 → secante.",
+        "Para x=5: distancia = 3 > 2 (exterior).",
+        "Para y=3: distancia = 3 > 2 (exterior).",
+        "Para y=-2: distancia = 2 = radio (tangente).",
+        "Opción correcta: C."
+      ],
+      "group_id": null,
+      "visual_spec": null,
+      "set_id": "set_1",
+      "statement": "",
+      "problem": "¿Cuál opción contiene una recta secante a la circunferencia dada por (x − 2)^2 + y^2 = 4?"
+    },
+    {
+      "id": 11,
+      "area": "Geometría",
+      "area_id": "geometry",
+      "topic": "Recta tangente a una circunferencia",
+      "spec": {
+        "block": "1. Geometría",
+        "affirmation": "A3",
+        "affirmation_desc": null,
+        "evidence": "A3.2",
+        "evidence_desc": "Determina si una recta dada gráfica o algebraicamente es secante, tangente o exterior a una circunferencia, en diversos contextos."
+      },
+      "options": {
+        "A": "y = 0",
+        "B": "x = 1",
+        "C": "y = −1",
+        "D": "x = −2"
+      },
+      "correct_answer": "C",
+      "solution_steps": [
+        "Centro (3,-2), radio 1.",
+        "Recta tangente si la distancia del centro a la recta es igual al radio.",
+        "Para y = -1: distancia = |-1 - (-2)| = 1 → tangente.",
+        "Para y = 0: distancia = 2 > 1 (exterior).",
+        "Para x = 1: distancia = 2 > 1 (exterior).",
+        "Para x = -2: distancia = 5 > 1 (exterior).",
+        "Opción correcta: C."
+      ],
+      "group_id": null,
+      "visual_spec": null,
+      "set_id": "set_1",
+      "statement": "",
+      "problem": "¿Cuál opción contiene una recta tangente a la circunferencia dada por (x − 3)^2 + (y + 2)^2 = 1?"
+    },
+    {
+      "id": 12,
+      "area": "Geometría",
+      "area_id": "geometry",
+      "topic": "Área de figuras no poligonales",
+      "spec": {
+        "block": "1. Geometría",
+        "affirmation": "A4",
+        "affirmation_desc": null,
+        "evidence": "A4.3",
+        "evidence_desc": "Estima perímetros o áreas de figuras planas no poligonales mediante un sistema de coordenadas rectangulares en diversos contextos."
+      },
+      "options": {
+        "A": "2200 pero menor que 2600.",
+        "B": "2600 pero menor que 2900.",
+        "C": "2900 pero menor que 3300.",
+        "D": "3300 pero menor que 3800."
+      },
+      "correct_answer": "A",
+      "solution_steps": [
+        "La región está delimitada por la base y = 40 (de x = 40 a x = 120), el lado vertical x = 40 (de y = 40 a y = 100), la curva que desciende de (40, 100) a (100, 60) y el segmento de (100, 60) a (120, 40).",
+        "Se estima el área sobre la base y = 40 usando trapecios de ancho 20:",
+        "De x = 40 a 100: (60 + 40)/2 · 20 + (40 + 25)/2 · 20 + (25 + 20)/2 · 20 = 1000 + 650 + 450 = 2100.",
+        "De x = 100 a 120: (20 + 0)/2 · 20 = 200.",
+        "Área total ≈ 2100 + 200 = 2300 cm².",
+        "El área (≈ 2300 cm²) es mayor que 2200 pero menor que 2600.",
+        "Opción correcta: A."
+      ],
+      "group_id": null,
+      "visual_spec": {
+        "alt": "Perfil de una pieza de metal delimitado por una curva y segmentos rectos, en un plano cartesiano.",
+        "visual": {
+          "type": "curve_region",
+          "domain": {
+            "x": [
+              30,
+              130
+            ],
+            "y": [
+              30,
+              110
+            ]
+          },
+          "grid": true,
+          "path": {
+            "points": [
+              [
+                40,
+                100
+              ],
+              [
+                60,
+                80
+              ],
+              [
+                80,
+                65
+              ],
+              [
+                100,
+                60
+              ]
+            ],
+            "label": "curva"
+          },
+          "straight_segments": [
+            {
+              "from": [
+                100,
+                60
+              ],
+              "to": [
+                120,
+                40
+              ]
+            },
+            {
+              "from": [
+                40,
+                40
+              ],
+              "to": [
+                40,
+                100
+              ]
+            }
+          ],
+          "base": {
+            "from": [
+              40,
+              40
+            ],
+            "to": [
+              120,
+              40
+            ]
+          }
+        }
+      },
+      "set_id": "set_1",
+      "statement": "La siguiente representación gráfica corresponde al diseño de una pieza de metal para el logotipo de una empresa automotriz, cuyas dimensiones están dadas en centímetros:",
+      "problem": "De acuerdo con la información anterior, el área en centímetros cuadrados de esa pieza de metal es mayor que:"
+    },
+    {
+      "id": 13,
+      "area": "Geometría",
+      "area_id": "geometry",
+      "topic": "Área de figuras no poligonales",
+      "spec": {
+        "block": "1. Geometría",
+        "affirmation": "A4",
+        "affirmation_desc": null,
+        "evidence": "A4.3",
+        "evidence_desc": "Estima perímetros o áreas de figuras planas no poligonales mediante un sistema de coordenadas rectangulares en diversos contextos."
+      },
+      "options": {
+        "A": "mayor que 20.",
+        "B": "mayor que 30.",
+        "C": "menor que 18.",
+        "D": "menor que 15."
+      },
+      "correct_answer": "A",
+      "solution_steps": [
+        "La región está bajo una curva que va de (2,2) a (7,6).",
+        "Se puede aproximar el área con trapecios o contando cuadrículas.",
+        "El área es aproximadamente 20-25 m².",
+        "Por lo tanto, es mayor que 20.",
+        "Opción correcta: A."
+      ],
+      "group_id": null,
+      "visual_spec": {
+        "alt": "Perfil lateral de una rampa de acceso (curva ascendente) sobre un plano cartesiano.",
+        "visual": {
+          "type": "curve_region",
+          "domain": {
+            "x": [
+              1,
+              8
+            ],
+            "y": [
+              1,
+              7
+            ]
+          },
+          "grid": true,
+          "path": {
+            "points": [
+              [
+                2,
+                2
+              ],
+              [
+                3,
+                3.5
+              ],
+              [
+                4,
+                4.5
+              ],
+              [
+                5,
+                5.2
+              ],
+              [
+                6,
+                5.7
+              ],
+              [
+                7,
+                6
+              ]
+            ],
+            "label": "rampa"
+          },
+          "straight_segments": [
+            {
+              "from": [
+                2,
+                0
+              ],
+              "to": [
+                2,
+                2
+              ]
+            },
+            {
+              "from": [
+                7,
+                0
+              ],
+              "to": [
+                7,
+                6
+              ]
+            }
+          ],
+          "base": {
+            "from": [
+              2,
+              0
+            ],
+            "to": [
+              7,
+              0
+            ]
+          }
+        }
+      },
+      "set_id": "set_1",
+      "statement": "La siguiente representación gráfica ilustra el perfil lateral de una rampa de acceso para un puente colgante, la cual asciende de forma curva desde el pilar lateral del soporte hasta alcanzar la torre central de suspensión, cuyas dimensiones de los ejes están en metros:",
+      "problem": "De acuerdo con la información anterior, el área de la superficie lateral bajo esta sección del puente en metros cuadrados es"
+    },
+    {
+      "id": 14,
+      "area": "Geometría",
+      "area_id": "geometry",
+      "topic": "Polígonos regulares",
+      "spec": {
+        "block": "1. Geometría",
+        "affirmation": "A4",
+        "affirmation_desc": null,
+        "evidence": "A4.1",
+        "evidence_desc": "Determina elementos de los polígonos regulares para la obtención de perímetros o áreas de estos en diversos contextos."
+      },
+      "options": {
+        "A": "12",
+        "B": "15",
+        "C": "20",
+        "D": "24"
+      },
+      "correct_answer": "D",
+      "solution_steps": [
+        "Ángulo interno = 120° → 180(n-2)/n = 120 → 180n - 360 = 120n → 60n = 360 → n = 6 (hexágono).",
+        "La apotema a = 2√3. Para un hexágono regular, la apotema se relaciona con el lado L: a = L√3/2.",
+        "2√3 = L√3/2 → L = 4.",
+        "Perímetro = 6 × 4 = 24.",
+        "Opción correcta: D."
+      ],
+      "group_id": null,
+      "visual_spec": null,
+      "set_id": "set_1",
+      "statement": "Si la medida del ángulo interno de un polígono regular es 120° y la apotema 2√3",
+      "problem": "¿cuál es el perímetro de dicho polígono?"
+    },
+    {
+      "id": 15,
+      "area": "Geometría",
+      "area_id": "geometry",
+      "topic": "Polígonos regulares",
+      "spec": {
+        "block": "1. Geometría",
+        "affirmation": "A4",
+        "affirmation_desc": null,
+        "evidence": "A4.1",
+        "evidence_desc": "Determina elementos de los polígonos regulares para la obtención de perímetros o áreas de estos en diversos contextos."
+      },
+      "options": {
+        "A": "36",
+        "B": "24",
+        "C": "18",
+        "D": "12"
+      },
+      "correct_answer": "A",
+      "solution_steps": [
+        "Ángulo externo = 90° → n = 360/90 = 4 (cuadrado).",
+        "El radio de un cuadrado es la distancia del centro a un vértice, que es la mitad de la diagonal.",
+        "Si radio = 3√2, entonces la diagonal = 6√2, y el lado L = diagonal/√2 = 6.",
+        "Área = L^2 = 36.",
+        "Opción correcta: A."
+      ],
+      "group_id": null,
+      "visual_spec": null,
+      "set_id": "set_1",
+      "statement": "Si la medida del radio de un polígono regular es 3√2 y la de su ángulo externo 90°",
+      "problem": "¿cuál es el área de ese polígono?"
+    },
+    {
+      "id": 16,
+      "area": "Geometría",
+      "area_id": "geometry",
+      "topic": "Visualización espacial - Esfera",
+      "spec": {
+        "block": "1. Geometría",
+        "affirmation": "A5",
+        "affirmation_desc": null,
+        "evidence": "A5.3",
+        "evidence_desc": "Determina características métricas de secciones planas en un cilindro circular recto o en una esfera en diversos contextos."
+      },
+      "options": {
+        "A": "15,7",
+        "B": "31,4",
+        "C": "25,0",
+        "D": "39,2"
+      },
+      "correct_answer": "B",
+      "solution_steps": [
+        "La sección plana de una esfera es un círculo. El radio de la sección r se obtiene con el teorema de Pitágoras: r^2 + d^2 = R^2, donde d=12, R=13.",
+        "r^2 = 13^2 - 12^2 = 169 - 144 = 25 → r = 5.",
+        "El perímetro de la abertura es 2πr = 2 × 3.14 × 5 = 31.4 cm.",
+        "Opción correcta: B."
+      ],
+      "group_id": null,
+      "visual_spec": null,
+      "set_id": "set_1",
+      "statement": "Un florero artesanal se fabricó a partir de una pieza esférica de porcelana de 13 cm de radio, a la cual se le realizó un corte para su abertura (boca). Si el centro de dicha abertura quedó a 12 cm del centro de la esfera",
+      "problem": "¿de cuántos centímetros es el perímetro (aproximadamente) de la abertura de ese florero?"
+    },
+    {
+      "id": 17,
+      "area": "Geometría",
+      "area_id": "geometry",
+      "topic": "Visualización espacial - Esfera",
+      "spec": {
+        "block": "1. Geometría",
+        "affirmation": "A5",
+        "affirmation_desc": null,
+        "evidence": "A5.3",
+        "evidence_desc": "Determina características métricas de secciones planas en un cilindro circular recto o en una esfera en diversos contextos."
+      },
+      "options": {
+        "A": "7",
+        "B": "12",
+        "C": "14",
+        "D": "49"
+      },
+      "correct_answer": "A",
+      "solution_steps": [
+        "En una esfera, la relación entre el radio de la esfera R, el radio de la sección r y la distancia d del centro al plano es R^2 = r^2 + d^2.",
+        "25^2 = 24^2 + d^2 → 625 = 576 + d^2 → d^2 = 49 → d = 7.",
+        "Opción correcta: A."
+      ],
+      "group_id": null,
+      "visual_spec": null,
+      "set_id": "set_1",
+      "statement": "Si el radio de una esfera mide 25 y esta se interseca con una sección plana de radio 24",
+      "problem": "¿a qué distancia del centro de la esfera se encuentra dicha sección?"
+    },
+    {
+      "id": 18,
+      "area": "Geometría",
+      "area_id": "geometry",
+      "topic": "Visualización espacial - Cilindro",
+      "spec": {
+        "block": "1. Geometría",
+        "affirmation": "A5",
+        "affirmation_desc": null,
+        "evidence": "A5.3",
+        "evidence_desc": "Determina características métricas de secciones planas en un cilindro circular recto o en una esfera en diversos contextos."
+      },
+      "options": {
+        "A": "300",
+        "B": "600",
+        "C": "1200",
+        "D": "2400"
+      },
+      "correct_answer": "C",
+      "solution_steps": [
+        "El corte perpendicular a las bases que pasa por los centros es un rectángulo.",
+        "Las dimensiones del rectángulo son la altura del cilindro (40 cm) y el diámetro de la base (2 × 15 = 30 cm).",
+        "Área = 40 × 30 = 1200 cm².",
+        "Opción correcta: C."
+      ],
+      "group_id": null,
+      "visual_spec": null,
+      "set_id": "set_1",
+      "statement": "Un bloque de queso industrial con forma de cilindro circular recto de 40 cm de altura y 15 cm de radio en sus bases se corta con un cuchillo de manera perpendicular a ellas, pasando por los centros de ambas.",
+      "problem": "¿Cuál es el área, en centímetros cuadrados, de la superficie del corte?"
+    },
+    {
+      "id": 19,
+      "area": "Geometría",
+      "area_id": "geometry",
+      "topic": "Simetría axial",
+      "spec": {
+        "block": "1. Geometría",
+        "affirmation": "A6",
+        "affirmation_desc": null,
+        "evidence": "A6.1",
+        "evidence_desc": "Determina ejes de simetría en figuras simétricas en diversos contextos."
+      },
+      "options": {
+        "A": "4",
+        "B": "3",
+        "C": "2",
+        "D": "1"
+      },
+      "correct_answer": "C",
+      "solution_steps": [
+        "El polígono QRPS es un rombo (o cuadrilátero con vértices Q(3,7), R(1,4), P(3,1), S(5,4)).",
+        "Un rombo tiene 2 ejes de simetría: las diagonales.",
+        "Por lo tanto, la cantidad total de ejes de simetría es 2.",
+        "Opción correcta: C."
+      ],
+      "group_id": null,
+      "visual_spec": {
+        "alt": "Polígono en un plano cartesiano.",
+        "visual": {
+          "type": "cartesian_2d",
+          "domain": {
+            "x": [
+              0,
+              6
+            ],
+            "y": [
+              0,
+              8
+            ]
+          },
+          "grid": true,
+          "children": [
+            {
+              "type": "polygon",
+              "vertices": [
+                [
+                  3,
+                  7
+                ],
+                [
+                  1,
+                  4
+                ],
+                [
+                  3,
+                  1
+                ],
+                [
+                  5,
+                  4
+                ]
+              ],
+              "labels": [
+                "Q",
+                "R",
+                "P",
+                "S"
+              ]
+            },
+            {
+              "type": "point",
+              "coords": [
+                3,
+                7
+              ],
+              "label": "Q"
+            },
+            {
+              "type": "point",
+              "coords": [
+                1,
+                4
+              ],
+              "label": "R"
+            },
+            {
+              "type": "point",
+              "coords": [
+                3,
+                1
+              ],
+              "label": "P"
+            },
+            {
+              "type": "point",
+              "coords": [
+                5,
+                4
+              ],
+              "label": "S"
+            }
+          ]
+        }
+      },
+      "set_id": "set_1",
+      "statement": "Considere el siguiente polígono QRPS:",
+      "problem": "De acuerdo con la información de la gráfica, ¿cuál es la cantidad total de ejes de simetría que se le pueden trazar al polígono QRPS?"
+    },
+    {
+      "id": 20,
+      "area": "Geometría",
+      "area_id": "geometry",
+      "topic": "Simetría axial",
+      "spec": {
+        "block": "1. Geometría",
+        "affirmation": "A6",
+        "affirmation_desc": null,
+        "evidence": "A6.2",
+        "evidence_desc": "Identifica elementos homólogos en figuras que presentan simetría axial en diversos contextos."
+      },
+      "options": {
+        "A": "F",
+        "B": "E",
+        "C": "G",
+        "D": "H"
+      },
+      "correct_answer": "B",
+      "solution_steps": [
+        "La reflexión respecto al eje y cambia (x,y) a (-x,y).",
+        "J está en (4,5). Su imagen es (-4,5).",
+        "El punto en (-4,5) es E.",
+        "Opción correcta: B."
+      ],
+      "group_id": null,
+      "visual_spec": {
+        "alt": "Polígono en un plano cartesiano.",
+        "visual": {
+          "type": "cartesian_2d",
+          "domain": {
+            "x": [
+              -5,
+              5
+            ],
+            "y": [
+              0,
+              9
+            ]
+          },
+          "grid": true,
+          "children": [
+            {
+              "type": "polygon",
+              "vertices": [
+                [
+                  0,
+                  8
+                ],
+                [
+                  -4,
+                  5
+                ],
+                [
+                  -2,
+                  5
+                ],
+                [
+                  -2,
+                  2
+                ],
+                [
+                  2,
+                  2
+                ],
+                [
+                  2,
+                  5
+                ],
+                [
+                  4,
+                  5
+                ]
+              ],
+              "labels": [
+                "D",
+                "E",
+                "F",
+                "G",
+                "H",
+                "I",
+                "J"
+              ]
+            },
+            {
+              "type": "point",
+              "coords": [
+                0,
+                8
+              ],
+              "label": "D"
+            },
+            {
+              "type": "point",
+              "coords": [
+                -4,
+                5
+              ],
+              "label": "E"
+            },
+            {
+              "type": "point",
+              "coords": [
+                -2,
+                5
+              ],
+              "label": "F"
+            },
+            {
+              "type": "point",
+              "coords": [
+                -2,
+                2
+              ],
+              "label": "G"
+            },
+            {
+              "type": "point",
+              "coords": [
+                2,
+                2
+              ],
+              "label": "H"
+            },
+            {
+              "type": "point",
+              "coords": [
+                2,
+                5
+              ],
+              "label": "I"
+            },
+            {
+              "type": "point",
+              "coords": [
+                4,
+                5
+              ],
+              "label": "J"
+            }
+          ]
+        }
+      },
+      "set_id": "set_1",
+      "statement": "Considere el siguiente polígono DEFGHIJ:",
+      "problem": "De acuerdo con la información de la gráfica, ¿cuál punto corresponde a la imagen de J con respecto al eje y?"
+    },
+    {
+      "id": 21,
+      "area": "Geometría",
+      "area_id": "geometry",
+      "topic": "Transformaciones en el plano - Homotecia",
+      "spec": {
+        "block": "1. Geometría",
+        "affirmation": "A7",
+        "affirmation_desc": null,
+        "evidence": "A7.1",
+        "evidence_desc": "Reconoce las figuras obtenidas a partir del concepto de transformación (traslación, homotecia, reflexión o rotación) a figuras dadas, en diversos contextos."
+      },
+      "options": {
+        "A": "0",
+        "B": "1",
+        "C": "2",
+        "D": "-1"
+      },
+      "correct_answer": "D",
+      "solution_steps": [
+        "Una homotecia centrada en (0, 0) con razón k transforma cada punto (x, y) en (kx, ky).",
+        "El polígono #4 es el simétrico central (respecto al origen) del polígono #2, lo que corresponde a una homotecia de razón k = −1.",
+        "Por lo tanto, el valor de la razón de la homotecia es −1.",
+        "Opción correcta: D."
+      ],
+      "group_id": "g_transformations",
+      "visual_spec": null,
+      "flags": [
+        "polygon_vertices_need_pdf_verification"
+      ],
+      "set_id": "set_1",
+      "statement": "Si se aplica una homotecia centrada en (0,0) al polígono #2 para obtener el #4",
+      "problem": "con certeza el valor de la razón de la homotecia corresponde a"
+    },
+    {
+      "id": 22,
+      "area": "Geometría",
+      "area_id": "geometry",
+      "topic": "Transformaciones en el plano - Reflexión",
+      "spec": {
+        "block": "1. Geometría",
+        "affirmation": "A7",
+        "affirmation_desc": null,
+        "evidence": "A7.1",
+        "evidence_desc": "Reconoce las figuras obtenidas a partir del concepto de transformación (traslación, homotecia, reflexión o rotación) a figuras dadas, en diversos contextos."
+      },
+      "options": {
+        "A": "y = 1",
+        "B": "x = 1",
+        "C": "y = 2",
+        "D": "x = 2"
+      },
+      "correct_answer": "B",
+      "solution_steps": [
+        "El polígono #4 se ubica en la región de abscisas negativas y el polígono #3 en la de abscisas positivas.",
+        "Una reflexión respecto a una recta vertical x = a transforma cada punto (x, y) en (2a − x, y).",
+        "La recta de reflexión es vertical y equidista de ambos polígonos: x = 1.",
+        "Por lo tanto, el polígono #3 se obtiene reflejando el polígono #4 sobre la recta x = 1.",
+        "Opción correcta: B."
+      ],
+      "group_id": "g_transformations",
+      "visual_spec": null,
+      "flags": [
+        "polygon_vertices_need_pdf_verification"
+      ],
+      "set_id": "set_1",
+      "statement": "",
+      "problem": "Una forma de obtener el polígono #3 es aplicándole al polígono #4 una reflexión sobre"
+    },
+    {
+      "id": 23,
+      "area": "Geometría",
+      "area_id": "geometry",
+      "topic": "Transformaciones en el plano - Rotación",
+      "spec": {
+        "block": "1. Geometría",
+        "affirmation": "A7",
+        "affirmation_desc": null,
+        "evidence": "A7.3",
+        "evidence_desc": "Determina el punto imagen de puntos dados mediante una transformación en diversos contextos."
+      },
+      "options": {
+        "A": "(-3, -1)",
+        "B": "(-3, 1)",
+        "C": "(3, -1)",
+        "D": "(3, 1)"
+      },
+      "correct_answer": "A",
+      "solution_steps": [
+        "Una rotación de 270° en sentido horario equivale a una rotación de 90° en sentido antihorario.",
+        "La transformación para 90° antihorario es (x,y) → (-y, x).",
+        "Aplicando a (-1,3): (-3, -1).",
+        "Opción correcta: A."
+      ],
+      "group_id": "g_transformations",
+      "visual_spec": null,
+      "flags": [
+        "polygon_vertices_need_pdf_verification"
+      ],
+      "set_id": "set_1",
+      "statement": "Si al polígono #1 se le aplica una rotación de 270º en sentido horario y con centro en el punto (0, 0)",
+      "problem": "¿cuál es el punto imagen de (−1, 3)?"
+    },
+    {
+      "id": 51,
+      "area": "Relaciones y Álgebra",
+      "area_id": "functions",
+      "topic": "Concepto de función y de gráfica de una función",
+      "spec": {
+        "block": "2. Relaciones y Álgebra",
+        "affirmation": "A1",
+        "affirmation_desc": null,
+        "evidence": "A1.1",
+        "evidence_desc": "Identifica en diversos contextos si una relación dada en forma tabular, simbólica o gráfica corresponde a una función."
+      },
+      "options": {
+        "A": "Gráfica A (curva suave que pasa la prueba de la recta vertical)",
+        "B": "Gráfica B (dos rayos desde un punto en el eje y)",
+        "C": "Gráfica C (curva en forma de S acostada)",
+        "D": "Gráfica D (dos rayos desde un punto en el eje x positivo)"
+      },
+      "correct_answer": "A",
+      "solution_steps": [
+        "Una relación es función si a cada valor de x le corresponde un único valor de y.",
+        "Esto se verifica con la prueba de la recta vertical: si alguna recta vertical interseca la gráfica en más de un punto, la relación no es función.",
+        "La gráfica A pasa la prueba de la recta vertical en todo su dominio.",
+        "Las gráficas B, C y D fallan la prueba: B y D tienen dos valores de y para un mismo x en ciertos intervalos; C tiene múltiples valores de y para un mismo x.",
+        "Por lo tanto, la respuesta correcta es A."
+      ],
+      "group_id": null,
+      "visual_spec": {
+        "alt": "Cuadrícula de 4 gráficas en planos cartesianos.",
+        "visual": {
+          "type": "multi_view_grid",
+          "layout": {
+            "rows": 2,
+            "cols": 2
+          },
+          "views": [
+            {
+              "label": "A",
+              "visual": {
+                "type": "cartesian_2d",
+                "domain": {
+                  "x": [
+                    -5,
+                    5
+                  ],
+                  "y": [
+                    -5,
+                    5
+                  ]
+                },
+                "grid": false,
+                "axes": {
+                  "arrows": true
+                },
+                "children": [
+                  {
+                    "type": "path",
+                    "points": [
+                      [
+                        -4,
+                        -1
+                      ],
+                      [
+                        -2,
+                        1
+                      ],
+                      [
+                        0,
+                        0.5
+                      ],
+                      [
+                        2,
+                        -0.5
+                      ],
+                      [
+                        4,
+                        1
+                      ]
+                    ],
+                    "description": "curva suave tipo onda que pasa la prueba de la recta vertical"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "B",
+              "visual": {
+                "type": "cartesian_2d",
+                "domain": {
+                  "x": [
+                    -5,
+                    5
+                  ],
+                  "y": [
+                    -5,
+                    5
+                  ]
+                },
+                "grid": false,
+                "axes": {
+                  "arrows": true
+                },
+                "children": [
+                  {
+                    "type": "point",
+                    "coords": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "type": "ray",
+                    "origin": [
+                      0,
+                      1
+                    ],
+                    "direction": "up-right"
+                  },
+                  {
+                    "type": "ray",
+                    "origin": [
+                      0,
+                      1
+                    ],
+                    "direction": "down-right"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "C",
+              "visual": {
+                "type": "cartesian_2d",
+                "domain": {
+                  "x": [
+                    -5,
+                    5
+                  ],
+                  "y": [
+                    -5,
+                    5
+                  ]
+                },
+                "grid": false,
+                "axes": {
+                  "arrows": true
+                },
+                "children": [
+                  {
+                    "type": "path",
+                    "points": [
+                      [
+                        -4,
+                        -1
+                      ],
+                      [
+                        -2,
+                        2
+                      ],
+                      [
+                        0,
+                        0
+                      ],
+                      [
+                        2,
+                        -2
+                      ],
+                      [
+                        4,
+                        1
+                      ]
+                    ],
+                    "description": "curva en forma de S acostada (falla la prueba de la recta vertical)"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "D",
+              "visual": {
+                "type": "cartesian_2d",
+                "domain": {
+                  "x": [
+                    -5,
+                    5
+                  ],
+                  "y": [
+                    -5,
+                    5
+                  ]
+                },
+                "grid": false,
+                "axes": {
+                  "arrows": true
+                },
+                "children": [
+                  {
+                    "type": "point",
+                    "coords": [
+                      2,
+                      0
+                    ]
+                  },
+                  {
+                    "type": "ray",
+                    "origin": [
+                      2,
+                      0
+                    ],
+                    "direction": "up-left"
+                  },
+                  {
+                    "type": "ray",
+                    "origin": [
+                      2,
+                      0
+                    ],
+                    "direction": "left-horizontal"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "set_id": "set_1",
+      "statement": "En las siguientes relaciones “x” representa la variable independiente y “y” la dependiente.",
+      "problem": "¿Cuál de ellas corresponde a una función?"
+    },
+    {
+      "id": 52,
+      "area": "Relaciones y Álgebra",
+      "area_id": "functions",
+      "topic": "Composición de funciones",
+      "spec": {
+        "block": "2. Relaciones y Álgebra",
+        "affirmation": "A1",
+        "affirmation_desc": null,
+        "evidence": "A1.4",
+        "evidence_desc": "Determina las condiciones necesarias y suficientes para que se defina la composición de dos funciones en diversos contextos."
+      },
+      "options": {
+        "A": "(g ° f)(x)",
+        "B": "(p ° f)(x)",
+        "C": "(f ° p)(x)",
+        "D": "(g ° p)(x)"
+      },
+      "correct_answer": "C",
+      "solution_steps": [
+        "Para que (h ° k)(x) = h(k(x)) esté bien definida, el ámbito de k debe estar contenido en el dominio de h.",
+        "(g ° f): ámbito de f = [1, 5]; dominio de g = [2, 6]. [1, 5] ⊄ [2, 6]. No está bien definida.",
+        "(p ° f): ámbito de f = [1, 5]; dominio de p = [2, 6]. [1, 5] ⊄ [2, 6]. No está bien definida.",
+        "(f ° p): ámbito de p = [0, 4]; dominio de f = [0, 4]. [0, 4] ⊆ [0, 4]. ✓ Bien definida.",
+        "(g ° p): ámbito de p = [0, 4]; dominio de g = [2, 6]. [0, 4] ⊄ [2, 6]. No está bien definida.",
+        "Por lo tanto, la respuesta correcta es C."
+      ],
+      "group_id": null,
+      "visual_spec": null,
+      "set_id": "set_1",
+      "statement": "Considere las siguientes funciones f, g y p con sus respectivos dominios y ámbitos: • f: [0, 4] → [1, 5] • g: [2, 6] → [1, 4] • p: [2, 6] → [0, 4]",
+      "problem": "¿Cuál de las siguientes composiciones de funciones está bien definida?"
+    },
+    {
+      "id": 53,
+      "area": "Relaciones y Álgebra",
+      "area_id": "functions",
+      "topic": "Análisis de gráficas de funciones",
+      "spec": {
+        "block": "2. Relaciones y Álgebra",
+        "affirmation": "A2",
+        "affirmation_desc": null,
+        "evidence": "A2.1",
+        "evidence_desc": "Analiza una función a partir de sus representaciones en diversos contextos."
+      },
+      "options": {
+        "A": "600",
+        "B": "650",
+        "C": "750",
+        "D": "900"
+      },
+      "correct_answer": "C",
+      "solution_steps": [
+        "En la gráfica, entre la semana 8 y la semana 12, el precio se mantiene constante en 750 colones.",
+        "La semana 10 está dentro de ese intervalo.",
+        "Por lo tanto, el precio en la semana 10 es 750 colones.",
+        "Respuesta: C."
+      ],
+      "group_id": "g_fuel_price",
+      "visual_spec": null,
+      "set_id": "set_1",
+      "statement": "",
+      "problem": "¿Cuál fue el precio del litro de combustible, en colones, en la semana 10?"
+    },
+    {
+      "id": 54,
+      "area": "Relaciones y Álgebra",
+      "area_id": "functions",
+      "topic": "Análisis de gráficas de funciones",
+      "spec": {
+        "block": "2. Relaciones y Álgebra",
+        "affirmation": "A2",
+        "affirmation_desc": null,
+        "evidence": "A2.1",
+        "evidence_desc": "Analiza una función a partir de sus representaciones en diversos contextos."
+      },
+      "options": {
+        "A": "18",
+        "B": "16",
+        "C": "20",
+        "D": "24"
+      },
+      "correct_answer": "B",
+      "solution_steps": [
+        "El punto más alto de la gráfica corresponde a 900 colones.",
+        "Observando la gráfica, ese valor ocurre en x = 16 semanas.",
+        "Por lo tanto, el precio más alto se registró en la semana 16.",
+        "Respuesta: B."
+      ],
+      "group_id": "g_fuel_price",
+      "visual_spec": null,
+      "set_id": "set_1",
+      "statement": "",
+      "problem": "¿En cuál semana se registró el precio más alto de todo el periodo?"
+    },
+    {
+      "id": 55,
+      "area": "Relaciones y Álgebra",
+      "area_id": "functions",
+      "topic": "Función lineal",
+      "spec": {
+        "block": "2. Relaciones y Álgebra",
+        "affirmation": "A2",
+        "affirmation_desc": null,
+        "evidence": "A2.4",
+        "evidence_desc": "Determina la ecuación de una recta utilizando datos relacionados con ella en diversos contextos."
+      },
+      "options": {
+        "A": "3",
+        "B": "5",
+        "C": "8",
+        "D": "15"
+      },
+      "correct_answer": "B",
+      "solution_steps": [
+        "Sustituyendo el punto (3, 19) en g(x) = mx + 4:",
+        "19 = m(3) + 4",
+        "19 − 4 = 3m",
+        "15 = 3m",
+        "m = 5",
+        "Por lo tanto, la pendiente de g es 5.",
+        "Respuesta: B."
+      ],
+      "group_id": null,
+      "visual_spec": null,
+      "set_id": "set_1",
+      "statement": "Sea la función g cuyo criterio está definido por g(x) = mx + 4. Si el punto (3, 19) pertenece a la gráfica de g",
+      "problem": "¿cuál es la pendiente de g?"
+    },
+    {
+      "id": 56,
+      "area": "Relaciones y Álgebra",
+      "area_id": "functions",
+      "topic": "Función cuadrática",
+      "spec": {
+        "block": "2. Relaciones y Álgebra",
+        "affirmation": "A2",
+        "affirmation_desc": null,
+        "evidence": "A2.5",
+        "evidence_desc": "Determina elementos o propiedades de la función cuadrática con criterio dado por f(x) = ax² + bx + c, a ≠ 0, en su representación gráfica o algebraica, en diversos contextos."
+      },
+      "options": {
+        "A": "2",
+        "B": "5",
+        "C": "−1",
+        "D": "−4"
+      },
+      "correct_answer": "C",
+      "solution_steps": [
+        "Como a < 0, la parábola abre hacia abajo y su valor máximo se alcanza en el vértice.",
+        "En la gráfica, el vértice está en el punto (−1, 5).",
+        "Por lo tanto, g alcanza su valor máximo cuando x = −1.",
+        "Respuesta: C."
+      ],
+      "group_id": null,
+      "visual_spec": {
+        "alt": "Parábola g que abre hacia abajo, vértice en (−1, 5) y raíces en −4 y 2, en un plano cartesiano.",
+        "visual": {
+          "type": "function_plot",
+          "form": "quadratic",
+          "params": {
+            "vertex": [
+              -1,
+              5
+            ],
+            "roots": [
+              -4,
+              2
+            ],
+            "opens": "down"
+          },
+          "domain": {
+            "x": [
+              -6,
+              4
+            ],
+            "y": [
+              -2,
+              7
+            ]
+          },
+          "grid": false,
+          "axes": {
+            "arrows": true
+          },
+          "x_label": "x",
+          "y_label": "y",
+          "function_label": "g",
+          "annotations": {
+            "vertex": {
+              "show": true,
+              "label": "5",
+              "project_to": [
+                "x",
+                "y"
+              ]
+            },
+            "roots": {
+              "show": true,
+              "labels": [
+                "-4",
+                "2"
+              ]
+            },
+            "axis_of_symmetry": {
+              "show": true,
+              "x_label": "-1"
+            }
+          }
+        }
+      },
+      "set_id": "set_1",
+      "statement": "Considere la siguiente representación gráfica de la función g, definida por g(x) = ax² + bx + c, con a < 0:",
+      "problem": "¿En cuál valor de “x” alcanza “g” su valor máximo?"
+    },
+    {
+      "id": 57,
+      "area": "Relaciones y Álgebra",
+      "area_id": "functions",
+      "topic": "Función lineal",
+      "spec": {
+        "block": "2. Relaciones y Álgebra",
+        "affirmation": "A2",
+        "affirmation_desc": null,
+        "evidence": "A2.3",
+        "evidence_desc": "Determina la pendiente, la intersección con el eje de las ordenadas o de las abscisas de una recta dada en forma gráfica o algebraica en diversos contextos."
+      },
+      "options": {
+        "A": "(0, −3)",
+        "B": "(−3, 0)",
+        "C": "(5, 0)",
+        "D": "(0, 5)"
+      },
+      "correct_answer": "D",
+      "solution_steps": [
+        "Sustituyendo el punto (−2, 1) en y = 2x + b:",
+        "1 = 2(−2) + b",
+        "1 = −4 + b",
+        "b = 5",
+        "La intersección con el eje y ocurre cuando x = 0, es decir, en (0, b) = (0, 5).",
+        "Respuesta: D."
+      ],
+      "group_id": null,
+      "visual_spec": null,
+      "set_id": "set_1",
+      "statement": "Dada la ecuación de la recta y = 2x + b, y sabiendo que el punto (−2, 1) pertenece a ella,",
+      "problem": "¿cuáles son las coordenadas del punto de intersección con el eje y?"
+    },
+    {
+      "id": 58,
+      "area": "Relaciones y Álgebra",
+      "area_id": "functions",
+      "topic": "Función lineal — modelado",
+      "spec": {
+        "block": "2. Relaciones y Álgebra",
+        "affirmation": "A3",
+        "affirmation_desc": null,
+        "evidence": "A3.1",
+        "evidence_desc": "Resuelve problemas en contextos reales utilizando las funciones lineales y cuadráticas."
+      },
+      "options": {
+        "A": "85 000",
+        "B": "73 000",
+        "C": "60 000",
+        "D": "48 000"
+      },
+      "correct_answer": "B",
+      "solution_steps": [
+        "El pago total es la cuota de inscripción más el costo por las clases efectivamente asistidas.",
+        "Clases asistidas: 12 (no 15, pues se cobra solo por clase a la que asistió).",
+        "Pago = 25 000 + 4000 × 12",
+        "Pago = 25 000 + 48 000 = 73 000",
+        "Respuesta: B."
+      ],
+      "group_id": null,
+      "visual_spec": null,
+      "set_id": "set_1",
+      "statement": "Un gimnasio ofrece un paquete de entrenamiento personalizado para un mes. Toda persona que desee inscribirse debe pagar una cuota única de inscripción de 25 000 y luego 4000 por cada clase asistida con el entrenador. Si un cliente reservó espacio para 15 clases durante el último mes, pero al final asistió solamente a 12 clases",
+      "problem": "¿cuánto pagó en total?"
+    },
+    {
+      "id": 59,
+      "area": "Relaciones y Álgebra",
+      "area_id": "functions",
+      "topic": "Función lineal — modelado",
+      "spec": {
+        "block": "2. Relaciones y Álgebra",
+        "affirmation": "A3",
+        "affirmation_desc": null,
+        "evidence": "A3.1",
+        "evidence_desc": "Resuelve problemas en contextos reales utilizando las funciones lineales y cuadráticas."
+      },
+      "options": {
+        "A": "5",
+        "B": "9",
+        "C": "22,8",
+        "D": "40,5"
+      },
+      "correct_answer": "A",
+      "solution_steps": [
+        "Sustituyendo F = 41 en F(C) = (9/5)C + 32:",
+        "41 = (9/5)C + 32",
+        "41 − 32 = (9/5)C",
+        "9 = (9/5)C",
+        "C = 9 × (5/9) = 5",
+        "Por lo tanto, 41 °F equivalen a 5 °C.",
+        "Respuesta: A."
+      ],
+      "group_id": null,
+      "visual_spec": null,
+      "set_id": "set_1",
+      "statement": "Luis llama por teléfono a Ana y le comenta que la temperatura en su ciudad es de 41 °F. Si se sabe que la relación entre la temperatura en grados Fahrenheit (°F) y en grados Celsius (°C) está asociada mediante la función F(C) = (9/5)C + 32",
+      "problem": "¿a cuántos grados Celsius equivale la temperatura comentada?"
+    },
+    {
+      "id": 60,
+      "area": "Relaciones y Álgebra",
+      "area_id": "functions",
+      "topic": "Sistemas de dos ecuaciones lineales con dos incógnitas",
+      "spec": {
+        "block": "2. Relaciones y Álgebra",
+        "affirmation": "A3",
+        "affirmation_desc": null,
+        "evidence": "A3.3",
+        "evidence_desc": "Resuelve problemas, de diversos contextos (reales), relacionados con sistemas de dos ecuaciones con dos incógnitas."
+      },
+      "options": {
+        "A": "30",
+        "B": "20",
+        "C": "15",
+        "D": "5"
+      },
+      "correct_answer": "B",
+      "solution_steps": [
+        "Sea q = cantidad de queques y g = cantidad de paquetes de galletas.",
+        "Sistema de ecuaciones:\n4q + 3g = 110  (horneado)\n2q + g = 50    (decoración)",
+        "De la segunda ecuación: g = 50 − 2q.",
+        "Sustituyendo en la primera: 4q + 3(50 − 2q) = 110",
+        "4q + 150 − 6q = 110",
+        "−2q = −40",
+        "q = 20",
+        "Por lo tanto, se produjeron 20 queques de chocolate.",
+        "Respuesta: B."
+      ],
+      "group_id": null,
+      "visual_spec": null,
+      "set_id": "set_1",
+      "statement": "En una pastelería se producen únicamente queques de chocolate y galletas de avena. Cada queque requiere 4 h de horneado y 2 h de decoración; mientras que cada paquete de galletas requiere 3 h de horneado y 1 h de decoración. Si en total se utilizaron 110 h para horneado y 50 h para decoración",
+      "problem": "¿cuántos queques de chocolate se produjeron?"
+    },
+    {
+      "id": 61,
+      "area": "Relaciones y Álgebra",
+      "area_id": "functions",
+      "topic": "Sistemas de dos ecuaciones lineales con dos incógnitas",
+      "spec": {
+        "block": "2. Relaciones y Álgebra",
+        "affirmation": "A3",
+        "affirmation_desc": null,
+        "evidence": "A3.3",
+        "evidence_desc": "Resuelve problemas, de diversos contextos (reales), relacionados con sistemas de dos ecuaciones con dos incógnitas."
+      },
+      "options": {
+        "A": "700",
+        "B": "800",
+        "C": "625",
+        "D": "900"
+      },
+      "correct_answer": "B",
+      "solution_steps": [
+        "Sea z = precio del kg de zanahoria y b = precio del kg de brócoli.",
+        "Sistema:\n5z + 3b = 4650\n3z + 5b = 5350",
+        "Multiplicando la primera ecuación por 3 y la segunda por 5:\n15z + 9b = 13 950\n15z + 25b = 26 750",
+        "Restando la primera de la segunda:\n16b = 12 800",
+        "b = 800",
+        "Por lo tanto, el kilogramo de brócoli costó 800.",
+        "Respuesta: B."
+      ],
+      "group_id": null,
+      "visual_spec": null,
+      "set_id": "set_1",
+      "statement": "Roy y Rosa fueron de compras. Él compró 5 kg de zanahoria y 3 kg de brócoli y por esa compra pagó 4650 en total; mientras que ella compró 3 kg de zanahoria y 5 kg de brócoli y pagó 5350 en total. Si ambos compraron a los mismos precios",
+      "problem": "¿cuánto costó el kilogramo de brócoli?"
+    },
+    {
+      "id": 62,
+      "area": "Relaciones y Álgebra",
+      "area_id": "functions",
+      "topic": "Función inversa",
+      "spec": {
+        "block": "2. Relaciones y Álgebra",
+        "affirmation": "A4",
+        "affirmation_desc": null,
+        "evidence": "A4.1",
+        "evidence_desc": "Identifica las condiciones para que una función tenga inversa en diversos contextos."
+      },
+      "options": {
+        "A": "Que la función sea lineal.",
+        "B": "Que la gráfica de la función no pase por el origen (0, 0).",
+        "C": "Que la función posea únicamente números positivos en su dominio.",
+        "D": "Que elementos distintos del dominio A tengan imágenes distintas en el codominio B."
+      },
+      "correct_answer": "D",
+      "solution_steps": [
+        "Una función tiene inversa si y solo si es inyectiva (uno a uno).",
+        "La inyectividad significa que elementos distintos del dominio tienen imágenes distintas en el codominio.",
+        "La opción D expresa exactamente esta condición necesaria y suficiente.",
+        "Las opciones A, B y C no garantizan inyectividad (una función lineal puede no ser inyectiva si es constante; pasar o no por el origen no determina inyectividad; restringir a positivos no garantiza inyectividad).",
+        "Respuesta: D."
+      ],
+      "group_id": null,
+      "visual_spec": null,
+      "set_id": "set_1",
+      "statement": "Sea una función f con dominio A y codominio B (considere el codominio igual al ámbito).",
+      "problem": "¿Cuál de las siguientes condiciones es necesaria y suficiente para garantizar la existencia de su función inversa?"
+    },
+    {
+      "id": 63,
+      "area": "Relaciones y Álgebra",
+      "area_id": "functions",
+      "topic": "Función cuadrática — inversa",
+      "spec": {
+        "block": "2. Relaciones y Álgebra",
+        "affirmation": "A4",
+        "affirmation_desc": null,
+        "evidence": "A4.3",
+        "evidence_desc": "Determina intervalos en los cuales una función representada gráficamente tiene inversa en diversos contextos."
+      },
+      "options": {
+        "A": "[−2, 2]",
+        "B": "] −∞, 2]",
+        "C": "[0, +∞[",
+        "D": "[−2, +∞["
+      },
+      "correct_answer": "C",
+      "solution_steps": [
+        "Para que una función tenga inversa, debe ser inyectiva en su dominio.",
+        "h(x) = x² − 4 es una parábola que abre hacia arriba con vértice en (0, −4).",
+        "Es decreciente en ]−∞, 0] y creciente en [0, +∞[.",
+        "Restringiendo el dominio a [0, +∞[ (donde es estrictamente creciente), h es inyectiva y por tanto tiene inversa.",
+        "El intervalo [−2, 2] incluye el vértice, donde la función no es inyectiva. Los intervalos ]−∞, 2] y [−2, +∞[ tampoco garantizan inyectividad.",
+        "Respuesta: C."
+      ],
+      "group_id": null,
+      "visual_spec": {
+        "alt": "Parábola h(x) = x² − 4, vértice en (0, −4) y raíces en −2 y 2, en un plano cartesiano.",
+        "visual": {
+          "type": "function_plot",
+          "form": "quadratic",
+          "params": {
+            "vertex": [
+              0,
+              -4
+            ],
+            "roots": [
+              -2,
+              2
+            ],
+            "opens": "up",
+            "expression": "x^2 - 4"
+          },
+          "domain": {
+            "x": [
+              -5,
+              5
+            ],
+            "y": [
+              -6,
+              4
+            ]
+          },
+          "grid": false,
+          "axes": {
+            "arrows": true
+          },
+          "x_label": "x",
+          "y_label": "y",
+          "function_label": "h",
+          "annotations": {
+            "vertex": {
+              "show": true,
+              "label": "-4"
+            },
+            "roots": {
+              "show": true,
+              "labels": [
+                "-2",
+                "2"
+              ]
+            }
+          }
+        }
+      },
+      "set_id": "set_1",
+      "statement": "Una posible gráfica de la función h(x) = x² − 4; x ∈ ℝ es la siguiente:",
+      "problem": "Si se desea que h tenga inversa, entonces, un posible dominio para h corresponde a"
+    },
+    {
+      "id": 64,
+      "area": "Relaciones y Álgebra",
+      "area_id": "functions",
+      "topic": "Inversa de la función lineal",
+      "spec": {
+        "block": "2. Relaciones y Álgebra",
+        "affirmation": "A4",
+        "affirmation_desc": null,
+        "evidence": "A4.4",
+        "evidence_desc": "Determina la función inversa de f(x) = mx + b, m ≠ 0, en diversos contextos."
+      },
+      "options": {
+        "A": "a = −4 y b = −3",
+        "B": "a = −4 y b = 3",
+        "C": "a = −8 y b = 6",
+        "D": "a = 4 y b = 3"
+      },
+      "correct_answer": "B",
+      "solution_steps": [
+        "Simplificando r(x): r(x) = (6 − 2x)/8 = 6/8 − 2x/8 = 3/4 − x/4.",
+        "Para hallar la inversa, se escribe y = 3/4 − x/4 y se intercambian x e y:",
+        "x = 3/4 − y/4",
+        "4x = 3 − y",
+        "y = 3 − 4x",
+        "Por lo tanto, r⁻¹(x) = 3 − 4x, es decir, a = −4 y b = 3.",
+        "Respuesta: B."
+      ],
+      "group_id": null,
+      "visual_spec": null,
+      "set_id": "set_1",
+      "statement": "Si la inversa de la función r dada por r(x) = (6 − 2x)/8 es de la forma r⁻¹(x) = ax + b",
+      "problem": "se cumple que"
+    },
+    {
+      "id": 65,
+      "area": "Relaciones y Álgebra",
+      "area_id": "functions",
+      "topic": "Transformaciones de la gráfica de la función f(x) = a√x + b + c",
+      "spec": {
+        "block": "2. Relaciones y Álgebra",
+        "affirmation": "A4",
+        "affirmation_desc": null,
+        "evidence": "A4.5",
+        "evidence_desc": "Determina la transformación de la gráfica de la función dada por f(x) = a√x + b + c, en diversos contextos."
+      },
+      "options": {
+        "A": "√(x − 3)",
+        "B": "√x + 3",
+        "C": "√(x + 3)",
+        "D": "√x − 3"
+      },
+      "correct_answer": "D",
+      "solution_steps": [
+        "Una traslación vertical de k unidades hacia abajo se obtiene restando k a la función original.",
+        "Si f(x) = √x y la traslación es 3 unidades hacia abajo:",
+        "h(x) = f(x) − 3 = √x − 3",
+        "Por lo tanto, el criterio es h(x) = √x − 3.",
+        "Respuesta: D."
+      ],
+      "group_id": null,
+      "visual_spec": null,
+      "set_id": "set_1",
+      "statement": "Sea la función f definida por f(x) = √x. Si su gráfica original se traslada verticalmente tres unidades hacia abajo para obtener la función h",
+      "problem": "¿cuál es el criterio de h(x)?"
+    },
+    {
+      "id": 66,
+      "area": "Relaciones y Álgebra",
+      "area_id": "functions",
+      "topic": "Función inversa — representación gráfica",
+      "spec": {
+        "block": "2. Relaciones y Álgebra",
+        "affirmation": "A4",
+        "affirmation_desc": null,
+        "evidence": "A4.2",
+        "evidence_desc": "Reconoce la gráfica de la inversa de una función a partir de la gráfica de la función en diversos contextos."
+      },
+      "options": {
+        "A": "Recta que pasa por (−3, 0) y (0, 6)",
+        "B": "Recta que pasa por (0, 6) y (3, 0)",
+        "C": "Recta que pasa por (−6, 0) y (0, 3)",
+        "D": "Recta que pasa por (0, 3) y (6, 0)"
+      },
+      "correct_answer": "A",
+      "solution_steps": [
+        "La función p pasa por (0, −3) y (6, 0). Su ecuación es p(x) = x/2 − 3.",
+        "La inversa se obtiene intercambiando x e y: x = y/2 − 3 → y = 2x + 6.",
+        "La recta y = 2x + 6 pasa por (−3, 0) y (0, 6).",
+        "Esta corresponde a la opción A.",
+        "Respuesta: A."
+      ],
+      "group_id": null,
+      "visual_spec": {
+        "alt": "Cuadrícula de 4 gráficas en planos cartesianos.",
+        "visual": {
+          "type": "multi_view_grid",
+          "layout": {
+            "original": true,
+            "rows": 2,
+            "cols": 2
+          },
+          "original": {
+            "label": "p",
+            "visual": {
+              "type": "cartesian_2d",
+              "domain": {
+                "x": [
+                  -4,
+                  8
+                ],
+                "y": [
+                  -4,
+                  7
+                ]
+              },
+              "grid": false,
+              "axes": {
+                "arrows": true
+              },
+              "children": [
+                {
+                  "type": "line",
+                  "through": [
+                    [
+                      0,
+                      -3
+                    ],
+                    [
+                      6,
+                      0
+                    ]
+                  ],
+                  "label": "p"
+                },
+                {
+                  "type": "point",
+                  "coords": [
+                    0,
+                    -3
+                  ],
+                  "label": "−3"
+                },
+                {
+                  "type": "point",
+                  "coords": [
+                    6,
+                    0
+                  ],
+                  "label": "6"
+                }
+              ]
+            }
+          },
+          "views": [
+            {
+              "label": "A",
+              "visual": {
+                "type": "cartesian_2d",
+                "domain": {
+                  "x": [
+                    -5,
+                    3
+                  ],
+                  "y": [
+                    -2,
+                    8
+                  ]
+                },
+                "grid": false,
+                "axes": {
+                  "arrows": true
+                },
+                "children": [
+                  {
+                    "type": "line",
+                    "through": [
+                      [
+                        -3,
+                        0
+                      ],
+                      [
+                        0,
+                        6
+                      ]
+                    ]
+                  },
+                  {
+                    "type": "point",
+                    "coords": [
+                      -3,
+                      0
+                    ],
+                    "label": "−3"
+                  },
+                  {
+                    "type": "point",
+                    "coords": [
+                      0,
+                      6
+                    ],
+                    "label": "6"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "B",
+              "visual": {
+                "type": "cartesian_2d",
+                "domain": {
+                  "x": [
+                    -2,
+                    5
+                  ],
+                  "y": [
+                    -2,
+                    8
+                  ]
+                },
+                "grid": false,
+                "axes": {
+                  "arrows": true
+                },
+                "children": [
+                  {
+                    "type": "line",
+                    "through": [
+                      [
+                        0,
+                        6
+                      ],
+                      [
+                        3,
+                        0
+                      ]
+                    ]
+                  },
+                  {
+                    "type": "point",
+                    "coords": [
+                      0,
+                      6
+                    ],
+                    "label": "6"
+                  },
+                  {
+                    "type": "point",
+                    "coords": [
+                      3,
+                      0
+                    ],
+                    "label": "3"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "C",
+              "visual": {
+                "type": "cartesian_2d",
+                "domain": {
+                  "x": [
+                    -8,
+                    2
+                  ],
+                  "y": [
+                    -2,
+                    5
+                  ]
+                },
+                "grid": false,
+                "axes": {
+                  "arrows": true
+                },
+                "children": [
+                  {
+                    "type": "line",
+                    "through": [
+                      [
+                        -6,
+                        0
+                      ],
+                      [
+                        0,
+                        3
+                      ]
+                    ]
+                  },
+                  {
+                    "type": "point",
+                    "coords": [
+                      -6,
+                      0
+                    ],
+                    "label": "−6"
+                  },
+                  {
+                    "type": "point",
+                    "coords": [
+                      0,
+                      3
+                    ],
+                    "label": "3"
+                  }
+                ]
+              }
+            },
+            {
+              "label": "D",
+              "visual": {
+                "type": "cartesian_2d",
+                "domain": {
+                  "x": [
+                    -2,
+                    8
+                  ],
+                  "y": [
+                    -2,
+                    5
+                  ]
+                },
+                "grid": false,
+                "axes": {
+                  "arrows": true
+                },
+                "children": [
+                  {
+                    "type": "line",
+                    "through": [
+                      [
+                        0,
+                        3
+                      ],
+                      [
+                        6,
+                        0
+                      ]
+                    ]
+                  },
+                  {
+                    "type": "point",
+                    "coords": [
+                      0,
+                      3
+                    ],
+                    "label": "3"
+                  },
+                  {
+                    "type": "point",
+                    "coords": [
+                      6,
+                      0
+                    ],
+                    "label": "6"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "set_id": "set_1",
+      "statement": "Considere la representación gráfica de una función p:",
+      "problem": "Con base en la información dada, ¿cuál es la representación gráfica de la función inversa de p?"
+    },
+    {
+      "id": 67,
+      "area": "Relaciones y Álgebra",
+      "area_id": "functions",
+      "topic": "Función exponencial",
+      "spec": {
+        "block": "2. Relaciones y Álgebra",
+        "affirmation": "A5",
+        "affirmation_desc": null,
+        "evidence": "A5.4",
+        "evidence_desc": "Resuelve problemas en contextos reales utilizando ecuaciones exponenciales."
+      },
+      "options": {
+        "A": "10",
+        "B": "15",
+        "C": "8",
+        "D": "3"
+      },
+      "correct_answer": "B",
+      "solution_steps": [
+        "Igualando p(x) = 16 000:",
+        "16 000 = 2000 • 2^(x/5)",
+        "8 = 2^(x/5)",
+        "2³ = 2^(x/5)",
+        "3 = x/5",
+        "x = 15",
+        "Por lo tanto, deben transcurrir 15 años.",
+        "Respuesta: B."
+      ],
+      "group_id": null,
+      "visual_spec": null,
+      "set_id": "set_1",
+      "statement": "Si la población “p(x)” de una comunidad se estima mediante p(x) = 2000 • 2^(x/5), donde “x” representa los años transcurridos a partir de 2025",
+      "problem": "¿cuántos años deben transcurrir para que la población sea de 16 000 individuos?"
+    },
+    {
+      "id": 68,
+      "area": "Relaciones y Álgebra",
+      "area_id": "functions",
+      "topic": "Función raíz cuadrada",
+      "spec": {
+        "block": "2. Relaciones y Álgebra",
+        "affirmation": "A4",
+        "affirmation_desc": null,
+        "evidence": "A4.6",
+        "evidence_desc": "Resuelve problemas de diversos contextos (reales), relacionados con las funciones de la forma f(x) = a√x + b + c."
+      },
+      "options": {
+        "A": "4",
+        "B": "16",
+        "C": "25",
+        "D": "80"
+      },
+      "correct_answer": "B",
+      "solution_steps": [
+        "Sustituyendo T = 20 en T(v) = 5√v:",
+        "20 = 5√v",
+        "√v = 4",
+        "v = 16",
+        "Por lo tanto, el video se compartió 16 mil veces.",
+        "Respuesta: B."
+      ],
+      "group_id": null,
+      "visual_spec": null,
+      "set_id": "set_1",
+      "statement": "El tiempo T(v), en minutos, que tarda un video corto en volverse viral se modela mediante la función T(v) = 5 • √v, donde “v” representa la cantidad de veces que se ha compartido (en miles). Si el video se tardó 20 minutos en viralizarse",
+      "problem": "¿cuántas miles de veces se compartió?"
+    },
+    {
+      "id": 69,
+      "area": "Relaciones y Álgebra",
+      "area_id": "functions",
+      "topic": "Función logarítmica",
+      "spec": {
+        "block": "2. Relaciones y Álgebra",
+        "affirmation": "A5",
+        "affirmation_desc": null,
+        "evidence": "A5.7",
+        "evidence_desc": "Resuelve problemas en contextos reales utilizando ecuaciones logarítmicas."
+      },
+      "options": {
+        "A": "6",
+        "B": "9",
+        "C": "18",
+        "D": "54"
+      },
+      "correct_answer": "A",
+      "solution_steps": [
+        "Sustituyendo x = 27 en p(x) = 2log₃(x):",
+        "p(27) = 2 · log₃(27)",
+        "Como 3³ = 27, log₃(27) = 3.",
+        "p(27) = 2 · 3 = 6",
+        "Por lo tanto, el pH obtenido es 6.",
+        "Respuesta: A."
+      ],
+      "group_id": null,
+      "visual_spec": null,
+      "set_id": "set_1",
+      "statement": "La escala de pH de una solución química especial está dada por la función p(x) = 2log₃(x), donde “x” representa la concentración de ciertos iones en la mezcla con 3 ≤ x ≤ 81. Si la concentración detectada es de 27 unidades",
+      "problem": "¿cuál es el valor del pH obtenido?"
+    },
+    {
+      "id": 70,
+      "area": "Relaciones y Álgebra",
+      "area_id": "functions",
+      "topic": "Función exponencial y logarítmica",
+      "spec": {
+        "block": "2. Relaciones y Álgebra",
+        "affirmation": "A5",
+        "affirmation_desc": null,
+        "evidence": "A5.1",
+        "evidence_desc": "Identifica la función logarítmica como la inversa de la función exponencial en diversos contextos."
+      },
+      "options": {
+        "A": "g(x) = (1/2)^x",
+        "B": "t(x) = log₂(x)",
+        "C": "h(x) = log₁(x)",
+        "D": "r(x) = 2log(x)"
+      },
+      "correct_answer": "B",
+      "solution_steps": [
+        "La función inversa de una función exponencial de base a es la función logarítmica de base a.",
+        "Para f(x) = 2^x, la inversa es f⁻¹(x) = log₂(x).",
+        "Por lo tanto, t(x) = log₂(x) es la función inversa.",
+        "Respuesta: B."
+      ],
+      "group_id": null,
+      "visual_spec": null,
+      "set_id": "set_1",
+      "statement": "",
+      "problem": "¿Cuál de las siguientes funciones es inversa con la función f(x) = 2^x?"
+    },
+    {
+      "id": 71,
+      "area": "Relaciones y Álgebra",
+      "area_id": "functions",
+      "topic": "Ecuaciones exponenciales",
+      "spec": {
+        "block": "2. Relaciones y Álgebra",
+        "affirmation": "A5",
+        "affirmation_desc": null,
+        "evidence": "A5.8",
+        "evidence_desc": "Resuelve ecuaciones exponenciales de la forma a^(f(x)) = b^(g(x)), (a, b números reales positivos y distintos de 1, f, g polinomios de grado menor que 3) mediante la utilización de logaritmos, en diversos contextos."
+      },
+      "options": {
+        "A": "6",
+        "B": "7",
+        "C": "4",
+        "D": "10"
+      },
+      "correct_answer": "A",
+      "solution_steps": [
+        "Igualando ambas expresiones:",
+        "3^(x+8) = 9^(x+1)",
+        "Como 9 = 3², se tiene: 9^(x+1) = (3²)^(x+1) = 3^(2x+2)",
+        "Por lo tanto: 3^(x+8) = 3^(2x+2)",
+        "Igualando exponentes: x + 8 = 2x + 2",
+        "8 − 2 = 2x − x",
+        "6 = x",
+        "Respuesta: A."
+      ],
+      "group_id": null,
+      "visual_spec": null,
+      "set_id": "set_1",
+      "statement": "En un centro de investigación, dos bacterias clónicas se reproducen en laboratorios con ambientes distintos. La cantidad de bacterias del primer tipo se comporta según la expresión 3^(x+8), mientras que la del segundo tipo sigue la expresión 9^(x+1), donde “x” representa el tiempo transcurrido en horas.",
+      "problem": "¿Qué valor debe tomar la variable x para que ambos laboratorios tengan exactamente la misma cantidad de bacterias?"
+    },
+    {
+      "id": 72,
+      "area": "Relaciones y Álgebra",
+      "area_id": "functions",
+      "topic": "Función exponencial — modelado",
+      "spec": {
+        "block": "2. Relaciones y Álgebra",
+        "affirmation": "A6",
+        "affirmation_desc": null,
+        "evidence": "A6.1",
+        "evidence_desc": "Identifica modelos matemáticos que involucran las funciones exponenciales en diversos contextos."
+      },
+      "options": {
+        "A": "250 + 2t",
+        "B": "250 • 2t",
+        "C": "250 + 2^t",
+        "D": "250 • 2^t"
+      },
+      "correct_answer": "D",
+      "solution_steps": [
+        "El dinero se duplica cada año, lo que corresponde a un crecimiento exponencial.",
+        "El modelo general es D(t) = D₀ • r^t, donde D₀ es la cantidad inicial y r es el factor de crecimiento.",
+        "Aquí D₀ = 250 y r = 2 (se duplica).",
+        "Por lo tanto: D(t) = 250 • 2^t.",
+        "Respuesta: D."
+      ],
+      "group_id": null,
+      "visual_spec": null,
+      "set_id": "set_1",
+      "statement": "Una persona abre una cuenta de ahorros especial que duplica el dinero depositado cada año que pasa. Si la cantidad inicial depositada fue de $250",
+      "problem": "¿cuál es el criterio del modelo matemático D(t) que explica la cantidad de dinero acumulado en función de los años t?"
+    },
+    {
+      "id": 73,
+      "area": "Relaciones y Álgebra",
+      "area_id": "functions",
+      "topic": "Función lineal — modelado",
+      "spec": {
+        "block": "2. Relaciones y Álgebra",
+        "affirmation": "A6",
+        "affirmation_desc": null,
+        "evidence": "A6.5",
+        "evidence_desc": "Determina la función lineal, cuadrática, raíz cuadrada, exponencial o logarítmica que sirva de modelo en diversos contextos."
+      },
+      "options": {
+        "A": "500x",
+        "B": "2500x",
+        "C": "1000x + 1500",
+        "D": "1500x + 1000"
+      },
+      "correct_answer": "C",
+      "solution_steps": [
+        "El costo total es la suma de una tarifa fija (seguro) más un costo variable por kilómetro.",
+        "Tarifa fija: 1500",
+        "Costo variable: 1000 por kilómetro → 1000x",
+        "Por lo tanto: C(x) = 1000x + 1500.",
+        "Respuesta: C."
+      ],
+      "group_id": null,
+      "visual_spec": null,
+      "set_id": "set_1",
+      "statement": "Una aplicación de transporte cobra una tarifa por viaje de 1500 por seguro de vida más 1000 por kilómetro del recorrido. Si x representa la cantidad de kilómetros recorridos y C(x) el costo total en colones",
+      "problem": "¿cuál es el criterio de la función C(x) que describe la situación anterior?"
+    },
+    {
+      "id": 74,
+      "area": "Relaciones y Álgebra",
+      "area_id": "functions",
+      "topic": "Función cuadrática — modelado",
+      "spec": {
+        "block": "2. Relaciones y Álgebra",
+        "affirmation": "A6",
+        "affirmation_desc": null,
+        "evidence": "A6.5",
+        "evidence_desc": "Determina la función lineal, cuadrática, raíz cuadrada, exponencial o logarítmica que sirva de modelo en diversos contextos."
+      },
+      "options": {
+        "A": "9x²",
+        "B": "3x²",
+        "C": "(1/3)x²",
+        "D": "(1/9)x²"
+      },
+      "correct_answer": "B",
+      "solution_steps": [
+        "Sea x el ancho de la pantalla.",
+        "El largo es el triple del ancho: largo = 3x.",
+        "El área de un rectángulo es ancho × largo:",
+        "A(x) = x · 3x = 3x²",
+        "Respuesta: B."
+      ],
+      "group_id": null,
+      "visual_spec": null,
+      "set_id": "set_1",
+      "statement": "En el diseño de la pantalla de un nuevo teléfono inteligente, el largo de la pantalla mide el triple de su ancho. Si el área total de la pantalla se calcula en milímetros cuadrados",
+      "problem": "¿cuál es el criterio que modela correctamente el área A(x) de la pantalla en función de su ancho denotado con “x”?"
+    },
+    {
+      "id": 75,
+      "area": "Relaciones y Álgebra",
+      "area_id": "functions",
+      "topic": "Función logarítmica — modelado",
+      "spec": {
+        "block": "2. Relaciones y Álgebra",
+        "affirmation": "A6",
+        "affirmation_desc": null,
+        "evidence": "A6.3",
+        "evidence_desc": "Identifica modelos matemáticos que involucran las funciones logarítmicas en diversos contextos."
+      },
+      "options": {
+        "A": "log₂(t)",
+        "B": "log₃(t)",
+        "C": "log₅(t)",
+        "D": "log₈(t)"
+      },
+      "correct_answer": "A",
+      "solution_steps": [
+        "Se busca una función logarítmica C(t) = log_b(t) tal que C(8) = 3.",
+        "Probando con base b: log_b(8) = 3 → b³ = 8 → b = 2.",
+        "Por lo tanto, C(t) = log₂(t).",
+        "Verificación: C(8) = log₂(8) = 3. ✓",
+        "Respuesta: A."
+      ],
+      "group_id": null,
+      "visual_spec": null,
+      "set_id": "set_1",
+      "statement": "Un biólogo determina que el crecimiento C(t) de una colonia de hongos se comporta según un modelo logarítmico que depende del tiempo (t) en días. Si a los 8 días el crecimiento registra un valor exacto de 3",
+      "problem": "¿cuál es el criterio de C(t) que modela correctamente esta situación?"
+    },
+    {
+      "id": 76,
+      "area": "Estadística y Probabilidad",
+      "area_id": "statistics",
+      "topic": "Medidas de posición",
+      "spec": {
+        "block": "3. Estadística y Probabilidad",
+        "affirmation": "A1",
+        "affirmation_desc": "Resuelve problemas, de diversos contextos, relacionados con medidas de posición de un grupo de datos cuantitativos o cualitativos.",
+        "evidence": "A1.5",
+        "evidence_desc": "Determina la media aritmética ponderada en datos que se encuentran agrupados en una distribución de frecuencias en diversos contextos."
+      },
+      "options": {
+        "A": "8",
+        "B": "12",
+        "C": "15",
+        "D": "20"
+      },
+      "correct_answer": "B",
+      "solution_steps": [
+        "Se calcula el punto medio de cada clase: (0+10)/2 = 5; (10+20)/2 = 15; (20+30)/2 = 25.",
+        "Se multiplica cada punto medio por su frecuencia: 5×50 = 250; 15×30 = 450; 25×20 = 500.",
+        "Se suman los productos: 250 + 450 + 500 = 1200.",
+        "Se divide entre el total de estudiantes: 1200 / 100 = 12.",
+        "El promedio es 12 km diarios."
+      ],
+      "group_id": null,
+      "visual_spec": {
+        "alt": "Cantidad de kilómetros diarios que recorren los estudiantes para llegar al centro educativo",
+        "visual": {
+          "type": "table",
+          "variant": "frequency",
+          "title": "Cantidad de kilómetros diarios que recorren los estudiantes para llegar al centro educativo",
+          "columns": [
+            "Kilómetros",
+            "Cantidad de estudiantes"
+          ],
+          "rows": [
+            [
+              "De 0 a menos de 10",
+              50
+            ],
+            [
+              "De 10 a menos de 20",
+              30
+            ],
+            [
+              "De 20 a menos de 30",
+              20
+            ]
+          ],
+          "total_row": [
+            "Total",
+            100
+          ]
+        }
+      },
+      "set_id": "set_1",
+      "statement": "Se realizó un estudio para determinar la cantidad de kilómetros diarios que recorren 100 estudiantes para asistir al centro educativo. A continuación, se muestran los resultados obtenidos:",
+      "problem": "¿Cuál es el promedio de kilómetros diarios que recorre cada estudiante para llegar al centro educativo?"
+    },
+    {
+      "id": 77,
+      "area": "Estadística y Probabilidad",
+      "area_id": "statistics",
+      "topic": "Medidas de posición",
+      "spec": {
+        "block": "3. Estadística y Probabilidad",
+        "affirmation": "A1",
+        "affirmation_desc": "Resuelve problemas, de diversos contextos, relacionados con medidas de posición de un grupo de datos cuantitativos o cualitativos.",
+        "evidence": "A1.4",
+        "evidence_desc": "Determina la media aritmética en grupos de datos que tienen pesos relativos (o ponderación) diferentes entre sí en diversos contextos."
+      },
+      "options": {
+        "A": "78,50",
+        "B": "79,50",
+        "C": "81,25",
+        "D": "82,50"
+      },
+      "correct_answer": "B",
+      "solution_steps": [
+        "Se multiplica cada calificación por su peso porcentual: 70×0,30 = 21; 80×0,35 = 28; 90×0,15 = 13,5; 85×0,20 = 17.",
+        "Se suman los productos: 21 + 28 + 13,5 + 17 = 79,5.",
+        "La nota final es 79,50."
+      ],
+      "group_id": null,
+      "visual_spec": {
+        "alt": "Tabla de datos.",
+        "visual": {
+          "type": "table",
+          "variant": "weighted",
+          "columns": [
+            "Rubro",
+            "Valor porcentual",
+            "Calificación obtenida"
+          ],
+          "rows": [
+            [
+              "I Parcial",
+              "30%",
+              70
+            ],
+            [
+              "II Parcial",
+              "35%",
+              80
+            ],
+            [
+              "Quices y tareas",
+              "15%",
+              90
+            ],
+            [
+              "Laboratorio",
+              "20%",
+              85
+            ]
+          ]
+        }
+      },
+      "set_id": "set_1",
+      "statement": "El siguiente cuadro muestra las calificaciones obtenidas por un estudiante en el curso universitario de Química Orgánica, así como el valor porcentual de cada rubro calificado. La nota final se obtiene a partir de la sumatoria de los porcentajes obtenidos:",
+      "problem": "¿Cuál fue la nota final que obtuvo el estudiante en el curso de Química?"
+    },
+    {
+      "id": 78,
+      "area": "Estadística y Probabilidad",
+      "area_id": "statistics",
+      "topic": "Medidas de posición",
+      "spec": {
+        "block": "3. Estadística y Probabilidad",
+        "affirmation": "A1",
+        "affirmation_desc": "Resuelve problemas, de diversos contextos, relacionados con medidas de posición de un grupo de datos cuantitativos o cualitativos.",
+        "evidence": "A1.3",
+        "evidence_desc": "Identifica la ubicación aproximada de las medidas de posición de acuerdo con el tipo de asimetría de la distribución de los datos en diversos contextos."
+      },
+      "options": {
+        "A": "igual que 85.",
+        "B": "menor que 80.",
+        "C": "mayor que 85.",
+        "D": "mayor que 80 y menor que 85."
+      },
+      "correct_answer": "B",
+      "solution_steps": [
+        "En una distribución asimétrica negativa (cola hacia la izquierda), la moda es mayor que la mediana, y la mediana es mayor que la media.",
+        "Dado que moda = 85 y mediana = 80, se cumple: media < mediana < moda, es decir, media < 80 < 85.",
+        "Por lo tanto, la calificación promedio es menor que 80."
+      ],
+      "group_id": null,
+      "visual_spec": {
+        "alt": "Curva de distribución de frecuencias.",
+        "visual": {
+          "type": "distribution_curve",
+          "skew": "negative",
+          "x_axis": {
+            "label": "Calificación",
+            "ticks": [
+              80,
+              85
+            ]
+          },
+          "markers": [
+            {
+              "value": 80,
+              "label": "Mediana",
+              "dashed": true,
+              "dashed_to_axis": "x"
+            },
+            {
+              "value": 85,
+              "label": "Moda",
+              "dashed": true,
+              "dashed_to_axis": "x"
+            }
+          ]
+        }
+      },
+      "set_id": "set_1",
+      "statement": "La distribución de los datos correspondientes a las calificaciones de un examen de admisión universitario presenta una asimetría. De acuerdo con el reporte del departamento de registro, se determinó que 80 puntos representan a la mediana de esos datos y 85 puntos representan a la moda.",
+      "problem": "Con certeza, la calificación promedio de los estudiantes en ese examen fue:"
+    },
+    {
+      "id": 79,
+      "area": "Estadística y Probabilidad",
+      "area_id": "statistics",
+      "topic": "Medidas de variabilidad",
+      "spec": {
+        "block": "3. Estadística y Probabilidad",
+        "affirmation": "A3",
+        "affirmation_desc": "Resuelve problemas de diversos contextos relacionados con el análisis de las medidas de posición o variabilidad de dos o más grupos en datos cuantitativos.",
+        "evidence": "A3.1",
+        "evidence_desc": "Resuelve problemas de diversos contextos relacionados con la variabilidad de un grupo de datos a partir de la información que proporcionan algunas medidas (recorrido, recorrido intercuartílico, la variancia o la desviación estándar)."
+      },
+      "options": {
+        "A": "12 y 16 horas.",
+        "B": "16 y 22 horas.",
+        "C": "16 y 28 horas.",
+        "D": "12 y 28 horas"
+      },
+      "correct_answer": "B",
+      "solution_steps": [
+        "El recorrido intercuartílico (Q3 − Q1) contiene al menos el 50 % de los datos.",
+        "Q1 = 16 y Q3 = 22.",
+        "Por lo tanto, al menos el 50 % de las baterías tienen una duración entre 16 y 22 horas."
+      ],
+      "group_id": null,
+      "visual_spec": {
+        "alt": "Tabla de datos.",
+        "visual": {
+          "type": "table",
+          "variant": "summary",
+          "columns": [
+            "Mín",
+            "Q1",
+            "Me",
+            "Q3",
+            "Máx"
+          ],
+          "rows": [
+            [
+              12,
+              16,
+              20,
+              22,
+              28
+            ]
+          ]
+        }
+      },
+      "set_id": "set_1",
+      "statement": "Considere la siguiente información referida a la duración (en horas continuas) de las baterías de una marca de teléfonos inteligentes:",
+      "problem": "Con base en la información anterior, se cumple con certeza que al menos el 50 % de las baterías tienen una duración entre"
+    },
+    {
+      "id": 80,
+      "area": "Estadística y Probabilidad",
+      "area_id": "statistics",
+      "topic": "Eventos y probabilidades",
+      "spec": {
+        "block": "3. Estadística y Probabilidad",
+        "affirmation": "A2",
+        "affirmation_desc": "Resuelve problemas, de diversos contextos, relacionados con probabilidades o eventos aleatorios.",
+        "evidence": "A2.4",
+        "evidence_desc": "Resuelve problemas de diversos contextos relacionados con probabilidades obtenidas mediante axiomas o propiedades básicas."
+      },
+      "options": {
+        "A": "1/80",
+        "B": "7/80",
+        "C": "23/80",
+        "D": "57/80"
+      },
+      "correct_answer": "C",
+      "solution_steps": [
+        "E: repostería dulce con café negro = 8 órdenes.",
+        "F: repostería salada con café negro = 15 órdenes.",
+        "E ∩ F = 0 (una orden no puede ser simultáneamente dulce y salada).",
+        "P(E ∪ F) = P(E) + P(F) − P(E ∩ F) = (8/80) + (15/80) − 0 = 23/80."
+      ],
+      "group_id": "g_cont_table",
+      "visual_spec": null,
+      "set_id": "set_1",
+      "statement": "Con base en la información dada en la tabla de contingencia, se establecen los siguientes eventos al elegir al azar para control de calidad: E: Que la orden incluya una repostería dulce con café negro. F: Que la orden incluya una repostería salada con café negro. G: Que la orden incluya una repostería salada con un café con leche o jugo natural. H: Que la orden sea de repostería dulce o salada acompañado de jugo natural.",
+      "problem": "¿Cuál es la probabilidad de que ocurra el evento E ∪ F?"
+    },
+    {
+      "id": 81,
+      "area": "Estadística y Probabilidad",
+      "area_id": "statistics",
+      "topic": "Eventos y probabilidades",
+      "spec": {
+        "block": "3. Estadística y Probabilidad",
+        "affirmation": "A2",
+        "affirmation_desc": "Resuelve problemas, de diversos contextos, relacionados con probabilidades o eventos aleatorios.",
+        "evidence": "A2.3",
+        "evidence_desc": "Reconoce eventos aleatorios mutuamente excluyentes, en diversos contextos."
+      },
+      "options": {
+        "A": "F° ∪ G°",
+        "B": "F° ∩ G°",
+        "C": "F ∩ G",
+        "D": "F ∪ G"
+      },
+      "correct_answer": "C",
+      "solution_steps": [
+        "F: repostería salada con café negro (15 órdenes).",
+        "G: repostería salada con café con leche o jugo natural (16 + 14 = 30 órdenes).",
+        "F ∩ G requeriría una orden de repostería salada que incluya simultáneamente café negro y (café con leche o jugo natural), lo cual es imposible porque cada orden tiene una sola bebida.",
+        "Por lo tanto, F ∩ G es un evento imposible."
+      ],
+      "group_id": "g_cont_table",
+      "visual_spec": null,
+      "set_id": "set_1",
+      "statement": "Con base en la información dada en la tabla de contingencia, se establecen los siguientes eventos al elegir al azar para control de calidad: E: Que la orden incluya una repostería dulce con café negro. F: Que la orden incluya una repostería salada con café negro. G: Que la orden incluya una repostería salada con un café con leche o jugo natural. H: Que la orden sea de repostería dulce o salada acompañado de jugo natural.",
+      "problem": "¿Cuál evento es imposible que ocurra?"
+    },
+    {
+      "id": 82,
+      "area": "Estadística y Probabilidad",
+      "area_id": "statistics",
+      "topic": "Eventos y probabilidades",
+      "spec": {
+        "block": "3. Estadística y Probabilidad",
+        "affirmation": "A2",
+        "affirmation_desc": "Resuelve problemas, de diversos contextos, relacionados con probabilidades o eventos aleatorios.",
+        "evidence": "A2.1",
+        "evidence_desc": "Determina los puntos muestrales del evento aleatorio obtenido mediante las operaciones: unión 'U', intersección '∩' o 'complemento' de dos o más eventos aleatorios en diversos contextos."
+      },
+      "options": {
+        "A": "36/43",
+        "B": "18/43",
+        "C": "0",
+        "D": "1"
+      },
+      "correct_answer": "C",
+      "solution_steps": [
+        "Del diagrama de Venn se observa que no hay región de intersección triple (Música ∩ Pintura ∩ Ballet).",
+        "El número de estudiantes en las tres disciplinas es 0.",
+        "El total de estudiantes es 8 + 4 + 11 + 3 + 17 = 43.",
+        "P(tres disciplinas) = 0/43 = 0."
+      ],
+      "group_id": "g_venn_3set",
+      "visual_spec": null,
+      "set_id": "set_1",
+      "statement": "En una academia de artes se imparte música, pintura y ballet. El siguiente diagrama muestra la cantidad de estudiantes matriculados en esas disciplinas:",
+      "problem": "Si se selecciona al azar un estudiante de esa academia, entonces, la probabilidad de que esté matriculado en las tres disciplinas corresponde a"
+    },
+    {
+      "id": 83,
+      "area": "Estadística y Probabilidad",
+      "area_id": "statistics",
+      "topic": "Eventos y probabilidades",
+      "spec": {
+        "block": "3. Estadística y Probabilidad",
+        "affirmation": "A2",
+        "affirmation_desc": "Resuelve problemas, de diversos contextos, relacionados con probabilidades o eventos aleatorios.",
+        "evidence": "A2.1",
+        "evidence_desc": "Determina los puntos muestrales del evento aleatorio obtenido mediante las operaciones: unión 'U', intersección '∩' o 'complemento' de dos o más eventos aleatorios en diversos contextos."
+      },
+      "options": {
+        "A": "7/43",
+        "B": "14/43",
+        "C": "15/43",
+        "D": "20/43"
+      },
+      "correct_answer": "A",
+      "solution_steps": [
+        "Estudiantes en exactamente dos disciplinas: Música ∩ Pintura (4) + Pintura ∩ Ballet (3) + Música ∩ Ballet (0) = 7.",
+        "Total de estudiantes: 8 + 4 + 11 + 3 + 17 = 43.",
+        "P(exactamente dos disciplinas) = 7/43."
+      ],
+      "group_id": "g_venn_3set",
+      "visual_spec": null,
+      "set_id": "set_1",
+      "statement": "En una academia de artes se imparte música, pintura y ballet. El siguiente diagrama muestra la cantidad de estudiantes matriculados en esas disciplinas:",
+      "problem": "Si se selecciona al azar un estudiante de esa academia, entonces, la probabilidad de que esté matriculado en dos de esas disciplinas corresponde a"
+    },
+    {
+      "id": 84,
+      "area": "Estadística y Probabilidad",
+      "area_id": "statistics",
+      "topic": "Medidas de posición",
+      "spec": {
+        "block": "3. Estadística y Probabilidad",
+        "affirmation": "A1",
+        "affirmation_desc": "Resuelve problemas, de diversos contextos, relacionados con medidas de posición de un grupo de datos cuantitativos o cualitativos.",
+        "evidence": "A1.2",
+        "evidence_desc": "Interpreta la información que proporcionan algunas medidas de posición (moda, media aritmética, mediana, cuartiles, el máximo o el mínimo) de un grupo de datos resumido en situaciones de diversos contextos."
+      },
+      "options": {
+        "A": "45",
+        "B": "33",
+        "C": "23",
+        "D": "19"
+      },
+      "correct_answer": "D",
+      "solution_steps": [
+        "Se observan los valores mínimos de ambos diagramas de caja.",
+        "El mínimo de la empresa A es 23 años.",
+        "El mínimo de la empresa B es 19 años.",
+        "El empleado de menor edad entre ambas empresas tiene 19 años."
+      ],
+      "group_id": "g_emp_ages",
+      "visual_spec": null,
+      "set_id": "set_1",
+      "statement": "Considere la información de los diagramas de caja sobre las edades de los empleados de dos empresas, A y B.",
+      "problem": "Entre ambas empresas, ¿cuántos años tiene el empleado de menor edad?"
+    },
+    {
+      "id": 85,
+      "area": "Estadística y Probabilidad",
+      "area_id": "statistics",
+      "topic": "Medidas de variabilidad",
+      "spec": {
+        "block": "3. Estadística y Probabilidad",
+        "affirmation": "A3",
+        "affirmation_desc": "Resuelve problemas de diversos contextos relacionados con el análisis de las medidas de posición o variabilidad de dos o más grupos en datos cuantitativos.",
+        "evidence": "A3.2",
+        "evidence_desc": "Compara medidas de posición o de variabilidad de dos grupos de datos mediante la utilización de diagramas de cajas en diversos contextos."
+      },
+      "options": {
+        "A": "El empleado de mayor edad pertenece únicamente a la empresa A.",
+        "B": "En ambas empresas al menos un 50% de sus empleados tienen 33 años o más.",
+        "C": "En la empresa B al menos el 75% de sus empleados tiene 38 años cumplidos o más.",
+        "D": "Con certeza en ambas empresas hay al menos un empleado con una edad de 33 años cumplidos."
+      },
+      "correct_answer": "B",
+      "solution_steps": [
+        "A) Falso: el valor máximo de ambas empresas es 52, por lo que el empleado de mayor edad podría pertenecer a cualquiera de las dos.",
+        "B) Verdadero: la mediana de la empresa A es 38 (≥ 33) y la mediana de la empresa B es 33 (≥ 33); por lo tanto, al menos el 50 % de los empleados de cada empresa tiene 33 años o más.",
+        "C) Falso: en la empresa B, Q1 = 25, por lo que solo el 75 % tiene 25 años o más, no 38.",
+        "D) Falso: no se puede garantizar que exista un empleado con exactamente 33 años en ambas empresas."
+      ],
+      "group_id": "g_emp_ages",
+      "visual_spec": null,
+      "set_id": "set_1",
+      "statement": "Considere la información de los diagramas de caja sobre las edades de los empleados de dos empresas, A y B.",
+      "problem": "¿Cuál de las siguientes afirmaciones es verdadera?"
+    },
+    {
+      "id": 86,
+      "area": "Estadística y Probabilidad",
+      "area_id": "statistics",
+      "topic": "Medidas de variabilidad",
+      "spec": {
+        "block": "3. Estadística y Probabilidad",
+        "affirmation": "A3",
+        "affirmation_desc": "Resuelve problemas de diversos contextos relacionados con el análisis de las medidas de posición o variabilidad de dos o más grupos en datos cuantitativos.",
+        "evidence": "A3.3",
+        "evidence_desc": "Aplica estandarización y el coeficiente de variación para la comparación de la posición o variabilidad de dos o más grupos de datos, en diversos contextos."
+      },
+      "options": {
+        "A": "H",
+        "B": "Q",
+        "C": "S",
+        "D": "P"
+      },
+      "correct_answer": "B",
+      "solution_steps": [
+        "El coeficiente de variación se calcula como Cv = (desviación estándar / media aritmética) × 100.",
+        "Cv_H = (4,4 / 15) × 100 = 29,33 %",
+        "Cv_Q = (4,5 / 16) × 100 = 28,13 %",
+        "Cv_S = (5,3 / 18) × 100 = 29,44 %",
+        "Cv_P = (5,0 / 17) × 100 = 29,41 %",
+        "El menor coeficiente de variación corresponde al grupo Q (28,13 %)."
+      ],
+      "group_id": "g_volunteer",
+      "visual_spec": null,
+      "set_id": "set_1",
+      "statement": "La siguiente tabla muestra la información relacionada con las horas mensuales dedicadas por cuatro grupos de personas voluntarias:",
+      "problem": "El grupo que presenta menor variabilidad relativa corresponde al"
+    },
+    {
+      "id": 87,
+      "area": "Estadística y Probabilidad",
+      "area_id": "statistics",
+      "topic": "Medidas de variabilidad",
+      "spec": {
+        "block": "3. Estadística y Probabilidad",
+        "affirmation": "A3",
+        "affirmation_desc": "Resuelve problemas de diversos contextos relacionados con el análisis de las medidas de posición o variabilidad de dos o más grupos en datos cuantitativos.",
+        "evidence": "A3.3",
+        "evidence_desc": "Aplica estandarización y el coeficiente de variación para la comparación de la posición o variabilidad de dos o más grupos de datos, en diversos contextos."
+      },
+      "options": {
+        "A": "Andrés.",
+        "B": "Sofía.",
+        "C": "María.",
+        "D": "Rosa."
+      },
+      "correct_answer": "C",
+      "solution_steps": [
+        "Se calcula la posición relativa (estandarización) de cada persona: Pr = (dato − media) / desviación estándar.",
+        "Sofía (H): Pr = (15 − 15) / 4,4 = 0",
+        "María (Q): Pr = (17 − 16) / 4,5 = 0,222",
+        "Andrés (S): Pr = (19 − 18) / 5,3 = 0,189",
+        "Rosa (P): Pr = (16 − 17) / 5,0 = −0,2",
+        "El mayor valor de posición relativa corresponde a María (0,222), por lo que presenta el mejor desempeño relativo."
+      ],
+      "group_id": "g_volunteer",
+      "visual_spec": null,
+      "set_id": "set_1",
+      "statement": "La siguiente tabla muestra la información relacionada con las horas mensuales dedicadas por cuatro grupos de personas voluntarias:",
+      "problem": "Sofía pertenece al Grupo H y dedica 15 horas mensualmente al trabajo de voluntariado. María pertenece al Grupo Q y dedica 17 horas mensualmente al trabajo de voluntariado. Andrés pertenece al Grupo S y dedica 19 horas mensualmente al trabajo de voluntariado. Rosa pertenece al Grupo P y dedica 16 horas mensuales al trabajo de voluntariado. En términos relativos y con respecto a su grupo de referencia, la persona que presenta el mejor desempeño en cuanto a la cantidad de horas dedicadas al voluntariado corresponde a"
+    }
+  ],
+  "sets": [
+    {
+      "id": "set_1",
+      "name": "Prueba Oficial Convocatoria 02-2026 (Simulación)",
+      "description": "Examen oficial de simulación completa con 60 ítems (23 Geometría, 25 Relaciones y Álgebra, 12 Estadística).",
+      "total_items": 60
+    }
+  ]
+}

@@ -64,13 +64,13 @@ export default function ConfirmModal({
           <div className="flex gap-4">
             <button
               onClick={onClose}
-              className="flex-1 py-5 bg-muted hover:bg-border text-foreground font-bold text-[11px] uppercase tracking-[0.2em] rounded-sm transition-colors border border-border/50"
+              className="flex-1 py-5 bg-muted hover:bg-border text-foreground font-bold text-xs uppercase tracking-[0.2em] rounded-sm transition-colors border border-border/50"
             >
               {cancelText}
             </button>
             <button
               onClick={onConfirm}
-              className={`flex-1 py-5 text-primary-foreground font-bold text-[11px] uppercase tracking-[0.2em] rounded-sm transition-colors shadow-md ${variant === "danger" ? "bg-destructive hover:brightness-90" : "bg-primary hover:brightness-90"}`}
+              className={`flex-1 py-5 text-primary-foreground font-bold text-xs uppercase tracking-[0.2em] rounded-sm transition-colors shadow-md ${variant === "danger" ? "bg-destructive hover:brightness-90" : "bg-primary hover:brightness-90"}`}
             >
               {confirmText}
             </button>

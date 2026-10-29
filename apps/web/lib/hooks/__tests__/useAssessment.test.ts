@@ -42,7 +42,7 @@ describe("useAssessment", () => {
     });
 
     expect(result.current.selectedAnswers[0]).toBe("A");
-    expect(localStorage.getItem("bxm-pilot-answers")).toContain('"0":"A"');
+    expect(localStorage.getItem("bxm-pilot-session")).toContain('"0":"A"');
   });
 
   it("should handle navigation", () => {

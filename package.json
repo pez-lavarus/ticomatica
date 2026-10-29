@@ -5,17 +5,20 @@
   "packageManager": "pnpm@11.3.0",
   "scripts": {
     "dev": "pnpm --filter @ticomatica/web dev",
-    "build": "pnpm --filter @ticomatica/web build",
-    "start": "pnpm --filter @ticomatica/web start",
+    "build": "pnpm -r build",
     "lint": "pnpm --filter @ticomatica/web lint",
-    "typecheck": "pnpm --filter @ticomatica/web typecheck && pnpm --filter @ticomatica/infra typecheck",
-    "test": "pnpm --filter @ticomatica/web test",
-    "infra:synth": "pnpm --filter @ticomatica/infra synth",
-    "infra:synth:dev": "pnpm --filter @ticomatica/infra synth:dev",
-    "infra:synth:prod": "pnpm --filter @ticomatica/infra synth:prod",
-    "infra:diff": "pnpm --filter @ticomatica/infra diff",
-    "infra:deploy": "pnpm --filter @ticomatica/infra deploy",
-    "infra:deploy:dev": "pnpm --filter @ticomatica/infra deploy:dev",
-    "infra:deploy:prod": "pnpm --filter @ticomatica/infra deploy:prod"
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test",
+    "start": "pnpm --filter @ticomatica/web start",
+    "infra:synth": "pnpm --filter @ticomatica/infrastructure synth",
+    "infra:synth:dev": "pnpm --filter @ticomatica/infrastructure synth:dev",
+    "infra:synth:prod": "pnpm --filter @ticomatica/infrastructure synth:prod",
+    "infra:diff": "pnpm --filter @ticomatica/infrastructure diff",
+    "infra:deploy": "pnpm --filter @ticomatica/infrastructure deploy",
+    "infra:deploy:dev": "pnpm --filter @ticomatica/infrastructure deploy:dev",
+    "infra:deploy:prod": "pnpm --filter @ticomatica/infrastructure deploy:prod",
+    "infra:delete": "pnpm --filter @ticomatica/infrastructure destroy",
+    "infra:delete:dev": "pnpm --filter @ticomatica/infrastructure destroy:dev",
+    "infra:delete:prod": "pnpm --filter @ticomatica/infrastructure destroy:prod"
   }
 }
