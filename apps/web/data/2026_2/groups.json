@@ -330,7 +330,7 @@
         "visual": {
           "type": "table",
           "variant": "contingency",
-          "title": "Acompañamiento / Bebida",
+          "title": "",
           "columns": [
             "Acompañamiento / Bebida",
             "Café negro",

@@ -123,16 +123,11 @@ export default function QuestionPage() {
   const handleSelectOption = useCallback((option: string) => {
     handleSelect(option);
     if (testMode !== "full" && !reviewMode) {
-      const isCorrect = option === currentQuestion?.correct_answer;
-      if (isCorrect) {
-        // Subtle highlight on hint button, do not automatically open modal, keep current open/close state
         setIsHintBlinking(true);
-      } else {
         // Incorrect option selected: open hint modal automatically if closed, stay open if already open
         setIsHintModalOpen(true);
-      }
     }
-  }, [handleSelect, testMode, reviewMode, currentQuestion]);
+  }, [handleSelect, testMode, reviewMode,]);
 
   const allQuestionsWithGlobalIndex = quizData.questions.map((q, idx) => ({ ...q, globalIndex: idx }));
   const correctAnswers = quizData.questions.reduce<Record<number, string>>((acc, q, idx) => {

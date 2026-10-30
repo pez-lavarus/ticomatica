@@ -2,9 +2,12 @@
 // consumes (QuizData). The bank carries structured `visual_spec` graphs (SVG)
 // instead of the legacy PNG placeholders, plus per-item solution steps that
 // double as progressive hints.
+//
+// `questions.json` is the single source of truth: shared contexts and figures
+// (items that refer to the same graph/table) live in its top-level `groups`
+// array and are referenced from each item through `group_id`.
 
 import questionsRaw from "@/data/2026_2/questions.json";
-import groupsRaw from "@/data/2026_2/groups.json";
 import type { VisualSpec } from "@/app/types";
 import type { Explanation, Question, QuizData, QuizMetadata } from "@/lib/types";
 
@@ -34,20 +37,19 @@ type RawItem = {
   visual_spec?: VisualSpec | null;
 };
 
+type RawGroup = {
+  group_id?: string;
+  items?: number[];
+  title?: string;
+  visual_spec?: VisualSpec | null;
+  context_text?: string | null;
+};
+
 type RawBank = {
   exam?: string;
   convocatoria?: string;
   source?: string;
   items?: RawItem[];
-};
-
-type RawGroup = {
-  group_id?: string;
-  visual_spec?: VisualSpec | null;
-  context_text?: string;
-};
-
-type RawGroups = {
   groups?: RawGroup[];
 };
 
@@ -76,7 +78,7 @@ function withVisualWidth(spec: VisualSpec | null | undefined, width: number): Vi
 
 function buildBank(): QuizData {
   const bank = questionsRaw as unknown as RawBank;
-  const groups = (groupsRaw as unknown as RawGroups).groups ?? [];
+  const groups = bank.groups ?? [];
 
   const groupVisual = new Map<string, VisualSpec>();
   const groupContext = new Map<string, string>();

@@ -11,7 +11,7 @@ interface HintModalProps {
   onRevealSolution?: () => void;
 }
 
-export default function HintModal({ keywords = [], hints = [], hintStrategy, onRevealSolution }: HintModalProps) {
+export default function HintModal({ keywords = [], hints = [], hintStrategy }: HintModalProps) {
   const topic = keywords[0];
 
   return (
@@ -21,7 +21,7 @@ export default function HintModal({ keywords = [], hints = [], hintStrategy, onR
         <h3 className="text-sm font-bold uppercase tracking-[0.2em]">Pistas de la Pregunta</h3>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-6 space-y-4">
+      <div className="flex-1 overflow-y-auto p-6 space-y-4 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
         {topic && (
           <p className="text-xs font-bold uppercase tracking-[0.15em] text-primary">
             <KaTeXText text={topic} />
