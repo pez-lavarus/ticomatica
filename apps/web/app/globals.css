@@ -25,6 +25,8 @@
   --wrong-foreground: #FDFCF0;
   /* Keep in step with DEFAULT_SCALE_INDEX in lib/font-scale.tsx. */
   --font-scale: 1.125;
+  /* Stroke color for source SVG graphs: dark grey in light mode. */
+  --graph-stroke: #374151;
 }
 
 .dark {
@@ -49,6 +51,8 @@
   --success-foreground: #0F172A;
   --wrong: #C0504A;
   --wrong-foreground: #FDFCF0;
+  /* Stroke color for source SVG graphs: white in dark mode. */
+  --graph-stroke: #FFFFFF;
 }
 
 @theme inline {
@@ -127,6 +131,21 @@ img:not(.graph-image), video, .no-transition, .no-transition * {
 
 .graph-image {
   transition: max-height 240ms ease;
+}
+
+/* Source SVG graphs render inline so `currentColor` inherits the theme's
+   graph-stroke color (white in dark mode, dark grey in light mode). */
+.graph-svg {
+  color: var(--graph-stroke, var(--foreground));
+  max-width: 100%;
+}
+
+.graph-svg svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  max-height: var(--graph-max, 450px);
 }
 
 /* Clickable elements show a pointer cursor. */

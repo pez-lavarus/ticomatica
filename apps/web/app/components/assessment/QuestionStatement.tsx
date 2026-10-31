@@ -81,22 +81,22 @@ export function QuestionStatement({
             />
           </div>
         ) : sharedImageSrc ? (
-          /* Source image with optional dark-mode variant. */
+          /* Source graph: inline SVG when available, PNG fallback. */
           <div className="min-w-0 flex justify-center group-data-[split=true]:flex-1">
             <div
-              className="w-fit max-w-full rounded-sm border border-border overflow-hidden cursor-zoom-in hover:border-accent transition-colors bg-white shadow-sm"
+              className="w-fit max-w-full rounded-sm border border-border overflow-hidden cursor-zoom-in hover:border-accent transition-colors shadow-sm"
               onDoubleClick={() => onOpenImageModal(sharedImageSrc, "Imagen de apoyo")}
               onTouchStart={() => handleTouchStart(sharedImageSrc, "Imagen de apoyo")}
               onTouchEnd={handleTouchEnd}
               onTouchMove={handleTouchEnd}
             >
               <SourceImage
-                light={sharedImageSrc}
-                dark={question.graph_image_dark}
+                svg={question.graph_svg}
+                png={sharedImageSrc}
                 alt="Imagen de apoyo"
                 width={graphDimensions?.width ?? 800}
                 height={graphDimensions?.height ?? 600}
-                className="graph-image block w-auto h-auto max-w-full max-h-[var(--graph-max,450px)] object-contain pointer-events-none"
+                className="graph-image block w-auto h-auto max-w-full max-h-[var(--graph-max,450px)] object-contain bg-white pointer-events-none"
               />
             </div>
           </div>

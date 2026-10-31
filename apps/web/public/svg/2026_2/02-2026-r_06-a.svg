@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 338 304" role="img" aria-labelledby="title desc">
+<title id="title">Circle with top at y=6 and rightmost point at x=2</title>
+<desc id="desc">Coordinate axes and a circle centered on the y-axis, with dashed guides to x equals 2.</desc>
+<style>
+.stroke { stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.guide { stroke: currentColor; opacity: .55; stroke-width: 1.5; stroke-dasharray: 6 5; fill: none; }
+.label { fill: currentColor; font: 17px Arial, sans-serif; }
+.dot { fill: currentColor; }
+</style>
+<path class="stroke" d="M71 266 H249 M151 291 V31"/>
+<path fill="currentColor" d="M250 266 L241 261 L241 271 Z M151 30 L146 39 L156 39 Z"/>
+<circle class="stroke" cx="151" cy="114.5" r="51"/>
+<path class="guide" d="M151 117.5 H201 M201 117.5 V266"/>
+<circle class="dot" cx="151" cy="63.5" r="3.7"/>
+<circle class="dot" cx="151" cy="117.5" r="3.7"/>
+<g class="label"><text x="147" y="20">y</text><text x="253" y="273">x</text><text x="135" y="62">6</text><text x="132" y="124">O</text><text x="196" y="285">2</text></g>
+</svg>

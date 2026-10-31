@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 273 236" role="img" aria-labelledby="title desc">
+<title id="title">Circle centered at (2,3)</title><desc id="desc">Circle tangent to the y-axis at y equals 3, with center O at (2,3).</desc>
+<style>
+.stroke{fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.guide{fill:none;stroke:currentColor;stroke-width:1.5;stroke-dasharray:5 5;opacity:.55}.dot{fill:currentColor}.label{fill:currentColor;font:18px Arial,Helvetica,sans-serif}
+</style>
+<path class="stroke" d="M18 202 H252 M88.5 223 V40"/>
+<path class="dot" d="M252 202 L243 197 L243 207 Z M88.5 40 L84 49 L93 49 Z"/>
+<circle class="stroke" cx="140" cy="126" r="51.5"/>
+<path class="guide" d="M88.5 127.5 H140 M140 127.5 V202"/>
+<circle class="dot" cx="88.5" cy="127.5" r="4"/><circle class="dot" cx="140" cy="129" r="4"/>
+<g class="label"><text x="84" y="33">y</text><text x="256" y="208">x</text><text x="73" y="133">3</text><text x="136" y="222">2</text><text x="136" y="123">O</text></g>
+</svg>

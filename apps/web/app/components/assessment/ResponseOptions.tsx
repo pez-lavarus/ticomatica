@@ -126,8 +126,8 @@ export function ResponseOptions({
                       onTouchMove={handleTouchEnd}
                     >
                       <SourceImage
-                        light={option.image}
-                        dark={option.image_dark}
+                        svg={option.svg}
+                        png={option.image}
                         alt={`Opción ${option.label}`}
                         width={optionImageDimensions?.width ?? 340}
                         height={optionImageDimensions?.height ?? 200}

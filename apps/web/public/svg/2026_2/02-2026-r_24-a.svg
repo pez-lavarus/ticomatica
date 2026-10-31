@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 279 209" role="img" aria-labelledby="title desc">
+<title id="title">Wavy curve on coordinate axes</title>
+<desc id="desc">A smooth curve rises above the x-axis to the left of the y-axis, crosses at the origin, dips below, then rises to the right, with arrows on both ends.</desc>
+<style>
+:root { color: CanvasText; }
+.axis,.curve { fill:none; stroke:currentColor; stroke-linecap:round; stroke-linejoin:round; }
+.axis { stroke-width:2; } .curve { stroke-width:2.3; }
+.arrow { fill:currentColor; }
+.label { fill:currentColor; font: 17px Arial, Helvetica, sans-serif; }
+</style>
+<path class="axis" d="M18 143 H242 M131 189 V53"/>
+<path class="arrow" d="M246 143 L237 138 L237 148 Z M131 49 L126 59 L136 59 Z"/>
+<path class="curve" d="M48 146 C69 128 89 116 102 122 C115 127 121 139 131 143 C146 154 151 160 166 156 C180 152 193 137 204 129"/>
+<path class="arrow" d="M44 149 L49 140 L54 148 Z M208 126 L197 129 L204 136 Z"/>
+<text class="label" x="127" y="43">y</text>
+<text class="label" x="247" y="149">x</text>
+</svg>

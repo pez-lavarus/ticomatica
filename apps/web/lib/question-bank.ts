@@ -1,7 +1,7 @@
 // Transforms the structured 2026_2 item bank into the shape the question UI
 // consumes (QuizData). Graphs extracted from the exam PDF are referenced by
 // file name (`image` on items/groups, `option_images` on items) and resolved to
-// their bundled URLs; structured tables still use `visual_spec` (SVG/HTML).
+// their public URLs; structured tables still use `visual_spec` (SVG/HTML).
 // Per-item solution steps double as progressive hints.
 //
 // `questions.json` is the single source of truth: shared contexts and figures
@@ -11,7 +11,7 @@
 import questionsRaw from "@/data/2026_2/questions.json";
 import type { VisualSpec } from "@/app/types";
 import type { Explanation, Question, QuizData, QuizMetadata } from "@/lib/types";
-import { sourceImageUrl } from "@/lib/source-images";
+import { sourceImageUrl, sourceSvgUrl } from "@/lib/source-images";
 
 /** Consistent graph width (px) injected into every visual so the figures do
  *  not jump in size from question to question. */
@@ -54,6 +54,7 @@ type RawBank = {
   exam?: string;
   convocatoria?: string;
   image_base?: string;
+  svg_base?: string;
   source?: string;
   items?: RawItem[];
   groups?: RawGroup[];
@@ -85,7 +86,8 @@ function withVisualWidth(spec: VisualSpec | null | undefined, width: number): Vi
 function buildBank(): QuizData {
   const bank = questionsRaw as unknown as RawBank;
   const groups = bank.groups ?? [];
-  const imageBase = bank.image_base ?? "/images/2026_2";
+  const imageBase = bank.image_base ?? "/png/2026_2";
+  const svgBase = bank.svg_base ?? "/svg/2026_2";
 
   const groupVisual = new Map<string, VisualSpec>();
   const groupContext = new Map<string, string>();
@@ -113,12 +115,12 @@ function buildBank(): QuizData {
     const options = (["A", "B", "C", "D"] as const).map((label) => {
       const optionImageName = item.option_images?.[label];
       const optionImage = sourceImageUrl(imageBase, optionImageName);
-      const optionImageDark = sourceImageUrl(imageBase, optionImageName, "dark");
+      const optionSvg = sourceSvgUrl(svgBase, optionImageName);
       return {
         label,
         text: item.options?.[label] ?? "",
         ...(optionImage ? { image: optionImage } : {}),
-        ...(optionImageDark ? { image_dark: optionImageDark } : {}),
+        ...(optionSvg ? { svg: optionSvg } : {}),
       };
     });
 
@@ -133,7 +135,7 @@ function buildBank(): QuizData {
     const inheritedImageName = item.group_id ? groupImageName.get(item.group_id) : undefined;
     const imageName = ownImageName ?? inheritedImageName;
     const graphImage = sourceImageUrl(imageBase, imageName);
-    const graphImageDark = sourceImageUrl(imageBase, imageName, "dark");
+    const graphSvg = sourceSvgUrl(svgBase, imageName);
 
     const itemStatement = item.statement ?? "";
     const groupStatement = item.group_id ? (groupContext.get(item.group_id) ?? "") : "";
@@ -145,7 +147,7 @@ function buildBank(): QuizData {
       problem: item.problem ?? "",
       visual_spec: visualSpec,
       graph_image: graphImage,
-      ...(graphImageDark ? { graph_image_dark: graphImageDark } : {}),
+      ...(graphSvg ? { graph_svg: graphSvg } : {}),
       options,
       correct_answer: (item.correct_answer as Question["correct_answer"]) ?? "A",
       topic,

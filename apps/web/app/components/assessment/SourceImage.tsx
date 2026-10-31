@@ -1,14 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
-import { useIsDark } from "@/lib/theme-provider";
 
 interface SourceImageProps {
-  /** Light-mode image URL (always available). */
-  light: string;
-  /** Dark-mode image URL; rendered in dark mode when it loads. */
-  dark?: string;
+  /** Preferred vector URL; rendered inline so `currentColor` adapts to theme. */
+  svg?: string;
+  /** Raster fallback URL. */
+  png: string;
   alt: string;
   width?: number;
   height?: number;
@@ -16,38 +15,56 @@ interface SourceImageProps {
 }
 
 /**
- * Renders a source graph image, preferring the dark variant in dark mode and
- * falling back to the light variant when no dark image exists (404). This keeps
- * dark variants fully optional: dropping a file into `images/<exam>/dark/` is
- * enough, no code or manifest changes required.
+ * Renders a source graph, preferring the inline SVG (theme-adaptive `currentColor`
+ * strokes) and falling back to the raster PNG when the SVG is missing or fails
+ * to load.
  */
 export function SourceImage({
-  light,
-  dark,
+  svg,
+  png,
   alt,
   width,
   height,
   className,
 }: SourceImageProps) {
-  const isDark = useIsDark();
-  // Key of the image whose dark variant failed to load. Keyed (rather than a
-  // bare boolean) so the fallback resets automatically when the image changes.
-  const [failedDarkKey, setFailedDarkKey] = useState<string | null>(null);
+  // Keyed by the SVG URL so a previously loaded SVG resets automatically when
+  // the image changes (avoids setState-in-effect and a stale content flash).
+  const [loaded, setLoaded] = useState<{ key: string; content: string } | null>(null);
 
-  const key = `${light}\u0000${dark ?? ""}`;
-  const failedDark = failedDarkKey === key;
-  const src = isDark && dark && !failedDark ? dark : light;
+  useEffect(() => {
+    if (!svg) return;
+    let cancelled = false;
+    fetch(svg)
+      .then((res) => (res.ok ? res.text() : null))
+      .then((text) => {
+        if (!cancelled && text) setLoaded({ key: svg, content: text });
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [svg, png]);
+
+  const svgContent = loaded && loaded.key === svg ? loaded.content : null;
+
+  if (svgContent) {
+    return (
+      <div
+        className="graph-svg"
+        style={{ width: width ? `${width}px` : "100%" }}
+        // The SVG is authored by the exam data and carries its own <title>/<desc>.
+        dangerouslySetInnerHTML={{ __html: svgContent }}
+      />
+    );
+  }
 
   return (
     <Image
-      src={src}
+      src={png}
       alt={alt}
       width={width}
       height={height}
       className={className}
-      onError={() => {
-        if (isDark && dark && !failedDark) setFailedDarkKey(key);
-      }}
     />
   );
 }

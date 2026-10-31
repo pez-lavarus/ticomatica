@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 458 262" role="img" aria-label="Curve with vertical dashed guides at 80 and 85">
+<style>
+:root { color: #111; }
+@media (prefers-color-scheme: dark) { :root { color: white; } }
+.graph { fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+.guide { fill:none; stroke:currentColor; stroke-width:1.6; stroke-dasharray:6 5; }
+.label { fill:currentColor; font: 17px Arial, sans-serif; }
+</style>
+<path class="graph" d="M31 219 H447"/>
+<path fill="currentColor" d="M448 219 L439 214 L439 224 Z"/>
+<path class="guide" d="M227 219 V86 M270 219 V33"/>
+<path class="graph" d="M61 218 C119 218 148 200 173 172 C196 144 213 105 239 62 C250 45 259 34 270 33 C303 34 325 101 351 219"/>
+<g class="label"><text x="220" y="243">80</text><text x="261" y="243">85</text></g>
+</svg>

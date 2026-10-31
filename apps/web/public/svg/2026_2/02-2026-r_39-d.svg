@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 222 180" role="img" aria-labelledby="title">
+<title id="title">Line crossing y at 3 and x at 6</title>
+<style>
+:root { color: CanvasText; }
+.axis,.line { fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round }
+.label { fill:currentColor;font:16px Arial,Helvetica,sans-serif }
+.dot,.arrow { fill:currentColor }
+</style>
+<path class="axis" d="M32 143 H187 M69 169 V44"/>
+<path class="arrow" d="M187 143 l-9 -5 v10 Z M69 44 l-5 9 h10 Z"/>
+<path class="line" d="M35 78 L209 168"/>
+<path class="arrow" d="M33 77 L43 78 L38 86 Z M212 170 L202 168 L207 160 Z"/>
+<circle class="dot" cx="69" cy="94" r="4.4"/>
+<circle class="dot" cx="163" cy="143" r="4.4"/>
+<g class="label"><text x="65" y="38">y</text><text x="190" y="149">x</text><text x="74" y="89">3</text><text x="156" y="165">6</text></g>
+</svg>

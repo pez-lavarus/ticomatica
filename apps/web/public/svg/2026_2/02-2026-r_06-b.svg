@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 279 257" role="img" aria-labelledby="title desc">
+<title id="title">Circle centered at the origin with radius 2</title>
+<desc id="desc">Coordinate axes with a circle passing through x equals plus or minus 2 and y equals plus or minus 2.</desc>
+<style>
+.line { fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+.axis {stroke-width:2;}
+.dot {fill:currentColor;}
+.label {font-family:Arial,Helvetica,sans-serif;font-size:18px;fill:currentColor;}
+</style>
+<path class="line axis" d="M16 136 H232 M123 235 V40"/>
+<path class="dot" d="M234 136 L225 131 L225 141 Z M123 39 L118 49 L128 49 Z"/>
+<circle class="line" cx="123" cy="136" r="47"/>
+<g class="dot"><circle cx="123" cy="89" r="4"/><circle cx="123" cy="136" r="4"/><circle cx="123" cy="183" r="4"/><circle cx="76" cy="136" r="4"/><circle cx="170" cy="136" r="4"/></g>
+<g class="label"><text x="120" y="30">y</text><text x="237" y="142">x</text><text x="109" y="84">2</text><text x="91" y="202">− 2</text><text x="46" y="131">− 2</text><text x="173" y="132">2</text><text x="126" y="132">O</text></g>
+</svg>

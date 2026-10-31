@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 307" role="img" aria-labelledby="title desc">
+<title id="title">Circle centered at (5,0), radius 4</title>
+<desc id="desc">Coordinate axes and a circle centered on the x axis at 5, with dashed vertical guide through x equals 5 and horizontal guides at y equals 4 and negative 4.</desc>
+<style>
+svg{color:CanvasText}.stroke{fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.guide{fill:none;stroke:currentColor;stroke-width:1.5;stroke-dasharray:6 5;opacity:.55}.dot{fill:currentColor}.label{fill:currentColor;font:18px Arial,Helvetica,sans-serif}
+@media(prefers-color-scheme:dark){svg{color:white}}
+@media(prefers-color-scheme:light){svg{color:black}}
+</style>
+<path class="stroke" d="M29 169 H334 M117 286 V38"/>
+<path class="dot" d="M338 169 328 164 328 174Z M117 35 112 45 122 45Z"/>
+<path class="guide" d="M117 106 H214 M117 230 H214 M214 106 V230"/>
+<circle class="stroke" cx="214" cy="168" r="65"/>
+<circle class="dot" cx="214" cy="106" r="4"/>
+<circle class="dot" cx="216" cy="169" r="4"/>
+<circle class="dot" cx="216" cy="230" r="4"/>
+<g class="label"><text x="112" y="30">y</text><text x="325" y="175">x</text><text x="103" y="112">4</text><text x="90" y="236">−4</text><text x="195" y="166">O</text><text x="221" y="190">5</text></g>
+</svg>

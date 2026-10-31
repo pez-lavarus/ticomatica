@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 430 232" role="img" aria-labelledby="title desc">
+  <title id="title">Diagrama de Venn: Música, Pintura y Ballet</title>
+  <desc id="desc">Tres círculos iguales superpuestos consecutivamente. Música: 8; Música y Pintura: 4; Pintura: 11; Pintura y Ballet: 3; Ballet: 17.</desc>
+  <style>
+    :root { color: #111; }
+    @media (prefers-color-scheme: dark) { :root { color: #fff; } }
+    circle { fill: none; stroke: currentColor; stroke-width: 1.65; }
+    text { fill: currentColor; font: 18px Arial, Helvetica, sans-serif; text-anchor: middle; }
+  </style>
+  <circle cx="103" cy="126" r="85"/>
+  <circle cx="210" cy="126" r="85"/>
+  <circle cx="327" cy="126" r="85"/>
+  <text x="91" y="28">Música</text>
+  <text x="218" y="28">Pintura</text>
+  <text x="332" y="28">Ballet</text>
+  <text x="95" y="133">8</text>
+  <text x="157" y="133">4</text>
+  <text x="210" y="133">11</text>
+  <text x="269" y="133">3</text>
+  <text x="336" y="133">17</text>
+</svg>

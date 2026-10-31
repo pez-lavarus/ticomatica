@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 681 512" role="img" aria-labelledby="title desc">
+<title id="title">Graph of p(x)</title><desc id="desc">Piecewise linear graph through points (0,500), (4,600), (8,750), (12,750), (16,900), (20,600), (24,500).</desc>
+<style>
+:root{color:#111}@media(prefers-color-scheme:dark){:root{color:#fff}}
+.axis,.curve,.guide{fill:none;stroke:currentColor;stroke-linejoin:round}.axis{stroke-width:2}.curve{stroke-width:2.4;stroke-linecap:round}.guide{stroke-width:1.5;stroke-dasharray:6 5;opacity:.48}.dot,.arrow{fill:currentColor}.labels{font:18px Arial,Helvetica,sans-serif;fill:currentColor}
+</style>
+<!-- Guides -->
+<path class="guide" d="M72 337 H592 M72 250 H505 M72 165 H332 M72 80 H418 M157 250 V473 M243 165 V473 M332 165 V473 M418 80 V473 M505 250 V473 M592 337 V473"/>
+<!-- Axes -->
+<path class="axis" d="M40 473 H645 M72 489 V30"/>
+<path class="arrow" d="M648 473 638 468 638 478 Z M72 27 67 39 77 39 Z"/>
+<!-- Data -->
+<path class="curve" d="M72 337 L157 250 L243 165 L332 165 L418 80 L505 250 L592 337"/>
+<g class="dot"><circle cx="72" cy="337" r="4.5"/><circle cx="157" cy="250" r="4.5"/><circle cx="243" cy="165" r="4.5"/><circle cx="332" cy="165" r="4.5"/><circle cx="418" cy="80" r="4.5"/><circle cx="505" cy="250" r="4.5"/><circle cx="592" cy="337" r="4.5"/></g>
+<g class="labels"><text x="53" y="22">p(x)</text><text x="651" y="479">x</text><text x="36" y="343">500</text><text x="36" y="256">600</text><text x="36" y="171">750</text><text x="36" y="86">900</text><text x="152" y="498">4</text><text x="238" y="498">8</text><text x="322" y="498">12</text><text x="408" y="498">16</text><text x="495" y="498">20</text><text x="582" y="498">24</text></g>
+</svg>

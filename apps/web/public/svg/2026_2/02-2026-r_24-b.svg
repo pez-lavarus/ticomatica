@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 237 222" role="img" aria-labelledby="title desc">
+<title id="title">Coordinate axes and two rays</title>
+<desc id="desc">Two rays start from a point on the positive y-axis, one pointing up and right, the other down and right.</desc>
+<style>
+:root { color: CanvasText; }
+.stroke { fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+.ink { fill:currentColor; }
+.label { font: 18px Arial, Helvetica, sans-serif; fill:currentColor; }
+</style>
+<path class="stroke" d="M27 163 H193 M80 205 V39"/>
+<path class="ink" d="M193 163 L184 158 L184 168 Z M80 38 L75 48 L85 48 Z"/>
+<path class="stroke" d="M80 114 L155 67 M80 114 L119 182"/>
+<path class="ink" d="M157 66 L147 67 L153 75 Z M120 184 L111 178 L119 174 Z"/>
+<circle class="ink" cx="80" cy="114" r="4.8"/>
+<text class="label" x="76" y="32">y</text>
+<text class="label" x="196" y="168">x</text>
+</svg>

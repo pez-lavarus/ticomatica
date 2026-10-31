@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 363" role="img" aria-labelledby="title desc">
+<title id="title">Graph with increasing curved upper boundary</title>
+<desc id="desc">Region bounded by x equals 2, x equals 7, the x axis, and an increasing concave-down curve from (2,2) to (7,6).</desc>
+<style>
+:root { color: #111; }
+@media (prefers-color-scheme: dark) { :root { color: #fff; } }
+.axis { fill:none; stroke:currentColor; stroke-width:1.3; }
+.shape { fill:none; stroke:currentColor; stroke-width:2.8; stroke-linejoin:round; }
+.guide { fill:none; stroke:currentColor; stroke-width:1; stroke-dasharray:4 3; opacity:.25; }
+.label { fill:currentColor; font: 16px Arial, Helvetica, sans-serif; }
+</style>
+<path class="guide" d="M53 89.5 H370 M53 231.5 H143"/>
+<path class="axis" d="M7 302.5 H463 M53 338 V33"/>
+<path fill="currentColor" d="M465 302.5 L456 298 L456 307 Z M53 31 L48 40 L58 40 Z"/>
+<path class="shape" d="M143 302 V231 C211 139 285 89 369.5 89 L369.5 302"/>
+<g class="label">
+<text x="48" y="27">y</text><text x="470" y="307">x</text>
+<text x="34" y="95">6</text><text x="34" y="237">2</text>
+<text x="139" y="321">2</text><text x="364" y="321">7</text>
+</g>
+</svg>
