@@ -32,7 +32,7 @@ interface QuestionExperienceProps {
   onNext: () => void;
   onPrev: () => void;
   onJumpToQuestion: (index: number) => void;
-  onOpenImageModal: (src: string, alt: string) => void;
+  onOpenImageModal: (src: string, alt: string, svg?: string) => void;
 
   // Navigation State
   isLastQuestionInSection: boolean;

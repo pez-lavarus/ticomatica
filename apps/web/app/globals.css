@@ -150,6 +150,10 @@ img:not(.graph-image), video, .no-transition, .no-transition * {
   max-height: var(--graph-max, 450px);
 }
 
+.graph-svg-expanded svg {
+  max-height: 84dvh;
+}
+
 /* Clickable elements show a pointer cursor. */
 button:not(:disabled),
 [role="button"]:not(:disabled) {

@@ -139,6 +139,8 @@ interface SourceImageProps {
   width?: number;
   height?: number;
   className?: string;
+  /** Modal presentation: use the viewport instead of the question graph limit. */
+  expanded?: boolean;
 }
 
 /**
@@ -153,6 +155,7 @@ export function SourceImage({
   width,
   height,
   className,
+  expanded = false,
 }: SourceImageProps) {
   // Bumped when a fetch resolves; the module-level cache is the source of truth.
   const [, forceRender] = useState(0);
@@ -182,14 +185,14 @@ export function SourceImage({
           ? `${width} / ${height}`
           : undefined;
     const style: React.CSSProperties = {
-      width: width ? `${width}px` : "100%",
-      aspectRatio,
+      width: expanded ? "min(1400px, 88vw)" : width ? `${width}px` : "100%",
+      aspectRatio: expanded && content ? undefined : aspectRatio,
     };
 
     if (content) {
       return (
         <div
-          className="graph-svg"
+          className={expanded ? "graph-svg graph-svg-expanded" : "graph-svg"}
           data-source-svg={svg ? hashString(svg) : undefined}
           style={style}
           // The SVG is authored by the exam data and carries its own <title>/<desc>.
@@ -200,7 +203,7 @@ export function SourceImage({
 
     // Loading placeholder: reserves the raster's footprint so the layout does
     // not jump when the SVG arrives.
-    return <div className="graph-svg" style={style} aria-hidden="true" />;
+    return <div className={expanded ? "graph-svg graph-svg-expanded" : "graph-svg"} style={style} aria-hidden="true" />;
   }
 
   return (

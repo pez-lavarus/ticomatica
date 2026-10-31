@@ -1,6 +1,5 @@
 "use client";
 
-import { useRef } from "react";
 import { KaTeXText } from "@/lib/katex-utils";
 import { getGraphDimensions } from "@/lib/graph-aspects";
 import type { Question } from "@/lib/types";
@@ -15,7 +14,7 @@ interface QuestionStatementProps {
   sharedImageSrc?: string;
   /** Structured graph spec rendered by `VisualRenderer`. */
   visualSpec?: VisualSpec | null;
-  onOpenImageModal: (src: string, alt: string) => void;
+  onOpenImageModal: (src: string, alt: string, svg?: string) => void;
   /** Placement and measuring hooks from `useQuestionLayout`. */
   slot: PanelSlot;
   /** Text beside the graph instead of above it. */
@@ -33,25 +32,7 @@ export function QuestionStatement({
   split,
   graphMax,
 }: QuestionStatementProps) {
-  const longPressTimer = useRef<NodeJS.Timeout | null>(null);
   const graphDimensions = getGraphDimensions(sharedImageSrc);
-
-  const handleTouchStart = (src: string, alt: string) => {
-    longPressTimer.current = setTimeout(() => {
-      if (window.navigator.vibrate) {
-        window.navigator.vibrate(50);
-      }
-      onOpenImageModal(src, alt);
-    }, 500);
-  };
-
-  const handleTouchEnd = () => {
-    if (longPressTimer.current) {
-      clearTimeout(longPressTimer.current);
-      longPressTimer.current = null;
-    }
-  };
-
   return (
     <QuestionPanel
       id="statement"
@@ -82,12 +63,11 @@ export function QuestionStatement({
         ) : sharedImageSrc ? (
           /* Source graph: inline SVG when available, PNG fallback. */
           <div className="min-w-0 flex justify-center group-data-[split=true]:flex-1">
-            <div
+            <button
+              type="button"
+              aria-label="Ampliar imagen de apoyo"
               className="w-fit max-w-full rounded-sm border border-border overflow-hidden cursor-zoom-in hover:border-accent transition-colors shadow-sm"
-              onDoubleClick={() => onOpenImageModal(sharedImageSrc, "Imagen de apoyo")}
-              onTouchStart={() => handleTouchStart(sharedImageSrc, "Imagen de apoyo")}
-              onTouchEnd={handleTouchEnd}
-              onTouchMove={handleTouchEnd}
+              onClick={() => onOpenImageModal(sharedImageSrc, "Imagen de apoyo", question.graph_svg)}
             >
               <SourceImage
                 svg={question.graph_svg}
@@ -97,7 +77,7 @@ export function QuestionStatement({
                 height={graphDimensions?.height ?? 600}
                 className="graph-image block w-auto h-auto max-w-full max-h-[var(--graph-max,450px)] object-contain bg-white pointer-events-none"
               />
-            </div>
+            </button>
           </div>
         ) : null}
       </div>

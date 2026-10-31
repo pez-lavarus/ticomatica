@@ -1,6 +1,5 @@
 "use client";
 
-import { useRef } from "react";
 import { KaTeXText } from "@/lib/katex-utils";
 import { getGraphDimensions } from "@/lib/graph-aspects";
 import type { Question } from "@/lib/types";
@@ -12,7 +11,7 @@ interface ResponseOptionsProps {
   question: Question;
   selectedAnswer?: string;
   onSelect: (option: string) => void;
-  onOpenImageModal: (src: string, alt: string) => void;
+  onOpenImageModal: (src: string, alt: string, svg?: string) => void;
   /** Placement and measuring hooks from `useQuestionLayout`. */
   slot: PanelSlot;
   /** Number of option columns chosen by the layout. */
@@ -36,24 +35,7 @@ export function ResponseOptions({
   flash,
   readOnly,
 }: ResponseOptionsProps) {
-  const longPressTimer = useRef<NodeJS.Timeout | null>(null);
   const isCorrect = selectedAnswer === correctAnswer;
-
-  const handleTouchStart = (src: string, alt: string) => {
-    longPressTimer.current = setTimeout(() => {
-      if (window.navigator.vibrate) {
-        window.navigator.vibrate(50);
-      }
-      onOpenImageModal(src, alt);
-    }, 500);
-  };
-
-  const handleTouchEnd = () => {
-    if (longPressTimer.current) {
-      clearTimeout(longPressTimer.current);
-      longPressTimer.current = null;
-    }
-  };
 
   return (
     <QuestionPanel
@@ -97,47 +79,51 @@ export function ResponseOptions({
             const flashClasses = flash && isSelected
               ? (isCorrect ? "answer-flash-correct" : "answer-flash-incorrect")
               : "";
-            return (
+            const letter = (
+              <span className={`w-7 h-7 md:w-9 md:h-9 flex-shrink-0 flex items-center justify-center rounded-sm font-bold text-base md:text-lg border-2 transition-colors ${letterClasses}`}>
+                {option.label}
+              </span>
+            );
+            const cardClasses = `response-option-button w-full flex gap-3 md:gap-5 p-3 md:p-4 rounded-sm border-2 text-left transition-all group active:scale-[0.98] disabled:cursor-default disabled:active:scale-100 ${buttonClasses} ${flashClasses}`;
+            return option.image ? (
+              <div key={option.label} className={cardClasses}>
+                <button
+                  type="button"
+                  disabled={readOnly}
+                  onClick={() => onSelect(option.label)}
+                  aria-label={`Seleccionar opción ${option.label}`}
+                  title={`Seleccionar opción ${option.label}`}
+                  className="self-start shrink-0 rounded-sm disabled:cursor-default"
+                >
+                  {letter}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => onOpenImageModal(option.image!, `Opción ${option.label}`, option.svg)}
+                  aria-label={`Ampliar gráfica de opción ${option.label}`}
+                  className="flex-1 min-w-0 pt-0.5 md:pt-1 cursor-zoom-in rounded-sm"
+                >
+                  <SourceImage
+                    svg={option.svg}
+                    png={option.image}
+                    alt={`Opción ${option.label}`}
+                    width={optionImageDimensions?.width ?? 340}
+                    height={optionImageDimensions?.height ?? 200}
+                    className="block w-auto h-auto max-w-full max-h-[240px] mx-auto rounded-sm border border-border object-contain bg-white pointer-events-none"
+                  />
+                </button>
+              </div>
+            ) : (
               <button
                 key={option.label}
+                type="button"
                 disabled={readOnly}
                 onClick={() => onSelect(option.label)}
-                className={`response-option-button w-full flex gap-3 md:gap-5 p-3 md:p-4 rounded-sm border-2 text-left transition-all group active:scale-[0.98] disabled:cursor-default disabled:active:scale-100 ${buttonClasses} ${flashClasses}`}
+                className={cardClasses}
               >
-                <div
-                  className={`w-7 h-7 md:w-9 md:h-9 flex-shrink-0 flex items-center justify-center rounded-sm font-bold text-base md:text-lg border-2 transition-colors ${letterClasses}`}
-                >
-                  {option.label}
-                </div>
-
-                <div className="flex-1 min-w-0 pt-0.5 md:pt-1">
-                  {option.image ? (
-                    <div
-                      onDoubleClick={(e) => {
-                        e.stopPropagation();
-                        onOpenImageModal(option.image!, `Opción ${option.label}`);
-                      }}
-                      onTouchStart={(e) => {
-                        e.stopPropagation();
-                        handleTouchStart(option.image!, `Opción ${option.label}`);
-                      }}
-                      onTouchEnd={handleTouchEnd}
-                      onTouchMove={handleTouchEnd}
-                    >
-                      <SourceImage
-                        svg={option.svg}
-                        png={option.image}
-                        alt={`Opción ${option.label}`}
-                        width={optionImageDimensions?.width ?? 340}
-                        height={optionImageDimensions?.height ?? 200}
-                        className="block w-auto h-auto max-w-full max-h-[240px] mx-auto rounded-sm border border-border cursor-zoom-in hover:opacity-90 transition-opacity object-contain bg-white pointer-events-none"
-                      />
-                    </div>
-                  ) : (
-                    <div className="option-math text-base md:text-lg text-foreground font-serif">
-                      <KaTeXText text={option.text || ""} />
-                    </div>
-                  )}
+                {letter}
+                <div className="flex-1 min-w-0 pt-0.5 md:pt-1 option-math text-base md:text-lg text-foreground font-serif">
+                  <KaTeXText text={option.text || ""} />
                 </div>
               </button>
             );

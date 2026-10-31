@@ -60,7 +60,7 @@ export default function QuestionPage() {
   const [isFormulaModalOpen, setIsFormulaModalOpen] = useState(false);
   const [isSectionModalOpen, setIsSectionModalOpen] = useState(false);
   const [isHintBlinking, setIsHintBlinking] = useState(false);
-  const [modalImage, setModalImage] = useState({ src: "", alt: "" });
+  const [modalImage, setModalImage] = useState<{ src: string; alt: string; svg?: string }>({ src: "", alt: "" });
   const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
 
   useEffect(() => {
@@ -194,8 +194,8 @@ export default function QuestionPage() {
     return `${min}:${sec < 10 ? "0" : ""}${sec}`;
   };
 
-  const openImageModal = useCallback((src: string, alt: string) => {
-    setModalImage({ src, alt });
+  const openImageModal = useCallback((src: string, alt: string, svg?: string) => {
+    setModalImage({ src, alt, svg });
     setIsImageModalOpen(true);
   }, []);
 
@@ -330,6 +330,7 @@ export default function QuestionPage() {
         isOpen={isImageModalOpen}
         onClose={() => setIsImageModalOpen(false)}
         src={modalImage.src}
+        svg={modalImage.svg}
         alt={modalImage.alt}
       />
 
