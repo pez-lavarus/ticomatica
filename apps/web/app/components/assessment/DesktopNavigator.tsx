@@ -21,19 +21,13 @@ interface DesktopNavigatorProps {
   sections: NavigatorSection[];
   currentTopicIndex: number;
   currentIndex: number;
-  isFlagged: boolean;
   selectedAnswers: Record<number, string>;
   correctAnswers: Record<number, string>;
   flaggedQuestions: Record<number, boolean>;
   /** Review: show correct/incorrect coloring and no "current" highlight. */
   reviewMode?: boolean;
   onResults?: () => void;
-  onToggleFlag: (e: React.MouseEvent) => void;
   onJumpToQuestion: (index: number) => void;
-  onPrev: () => void;
-  onNext: () => void;
-  isLastQuestionInSection: boolean;
-  hasMoreSections: boolean;
 } 
 
 export const DesktopNavigator = memo(function DesktopNavigator({

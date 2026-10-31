@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect, useRef, useMemo } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { Clock, Flag, BookOpen, Shapes, BarChart3, Binary, RotateCcw, Lightbulb } from "lucide-react";
@@ -13,9 +13,8 @@ import HintModal from "@/app/components/HintModal";
 import { preloadGraphAspect } from "@/lib/graph-aspects";
 import { preloadSourceSvg } from "@/app/components/assessment/SourceImage";
 import { QuestionExperience } from "@/app/components/assessment/QuestionExperience";
-import { DesktopNavigator } from "@/app/components/assessment/DesktopNavigator";
 import { useHintPanelWidth } from "@/app/components/assessment/useQuestionLayout";
-import { useAssessment } from "@/lib/hooks/useAssessment";
+import { useAssessmentContext } from "@/app/components/assessment/AssessmentContext";
 import { FontScaleControl, HeaderIconButton, HeaderReadout, HeaderTextButton } from "@/app/components/HeaderControls";
 import { AssessmentErrorBoundary } from "@/app/components/error/AssessmentErrorBoundary";
 
@@ -25,12 +24,41 @@ export default function QuestionPage() {
   const router = useRouter();
   const hintWidth = useHintPanelWidth();
 
+  const assessment = useAssessmentContext();
+
+  const {
+    isHintModalOpen,
+    setIsHintModalOpen,
+    mounted,
+    testMode,
+    currentTopicIndex,
+    currentIndex,
+    selectedAnswers,
+    flaggedQuestions,
+    timeLeft,
+    reviewMode,
+    update,
+    currentTopic,
+    currentQuestion,
+    currentSectionQuestionsWithGlobalIndex,
+    sectionIndex,
+    isComplete,
+    remainingCount,
+    handleSelect,
+    handleNext,
+    handlePrev,
+    jumpToQuestion,
+    handleNextSection,
+    testMode: currentTestMode,
+    hasMoreSections,
+  } = assessment;
+
+
   // Modals state
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [isFormulaModalOpen, setIsFormulaModalOpen] = useState(false);
   const [isSectionModalOpen, setIsSectionModalOpen] = useState(false);
-  const [isHintModalOpen, setIsHintModalOpen] = useState(false);
   const [isHintBlinking, setIsHintBlinking] = useState(false);
   const [modalImage, setModalImage] = useState({ src: "", alt: "" });
   const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
@@ -86,36 +114,7 @@ export default function QuestionPage() {
     setIsConfirmModalOpen(true);
   }, []);
 
-  const assessment = useAssessment({
-    quizData,
-    onTimerEnd: () => {}
-  });
-
-  const {
-    mounted,
-    testMode,
-    currentTopicIndex,
-    currentIndex,
-    selectedAnswers,
-    flaggedQuestions,
-    timeLeft,
-    reviewMode,
-    update,
-    currentTopic,
-    currentQuestion,
-    currentSectionQuestionsWithGlobalIndex,
-    sectionIndex,
-    isComplete,
-    remainingCount,
-    handleSelect,
-    toggleFlag,
-    handleNext,
-    handlePrev,
-    jumpToQuestion,
-    handleNextSection,
-    testMode: currentTestMode,
-    hasMoreSections,
-  } = assessment;
+  useEffect(() => () => setIsHintModalOpen(false), [setIsHintModalOpen]);
 
   // Warm the neighboring questions without fetching the entire exam. Shared
   // in-flight caches also cover an immediate click before preloading completes.
@@ -154,22 +153,6 @@ export default function QuestionPage() {
     }
   }, [handleSelect, testMode, reviewMode]);
 
-  const allQuestionsWithGlobalIndex = useMemo(() =>
-    quizData.questions.map((q, idx) => ({ ...q, globalIndex: idx })), []);
-  const correctAnswers = useMemo(() => quizData.questions.reduce<Record<number, string>>((acc, q, idx) => {
-    acc[idx] = q.correct_answer;
-    return acc;
-  }, {}), []);
-  const navigatorSections = useMemo(() => (testMode === "full" ? FULL_TEST_TOPICS : [testMode]).map((topic) => ({
-    topic,
-    questions: allQuestionsWithGlobalIndex
-      .filter((q) => q.topic === topic)
-      .map((q) => ({
-        globalIndex: q.globalIndex,
-        section_number: testMode === "full" ? q.globalIndex + 1 : q.section_number,
-      })),
-  })), [testMode, allQuestionsWithGlobalIndex]);
-
   const handleNextWithFinish = useCallback(() => {
     if (sectionIndex === currentSectionQuestionsWithGlobalIndex.length - 1 && (!hasMoreSections || currentTestMode !== "full")) {
       handleFinishTest();
@@ -180,7 +163,7 @@ export default function QuestionPage() {
 
   // Timer end effect: transitions to the next section or the finish dialog.
   useEffect(() => {
-    if (timeLeft === 0 && mounted) {
+    if (timeLeft === 0 && mounted && !reviewMode) {
       if (testMode === "full" && currentTopicIndex < FULL_TEST_TOPICS.length - 1) {
         handleNextSection();
       } else {
@@ -188,17 +171,14 @@ export default function QuestionPage() {
         handleFinishTest();
       }
     }
-  }, [timeLeft, mounted, testMode, currentTopicIndex, handleNextSection, handleFinishTest]);
+  }, [timeLeft, mounted, testMode, currentTopicIndex, handleNextSection, handleFinishTest, reviewMode]);
 
   const confirmFinishTest = () => {
+    setIsConfirmModalOpen(false);
+    setIsHintModalOpen(false);
     update({ phase: "results", review: false });
-    router.push("/results");
+    router.push("/results", { scroll: false });
   };
-
-  const handleResults = useCallback(() => {
-    update({ phase: "results", review: false });
-    router.push("/results");
-  }, [update, router]);
 
   const resetCurrentQuestion = useCallback(() => {
     update((prev) => {
@@ -298,29 +278,6 @@ export default function QuestionPage() {
         )}
 
       <div className="flex flex-1 min-h-0">
-        {!isHintModalOpen && (
-          <aside key="navigator" className="hidden lg:flex lg:w-80 xl:w-70 shrink-0 flex-col border-r border-border bg-card min-h-0">
-            <DesktopNavigator
-              testMode={testMode}
-              sections={navigatorSections}
-              currentTopicIndex={currentTopicIndex}
-              currentIndex={currentIndex}
-              isFlagged={!!flaggedQuestions[currentIndex]}
-              selectedAnswers={selectedAnswers}
-              correctAnswers={correctAnswers}
-              flaggedQuestions={flaggedQuestions}
-              reviewMode={reviewMode}
-              onResults={handleResults}
-              onToggleFlag={toggleFlag}
-              onJumpToQuestion={jumpToQuestion}
-              onPrev={handlePrev}
-              onNext={handleNextWithFinish}
-              isLastQuestionInSection={sectionIndex === currentSectionQuestionsWithGlobalIndex.length - 1}
-              hasMoreSections={hasMoreSections}
-            />
-          </aside>
-        )}
-
         <div key="question" className="font-scaled flex-1 min-w-0 min-h-0 overflow-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
           <div className="px-0 sm:px-4 lg:px-8 mx-auto h-full flex flex-col">
             <QuestionExperience

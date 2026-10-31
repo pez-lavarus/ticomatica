@@ -13,7 +13,7 @@ interface UseAssessmentProps {
 }
 
 export function useAssessment({ quizData, onTimerEnd, paused }: UseAssessmentProps) {
-  const { session, hydrated, update } = useTestSession();
+  const { session, hydrated, update, reset } = useTestSession();
 
   const testMode = session.mode;
   const currentTopicIndex = session.topicIndex;
@@ -21,7 +21,7 @@ export function useAssessment({ quizData, onTimerEnd, paused }: UseAssessmentPro
   const selectedAnswers = session.answers;
   const flaggedQuestions = session.flags;
   const timeLeft = session.timeLeft;
-  const reviewMode = session.review;
+  const reviewMode = session.review || session.phase === "results";
 
   // Section-mode practices default their index to 0, which points at the first
   // Geometría question. Ensure the current question belongs to the selected
@@ -59,10 +59,10 @@ export function useAssessment({ quizData, onTimerEnd, paused }: UseAssessmentPro
   }, [hydrated, isPaused, update]);
 
   useEffect(() => {
-    if (timeLeft === 0 && hydrated) {
+    if (timeLeft === 0 && hydrated && !isPaused) {
       onTimerEnd();
     }
-  }, [timeLeft, hydrated, onTimerEnd]);
+  }, [timeLeft, hydrated, isPaused, onTimerEnd]);
 
   const currentTopic = testMode === "full" ? FULL_TEST_TOPICS[currentTopicIndex] : testMode;
 
@@ -141,6 +141,8 @@ export function useAssessment({ quizData, onTimerEnd, paused }: UseAssessmentPro
   }, [update]);
 
   return {
+    session,
+    reset,
     mounted: hydrated,
     testMode,
     currentTopicIndex,

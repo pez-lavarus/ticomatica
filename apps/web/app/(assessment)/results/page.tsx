@@ -5,31 +5,23 @@ import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { Trophy, RotateCcw } from "lucide-react";
-import { DesktopNavigator } from "@/app/components/assessment/DesktopNavigator";
-import { loadTestSession, resetTestSession, saveTestSession, type TestSession } from "@/lib/test-session";
+import { useAssessmentContext } from "@/app/components/assessment/AssessmentContext";
 import { quizData } from "@/lib/question-bank";
 
 import { SECTION_TIME, FULL_TEST_TIME, FULL_TEST_TOPICS } from "@/lib/constants";
 
 export default function ResultsPage() {
   const router = useRouter();
-  const [session, setSession] = useState<TestSession | null>(null);
+  const { session, mounted, reset } = useAssessmentContext();
   const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
-
-  // Load data from localStorage
-  useEffect(() => {
-    setSession(loadTestSession());
-  }, []);
 
   useEffect(() => {
     setPortalContainer(document.getElementById("test-header-controls"));
   }, []);
 
-  const selectedAnswers = session?.answers ?? {};
-  const flaggedQuestions = session?.flags ?? {};
-  const testMode = session?.mode ?? "full";
-  const currentTopicIndex = session?.topicIndex ?? 0;
-  const timeLeft = session?.timeLeft ?? 0;
+  const selectedAnswers = session.answers;
+  const testMode = session.mode;
+  const timeLeft = session.timeLeft;
 
   const testQuestionsWithGlobalIndex = quizData.questions
     .map((q, idx) => ({ ...q, globalIndex: idx }))
@@ -61,30 +53,11 @@ export default function ResultsPage() {
   }).filter((s) => testMode === "full" || s.topic === testMode);
 
   const handleRetake = () => {
-    resetTestSession(testMode, testMode === "full" ? FULL_TEST_TIME : SECTION_TIME);
-    router.push("/test");
+    reset(testMode, testMode === "full" ? FULL_TEST_TIME : SECTION_TIME);
+    router.push("/test", { scroll: false });
   };
 
-  const allQuestionsWithGlobalIndex = quizData.questions.map((q, idx) => ({ ...q, globalIndex: idx }));
-  const correctAnswers = quizData.questions.reduce<Record<number, string>>((acc, q, idx) => {
-    acc[idx] = q.correct_answer;
-    return acc;
-  }, {});
-  const navigatorSections = (testMode === "full" ? FULL_TEST_TOPICS : [testMode]).map((topic) => ({
-    topic,
-    questions: allQuestionsWithGlobalIndex
-      .filter((q) => q.topic === topic)
-      .map((q) => ({
-        globalIndex: q.globalIndex,
-        section_number: testMode === "full" ? q.globalIndex + 1 : q.section_number,
-      })),
-  }));
-
-  const handleJumpToQuestion = (index: number) => {
-    const current = loadTestSession();
-    saveTestSession({ ...current, index, review: true });
-    router.push("/test");
-  };
+  if (!mounted) return null;
 
   return (
     <div className="h-full flex flex-col bg-background transition-colors">
@@ -103,26 +76,6 @@ export default function ResultsPage() {
         )}
 
       <div className="flex flex-1 min-h-0">
-        <aside className="hidden lg:flex lg:w-80 xl:w-70 shrink-0 flex-col border-r border-border bg-card min-h-0">
-          <DesktopNavigator
-            testMode={testMode}
-            sections={navigatorSections}
-            currentTopicIndex={currentTopicIndex}
-            currentIndex={-1}
-            isFlagged={false}
-            selectedAnswers={selectedAnswers}
-            correctAnswers={correctAnswers}
-            flaggedQuestions={flaggedQuestions}
-            reviewMode
-            onToggleFlag={() => {}}
-            onJumpToQuestion={handleJumpToQuestion}
-            onPrev={() => {}}
-            onNext={() => {}}
-            isLastQuestionInSection={false}
-            hasMoreSections={false}
-          />
-        </aside>
-
         <div className="flex-1 min-w-0 min-h-0 overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
           <div className="max-w-6xl mx-auto px-4 sm:px-8 py-6 sm:py-10">
         {/* Score Summary */}
