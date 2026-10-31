@@ -2,6 +2,7 @@
 @import "katex/dist/katex.min.css";
 
 :root {
+  color-scheme: light;
   --background: #FDFCF0; /* Parchment */
   --foreground: #002147; /* Oxford Blue */
   --card: #FFFFFF;
@@ -30,6 +31,7 @@
 }
 
 .dark {
+  color-scheme: dark;
   --background: #0F172A; /* Deep Slate */
   --foreground: #F8FAFC; /* Slate 50 */
   --card: #1E293B; /* Slate 800 */

@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
 import { useState, useCallback, useEffect, useRef } from "react";
@@ -35,6 +34,9 @@ export default function QuestionPage() {
   const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
 
   useEffect(() => {
+    // The header controls live outside the client tree; resolve their portal
+    // target once on the client.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setPortalContainer(document.getElementById("test-header-controls"));
   }, []);
 
@@ -115,6 +117,7 @@ export default function QuestionPage() {
 
   // Blink the hint lightbulb for a few seconds whenever a new question opens.
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsHintBlinking(true);
     const timer = setTimeout(() => setIsHintBlinking(false), 3000);
     return () => clearTimeout(timer);
@@ -152,12 +155,13 @@ export default function QuestionPage() {
     }
   }, [sectionIndex, currentSectionQuestionsWithGlobalIndex.length, hasMoreSections, currentTestMode, handleFinishTest, handleNext]);
 
-  // Timer end effect
+  // Timer end effect: transitions to the next section or the finish dialog.
   useEffect(() => {
     if (timeLeft === 0 && mounted) {
       if (testMode === "full" && currentTopicIndex < FULL_TEST_TOPICS.length - 1) {
         handleNextSection();
       } else {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         handleFinishTest();
       }
     }
@@ -192,7 +196,15 @@ export default function QuestionPage() {
     setIsImageModalOpen(true);
   };
 
-  if (!currentQuestion) return null;
+  if (!mounted || !currentQuestion) {
+    // Gate on hydration so a returning user never sees question 0 flash before
+    // their saved question loads.
+    return (
+      <AssessmentErrorBoundary>
+        <div className="h-full flex flex-col bg-background transition-colors" />
+      </AssessmentErrorBoundary>
+    );
+  }
 
   const hasSelectedAnswer = Boolean(selectedAnswers[currentIndex]);
 

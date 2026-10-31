@@ -1,7 +1,7 @@
 "use client";
 
-import { useCallback, useEffect, useLayoutEffect, useReducer, useRef, useState } from "react";
-import { getGraphAspect, preloadGraphAspect } from "@/lib/graph-aspects";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { getGraphAspect, hasGraphAspect, preloadGraphAspect } from "@/lib/graph-aspects";
 import { planQuestionLayout, samePlan } from "@/lib/question-layout-plan";
 import type { LayoutPlan, PanelId, PanelMeasurer, PanelVariant } from "@/lib/question-layout-plan";
 import type { PanelSlot } from "./QuestionPanel";
@@ -130,8 +130,18 @@ export function useQuestionLayout({
   } | null>(null);
   const [box, setBox] = useState<ContainerBox | null>(null);
   const [state, setState] = useState<PlanState>({ plan: null, placed: {} });
-  // Bumped when something that changes natural sizes finishes loading.
-  const [measureVersion, bumpMeasure] = useReducer((n: number) => n + 1, 0);
+  // Bumped when something that changes natural sizes finishes loading. Multiple
+  // arrivals in the same frame are coalesced so the panels re-plan once instead
+  // of animating through several intermediate layouts.
+  const [measureVersion, setMeasureVersion] = useState(0);
+  const measureFrameRef = useRef(0);
+  const bumpMeasure = useCallback(() => {
+    cancelAnimationFrame(measureFrameRef.current);
+    measureFrameRef.current = requestAnimationFrame(() => setMeasureVersion((n) => n + 1));
+  }, []);
+  const [fontsReady, setFontsReady] = useState(false);
+
+  useEffect(() => () => cancelAnimationFrame(measureFrameRef.current), []);
 
   // Registry of the panels' content elements.
   const [registry] = useState(() => {
@@ -178,13 +188,14 @@ export function useQuestionLayout({
     return () => {
       cancelled = true;
     };
-  }, [imageKey]);
+  }, [imageKey, bumpMeasure]);
 
   // Web fonts (KaTeX, serif body) change text metrics when they arrive.
   useEffect(() => {
     if (typeof document === "undefined" || !document.fonts) return;
     let frame = 0;
     const schedule = () => {
+      setFontsReady(true);
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(bumpMeasure);
     };
@@ -194,7 +205,7 @@ export function useQuestionLayout({
       cancelAnimationFrame(frame);
       document.fonts.removeEventListener("loadingdone", schedule);
     };
-  }, []);
+  }, [bumpMeasure]);
 
   useLayoutEffect(() => {
     if (!box || box.width <= 0 || box.height <= 0) return;
@@ -257,13 +268,18 @@ export function useQuestionLayout({
 
   const { plan, placed } = state;
 
+  // Panels animate only once the question has settled: web fonts are loaded and
+  // every image aspect is known. Until then, re-plans snap into place instead of
+  // animating through the intermediate layouts, which is what reads as flicker.
+  const settled = fontsReady && imageSources.every((src) => hasGraphAspect(src));
+
   const slot = useCallback(
     (id: PanelId): PanelSlot => ({
       register: registry.refs[id],
       rect: plan?.rects[id] ?? null,
-      animate: Boolean(placed[id]),
+      animate: settled && Boolean(placed[id]),
     }),
-    [plan, placed, registry],
+    [plan, placed, registry, settled],
   );
 
   return {
@@ -292,10 +308,11 @@ export function computeHintPanelWidth(availableWidth: number): number {
 
 /** Reactive width (px) for the hint panel, following the viewport size. */
 export function useHintPanelWidth(): number {
-  const [width, setWidth] = useState<number>(HINT_PANEL_IDEAL_PX);
+  const [width, setWidth] = useState<number>(() =>
+    typeof window === "undefined" ? HINT_PANEL_IDEAL_PX : computeHintPanelWidth(window.innerWidth),
+  );
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
     const update = () => setWidth(computeHintPanelWidth(window.innerWidth));
     update();
     window.addEventListener("resize", update);

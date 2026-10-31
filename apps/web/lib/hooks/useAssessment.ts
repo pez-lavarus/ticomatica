@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import type { QuizData } from "@/lib/types";
 import { FULL_TEST_TOPICS } from "@/lib/constants";
 import { useTestSession } from "@/lib/test-session";
@@ -37,14 +37,26 @@ export function useAssessment({ quizData, onTimerEnd, paused }: UseAssessmentPro
 
   const isPaused = Boolean(paused) || reviewMode;
 
-  // Timer
+  // Timer: a single interval reads the latest timeLeft via a ref and decrements
+  // through the functional updater, so it neither re-creates itself each second
+  // nor drifts on a stale closure. It stops itself at zero.
+  const timeLeftRef = useRef(timeLeft);
+
   useEffect(() => {
-    if (!hydrated || isPaused || timeLeft <= 0) return;
+    timeLeftRef.current = timeLeft;
+  }, [timeLeft]);
+
+  useEffect(() => {
+    if (!hydrated || isPaused) return;
     const timer = setInterval(() => {
-      update({ timeLeft: timeLeft - 1 });
+      if (timeLeftRef.current <= 0) {
+        clearInterval(timer);
+        return;
+      }
+      update((prev) => ({ timeLeft: prev.timeLeft - 1 }));
     }, 1000);
     return () => clearInterval(timer);
-  }, [hydrated, isPaused, timeLeft, update]);
+  }, [hydrated, isPaused, update]);
 
   useEffect(() => {
     if (timeLeft === 0 && hydrated) {
