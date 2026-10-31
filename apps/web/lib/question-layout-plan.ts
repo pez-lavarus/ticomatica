@@ -3,18 +3,10 @@
 // `PanelMeasurer` per panel; this module decides where each one goes and how
 // big it is, and is unit-tested with synthetic measurers.
 //
-// Model
-//  - Three panels (statement, options, optional explanation) are placed as
-//    "bands" (rows) of "columns" (stacks). Each panel hugs its content: its
-//    width comes from its max-content width (capped to a readable measure) and
-//    its height is whatever the content needs at that width. Empty space is
-//    allowed around the panels, never inside them.
-//  - Every candidate arrangement x panel variant (statement text beside the
-//    graph, options in one or two columns) x graph size is laid out and
-//    scored; the lowest score wins. The graph is always sized in local pixels
-//    from `GRAPH_LADDER`: the largest rung whose arrangement still fits. When
-//    the explanation shows, it is simply one more panel in the search, so the
-//    others resize or move only when that yields a better whole.
+// The question/answer view uses a stable reading column: aligned full-width
+// cards, statement before answers, a fixed graph limit and natural heights.
+// Content may scroll instead of shrinking diagrams to make a question fit.
+// The optional three-panel explanation view retains its adaptive templates.
 //
 // Unit convention: lengths are local CSS pixels, i.e. what clientWidth and
 // offsetHeight report inside the font-scale `zoom` wrapper. A larger font
@@ -460,7 +452,66 @@ export function graphLadder(hasGraph: boolean, ceiling?: number | null): Readonl
   return [ceiling, ...below];
 }
 
+/** Shared frame and graph size for every question. Prose inside the frame
+ * keeps its own readable measure; figures and two-column answers use the rest. */
+export const QUESTION_FRAME_MAX_PX = 1040;
+export const QUESTION_GRAPH_MAX_PX = 450;
+const TWO_COLUMN_READABLE_MIN_PX = 760;
+
+function planReadingColumn(input: PlanInput): LayoutPlan {
+  const width = Math.min(Math.max(input.containerWidth, 1), QUESTION_FRAME_MAX_PX);
+  const x = Math.floor((Math.max(input.containerWidth, 1) - width) / 2);
+  const graphMax = input.hasGraph
+    ? Math.min(QUESTION_GRAPH_MAX_PX, input.graphCeiling ?? QUESTION_GRAPH_MAX_PX)
+    : null;
+  const statementVariant = input.panels.statement.variants.find((v) => !v.split)
+    ?? input.panels.statement.variants[0];
+  const options = input.panels.options;
+  const single = options.variants.find((v) => v.columns === 1) ?? options.variants[0];
+  const double = options.variants.find((v) => v.columns === 2);
+  // Two columns are only useful when the complete answer fits at its natural
+  // width. Long formulas and prose keep the full card instead of squeezing.
+  const optionsVariant = double && width >= TWO_COLUMN_READABLE_MIN_PX
+    && options.maxContentWidth(double, null) <= width
+    ? double : single;
+  const statementHeight = Math.ceil(input.panels.statement.height(width, statementVariant, graphMax)) + SAFETY_PX;
+  const optionsHeight = Math.ceil(options.height(width, optionsVariant, null)) + SAFETY_PX;
+  const optionsY = statementHeight + gapFor(width);
+  const contentHeight = optionsY + optionsHeight;
+  return {
+    template: "stack",
+    rects: {
+      statement: { x, y: 0, width, height: statementHeight },
+      options: { x, y: optionsY, width, height: optionsHeight },
+    },
+    statementVariant,
+    optionsVariant,
+    graphMax,
+    contentHeight,
+    stageHeight: Math.max(contentHeight, input.containerHeight),
+    overflow: contentHeight > input.containerHeight,
+    score: 0,
+  };
+}
+
 export function planQuestionLayout(input: PlanInput): LayoutPlan {
+  if (!input.panels.explanation) return planReadingColumn(input);
+  // Adding an explanation should not disturb an already readable column when
+  // the new panel fits below it. Otherwise retain the adaptive three-card path.
+  if (input.previous?.template === "stack" && !input.previous.overflow) {
+    const before = input.previous;
+    const frame = before.rects.options!;
+    const height = Math.ceil(input.panels.explanation.height(frame.width, {}, null)) + SAFETY_PX;
+    const y = before.contentHeight + gapFor(input.containerWidth);
+    const contentHeight = y + height;
+    if (contentHeight <= input.containerHeight) return {
+      ...before,
+      template: "stack3",
+      rects: { ...before.rects, explanation: { x: frame.x, y, width: frame.width, height } },
+      contentHeight,
+      stageHeight: input.containerHeight,
+    };
+  }
   const { containerWidth, containerHeight, hasGraph } = input;
   const withExplanation = Boolean(input.panels.explanation);
   const ladder = graphLadder(hasGraph, input.graphCeiling);

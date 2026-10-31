@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect, useRef } from "react";
+import { type CSSProperties, useState, useCallback, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { Clock, Flag, BookOpen, Shapes, BarChart3, Binary, RotateCcw, Lightbulb } from "lucide-react";
@@ -22,7 +22,6 @@ import { FULL_TEST_TOPICS } from "@/lib/constants";
 
 export default function QuestionPage() {
   const router = useRouter();
-  const hintWidth = useHintPanelWidth();
 
   const assessment = useAssessmentContext();
 
@@ -52,6 +51,7 @@ export default function QuestionPage() {
     testMode: currentTestMode,
     hasMoreSections,
   } = assessment;
+  const hintWidth = useHintPanelWidth(reviewMode);
 
 
   // Modals state
@@ -277,7 +277,7 @@ export default function QuestionPage() {
           portalContainer,
         )}
 
-      <div className="flex flex-1 min-h-0">
+      <div className={`flex flex-1 min-h-0 ${reviewMode ? "flex-col xl:flex-row" : ""}`}>
         <div key="question" className="font-scaled flex-1 min-w-0 min-h-0 overflow-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
           <div className="px-0 sm:px-4 lg:px-8 mx-auto h-full flex flex-col">
             <QuestionExperience
@@ -306,8 +306,8 @@ export default function QuestionPage() {
           <aside
             key="hint"
             ref={hintPanelRef}
-            style={{ width: hintWidth }}
-            className="font-scaled hidden lg:flex shrink-0 flex-col border-l border-border bg-card min-h-0 panel-enter transition-all duration-300 ease-out"
+            style={{ "--hint-panel-width": `${hintWidth}px` } as CSSProperties}
+            className={`font-scaled shrink-0 flex-col border-l border-border bg-card min-h-0 panel-enter transition-all duration-300 ease-out ${reviewMode ? "flex flex-1 xl:flex-none w-full xl:w-[var(--hint-panel-width)]" : "hidden lg:flex w-[var(--hint-panel-width)]"}`}
           >
             <HintModal
               keywords={currentQuestion.keywords}

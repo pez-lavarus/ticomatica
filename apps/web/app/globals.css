@@ -292,3 +292,14 @@ button:not(:disabled),
     animation: none;
   }
 }
+
+/* The shared question frame accommodates figures and short answer grids.
+   Prose keeps a narrower reading measure within that stable frame. */
+.question-panel[data-panel="options"] .prose,
+.question-panel[data-panel="options"] .option-math {
+  max-width: 72ch;
+}
+
+.question-panel[data-panel="options"] .prose {
+  margin-inline: auto;
+}

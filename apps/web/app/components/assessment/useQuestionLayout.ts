@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useFontScale } from "@/lib/font-scale";
 import { hasGraphAspect, preloadGraphAspect } from "@/lib/graph-aspects";
 import { planQuestionLayout, samePlan } from "@/lib/question-layout-plan";
 import type { LayoutPlan, PanelId, PanelMeasurer, PanelVariant } from "@/lib/question-layout-plan";
@@ -310,27 +311,35 @@ export function useQuestionLayout({
 // ---------------------------------------------------------------------------
 // Hint panel width
 // ---------------------------------------------------------------------------
-const HINT_PANEL_IDEAL_PX = 440;
-const HINT_PANEL_MIN_PX = 320;
-const MIN_QUESTION_SPACE_PX = 560;
+const HINT_PANEL_IDEAL_PX = 520;
+const HINT_PANEL_MIN_PX = 360;
+const MIN_QUESTION_SPACE_PX = 480;
+const ASSESSMENT_GUTTER_PX = 96;
 
-export function computeHintPanelWidth(availableWidth: number): number {
-  const bySpace = availableWidth - MIN_QUESTION_SPACE_PX;
+export function computeHintPanelWidth(availableWidth: number, navigatorWidth = 0, fontScale = 1): number {
+  const bySpace = (availableWidth - navigatorWidth - ASSESSMENT_GUTTER_PX) / fontScale - MIN_QUESTION_SPACE_PX;
   return Math.min(HINT_PANEL_IDEAL_PX, Math.max(HINT_PANEL_MIN_PX, bySpace));
 }
 
 /** Reactive width (px) for the hint panel, following the viewport size. */
-export function useHintPanelWidth(): number {
+export function useHintPanelWidth(navigatorVisible = false): number {
+  const { scale } = useFontScale();
+  const measureWidth = useCallback(() => {
+    const viewport = window.innerWidth;
+    // Navigator widths match lg:w-80 and xl:w-70 in AssessmentNavigator.
+    const navigatorWidth = navigatorVisible && viewport >= 1024 ? (viewport >= 1280 ? 280 : 320) : 0;
+    return computeHintPanelWidth(viewport, navigatorWidth, scale);
+  }, [navigatorVisible, scale]);
   const [width, setWidth] = useState<number>(() =>
-    typeof window === "undefined" ? HINT_PANEL_IDEAL_PX : computeHintPanelWidth(window.innerWidth),
+    typeof window === "undefined" ? HINT_PANEL_IDEAL_PX : measureWidth(),
   );
 
-  useEffect(() => {
-    const update = () => setWidth(computeHintPanelWidth(window.innerWidth));
+  useLayoutEffect(() => {
+    const update = () => setWidth(measureWidth());
     update();
     window.addEventListener("resize", update);
     return () => window.removeEventListener("resize", update);
-  }, []);
+  }, [measureWidth]);
 
   return width;
 }

@@ -5,6 +5,8 @@ import {
   GRAPH_LADDER,
   GRAPH_SPLIT_WIDTH_CAP_PX,
   IDEAL_WIDTH_CAP_PX,
+  QUESTION_FRAME_MAX_PX,
+  QUESTION_GRAPH_MAX_PX,
   OPTIONS_MIN_PX,
   SAFETY_PX,
   planQuestionLayout,
@@ -176,14 +178,14 @@ describe("planQuestionLayout", () => {
     );
   });
 
-  it("keeps panels no wider than a readable measure", () => {
+  it("keeps the shared card frame bounded on wide screens", () => {
     const p = plan({ containerWidth: 1600, statement: longStatement });
-    for (const r of Object.values(p.rects) as Rect[]) expect(r.width).toBeLessThanOrEqual(IDEAL_WIDTH_CAP_PX);
+    for (const r of Object.values(p.rects) as Rect[]) expect(r.width).toBeLessThanOrEqual(QUESTION_FRAME_MAX_PX);
   });
 
   it("does not stretch the options card across a wide container", () => {
     const p = plan({ containerWidth: 1600 });
-    expect(p.rects.options!.width).toBeLessThan(1000);
+    expect(p.rects.options!.width).toBe(QUESTION_FRAME_MAX_PX);
   });
 
   it("uses two option columns when they make the card clearly more compact", () => {
@@ -196,9 +198,10 @@ describe("planQuestionLayout", () => {
     expect(p.optionsVariant.columns).toBe(1);
   });
 
-  it("places a squarish graph beside the text on a wide screen and stacks when narrow", () => {
+  it("keeps statement text above the graph on both wide and narrow screens", () => {
     const wide = plan({ containerWidth: 1300, containerHeight: 600, hasGraph: true, statement: withGraph });
-    expect(["side", "stack"]).toContain(wide.template);
+    expect(wide.template).toBe("stack");
+    expect(wide.statementVariant.split).not.toBe(true);
     const narrow = plan({ containerWidth: 420, hasGraph: true, statement: withGraph });
     expect(narrow.template).toBe("stack");
     expect(narrow.rects.statement!.width).toBeLessThanOrEqual(420);
@@ -212,14 +215,13 @@ describe("planQuestionLayout", () => {
     }
   });
 
-  it("uses the largest graph that fits and shrinks it only as far as needed", () => {
+  it("keeps a readable graph size even when a shorter viewport needs scrolling", () => {
     const tall = textPanel({ chars: 90, graph: { width: 500, height: 500 } });
     const roomy = plan({ containerWidth: 700, containerHeight: 1400, hasGraph: true, statement: tall });
     const tight = plan({ containerWidth: 700, containerHeight: 640, hasGraph: true, statement: tall });
-    expect(roomy.graphMax).toBe(GRAPH_LADDER[0]);
-    expect(tight.graphMax).not.toBeNull();
-    expect(tight.graphMax!).toBeLessThan(GRAPH_LADDER[0]);
-    expect(tight.overflow).toBe(false);
+    expect(roomy.graphMax).toBe(QUESTION_GRAPH_MAX_PX);
+    expect(tight.graphMax).toBe(roomy.graphMax);
+    expect(tight.overflow).toBe(true);
   });
 
   it("graph size never shrinks when the container gets taller, and never grows when it gets shorter", () => {
@@ -251,7 +253,7 @@ describe("planQuestionLayout", () => {
     expect(p.graphMax).toBe(220);
   });
 
-  it("the ceiling still gives way when the panels need the room", () => {
+  it("respects a shared graph ceiling without shrinking it further to avoid scrolling", () => {
     const tall = textPanel({ chars: 90, graph: { width: 500, height: 500 } });
     const capped = plan({
       containerWidth: 700,
@@ -261,19 +263,19 @@ describe("planQuestionLayout", () => {
       graphCeiling: 380,
     });
     const free = plan({ containerWidth: 700, containerHeight: 560, hasGraph: true, statement: tall });
-    expect(capped.graphMax!).toBeLessThanOrEqual(380);
+    expect(capped.graphMax).toBe(380);
     expect(capped.graphMax!).toBeLessThanOrEqual(free.graphMax!);
     // A ceiling never forces a scroll the free layout would have avoided.
     expect(capped.overflow).toBe(free.overflow);
   });
 
-  it("lets a wide graph use more width than a text column", () => {
+  it("keeps a shared wide frame for figures and text", () => {
     const wide = textPanel({ chars: 90, graph: { width: 1800, height: 400 } });
     const p = plan({ containerWidth: 1400, containerHeight: 800, hasGraph: true, statement: wide });
     expect(p.rects.statement!.width).toBeGreaterThan(IDEAL_WIDTH_CAP_PX);
     expect(p.rects.statement!.width).toBeLessThanOrEqual(GRAPH_SPLIT_WIDTH_CAP_PX);
     const noGraph = plan({ containerWidth: 1400, containerHeight: 800, statement: textPanel({ chars: 900 }) });
-    expect(noGraph.rects.statement!.width).toBeLessThanOrEqual(IDEAL_WIDTH_CAP_PX);
+    expect(noGraph.rects.statement!.width).toBe(p.rects.statement!.width);
   });
 
   it("scrolls only when nothing fits, and reports the real content height", () => {
@@ -301,10 +303,10 @@ describe("planQuestionLayout", () => {
     });
 
     it("rearranges when stacking would overflow but another arrangement fits", () => {
-      const without = plan({ containerWidth: 1300, containerHeight: 560, statement: short, options: shortOptions });
+      const without = plan({ containerWidth: 1300, containerHeight: 480, statement: short, options: shortOptions });
       const withE = plan({
         containerWidth: 1300,
-        containerHeight: 560,
+        containerHeight: 480,
         statement: short,
         options: shortOptions,
         explanation,
@@ -340,6 +342,23 @@ describe("planQuestionLayout", () => {
       expect(after.rects.options!.width).toBe(before.rects.options!.width);
       expect(after.optionsVariant).toEqual(before.optionsVariant);
     });
+  });
+
+  it("keeps the same frame and top anchor across different question content", () => {
+    for (const width of [360, 700, 1000, 1600]) {
+      const plans = [short, longStatement, withGraph, wideGraph].map((statement) =>
+        plan({ containerWidth: width, statement, hasGraph: statement === withGraph || statement === wideGraph }),
+      );
+      for (const next of plans) {
+        expect(next.template).toBe("stack");
+        expect(next.statementVariant.split).not.toBe(true);
+        expect(next.rects.statement!.y).toBe(0);
+        expect(next.rects.statement!.x).toBe(plans[0].rects.statement!.x);
+        expect(next.rects.statement!.width).toBe(plans[0].rects.statement!.width);
+        expect(next.rects.options!.width).toBe(next.rects.statement!.width);
+        assertSane(next, width);
+      }
+    }
   });
 
   it("is deterministic", () => {

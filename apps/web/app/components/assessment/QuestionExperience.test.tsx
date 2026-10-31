@@ -2,6 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { act, render, cleanup, waitFor } from "@testing-library/react";
 import React from "react";
 import { QuestionExperience } from "./QuestionExperience";
+import { computeHintPanelWidth } from "./useQuestionLayout";
 import type { Question } from "@/lib/types";
 
 // jsdom does no layout, so element sizes are stubbed with a simple text-flow
@@ -213,4 +214,22 @@ describe("QuestionExperience layout and math rendering", () => {
     }
   });
 
+});
+
+
+describe("hint panel sizing", () => {
+  it("widens hints on roomy screens and accounts for the persistent navigator", () => {
+    expect(computeHintPanelWidth(1600, 280)).toBe(520);
+    const withBank = computeHintPanelWidth(1280, 280);
+    expect(withBank).toBeLessThan(computeHintPanelWidth(1280));
+    expect(1280 - 280 - 96 - withBank).toBeGreaterThanOrEqual(480);
+  });
+
+  it("reserves question space when the font scale grows", () => {
+    const normal = computeHintPanelWidth(1440, 280, 1);
+    const enlarged = computeHintPanelWidth(1440, 280, 1.25);
+    expect(enlarged).toBeLessThan(normal);
+    expect((1440 - 280 - 96) / 1.25 - enlarged).toBeGreaterThanOrEqual(480);
+    expect(computeHintPanelWidth(800, 320)).toBe(360);
+  });
 });
