@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from "react";
 import { BarChart3 } from "lucide-react";
 import type { TestMode } from "@/lib/types";
 
@@ -35,7 +36,7 @@ interface DesktopNavigatorProps {
   hasMoreSections: boolean;
 } 
 
-export function DesktopNavigator({
+export const DesktopNavigator = memo(function DesktopNavigator({
   testMode,
   sections,
   currentTopicIndex,
@@ -130,4 +131,4 @@ export function DesktopNavigator({
       )}
     </div>
   );
-}
+});

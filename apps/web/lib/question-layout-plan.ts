@@ -40,7 +40,7 @@ export interface PanelVariant {
 export interface PanelMeasurer {
   /** Variants worth trying, default first. */
   variants: PanelVariant[];
-  /** Natural outer height at an outer width. */
+  /** Natural outer height at an outer width. Graph max-height only affects the statement panel. */
   height(width: number, variant: PanelVariant, graphMax: number | null): number;
   /** Outer width the content would take with no wrapping at all. */
   maxContentWidth(variant: PanelVariant, graphMax: number | null): number;
@@ -213,14 +213,14 @@ export function clamp(value: number, min: number, max: number) {
 
 const variantKey = (v: PanelVariant) => `${v.split ? 1 : 0}${v.columns ?? 0}`;
 
-function memoized(m: PanelMeasurer): PanelMeasurer {
+function memoized(m: PanelMeasurer, usesGraphSize: boolean): PanelMeasurer {
   const heights = new Map<string, number>();
   const widths = new Map<string, number>();
   return {
     variants: m.variants,
     height(width, variant, graphMax) {
       const w = Math.round(width);
-      const key = `${w}|${variantKey(variant)}|${graphMax}`;
+      const key = `${w}|${variantKey(variant)}|${usesGraphSize ? graphMax : null}`;
       let value = heights.get(key);
       if (value === undefined) {
         value = m.height(w, variant, graphMax);
@@ -229,7 +229,7 @@ function memoized(m: PanelMeasurer): PanelMeasurer {
       return value;
     },
     maxContentWidth(variant, graphMax) {
-      const key = `${variantKey(variant)}|${graphMax}`;
+      const key = `${variantKey(variant)}|${usesGraphSize ? graphMax : null}`;
       let value = widths.get(key);
       if (value === undefined) {
         value = m.maxContentWidth(variant, graphMax);
@@ -471,9 +471,11 @@ export function planQuestionLayout(input: PlanInput): LayoutPlan {
     hasGraph,
     ladder,
     measurers: {
-      statement: memoized(input.panels.statement),
-      options: memoized(input.panels.options),
-      ...(input.panels.explanation ? { explanation: memoized(input.panels.explanation) } : {}),
+      statement: memoized(input.panels.statement, hasGraph),
+      // These panels never receive --graph-max. Reuse their measurements as
+      // the search tries different graph sizes, avoiding forced DOM layouts.
+      options: memoized(input.panels.options, false),
+      ...(input.panels.explanation ? { explanation: memoized(input.panels.explanation, false) } : {}),
     },
   };
 

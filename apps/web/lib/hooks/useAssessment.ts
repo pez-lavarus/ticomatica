@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import type { QuizData } from "@/lib/types";
 import { FULL_TEST_TOPICS } from "@/lib/constants";
 import { useTestSession } from "@/lib/test-session";
@@ -54,9 +54,9 @@ export function useAssessment({ quizData, onTimerEnd, paused }: UseAssessmentPro
 
   const currentTopic = testMode === "full" ? FULL_TEST_TOPICS[currentTopicIndex] : testMode;
 
-  const currentSectionQuestionsWithGlobalIndex = quizData.questions
+  const currentSectionQuestionsWithGlobalIndex = useMemo(() => quizData.questions
     .map((q, idx) => ({ ...q, globalIndex: idx }))
-    .filter((q) => q.topic === currentTopic);
+    .filter((q) => q.topic === currentTopic), [quizData.questions, currentTopic]);
 
   const currentQuestion = quizData.questions[currentIndex];
 
