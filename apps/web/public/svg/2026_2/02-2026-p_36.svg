@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 349 327" role="img" aria-labelledby="t d">
+<title id="t">Parabola h</title><desc id="d">Upward parabola with vertex at (0,-4), crossing the x axis at -2 and 2.</desc>
+<style>
+:root{color-scheme:light dark;color:#111}@media(prefers-color-scheme:dark){:root{color:#fff}}
+.axis,.curve{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.label{fill:currentColor;font:18px Arial, sans-serif}.dot,.arrow{fill:currentColor}
+</style>
+<path class="axis" d="M36 167.5 H313 M158 308 V44"/>
+<path class="arrow" d="M318 167.5 l-9 -5 v10 z M158 42 l-5 10 h10 z"/>
+<path class="curve" d="M79 52 Q158 457 237 58"/>
+<path class="arrow" d="M79 51 l-2 11 9 -3 z M238 56 l-9 7 10 3 z"/>
+<circle class="dot" cx="111" cy="167.5" r="3.5"/><circle class="dot" cx="206" cy="167.5" r="3.5"/>
+<g class="label"><text x="157" y="30">y</text><text x="304" y="173">x</text><text x="80" y="185">−2</text><text x="217" y="193">2</text><text x="129" y="275">−4</text><text x="245" y="71">h</text></g>
+</svg>

@@ -19,6 +19,13 @@ export function getGraphAspect(src: string | undefined): number | null {
   return dimensions.width / dimensions.height;
 }
 
+/** True once a source's aspect has been resolved (loaded or known to be
+ *  missing), so callers can tell "still loading" apart from "done". */
+export function hasGraphAspect(src: string | undefined): boolean {
+  if (!src) return true;
+  return dimensionsCache.has(src);
+}
+
 export function preloadGraphAspect(src: string): Promise<number | null> {
   const cached = dimensionsCache.get(src);
   if (cached !== undefined) {

@@ -25,16 +25,16 @@ export default function ConfirmModal({
   variant = "primary",
 }: ConfirmModalProps) {
   useEffect(() => {
+    if (!isOpen) return;
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
-    if (isOpen) {
-      document.addEventListener("keydown", handleEsc);
-      document.body.style.overflow = "hidden";
-    }
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    document.addEventListener("keydown", handleEsc);
     return () => {
       document.removeEventListener("keydown", handleEsc);
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = previousOverflow;
     };
   }, [isOpen, onClose]);
 

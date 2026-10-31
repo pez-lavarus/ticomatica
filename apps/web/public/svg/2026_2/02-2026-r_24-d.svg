@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 237 259" role="img" aria-labelledby="title desc">
+<title id="title">Two rays from a point on the x-axis</title>
+<desc id="desc">Coordinate axes with two rays extending upper-left and left-upward from a point on the positive x-axis.</desc>
+<style>
+:root { color: CanvasText; }
+.axis,.ray { fill:none; stroke:currentColor; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round; }
+.label { font: 17px Arial,Helvetica,sans-serif; fill:currentColor; }
+.point,.arrow { fill:currentColor; }
+</style>
+<path class="axis" d="M57 182 H207 M128.5 240 V37"/>
+<path class="arrow" d="M211 182 L201 177 L201 187 Z M128.5 33 L123.5 43 L133.5 43 Z"/>
+<path class="ray" d="M168 182 L105 55 M168 182 L67 150"/>
+<path class="arrow" d="M104 54 L105 65 L113 61 Z M66 150 L76 148 L73 157 Z"/>
+<circle class="point" cx="168" cy="182" r="4.8"/>
+<text class="label" x="126" y="25">y</text>
+<text class="label" x="212" y="188">x</text>
+</svg>

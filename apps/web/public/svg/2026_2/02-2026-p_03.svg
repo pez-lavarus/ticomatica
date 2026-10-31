@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 538 474"
+     role="img"
+     aria-labelledby="title desc">
+  <title id="title">Circle C on the coordinate plane</title>
+  <desc id="desc">A circle centered at O on the y-axis, with top at y equals 5 and bottom at y equals negative 1.</desc>
+
+  <style>
+    .line {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .axis {
+      stroke-width: 3;
+    }
+    .label {
+      fill: currentColor;
+      stroke: none;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 27px;
+    }
+    .point {
+      fill: currentColor;
+    }
+  </style>
+
+  <!-- Coordinate axes -->
+  <path class="line axis" d="M78 357 H452"/>
+  <path class="line axis" d="M247 451 V49"/>
+  <path fill="currentColor" d="M454 357 L438 349 L438 365 Z"/>
+  <path fill="currentColor" d="M247 47 L239 63 L255 63 Z"/>
+
+  <!-- Circle -->
+  <circle class="line" cx="250.5" cy="262.5" r="143.5"/>
+
+  <!-- Marked points -->
+  <circle class="point" cx="247.5" cy="119" r="5.5"/>
+  <circle class="point" cx="247.5" cy="263.5" r="5.5"/>
+  <circle class="point" cx="250" cy="406.5" r="5.5"/>
+
+  <!-- Labels -->
+  <g class="label">
+    <text x="243" y="34">y</text>
+    <text x="462" y="366">x</text>
+    <text x="221" y="110">5</text>
+    <text x="218" y="272">2</text>
+    <text x="259" y="275">O</text>
+    <text x="402" y="245">C</text>
+    <text x="195" y="441">− 1</text>
+  </g>
+</svg>

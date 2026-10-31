@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
 import { useState, useCallback, useEffect, useRef, useMemo } from "react";
@@ -35,6 +34,9 @@ export default function QuestionPage() {
   const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
 
   useEffect(() => {
+    // The header controls live outside the client tree; resolve their portal
+    // target once on the client.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setPortalContainer(document.getElementById("test-header-controls"));
   }, []);
 
@@ -43,7 +45,29 @@ export default function QuestionPage() {
   useEffect(() => {
     if (!isHintModalOpen) return;
     const handleClick = (e: MouseEvent) => {
-      if (hintPanelRef.current && !hintPanelRef.current.contains(e.target as Node)) {
+      const path = e.composedPath ? e.composedPath() : [];
+      const isInsideHintPanel = hintPanelRef.current && path.includes(hintPanelRef.current);
+      const isOptionButton = path.some(
+        (el) => el instanceof HTMLElement && (el.classList.contains("response-option-button") || el.closest?.(".response-option-button"))
+      );
+      const isHeaderHintButton = path.some(
+        (el) => el instanceof HTMLElement && (el.classList.contains("header-hint-button") || el.closest?.(".header-hint-button"))
+      );
+
+      // Fallback target check in case composedPath is unavailable or target was connected
+      const target = e.target as HTMLElement | null;
+      const isTargetInHintPanel = hintPanelRef.current?.contains(target as Node);
+      const isTargetOptionButton = Boolean(target?.closest(".response-option-button"));
+      const isTargetHeaderHintButton = Boolean(target?.closest(".header-hint-button"));
+
+      if (
+        !isInsideHintPanel &&
+        !isOptionButton &&
+        !isHeaderHintButton &&
+        !isTargetInHintPanel &&
+        !isTargetOptionButton &&
+        !isTargetHeaderHintButton
+      ) {
         setIsHintModalOpen(false);
       }
     };
@@ -62,19 +86,7 @@ export default function QuestionPage() {
 
   const assessment = useAssessment({
     quizData,
-    onTimerEnd: () => {
-       // In the original page.tsx, when timeLeft === 0, handleNextSection was called.
-       // handleNextSection would either jump to next section or call handleFinishTest (which opens the modal).
-       // However, handleFinishTest just opens a modal. If the timer actually runs out,
-       // maybe it should force finish?
-       // Looking at original code:
-       /*
-       useEffect(() => {
-         if (timeLeft === 0) handleNextSectionRef.current();
-       }, [timeLeft]);
-       */
-       // We'll handle this in an effect here to keep logic clear.
-    }
+    onTimerEnd: () => {}
   });
 
   const {
@@ -105,10 +117,20 @@ export default function QuestionPage() {
 
   // Blink the hint lightbulb for a few seconds whenever a new question opens.
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsHintBlinking(true);
     const timer = setTimeout(() => setIsHintBlinking(false), 3000);
     return () => clearTimeout(timer);
   }, [currentIndex]);
+
+  const handleSelectOption = useCallback((option: string) => {
+    handleSelect(option);
+    if (testMode !== "full" && !reviewMode) {
+      setIsHintBlinking(true);
+      // Open the hint modal automatically when an answer is selected.
+      setIsHintModalOpen(true);
+    }
+  }, [handleSelect, testMode, reviewMode]);
 
   const allQuestionsWithGlobalIndex = useMemo(() =>
     quizData.questions.map((q, idx) => ({ ...q, globalIndex: idx })), []);
@@ -134,12 +156,13 @@ export default function QuestionPage() {
     }
   }, [sectionIndex, currentSectionQuestionsWithGlobalIndex.length, hasMoreSections, currentTestMode, handleFinishTest, handleNext]);
 
-  // Timer end effect
+  // Timer end effect: transitions to the next section or the finish dialog.
   useEffect(() => {
     if (timeLeft === 0 && mounted) {
       if (testMode === "full" && currentTopicIndex < FULL_TEST_TOPICS.length - 1) {
         handleNextSection();
       } else {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         handleFinishTest();
       }
     }
@@ -174,11 +197,17 @@ export default function QuestionPage() {
     setIsImageModalOpen(true);
   }, []);
 
-  if (!currentQuestion) return null;
+  if (!mounted || !currentQuestion) {
+    // Gate on hydration so a returning user never sees question 0 flash before
+    // their saved question loads.
+    return (
+      <AssessmentErrorBoundary>
+        <div className="h-full flex flex-col bg-background transition-colors" />
+      </AssessmentErrorBoundary>
+    );
+  }
 
-  const explanation = quizData.explanations?.find(
-    (e) => e.original_number === currentQuestion.original_number,
-  );
+  const hasSelectedAnswer = Boolean(selectedAnswers[currentIndex]);
 
   return (
     <AssessmentErrorBoundary>
@@ -237,8 +266,9 @@ export default function QuestionPage() {
                 label="Pistas"
                 onClick={() => setIsHintModalOpen((prev) => !prev)}
                 onMouseDown={(e) => e.stopPropagation()}
+                className="header-hint-button"
               >
-                <Lightbulb className={`text-accent ${isHintBlinking ? "animate-pulse" : ""}`} />
+                <Lightbulb className={`text-accent ${isHintBlinking ? "animate-pulse ring-2 ring-primary/50 rounded-sm" : ""}`} />
               </HeaderIconButton>
             )}
           </>,
@@ -270,25 +300,23 @@ export default function QuestionPage() {
         )}
 
         <div key="question" className="font-scaled flex-1 min-w-0 min-h-0 overflow-hidden [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-          {/* Side padding is small on phones: the layout engine already centers
-              and sizes the panels, so extra gutter would only waste width. */}
           <div className="px-0 sm:px-4 lg:px-8 mx-auto h-full flex flex-col">
             <QuestionExperience
               question={currentQuestion}
               currentIndex={currentIndex}
               sectionQuestions={currentSectionQuestionsWithGlobalIndex}
               testMode={testMode}
-              explanation={explanation}
               selectedAnswer={selectedAnswers[currentIndex]}
               selectedAnswers={selectedAnswers}
               flaggedQuestions={flaggedQuestions}
-              onSelect={handleSelect}
+              onSelect={handleSelectOption}
               onNext={handleNextWithFinish}
               onPrev={handlePrev}
               onJumpToQuestion={jumpToQuestion}
               onOpenImageModal={openImageModal}
               isLastQuestionInSection={sectionIndex === currentSectionQuestionsWithGlobalIndex.length - 1}
               hasMoreSections={hasMoreSections}
+              sharedImageSrc={currentQuestion.graph_image ?? undefined}
               visualSpec={currentQuestion.visual_spec ?? null}
               reviewMode={reviewMode}
             />
@@ -300,16 +328,16 @@ export default function QuestionPage() {
             key="hint"
             ref={hintPanelRef}
             style={{ width: hintWidth }}
-            className="font-scaled hidden lg:flex shrink-0 flex-col border-l border-border bg-card min-h-0"
+            className="font-scaled hidden lg:flex shrink-0 flex-col border-l border-border bg-card min-h-0 panel-enter transition-all duration-300 ease-out"
           >
             <HintModal
               keywords={currentQuestion.keywords}
               hints={currentQuestion.hints}
               hintStrategy={currentQuestion.hint_strategy}
               onRevealSolution={
-                testMode !== "full"
+                testMode !== "full" && !hasSelectedAnswer
                   ? () => {
-                      handleSelect(currentQuestion.correct_answer);
+                      handleSelectOption(currentQuestion.correct_answer);
                       setIsHintModalOpen(false);
                     }
                   : undefined

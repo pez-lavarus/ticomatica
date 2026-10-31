@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 659 416" role="img" aria-label="Diagramas de caja de Empresa A y Empresa B con mínimos, cuartiles, medianas y máximos">
+<style>
+svg{color:#17212b;font-family:Arial,Helvetica,sans-serif;font-size:19px}
+@media(prefers-color-scheme:dark){svg{color:#f5f5f5}.darkfill{fill:#777}.lightfill{fill:#bdbdbd}}
+.axis,.mark,.outline{fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:square;stroke-linejoin:miter}
+.darkfill{fill:#858585}.lightfill{fill:#d5d5d5}
+.label{text-anchor:middle;fill:currentColor}
+.name{text-anchor:end;fill:currentColor}
+</style>
+<!-- Upper scale -->
+<path class="axis" d="M167 70H609 M211 59V81 M304 59V81 M364 59V81 M508 59V81 M583 59V81"/>
+<g class="label"><text x="211" y="54">Mín</text><text x="304" y="54">Q₁</text><text x="364" y="54">Me</text><text x="508" y="54">Q₃</text><text x="583" y="54">Máx</text><text x="211" y="100">23</text><text x="304" y="100">29</text><text x="364" y="100">33</text><text x="508" y="100">40</text><text x="583" y="100">45</text></g>
+<!-- Company A -->
+<text class="name" x="189" y="151">Empresa A</text>
+<path class="axis" d="M211 144H583 M211 134V154 M583 134V154"/>
+<rect class="darkfill" x="304" y="117" width="60" height="53"/>
+<rect class="lightfill" x="364" y="117" width="142" height="53"/>
+<path class="outline" d="M304 117H506V170H304Z M364 117V170"/>
+<!-- Company B -->
+<text class="name" x="115" y="266">Empresa B</text>
+<path class="axis" d="M135 259H583 M135 249V269 M583 249V269"/>
+<rect class="darkfill" x="210" y="232" width="154" height="53"/>
+<rect class="lightfill" x="364" y="232" width="90" height="53"/>
+<path class="outline" d="M210 232H454V285H210Z M364 232V285"/>
+<!-- Lower scale -->
+<path class="axis" d="M90 346H613 M135 335V357 M210 335V357 M364 335V357 M454 335V357 M583 335V357"/>
+<g class="label"><text x="135" y="328">19</text><text x="210" y="328">23</text><text x="364" y="328">33</text><text x="454" y="328">38</text><text x="583" y="328">45</text><text x="135" y="378">Mín</text><text x="210" y="378">Q₁</text><text x="364" y="378">Me</text><text x="454" y="378">Q₃</text><text x="583" y="378">Máx</text></g>
+</svg>

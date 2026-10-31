@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 191 206" role="img" aria-label="Line crossing the y-axis at 6 and the x-axis at 3">
+<title>Line with intercepts 6 and 3</title>
+<style>
+:root{color:CanvasText}
+.line{stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.point,.arrow{fill:currentColor}
+.label{fill:currentColor;font:17px Arial,Helvetica,sans-serif}
+</style>
+<path class="line" d="M19 148 H165 M77 169 V32"/>
+<path class="arrow" d="M168 148 L159 143 V153 Z M77 29 L72 38 H82 Z"/>
+<path class="line" d="M58 36 L145 182"/>
+<path class="arrow" d="M55 32 L56 43 L64 38 Z M148 187 L138 181 L146 176 Z"/>
+<circle class="point" cx="77" cy="70" r="4.5"/>
+<circle class="point" cx="125" cy="148" r="4.5"/>
+<g class="label"><text x="74" y="23">y</text><text x="169" y="153">x</text><text x="85" y="76">6</text><text x="124" y="142">3</text></g>
+</svg>

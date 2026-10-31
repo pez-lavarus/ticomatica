@@ -41,7 +41,8 @@
       }
     },
     "notes": { "type": "array", "items": { "type": "string" } },
-    "items": { "type": "array", "items": { "$ref": "#/$defs/item" } }
+    "items": { "type": "array", "items": { "$ref": "#/$defs/item" } },
+    "groups": { "type": "array", "items": { "$ref": "#/$defs/group" } }
   },
   "$defs": {
     "item": {
@@ -71,7 +72,31 @@
         "solution_steps": { "type": "array", "items": { "type": "string" } },
         "group_id": { "type": ["string", "null"] },
         "visual_spec": { "$ref": "#/$defs/visual_spec" },
+        "image": { "type": ["string", "null"] },
+        "option_images": {
+          "type": ["object", "null"],
+          "properties": {
+            "A": { "type": "string" },
+            "B": { "type": "string" },
+            "C": { "type": "string" },
+            "D": { "type": "string" }
+          },
+          "additionalProperties": false
+        },
         "flags": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    },
+    "group": {
+      "type": "object",
+      "required": ["group_id", "items"],
+      "properties": {
+        "group_id": { "type": "string" },
+        "items": { "type": "array", "items": { "type": "integer" } },
+        "title": { "type": "string" },
+        "context_text": { "type": ["string", "null"] },
+        "visual_spec": { "$ref": "#/$defs/visual_spec" },
+        "image": { "type": ["string", "null"] }
       },
       "additionalProperties": false
     },

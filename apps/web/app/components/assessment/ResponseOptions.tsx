@@ -1,10 +1,10 @@
 "use client";
 
 import { useRef } from "react";
-import Image from "next/image";
 import { KaTeXText } from "@/lib/katex-utils";
 import { getGraphDimensions } from "@/lib/graph-aspects";
 import type { Question } from "@/lib/types";
+import { SourceImage } from "./SourceImage";
 import { QuestionPanel } from "./QuestionPanel";
 import type { PanelSlot } from "./QuestionPanel";
 
@@ -103,7 +103,7 @@ export function ResponseOptions({
                 key={option.label}
                 disabled={readOnly}
                 onClick={() => onSelect(option.label)}
-                className={`w-full flex gap-3 md:gap-5 p-3 md:p-4 rounded-sm border-2 text-left transition-all group active:scale-[0.98] disabled:cursor-default disabled:active:scale-100 ${buttonClasses} ${flashClasses}`}
+                className={`response-option-button w-full flex gap-3 md:gap-5 p-3 md:p-4 rounded-sm border-2 text-left transition-all group active:scale-[0.98] disabled:cursor-default disabled:active:scale-100 ${buttonClasses} ${flashClasses}`}
               >
                 <div
                   className={`w-7 h-7 md:w-9 md:h-9 flex-shrink-0 flex items-center justify-center rounded-sm font-bold text-base md:text-lg border-2 transition-colors ${letterClasses}`}
@@ -125,8 +125,9 @@ export function ResponseOptions({
                       onTouchEnd={handleTouchEnd}
                       onTouchMove={handleTouchEnd}
                     >
-                      <Image
-                        src={option.image}
+                      <SourceImage
+                        svg={option.svg}
+                        png={option.image}
                         alt={`Opción ${option.label}`}
                         width={optionImageDimensions?.width ?? 340}
                         height={optionImageDimensions?.height ?? 200}

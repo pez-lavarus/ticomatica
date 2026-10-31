@@ -8,12 +8,11 @@ import {
   ChevronUp,
   ChevronDown
 } from "lucide-react";
-import type { Explanation, Question, TestMode } from "@/lib/types";
+import type { Question, TestMode } from "@/lib/types";
 import type { VisualSpec } from "@/app/types";
 import { getModeBehavior } from "@/lib/practice-mode";
 import { QuestionStatement } from "./QuestionStatement";
 import { ResponseOptions } from "./ResponseOptions";
-import { ExplanationPanel } from "./ExplanationPanel";
 import { useQuestionLayout } from "./useQuestionLayout";
 
 interface QuestionExperienceProps {
@@ -22,7 +21,6 @@ interface QuestionExperienceProps {
   currentIndex: number;
   sectionQuestions: { globalIndex: number; section_number: number }[];
   testMode: TestMode;
-  explanation?: Explanation;
 
   // State
   selectedAnswer?: string;
@@ -42,7 +40,7 @@ interface QuestionExperienceProps {
   sharedImageSrc?: string;
   /** Structured graph spec rendered by `VisualRenderer`. */
   visualSpec?: VisualSpec | null;
-  /** Review mode: force practice behavior (feedback + explanation) regardless of testMode. */
+  /** Review mode: force practice behavior regardless of testMode. */
   reviewMode?: boolean;
 }
 
@@ -51,7 +49,6 @@ export const QuestionExperience = memo(function QuestionExperience({
   currentIndex,
   sectionQuestions,
   testMode,
-  explanation,
   selectedAnswer,
   selectedAnswers,
   flaggedQuestions,
@@ -68,7 +65,6 @@ export const QuestionExperience = memo(function QuestionExperience({
 }: QuestionExperienceProps) {
   const [isNavigatorExpanded, setIsNavigatorExpanded] = useState(false);
   const [flashAnswer, setFlashAnswer] = useState<string | null>(null);
-  const [isExplanationDismissed, setIsExplanationDismissed] = useState(false);
   const prevQuestionKeyRef = useRef(question.original_number);
   const autoNextTimer = useRef<NodeJS.Timeout | null>(null);
   const behavior = reviewMode
@@ -76,18 +72,20 @@ export const QuestionExperience = memo(function QuestionExperience({
     : getModeBehavior(testMode);
 
   const revealed = behavior.immediateFeedback && (reviewMode || Boolean(selectedAnswer));
-  const showPanel = behavior.showExplanation && revealed && Boolean(explanation) && !isExplanationDismissed;
 
   // Every image that affects panel sizes, so the layout can re-plan once their
-  // dimensions are known.
-  const imageSources = question.options.flatMap((option) => (option.image ? [option.image] : []));
+  // dimensions are known. Only the raster PNGs are preloaded for aspect ratio:
+  // the inline SVGs scale to the same proportions.
+  const imageSources = [
+    ...(sharedImageSrc ? [sharedImageSrc] : []),
+    ...question.options.flatMap((option) => (option.image ? [option.image] : [])),
+  ];
 
   const { containerRef, slot, stageHeight, statementSplit, optionsColumns, graphMax } = useQuestionLayout({
     questionKey: question.original_number,
-    hasGraph: Boolean(visualSpec),
+    hasGraph: Boolean(visualSpec) || Boolean(sharedImageSrc),
     hasStatementText: Boolean(question.statement),
     optionCount: question.options.length,
-    hasExplanation: showPanel,
     imageSources,
     graphSrc: sharedImageSrc,
   });
@@ -95,15 +93,6 @@ export const QuestionExperience = memo(function QuestionExperience({
   if (prevQuestionKeyRef.current !== question.original_number) {
     prevQuestionKeyRef.current = question.original_number;
     setFlashAnswer(null);
-  }
-
-  // Re-open the explanation whenever the question or the selected answer
-  // changes, so "Ver solución" can reveal it again after it was dismissed.
-  const revealKey = `${question.original_number}:${selectedAnswer ?? ""}`;
-  const prevRevealKeyRef = useRef(revealKey);
-  if (prevRevealKeyRef.current !== revealKey) {
-    prevRevealKeyRef.current = revealKey;
-    setIsExplanationDismissed(false);
   }
 
   const flashActive = revealed && flashAnswer === selectedAnswer;
@@ -139,12 +128,6 @@ export const QuestionExperience = memo(function QuestionExperience({
 
   return (
     <div className="flex flex-col gap-4 md:gap-6 h-full">
-      {/* The three panels (statement, options, explanation) are placed by
-          useQuestionLayout: each one hugs its content, and their arrangement
-          and sizes are re-planned whenever the question, the font size, the
-          available space or the explanation changes. The container is padded
-          and pulled back with a negative margin so the cards' shadows are not
-          clipped by the scroll overflow. */}
       <div
         ref={containerRef}
         className="relative flex-1 min-h-0 -mx-1.5 px-1.5 -mb-2 pb-2 overflow-y-auto hide-scrollbar"
@@ -178,14 +161,6 @@ export const QuestionExperience = memo(function QuestionExperience({
             flash={flashActive}
             readOnly={reviewMode}
           />
-          {showPanel && (
-            <ExplanationPanel
-              explanation={explanation}
-              questionKey={question.original_number}
-              slot={slot("explanation")}
-              onClose={() => setIsExplanationDismissed(true)}
-            />
-          )}
         </div>
       </div>
 

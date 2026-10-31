@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 454 404" role="img" aria-labelledby="title desc">
+<title id="title">Quadrilateral RQSP on a coordinate plane</title>
+<desc id="desc">Diamond with R at (1,4), Q at (3,7), S at (5,4), and P at (3,1).</desc>
+<style>
+:root { color: #111; }
+@media (prefers-color-scheme: dark) { :root { color: #fff; } }
+.axis,.shape,.guide { fill:none; stroke:currentColor; }
+.axis {stroke-width:2;}
+.shape {stroke-width:2.4;stroke-linejoin:round;}
+.guide {stroke-width:1.5;stroke-dasharray:6 5;opacity:.45;}
+.label {fill:currentColor;font:18px Arial,Helvetica,sans-serif;}
+.dot {fill:currentColor;}
+</style>
+<path class="guide" d="M114 100 H211 M114 198 H278 M114 307 H211 M145 198 V338 M211 100 V338 M278 198 V338"/>
+<path class="axis" d="M87 338 H349 M114 371 V35"/>
+<path fill="currentColor" d="M350 338 l-10 -5 v10 z M114 34 l-5 10 h10 z"/>
+<path class="shape" d="M145 198 L211 100 L278 198 L211 307 Z"/>
+<g class="dot"><circle cx="145" cy="198" r="3.6"/><circle cx="211" cy="100" r="3.6"/><circle cx="278" cy="198" r="3.6"/><circle cx="211" cy="307" r="3.6"/></g>
+<g class="label"><text x="109" y="28">y</text><text x="351" y="345">x</text><text x="92" y="105">7</text><text x="90" y="201">4</text><text x="92" y="313">1</text><text x="140" y="361">1</text><text x="206" y="361">3</text><text x="273" y="361">5</text><text x="204" y="90">Q</text><text x="125" y="196">R</text><text x="288" y="206">S</text><text x="220" y="317">P</text></g>
+</svg>

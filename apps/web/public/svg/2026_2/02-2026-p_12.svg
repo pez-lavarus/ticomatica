@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 580 506" role="img" aria-labelledby="title desc">
+<title id="title">Decreasing curve with coordinate axes</title>
+<desc id="desc">A graph with a vertical segment at x 40 from y 40 to y 100, a decreasing curved line to x 100 y 60, then a straight line to x 120 y 40, and a horizontal baseline back to x 40.</desc>
+<style>
+:root { color-scheme: light dark; color: #111; }
+@media (prefers-color-scheme: dark) { :root { color: #fff; } }
+.axis,.shape { fill:none; stroke:currentColor; stroke-linecap:round; stroke-linejoin:round; }
+.axis {stroke-width:1.2} .shape {stroke-width:3.2}
+.grid {fill:none;stroke:currentColor;stroke-width:1;stroke-dasharray:4 3;opacity:.22}
+.label {fill:currentColor;font-family:Arial,Helvetica,sans-serif;font-size:17px}
+</style>
+<!-- Grid lines -->
+<path class="grid" d="M65 150.5 H528 M65 207 H528 M65 263.5 H528 M65 320.5 H528 M207.5 150 V463 M278.5 150 V463 M349.5 150 V463 M420.5 150 V463 M492 150 V463"/>
+<!-- Axes -->
+<path class="axis" d="M12 433.5 H565 M65.5 476 V33"/>
+<path fill="currentColor" d="M569 433.5 L558 429 L558 438 Z M65.5 30 L60.5 41 L70.5 41 Z"/>
+<!-- Data shape -->
+<path class="shape" d="M207.5 320.5 V150.5 C260 204, 332 263.5, 420.5 263.5 L492 320.5 Z"/>
+<!-- Ticks -->
+<path class="axis" d="M59 150.5 H65 M59 207 H65 M59 263.5 H65 M59 320.5 H65"/>
+<g class="label" text-anchor="middle">
+<text x="207.5" y="454">40</text><text x="278.5" y="454">60</text><text x="349.5" y="454">80</text><text x="420.5" y="454">100</text><text x="492" y="454">120</text>
+</g>
+<g class="label" text-anchor="end"><text x="54" y="156">100</text><text x="54" y="213">80</text><text x="54" y="269">60</text><text x="54" y="326">40</text></g>
+<g class="label"><text x="61" y="28">y</text><text x="572" y="439">x</text></g>
+</svg>

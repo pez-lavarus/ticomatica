@@ -1,6 +1,7 @@
 "use client";
 
-import { Eye, Lightbulb } from "lucide-react";
+import { Lightbulb } from "lucide-react";
+import { KaTeXText } from "@/lib/katex-utils";
 
 interface HintModalProps {
   keywords?: string[];
@@ -10,7 +11,7 @@ interface HintModalProps {
   onRevealSolution?: () => void;
 }
 
-export default function HintModal({ keywords = [], hints = [], hintStrategy, onRevealSolution }: HintModalProps) {
+export default function HintModal({ keywords = [], hints = [], hintStrategy }: HintModalProps) {
   const topic = keywords[0];
 
   return (
@@ -20,9 +21,11 @@ export default function HintModal({ keywords = [], hints = [], hintStrategy, onR
         <h3 className="text-sm font-bold uppercase tracking-[0.2em]">Pistas de la Pregunta</h3>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-6 space-y-4">
+      <div className="flex-1 overflow-y-auto p-6 space-y-4 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
         {topic && (
-          <p className="text-xs font-bold uppercase tracking-[0.15em] text-primary">{topic}</p>
+          <p className="text-xs font-bold uppercase tracking-[0.15em] text-primary">
+            <KaTeXText text={topic} />
+          </p>
         )}
         {hints.length > 0 ? (
           hints.map((hint, index) => (
@@ -30,11 +33,13 @@ export default function HintModal({ keywords = [], hints = [], hintStrategy, onR
               <p className="text-xs font-bold uppercase tracking-[0.15em] text-primary mb-2">
                 Paso {index + 1}
               </p>
-              <p className="text-sm text-foreground font-serif leading-relaxed">{hint}</p>
+              <div className="text-base md:text-lg text-foreground font-serif leading-[1.6] md:leading-[1.8]">
+                <KaTeXText text={hint} />
+              </div>
             </div>
           ))
         ) : (
-          <p className="text-sm text-muted-foreground font-serif">
+          <p className="text-base md:text-lg text-muted-foreground font-serif">
             No hay pistas disponibles para esta pregunta.
           </p>
         )}
@@ -42,19 +47,9 @@ export default function HintModal({ keywords = [], hints = [], hintStrategy, onR
 
       {hintStrategy && (
         <div className="p-4 border-t border-border/60 bg-muted/10 shrink-0">
-          <p className="text-xs text-muted-foreground italic">{hintStrategy}</p>
-        </div>
-      )}
-
-      {onRevealSolution && (
-        <div className="p-4 border-t border-border/60 bg-muted/10 shrink-0">
-          <button
-            onClick={onRevealSolution}
-            className="w-full flex items-center justify-center gap-2 px-3 py-3 rounded-sm bg-primary text-primary-foreground text-xs font-bold uppercase tracking-[0.2em] shadow-md hover:brightness-90 transition-all"
-          >
-            <Eye className="w-4 h-4" />
-            <span>Ver solución</span>
-          </button>
+          <div className="text-sm md:text-base text-muted-foreground font-serif italic leading-relaxed">
+            <KaTeXText text={hintStrategy} />
+          </div>
         </div>
       )}
     </div>

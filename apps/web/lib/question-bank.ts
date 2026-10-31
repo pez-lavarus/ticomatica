@@ -1,12 +1,17 @@
 // Transforms the structured 2026_2 item bank into the shape the question UI
-// consumes (QuizData). The bank carries structured `visual_spec` graphs (SVG)
-// instead of the legacy PNG placeholders, plus per-item solution steps that
-// double as progressive hints.
+// consumes (QuizData). Graphs extracted from the exam PDF are referenced by
+// file name (`image` on items/groups, `option_images` on items) and resolved to
+// their public URLs; structured tables still use `visual_spec` (SVG/HTML).
+// Per-item solution steps double as progressive hints.
+//
+// `questions.json` is the single source of truth: shared contexts and figures
+// (items that refer to the same graph/table) live in its top-level `groups`
+// array and are referenced from each item through `group_id`.
 
 import questionsRaw from "@/data/2026_2/questions.json";
-import groupsRaw from "@/data/2026_2/groups.json";
 import type { VisualSpec } from "@/app/types";
 import type { Explanation, Question, QuizData, QuizMetadata } from "@/lib/types";
+import { sourceImageUrl, sourceSvgUrl } from "@/lib/source-images";
 
 /** Consistent graph width (px) injected into every visual so the figures do
  *  not jump in size from question to question. */
@@ -28,26 +33,30 @@ type RawItem = {
   statement?: string;
   problem?: string;
   options?: Record<string, string>;
+  option_images?: Record<string, string> | null;
   correct_answer?: string;
   solution_steps?: (string | { explanation?: string })[];
   group_id?: string | null;
+  image?: string | null;
   visual_spec?: VisualSpec | null;
+};
+
+type RawGroup = {
+  group_id?: string;
+  items?: number[];
+  title?: string;
+  visual_spec?: VisualSpec | null;
+  context_text?: string | null;
+  image?: string | null;
 };
 
 type RawBank = {
   exam?: string;
   convocatoria?: string;
+  image_base?: string;
+  svg_base?: string;
   source?: string;
   items?: RawItem[];
-};
-
-type RawGroup = {
-  group_id?: string;
-  visual_spec?: VisualSpec | null;
-  context_text?: string;
-};
-
-type RawGroups = {
   groups?: RawGroup[];
 };
 
@@ -76,16 +85,22 @@ function withVisualWidth(spec: VisualSpec | null | undefined, width: number): Vi
 
 function buildBank(): QuizData {
   const bank = questionsRaw as unknown as RawBank;
-  const groups = (groupsRaw as unknown as RawGroups).groups ?? [];
+  const groups = bank.groups ?? [];
+  const imageBase = bank.image_base ?? "/png/2026_2";
+  const svgBase = bank.svg_base ?? "/svg/2026_2";
 
   const groupVisual = new Map<string, VisualSpec>();
   const groupContext = new Map<string, string>();
+  const groupImageName = new Map<string, string>();
   for (const group of groups) {
     if (group.group_id && group.visual_spec) {
       groupVisual.set(group.group_id, group.visual_spec);
     }
     if (group.group_id && group.context_text) {
       groupContext.set(group.group_id, group.context_text);
+    }
+    if (group.group_id && group.image) {
+      groupImageName.set(group.group_id, group.image);
     }
   }
 
@@ -97,10 +112,17 @@ function buildBank(): QuizData {
     const topic = AREA_TO_TOPIC[areaId] ?? item.topic ?? areaId;
     const sectionNumber = (sectionCounters[areaId] = (sectionCounters[areaId] ?? 0) + 1);
 
-    const options = (["A", "B", "C", "D"] as const).map((label) => ({
-      label,
-      text: item.options?.[label] ?? "",
-    }));
+    const options = (["A", "B", "C", "D"] as const).map((label) => {
+      const optionImageName = item.option_images?.[label];
+      const optionImage = sourceImageUrl(imageBase, optionImageName);
+      const optionSvg = sourceSvgUrl(svgBase, optionImageName);
+      return {
+        label,
+        text: item.options?.[label] ?? "",
+        ...(optionImage ? { image: optionImage } : {}),
+        ...(optionSvg ? { svg: optionSvg } : {}),
+      };
+    });
 
     const steps = (item.solution_steps ?? []).map(stepText);
     const hints = steps.length > 1 ? steps.slice(0, -1) : steps;
@@ -108,6 +130,12 @@ function buildBank(): QuizData {
     const ownVisual = item.visual_spec;
     const inheritedVisual = item.group_id ? groupVisual.get(item.group_id) ?? null : null;
     const visualSpec = withVisualWidth(ownVisual ?? inheritedVisual, VISUAL_WIDTH);
+
+    const ownImageName = item.image;
+    const inheritedImageName = item.group_id ? groupImageName.get(item.group_id) : undefined;
+    const imageName = ownImageName ?? inheritedImageName;
+    const graphImage = sourceImageUrl(imageBase, imageName);
+    const graphSvg = sourceSvgUrl(svgBase, imageName);
 
     const itemStatement = item.statement ?? "";
     const groupStatement = item.group_id ? (groupContext.get(item.group_id) ?? "") : "";
@@ -118,6 +146,8 @@ function buildBank(): QuizData {
       statement: itemStatement || groupStatement,
       problem: item.problem ?? "",
       visual_spec: visualSpec,
+      graph_image: graphImage,
+      ...(graphSvg ? { graph_svg: graphSvg } : {}),
       options,
       correct_answer: (item.correct_answer as Question["correct_answer"]) ?? "A",
       topic,
@@ -145,7 +175,7 @@ function buildBank(): QuizData {
     items_practica: `1 a ${items.length}`,
     format: "Selección única",
     source: bank.source ?? "Práctica BXM Matemáticas 02-2026",
-    notes: "Gráficos vectoriales generados desde la especificación visual de cada ítem.",
+    notes: "Gráficos desde las imágenes de origen extraídas del PDF 02-2026 y tablas estructuradas.",
   };
 
   return {

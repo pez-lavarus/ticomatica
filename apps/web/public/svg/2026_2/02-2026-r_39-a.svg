@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 231 201" role="img" aria-labelledby="title desc">
+<title id="title">Line crossing x at negative three and y at six</title>
+<desc id="desc">Coordinate axes and a rising straight line passing through the marked points (-3,0) and (0,6).</desc>
+<style>
+:root { color: CanvasText; }
+.line { fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+.label { fill:currentColor; font: 17px Arial, Helvetica, sans-serif; }
+.point { fill:currentColor; }
+</style>
+<!-- axes -->
+<path class="line" d="M33 150 H182 M120 166 V29"/>
+<path fill="currentColor" d="M184 150 L175 145 L175 155 Z M120 27 L115 36 L125 36 Z"/>
+<!-- diagonal line -->
+<path class="line" d="M59 182 L144 21"/>
+<path fill="currentColor" d="M58 184 L59 173 L67 177 Z M145 19 L136 25 L144 30 Z"/>
+<!-- marked intercepts -->
+<circle class="point" cx="76" cy="150" r="4.2"/>
+<circle class="point" cx="120" cy="66" r="4.2"/>
+<g class="label"><text x="116" y="22">y</text><text x="185" y="155">x</text><text x="44" y="146">− 3</text><text x="100" y="69">6</text></g>
+</svg>

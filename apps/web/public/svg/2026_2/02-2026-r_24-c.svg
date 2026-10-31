@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 238 238" role="img" aria-labelledby="title">
+<title id="title">Coordinate axes with sideways S-shaped curve</title>
+<style>
+:root { color: CanvasText; }
+.axis,.curve { fill:none; stroke:currentColor; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round; }
+.label { fill:currentColor; font: 17px Arial, sans-serif; }
+.arrow { fill:currentColor; }
+</style>
+<path class="axis" d="M23 172 H174 M95 225 V30"/>
+<path class="arrow" d="M175 172 L166 167 L166 177 Z M95 29 L90 39 L100 39 Z"/>
+<path class="curve" d="M86 57 C98 72 119 96 114 113 C109 131 76 145 79 165 C80 182 94 199 106 215"/>
+<path class="arrow" d="M84 54 L85 65 L94 58 Z M108 218 L98 213 L106 207 Z"/>
+<text class="label" x="92" y="22">y</text>
+<text class="label" x="178" y="178">x</text>
+</svg>

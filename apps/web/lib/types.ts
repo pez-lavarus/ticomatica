@@ -6,6 +6,8 @@ export interface QuestionOption {
   label: "A" | "B" | "C" | "D";
   text?: string;
   image?: string;
+  /** Preferred vector (SVG) URL; falls back to `image` when it fails to load. */
+  svg?: string;
 }
 
 export interface Question {
@@ -17,6 +19,10 @@ export interface Question {
   shared_image?: string;
   /** Structured graph spec rendered by `VisualRenderer`. */
   visual_spec?: VisualSpec | null;
+  /** Resolved source-image URL for the question's statement graph. */
+  graph_image?: string;
+  /** Preferred vector (SVG) URL for the statement graph. */
+  graph_svg?: string;
   options: QuestionOption[];
   correct_answer: "A" | "B" | "C" | "D";
   topic: string;

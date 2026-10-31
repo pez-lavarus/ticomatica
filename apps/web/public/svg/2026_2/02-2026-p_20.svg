@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 428 330" role="img" aria-labelledby="title desc">
+<title id="title">Coordinate diagram with points D E F G H I J</title>
+<desc id="desc">Roof-shaped polygon with D at (0,8), E at (-4,5), J at (4,5), and interior rectangle from (-2,2) to (2,5).</desc>
+<style>
+:root{color:#111} @media(prefers-color-scheme:dark){:root{color:#fff}}
+.line{fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.guide{fill:none;stroke:currentColor;stroke-width:1.6;stroke-dasharray:6 6;opacity:.48}
+.dot{fill:currentColor}.txt{fill:currentColor;font:18px Arial,Helvetica,sans-serif}
+</style>
+<!-- guides -->
+<path class="guide" d="M86 157 V283 M142 157 V283 M253 155 V283 M307 155 V283 M142 155 H307"/>
+<!-- axes -->
+<path class="line" d="M38 283 H389 M200 313 V23"/>
+<path fill="currentColor" d="M389 283 380 278 380 288Z M200 22 195 32 205 32Z"/>
+<!-- outer roof and interior -->
+<path class="line" d="M86 157 200 65 307 155 H253 V249 H142 V157 H86"/>
+<path class="line" d="M200 65 307 155"/>
+<path class="line" d="M86 157 H142"/>
+<!-- dots -->
+<g class="dot"><circle cx="200" cy="65" r="3.8"/><circle cx="86" cy="157" r="3.8"/><circle cx="142" cy="157" r="3.8"/><circle cx="142" cy="249" r="3.8"/><circle cx="253" cy="249" r="3.8"/><circle cx="253" cy="155" r="3.8"/><circle cx="307" cy="155" r="3.8"/></g>
+<!-- labels -->
+<g class="txt"><text x="194" y="16">y</text><text x="395" y="289">x</text><text x="185" y="64">8</text><text x="204" y="66">D</text><text x="68" y="161">E</text><text x="137" y="151">F</text><text x="121" y="254">G</text><text x="259" y="255">H</text><text x="247" y="147">I</text><text x="314" y="160">J</text><text x="201" y="154">5</text><text x="201" y="246">2</text><text x="69" y="306">−4</text><text x="126" y="306">−2</text><text x="247" y="306">2</text><text x="302" y="306">4</text></g>
+</svg>

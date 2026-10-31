@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 239 168" role="img" aria-labelledby="title">
+<title id="title">Line p crossing the y-axis at minus 3 and the x-axis at 6</title>
+<style>
+:root { color: CanvasText; }
+.axis,.graph { fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round }
+.label { fill:currentColor;font-family:Arial,Helvetica,sans-serif;font-size:17px }
+.dot,.arrow {fill:currentColor}
+</style>
+<path class="axis" d="M23 78 H217 M47 152 V27"/>
+<path class="arrow" d="M217 78 l-9 -5 v10 z M47 27 l-5 9 h10 z"/>
+<path class="graph" d="M19 142 L206 46"/>
+<path class="arrow" d="M19 142 l5 -10 5 9 z M206 46 l-10 1 5 9 z"/>
+<circle class="dot" cx="47" cy="127.5" r="4.2"/>
+<circle class="dot" cx="142" cy="78" r="4.2"/>
+<text class="label" x="43" y="19">y</text>
+<text class="label" x="221" y="84">x</text>
+<text class="label" x="179" y="42">p</text>
+<text class="label" x="135" y="69">6</text>
+<text class="label" x="12" y="129">−3</text>
+</svg>

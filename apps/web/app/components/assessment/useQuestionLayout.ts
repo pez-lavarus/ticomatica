@@ -1,7 +1,7 @@
 "use client";
 
-import { useCallback, useEffect, useLayoutEffect, useReducer, useRef, useState } from "react";
-import { getGraphAspect, preloadGraphAspect } from "@/lib/graph-aspects";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { getGraphAspect, hasGraphAspect, preloadGraphAspect } from "@/lib/graph-aspects";
 import { planQuestionLayout, samePlan } from "@/lib/question-layout-plan";
 import type { LayoutPlan, PanelId, PanelMeasurer, PanelVariant } from "@/lib/question-layout-plan";
 import type { PanelSlot } from "./QuestionPanel";
@@ -9,27 +9,12 @@ import type { PanelSlot } from "./QuestionPanel";
 // This hook only measures and applies. Every decision (which panels sit side
 // by side, how wide each one is, how big the graph is, whether the screen
 // scrolls) lives in `lib/question-layout-plan.ts`, which is unit-tested.
-//
-// How measuring works. Each panel's content element hangs out of flow from its
-// frame (see QuestionPanel), so the engine can ask "how tall are you at 520px,
-// with the graph capped at 220px, in two columns?" by temporarily setting
-// those on the element, reading offsetHeight, and restoring. All of it happens
-// synchronously inside one layout effect, so nothing is painted and nothing
-// animates while probing; the frame only ever sees the final plan.
-//
-// Units: the font scale is a CSS `zoom` on an ancestor, so everything is read
-// with the offset/client family, which reports in the zoomed element's own
-// coordinates. Nothing here uses getBoundingClientRect or window sizes. A
-// larger font makes the container smaller in these units, which is what
-// triggers a new plan.
 
 interface UseQuestionLayoutOptions {
   questionKey: number;
   hasGraph: boolean;
   hasStatementText: boolean;
   optionCount: number;
-  /** The explanation panel is mounted. */
-  hasExplanation: boolean;
   /** Every image the panels show, so the layout re-plans once sizes are known. */
   imageSources: string[];
   /** The shared graph source, so its chosen size is reused across questions. */
@@ -134,7 +119,6 @@ export function useQuestionLayout({
   hasGraph,
   hasStatementText,
   optionCount,
-  hasExplanation,
   imageSources,
   graphSrc,
 }: UseQuestionLayoutOptions) {
@@ -143,16 +127,23 @@ export function useQuestionLayout({
     plan: LayoutPlan;
     questionKey: number;
     box: ContainerBox;
-    hasExplanation: boolean;
   } | null>(null);
   const [box, setBox] = useState<ContainerBox | null>(null);
   const [state, setState] = useState<PlanState>({ plan: null, placed: {} });
-  // Bumped when something that changes natural sizes finishes loading.
-  const [measureVersion, bumpMeasure] = useReducer((n: number) => n + 1, 0);
+  // Bumped when something that changes natural sizes finishes loading. Multiple
+  // arrivals in the same frame are coalesced so the panels re-plan once instead
+  // of animating through several intermediate layouts.
+  const [measureVersion, setMeasureVersion] = useState(0);
+  const measureFrameRef = useRef(0);
+  const bumpMeasure = useCallback(() => {
+    cancelAnimationFrame(measureFrameRef.current);
+    measureFrameRef.current = requestAnimationFrame(() => setMeasureVersion((n) => n + 1));
+  }, []);
+  const [fontsReady, setFontsReady] = useState(false);
 
-  // Registry of the panels' content elements, with one stable ref callback per
-  // panel. Built once; it is a plain object (not a ref) because the callbacks
-  // are handed to the panels during render.
+  useEffect(() => () => cancelAnimationFrame(measureFrameRef.current), []);
+
+  // Registry of the panels' content elements.
   const [registry] = useState(() => {
     const elements: Partial<Record<PanelId, HTMLElement>> = {};
     const make = (id: PanelId) => (el: HTMLElement | null) => {
@@ -161,12 +152,15 @@ export function useQuestionLayout({
     };
     return {
       elements,
-      refs: { statement: make("statement"), options: make("options"), explanation: make("explanation") },
+      refs: {
+        statement: make("statement"),
+        options: make("options"),
+        explanation: make("explanation"),
+      },
     };
   });
 
-  // Container size: read on mount so the first paint is already laid out, then
-  // kept current. Font-scale changes resize the container in local pixels.
+  // Container size: read on mount so the first paint is already laid out, then kept current.
   useLayoutEffect(() => {
     const el = containerRef.current;
     if (!el) return;
@@ -194,13 +188,14 @@ export function useQuestionLayout({
     return () => {
       cancelled = true;
     };
-  }, [imageKey]);
+  }, [imageKey, bumpMeasure]);
 
   // Web fonts (KaTeX, serif body) change text metrics when they arrive.
   useEffect(() => {
     if (typeof document === "undefined" || !document.fonts) return;
     let frame = 0;
     const schedule = () => {
+      setFontsReady(true);
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(bumpMeasure);
     };
@@ -210,31 +205,21 @@ export function useQuestionLayout({
       cancelAnimationFrame(frame);
       document.fonts.removeEventListener("loadingdone", schedule);
     };
-  }, []);
+  }, [bumpMeasure]);
 
   useLayoutEffect(() => {
     if (!box || box.width <= 0 || box.height <= 0) return;
     const statementEl = registry.elements.statement;
     const optionsEl = registry.elements.options;
-    const explanationEl = hasExplanation ? registry.elements.explanation : undefined;
     if (!statementEl || !optionsEl) return;
 
     const compute = () => {
-      const prev = lastPlan.current;
-      const sameScreen =
-        prev && prev.questionKey === questionKey && prev.box.width === box.width && prev.box.height === box.height;
-      // Only bias toward the previous plan when the explanation is (dis)appearing:
-      // that is when we want to limit how far the existing panels jump. A pure
-      // re-measure (graph or font arrived) must be free to move panels to their
-      // true positions, otherwise the layout becomes dependent on visit order.
-      const previous = sameScreen && prev.hasExplanation !== hasExplanation ? prev.plan : null;
-
       const next = planQuestionLayout({
         containerWidth: box.width,
         containerHeight: box.height,
         hasGraph,
         graphCeiling: graphCeilingFor(graphSrc, box, questionKey),
-        previous,
+        previous: null,
         panels: {
           statement: createMeasurer(
             statementEl,
@@ -246,41 +231,35 @@ export function useQuestionLayout({
             "options",
             optionCount >= 2 ? [{ columns: 1 }, { columns: 2 }] : [{ columns: 1 }],
           ),
-          explanation: explanationEl ? createMeasurer(explanationEl, "explanation", [{}]) : null,
+          explanation: null,
         },
       });
-      lastPlan.current = { plan: next, questionKey, box, hasExplanation };
-      // The explanation temporarily takes room from the graph; that is not the
-      // size its siblings should inherit.
-      if (graphSrc && next.graphMax !== null && !hasExplanation) {
+      lastPlan.current = { plan: next, questionKey, box };
+      if (graphSrc && next.graphMax !== null) {
         graphCeilings.set(graphSrc, { space: spaceKey(box), graphMax: next.graphMax, owner: questionKey });
       }
 
       setState((current) => {
         if (samePlan(current.plan, next)) return current;
+        const placed: Partial<Record<PanelId, boolean>> = {
+          statement: Boolean(current.plan?.rects.statement),
+          options: Boolean(current.plan?.rects.options),
+          explanation: Boolean(current.plan?.rects.explanation),
+        };
         return {
           plan: next,
-          placed: {
-            statement: Boolean(current.plan?.rects.statement),
-            options: Boolean(current.plan?.rects.options),
-            explanation: Boolean(current.plan?.rects.explanation),
-          },
+          placed,
         };
       });
     };
 
     compute();
 
-    // Re-plan when a panel's content settles at a different size (an image or
-    // a web font arrives, the question changes under our feet, etc.). The probe
-    // above mutates and restores widths synchronously, so it never reaches this
-    // observer; only real size changes do.
     const observer = new ResizeObserver(compute);
     observer.observe(statementEl);
     observer.observe(optionsEl);
-    if (explanationEl) observer.observe(explanationEl);
     return () => observer.disconnect();
-  }, [box, questionKey, hasGraph, hasStatementText, optionCount, hasExplanation, measureVersion, registry, graphSrc]);
+  }, [box, questionKey, hasGraph, hasStatementText, optionCount, measureVersion, registry, graphSrc]);
 
   // A new question starts at the top.
   useEffect(() => {
@@ -289,13 +268,18 @@ export function useQuestionLayout({
 
   const { plan, placed } = state;
 
+  // Panels animate only once the question has settled: web fonts are loaded and
+  // every image aspect is known. Until then, re-plans snap into place instead of
+  // animating through the intermediate layouts, which is what reads as flicker.
+  const settled = fontsReady && imageSources.every((src) => hasGraphAspect(src));
+
   const slot = useCallback(
     (id: PanelId): PanelSlot => ({
       register: registry.refs[id],
       rect: plan?.rects[id] ?? null,
-      animate: Boolean(placed[id]),
+      animate: settled && Boolean(placed[id]),
     }),
-    [plan, placed, registry],
+    [plan, placed, registry, settled],
   );
 
   return {
@@ -313,11 +297,6 @@ export function useQuestionLayout({
 // ---------------------------------------------------------------------------
 // Hint panel width
 // ---------------------------------------------------------------------------
-// The hint panel (HintModal) sits beside the question as a sibling, in the
-// unzoomed viewport coordinate space. Its width is chosen to keep the hint
-// text clear and complete (a comfortable reading measure) while leaving the
-// question enough room, so it only shrinks when the viewport gets tight.
-
 const HINT_PANEL_IDEAL_PX = 440;
 const HINT_PANEL_MIN_PX = 320;
 const MIN_QUESTION_SPACE_PX = 560;
@@ -329,10 +308,11 @@ export function computeHintPanelWidth(availableWidth: number): number {
 
 /** Reactive width (px) for the hint panel, following the viewport size. */
 export function useHintPanelWidth(): number {
-  const [width, setWidth] = useState<number>(HINT_PANEL_IDEAL_PX);
+  const [width, setWidth] = useState<number>(() =>
+    typeof window === "undefined" ? HINT_PANEL_IDEAL_PX : computeHintPanelWidth(window.innerWidth),
+  );
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
     const update = () => setWidth(computeHintPanelWidth(window.innerWidth));
     update();
     window.addEventListener("resize", update);

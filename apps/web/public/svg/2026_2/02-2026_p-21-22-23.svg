@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 455 424" role="img" aria-labelledby="t d">
+<title id="t">Four polygons on a coordinate grid</title><desc id="d">Four numbered polygons on a Cartesian coordinate plane with dashed grid lines.</desc>
+<style>
+:root{color:CanvasText} .axis,.shape{stroke:currentColor;fill:none;stroke-linecap:round;stroke-linejoin:round}.axis{stroke-width:2}.shape{stroke-width:2.5}.grid{stroke:currentColor;stroke-width:1.3;stroke-dasharray:6 5;opacity:.46;fill:none}.dot{fill:currentColor}.txt{fill:currentColor;font:18px Arial,Helvetica,sans-serif}.small{font-size:17px}
+</style>
+<!-- grid: x unit 35.4, y unit 35.0; origin 200,209 -->
+<path class="grid" d="M59 69 V382 M94.5 69 V382 M130 69 V382 M165 69 V382 M236 69 V382 M272 69 V382 M307 69 V382 M343 69 V382 M378 69 V382 M414 69 V382 M59 69 H414 M59 104 H414 M59 139.5 H414 M59 174.5 H414 M59 244.5 H414 M59 279.5 H414 M59 314.5 H414 M59 349.5 H414 M59 382 H414"/>
+<path class="axis" d="M25 209 H448 M200 393 V28"/><path class="dot" d="M449 209 439 204 439 214Z M200 26 195 36 205 36Z"/>
+<!-- polygons -->
+<path class="shape" d="M130 209 L165 102 L200 102 L200 206 L130 206 Z"/>
+<path class="shape" d="M237 69 H307 V175 H273 Z"/>
+<path class="shape" d="M307 344 H378 V245 H343 Z"/>
+<path class="shape" d="M95 245 H130 L165 345 H95 Z"/>
+<!-- markers -->
+<g class="dot"><circle cx="130" cy="209" r="4.6"/><circle cx="165" cy="102" r="4.6"/><circle cx="200" cy="102" r="4.6"/><circle cx="200" cy="206" r="4.6"/><circle cx="237" cy="69" r="4.6"/><circle cx="307" cy="69" r="4.6"/><circle cx="273" cy="175" r="4.6"/><circle cx="307" cy="175" r="4.6"/><circle cx="95" cy="245" r="4.6"/><circle cx="130" cy="245" r="4.6"/><circle cx="95" cy="345" r="4.6"/><circle cx="165" cy="345" r="4.6"/><circle cx="343" cy="245" r="4.6"/><circle cx="378" cy="245" r="4.6"/><circle cx="307" cy="344" r="4.6"/><circle cx="378" cy="344" r="4.6"/></g>
+<g class="txt"><text x="196" y="20">y</text><text x="440" y="219">x</text><text x="204" y="64">4</text><text x="204" y="99">3</text><text x="204" y="134">2</text><text x="204" y="169">1</text><text x="184" y="241">−1</text><text x="184" y="276">−2</text><text x="184" y="311">−3</text><text x="184" y="346">−4</text><text x="184" y="381">−5</text><text x="28" y="202">−4</text><text x="64" y="202">−3</text><text x="100" y="202">−2</text><text x="148" y="202">−1</text><text x="229" y="202">1</text><text x="264" y="202">2</text><text x="300" y="202">3</text><text x="335" y="202">4</text><text x="371" y="202">5</text><text x="406" y="202">6</text><text x="168" y="162">#1</text><text x="278" y="132">#2</text><text x="350" y="308">#3</text><text x="102" y="306">#4</text></g>
+</svg>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 315 287" role="img" aria-labelledby="t d">
+<title id="t">Graph of downward-opening parabola g</title>
+<desc id="d">Parabola with vertex at (-1,5), x-intercepts -4 and 2, and a dashed guide to the vertex.</desc>
+<style>
+:root{color:CanvasText} .ink{stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.txt{fill:currentColor;font:17px Arial,sans-serif}.dash{stroke:currentColor;stroke-width:1.5;stroke-dasharray:6 5;opacity:.55} .dot{fill:currentColor}
+</style>
+<path class="ink" d="M40 203.5H294 M196 268V40"/>
+<path fill="currentColor" d="M300 203.5l-9-5v10z M196 39l-5 10h10z"/>
+<path class="dash" d="M169 91V203"/>
+<path class="ink" d="M53 270 Q169 -89 285 278"/>
+<path fill="currentColor" d="M52 274l1-11 8 6z M287 280l-10-6 9-5z"/>
+<circle class="dot" cx="82" cy="203.5" r="3.5"/>
+<circle class="dot" cx="169" cy="91" r="3.5"/>
+<circle class="dot" cx="254" cy="203.5" r="3.5"/>
+<g class="txt"><text x="192" y="29">y</text><text x="291" y="210">x</text><text x="58" y="198">− 4</text><text x="262" y="199">2</text><text x="147" y="226">− 1</text><text x="200" y="96">5</text><text x="110" y="131">g</text></g>
+</svg>

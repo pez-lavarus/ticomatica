@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 291 251" role="img" aria-labelledby="title desc">
+<title id="title">Circle centered at (3, 2)</title><desc id="desc">Circle tangent to the y-axis at y equals 2, centered at x equals 3, y equals 2.</desc>
+<style>
+.line{fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.guide{fill:none;stroke:currentColor;stroke-width:1.5;stroke-dasharray:5 5;opacity:.55}.point{fill:currentColor}.label{fill:currentColor;font:18px Arial,Helvetica,sans-serif}
+</style>
+<path class="line" d="M18 201.5H251 M89.5 222V41"/>
+<path fill="currentColor" d="M251 201.5l-9-5v10z M89.5 40l-5 10h10z"/>
+<circle class="line" cx="141.5" cy="125.5" r="52"/>
+<path class="guide" d="M89.5 127.5H141.5V201.5"/>
+<circle class="point" cx="89.5" cy="127.5" r="3.8"/><circle class="point" cx="141.5" cy="127.5" r="3.8"/>
+<g class="label"><text x="85" y="33">y</text><text x="257" y="207">x</text><text x="74" y="132">2</text><text x="138" y="221">3</text><text x="137" y="122">O</text></g>
+</svg>
