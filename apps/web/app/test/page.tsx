@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect, useRef } from "react";
+import { useState, useCallback, useEffect, useRef, useMemo } from "react";
 import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { Clock, Flag, BookOpen, Shapes, BarChart3, Binary, RotateCcw, Lightbulb } from "lucide-react";
@@ -123,6 +123,7 @@ export default function QuestionPage() {
     return () => clearTimeout(timer);
   }, [currentIndex]);
 
+<<<<<<< HEAD
   const handleSelectOption = useCallback((option: string) => {
     handleSelect(option);
     if (testMode !== "full" && !reviewMode) {
@@ -134,10 +135,15 @@ export default function QuestionPage() {
 
   const allQuestionsWithGlobalIndex = quizData.questions.map((q, idx) => ({ ...q, globalIndex: idx }));
   const correctAnswers = quizData.questions.reduce<Record<number, string>>((acc, q, idx) => {
+=======
+  const allQuestionsWithGlobalIndex = useMemo(() =>
+    quizData.questions.map((q, idx) => ({ ...q, globalIndex: idx })), []);
+  const correctAnswers = useMemo(() => quizData.questions.reduce<Record<number, string>>((acc, q, idx) => {
+>>>>>>> main
     acc[idx] = q.correct_answer;
     return acc;
-  }, {});
-  const navigatorSections = (testMode === "full" ? FULL_TEST_TOPICS : [testMode]).map((topic) => ({
+  }, {}), []);
+  const navigatorSections = useMemo(() => (testMode === "full" ? FULL_TEST_TOPICS : [testMode]).map((topic) => ({
     topic,
     questions: allQuestionsWithGlobalIndex
       .filter((q) => q.topic === topic)
@@ -145,7 +151,7 @@ export default function QuestionPage() {
         globalIndex: q.globalIndex,
         section_number: testMode === "full" ? q.globalIndex + 1 : q.section_number,
       })),
-  }));
+  })), [testMode, allQuestionsWithGlobalIndex]);
 
   const handleNextWithFinish = useCallback(() => {
     if (sectionIndex === currentSectionQuestionsWithGlobalIndex.length - 1 && (!hasMoreSections || currentTestMode !== "full")) {
@@ -172,10 +178,10 @@ export default function QuestionPage() {
     router.push("/results");
   };
 
-  const handleResults = () => {
+  const handleResults = useCallback(() => {
     update({ phase: "results", review: false });
     router.push("/results");
-  };
+  }, [update, router]);
 
   const resetCurrentQuestion = useCallback(() => {
     update((prev) => {
@@ -191,10 +197,10 @@ export default function QuestionPage() {
     return `${min}:${sec < 10 ? "0" : ""}${sec}`;
   };
 
-  const openImageModal = (src: string, alt: string) => {
+  const openImageModal = useCallback((src: string, alt: string) => {
     setModalImage({ src, alt });
     setIsImageModalOpen(true);
-  };
+  }, []);
 
   if (!mounted || !currentQuestion) {
     // Gate on hydration so a returning user never sees question 0 flash before

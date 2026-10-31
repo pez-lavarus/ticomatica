@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import {
   EXPLANATION_MIN_PX,
   GAP_WIDE_PX,
@@ -81,6 +81,31 @@ const wideGraph = textPanel({ chars: 90, graph: { width: 900, height: 300 } });
 const shortOptions = textPanel({ chars: 60, items: [14, 14, 14, 14] });
 const longOptions = textPanel({ chars: 60, items: [70, 64, 80, 72] });
 const explanation = textPanel({ chars: 420 });
+
+it("measures graph-independent panels only once per width and variant during a search", () => {
+  const options = {
+    ...shortOptions,
+    height: vi.fn(shortOptions.height),
+    maxContentWidth: vi.fn(shortOptions.maxContentWidth),
+  };
+  const solution = {
+    ...explanation,
+    height: vi.fn(explanation.height),
+    maxContentWidth: vi.fn(explanation.maxContentWidth),
+  };
+  planQuestionLayout({
+    containerWidth: 1200,
+    containerHeight: 700,
+    hasGraph: true,
+    panels: { statement: withGraph, options, explanation: solution },
+  });
+  for (const panel of [options, solution]) {
+    const heights = panel.height.mock.calls.map(([width, variant]) => `${width}|${variant.columns ?? 0}`);
+    const widths = panel.maxContentWidth.mock.calls.map(([variant]) => variant.columns ?? 0);
+    expect(heights.length).toBe(new Set(heights).size);
+    expect(widths.length).toBe(new Set(widths).size);
+  }
+});
 
 const overlaps = (a: Rect, b: Rect) =>
   a.x < b.x + b.width && b.x < a.x + a.width && a.y < b.y + b.height && b.y < a.y + a.height;
