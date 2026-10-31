@@ -123,23 +123,18 @@ export default function QuestionPage() {
     return () => clearTimeout(timer);
   }, [currentIndex]);
 
-<<<<<<< HEAD
   const handleSelectOption = useCallback((option: string) => {
     handleSelect(option);
     if (testMode !== "full" && !reviewMode) {
-        setIsHintBlinking(true);
-        // Incorrect option selected: open hint modal automatically if closed, stay open if already open
-        setIsHintModalOpen(true);
+      setIsHintBlinking(true);
+      // Open the hint modal automatically when an answer is selected.
+      setIsHintModalOpen(true);
     }
-  }, [handleSelect, testMode, reviewMode,]);
+  }, [handleSelect, testMode, reviewMode]);
 
-  const allQuestionsWithGlobalIndex = quizData.questions.map((q, idx) => ({ ...q, globalIndex: idx }));
-  const correctAnswers = quizData.questions.reduce<Record<number, string>>((acc, q, idx) => {
-=======
   const allQuestionsWithGlobalIndex = useMemo(() =>
     quizData.questions.map((q, idx) => ({ ...q, globalIndex: idx })), []);
   const correctAnswers = useMemo(() => quizData.questions.reduce<Record<number, string>>((acc, q, idx) => {
->>>>>>> main
     acc[idx] = q.correct_answer;
     return acc;
   }, {}), []);

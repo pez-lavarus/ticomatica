@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import type { QuizData } from "@/lib/types";
 import { FULL_TEST_TOPICS } from "@/lib/constants";
 import { useTestSession } from "@/lib/test-session";
