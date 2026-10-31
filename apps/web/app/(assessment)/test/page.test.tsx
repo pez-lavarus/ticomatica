@@ -160,6 +160,9 @@ describe("question page rendering", () => {
     saveTestSession({ ...EMPTY_SESSION, mode, phase: "results" });
     route.pathname = "/results";
     const { rerender } = render(<FontScaleProvider><AssessmentLayout><ResultsPage /></AssessmentLayout></FontScaleProvider>);
+    const bank = screen.getByRole("complementary", { name: "Banco de preguntas" });
+    const scroller = bank.querySelector(".overflow-y-auto")!;
+    scroller.scrollTop = 200;
     act(() => { renderNavigator.mock.lastCall![0].onJumpToQuestion(0); });
     const showQuestion = () => rerender(<FontScaleProvider><AssessmentLayout><QuestionPage /></AssessmentLayout></FontScaleProvider>);
     showQuestion();
@@ -172,6 +175,10 @@ describe("question page rendering", () => {
     act(() => { renderQuestion.mock.lastCall![0].onNext(); });
     expect(screen.getByText("Pistas de la Pregunta")).toBeInTheDocument();
     expect(renderQuestion.mock.lastCall![0].currentIndex).toBe(1);
+    expect(bank).toHaveClass("lg:flex");
+    expect(screen.getByRole("complementary", { name: "Banco de preguntas" })).toBe(bank);
+    expect(bank.querySelector(".overflow-y-auto")).toBe(scroller);
+    expect(scroller.scrollTop).toBe(200);
     expect(loadTestSession().answers).toEqual({});
 
     fireEvent.click(screen.getByRole("button", { name: "Resultado" }));

@@ -36,8 +36,9 @@ export function AssessmentNavigator() {
   }, [update, router]);
 
   return (
-    // Keep the bank mounted even while hints temporarily hide it.
-    <aside aria-label="Banco de preguntas" className={`hidden ${!isHintModalOpen || showingResults ? "lg:flex" : ""} lg:w-80 xl:w-70 shrink-0 flex-col border-r border-border bg-card min-h-0`}>
+    // Hints may replace the bank during practice, but completed-assessment
+    // review keeps both panels available for question navigation.
+    <aside aria-label="Banco de preguntas" className={`hidden ${!isHintModalOpen || showingResults || reviewMode ? "lg:flex" : ""} lg:w-80 xl:w-70 shrink-0 flex-col border-r border-border bg-card min-h-0`}>
       {mounted && <DesktopNavigator
         testMode={testMode}
         sections={sections}
