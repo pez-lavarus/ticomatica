@@ -50,7 +50,7 @@ function hashString(value: string): string {
  *     document's text color / every svg's color).
  * With those gone, `currentColor` inherits `.graph-svg`'s `--graph-stroke`.
  */
-function sanitizeSvgStyle(css: string): string {
+function sanitizeSvgStyle(css: string, uid: string): string {
   let cleaned = css;
 
   // Remove OS-scheme @media blocks (balanced braces, so multi-rule blocks are
@@ -77,20 +77,39 @@ function sanitizeSvgStyle(css: string): string {
     cleaned = cleaned.slice(0, idx) + cleaned.slice(close + 1);
   }
 
-  return cleaned
+  cleaned = cleaned
     .replace(/:\s*root\s*\{[^}]*\}/g, "")
     .replace(/\bsvg\s*\{[^}]*\}/g, "");
+
+  // An inline SVG's <style> is a document stylesheet, not an SVG-local one.
+  // Parse with CSSOM so selector lists (including commas inside :is()) and
+  // grouping rules are handled as CSS, then confine every rule to this source.
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync(cleaned);
+  const scope = `[data-source-svg="${uid}"]`;
+  const scopeRules = (rules: CSSRuleList) => {
+    for (const rule of Array.from(rules)) {
+      if (rule.type === CSSRule.STYLE_RULE) {
+        const styleRule = rule as CSSStyleRule;
+        styleRule.selectorText = `${scope} :is(${styleRule.selectorText})`;
+      } else if ("cssRules" in rule) {
+        scopeRules((rule as CSSGroupingRule).cssRules);
+      }
+    }
+  };
+  scopeRules(sheet.cssRules);
+  return Array.from(sheet.cssRules, (rule) => rule.cssText).join("\n");
 }
 
 /**
  * Makes a fetched SVG safe to inline alongside others. Keeps the SVG's own
- * `<style>` (minus the color-forcing rules), and gives <title>/<desc> unique
+ * `<style>` scoped to its source (minus color-forcing rules), and gives <title>/<desc> unique
  * ids with aria-labelledby rewired to match.
  */
 function sanitizeSvg(content: string, uid: string): string {
   return content
     .replace(/<style[^>]*>([\s\S]*?)<\/style>/gi, (_match, css: string) => {
-      const cleaned = sanitizeSvgStyle(css);
+      const cleaned = sanitizeSvgStyle(css, uid);
       return cleaned.trim() ? `<style>${cleaned}</style>` : "";
     })
     .replace(/id="title"/g, `id="title-${uid}"`)
@@ -171,6 +190,7 @@ export function SourceImage({
       return (
         <div
           className="graph-svg"
+          data-source-svg={svg ? hashString(svg) : undefined}
           style={style}
           // The SVG is authored by the exam data and carries its own <title>/<desc>.
           dangerouslySetInnerHTML={{ __html: content }}
