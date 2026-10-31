@@ -74,7 +74,8 @@ export const QuestionExperience = memo(function QuestionExperience({
   const revealed = behavior.immediateFeedback && (reviewMode || Boolean(selectedAnswer));
 
   // Every image that affects panel sizes, so the layout can re-plan once their
-  // dimensions are known.
+  // dimensions are known. Only light URLs are preloaded: dark variants share
+  // the same aspect ratio, so their dimensions are identical.
   const imageSources = [
     ...(sharedImageSrc ? [sharedImageSrc] : []),
     ...question.options.flatMap((option) => (option.image ? [option.image] : [])),

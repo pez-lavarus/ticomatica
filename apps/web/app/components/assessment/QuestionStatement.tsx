@@ -1,12 +1,12 @@
 "use client";
 
 import { useRef } from "react";
-import Image from "next/image";
 import { KaTeXText } from "@/lib/katex-utils";
 import { getGraphDimensions } from "@/lib/graph-aspects";
 import type { Question } from "@/lib/types";
 import type { VisualSpec } from "@/app/types";
 import { VisualRenderer } from "@/app/components/visuals/VisualRenderer";
+import { SourceImage } from "./SourceImage";
 import { QuestionPanel } from "./QuestionPanel";
 import type { PanelSlot } from "./QuestionPanel";
 
@@ -81,7 +81,7 @@ export function QuestionStatement({
             />
           </div>
         ) : sharedImageSrc ? (
-          /* Legacy PNG placeholder fallback. */
+          /* Source image with optional dark-mode variant. */
           <div className="min-w-0 flex justify-center group-data-[split=true]:flex-1">
             <div
               className="w-fit max-w-full rounded-sm border border-border overflow-hidden cursor-zoom-in hover:border-accent transition-colors bg-white shadow-sm"
@@ -90,8 +90,9 @@ export function QuestionStatement({
               onTouchEnd={handleTouchEnd}
               onTouchMove={handleTouchEnd}
             >
-              <Image
-                src={sharedImageSrc}
+              <SourceImage
+                light={sharedImageSrc}
+                dark={question.graph_image_dark}
                 alt="Imagen de apoyo"
                 width={graphDimensions?.width ?? 800}
                 height={graphDimensions?.height ?? 600}

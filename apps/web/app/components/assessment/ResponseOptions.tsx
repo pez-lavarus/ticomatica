@@ -1,10 +1,10 @@
 "use client";
 
 import { useRef } from "react";
-import Image from "next/image";
 import { KaTeXText } from "@/lib/katex-utils";
 import { getGraphDimensions } from "@/lib/graph-aspects";
 import type { Question } from "@/lib/types";
+import { SourceImage } from "./SourceImage";
 import { QuestionPanel } from "./QuestionPanel";
 import type { PanelSlot } from "./QuestionPanel";
 
@@ -125,8 +125,9 @@ export function ResponseOptions({
                       onTouchEnd={handleTouchEnd}
                       onTouchMove={handleTouchEnd}
                     >
-                      <Image
-                        src={option.image}
+                      <SourceImage
+                        light={option.image}
+                        dark={option.image_dark}
                         alt={`Opción ${option.label}`}
                         width={optionImageDimensions?.width ?? 340}
                         height={optionImageDimensions?.height ?? 200}

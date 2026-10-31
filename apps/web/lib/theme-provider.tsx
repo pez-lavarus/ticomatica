@@ -71,3 +71,23 @@ export const useTheme = () => {
   }
   return context;
 }
+
+/**
+ * Reactively reports whether the dark theme class is currently applied to the
+ * document root. False until mounted, which keeps the first paint in light
+ * mode and avoids hydration mismatches.
+ */
+export function useIsDark(): boolean {
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    const root = window.document.documentElement;
+    const update = () => setIsDark(root.classList.contains("dark"));
+    update();
+    const observer = new MutationObserver(update);
+    observer.observe(root, { attributes: true, attributeFilter: ["class"] });
+    return () => observer.disconnect();
+  }, []);
+
+  return isDark;
+}

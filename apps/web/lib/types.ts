@@ -6,6 +6,8 @@ export interface QuestionOption {
   label: "A" | "B" | "C" | "D";
   text?: string;
   image?: string;
+  /** Dark-mode variant of `image` (falls back to `image` when absent). */
+  image_dark?: string;
 }
 
 export interface Question {
@@ -19,6 +21,8 @@ export interface Question {
   visual_spec?: VisualSpec | null;
   /** Resolved source-image URL for the question's statement graph. */
   graph_image?: string;
+  /** Dark-mode variant of `graph_image` (falls back to `graph_image` when absent). */
+  graph_image_dark?: string;
   options: QuestionOption[];
   correct_answer: "A" | "B" | "C" | "D";
   topic: string;

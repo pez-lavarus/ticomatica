@@ -11,7 +11,7 @@
 import questionsRaw from "@/data/2026_2/questions.json";
 import type { VisualSpec } from "@/app/types";
 import type { Explanation, Question, QuizData, QuizMetadata } from "@/lib/types";
-import { resolveSourceImage } from "@/lib/source-images";
+import { sourceImageUrl } from "@/lib/source-images";
 
 /** Consistent graph width (px) injected into every visual so the figures do
  *  not jump in size from question to question. */
@@ -53,6 +53,7 @@ type RawGroup = {
 type RawBank = {
   exam?: string;
   convocatoria?: string;
+  image_base?: string;
   source?: string;
   items?: RawItem[];
   groups?: RawGroup[];
@@ -84,10 +85,11 @@ function withVisualWidth(spec: VisualSpec | null | undefined, width: number): Vi
 function buildBank(): QuizData {
   const bank = questionsRaw as unknown as RawBank;
   const groups = bank.groups ?? [];
+  const imageBase = bank.image_base ?? "/images/2026_2";
 
   const groupVisual = new Map<string, VisualSpec>();
   const groupContext = new Map<string, string>();
-  const groupImage = new Map<string, string>();
+  const groupImageName = new Map<string, string>();
   for (const group of groups) {
     if (group.group_id && group.visual_spec) {
       groupVisual.set(group.group_id, group.visual_spec);
@@ -96,8 +98,7 @@ function buildBank(): QuizData {
       groupContext.set(group.group_id, group.context_text);
     }
     if (group.group_id && group.image) {
-      const resolved = resolveSourceImage(group.image);
-      if (resolved) groupImage.set(group.group_id, resolved);
+      groupImageName.set(group.group_id, group.image);
     }
   }
 
@@ -110,11 +111,14 @@ function buildBank(): QuizData {
     const sectionNumber = (sectionCounters[areaId] = (sectionCounters[areaId] ?? 0) + 1);
 
     const options = (["A", "B", "C", "D"] as const).map((label) => {
-      const optionImage = resolveSourceImage(item.option_images?.[label]);
+      const optionImageName = item.option_images?.[label];
+      const optionImage = sourceImageUrl(imageBase, optionImageName);
+      const optionImageDark = sourceImageUrl(imageBase, optionImageName, "dark");
       return {
         label,
         text: item.options?.[label] ?? "",
         ...(optionImage ? { image: optionImage } : {}),
+        ...(optionImageDark ? { image_dark: optionImageDark } : {}),
       };
     });
 
@@ -125,9 +129,11 @@ function buildBank(): QuizData {
     const inheritedVisual = item.group_id ? groupVisual.get(item.group_id) ?? null : null;
     const visualSpec = withVisualWidth(ownVisual ?? inheritedVisual, VISUAL_WIDTH);
 
-    const ownImage = resolveSourceImage(item.image);
-    const inheritedImage = item.group_id ? groupImage.get(item.group_id) : undefined;
-    const graphImage = ownImage ?? inheritedImage;
+    const ownImageName = item.image;
+    const inheritedImageName = item.group_id ? groupImageName.get(item.group_id) : undefined;
+    const imageName = ownImageName ?? inheritedImageName;
+    const graphImage = sourceImageUrl(imageBase, imageName);
+    const graphImageDark = sourceImageUrl(imageBase, imageName, "dark");
 
     const itemStatement = item.statement ?? "";
     const groupStatement = item.group_id ? (groupContext.get(item.group_id) ?? "") : "";
@@ -139,6 +145,7 @@ function buildBank(): QuizData {
       problem: item.problem ?? "",
       visual_spec: visualSpec,
       graph_image: graphImage,
+      ...(graphImageDark ? { graph_image_dark: graphImageDark } : {}),
       options,
       correct_answer: (item.correct_answer as Question["correct_answer"]) ?? "A",
       topic,
