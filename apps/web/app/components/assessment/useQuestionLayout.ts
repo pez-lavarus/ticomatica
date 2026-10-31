@@ -1,9 +1,10 @@
 "use client";
 
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
-import { getGraphAspect, hasGraphAspect, preloadGraphAspect } from "@/lib/graph-aspects";
+import { hasGraphAspect, preloadGraphAspect } from "@/lib/graph-aspects";
 import { planQuestionLayout, samePlan } from "@/lib/question-layout-plan";
 import type { LayoutPlan, PanelId, PanelMeasurer, PanelVariant } from "@/lib/question-layout-plan";
+import { hasSourceSvg, preloadSourceSvg } from "./SourceImage";
 import type { PanelSlot } from "./QuestionPanel";
 
 // This hook only measures and applies. Every decision (which panels sit side
@@ -17,6 +18,8 @@ interface UseQuestionLayoutOptions {
   optionCount: number;
   /** Every image the panels show, so the layout re-plans once sizes are known. */
   imageSources: string[];
+  /** Inline SVGs can have different proportions from their raster fallback. */
+  vectorSources: string[];
   /** The shared graph source, so its chosen size is reused across questions. */
   graphSrc?: string;
 }
@@ -27,8 +30,9 @@ interface ContainerBox {
 }
 
 interface PlanState {
+  questionKey: number | null;
   plan: LayoutPlan | null;
-  /** Panels that already had a place in the previous plan: only they animate. */
+  /** Only panels already placed for this question can animate a resize. */
   placed: Partial<Record<PanelId, boolean>>;
 }
 
@@ -120,16 +124,12 @@ export function useQuestionLayout({
   hasStatementText,
   optionCount,
   imageSources,
+  vectorSources,
   graphSrc,
 }: UseQuestionLayoutOptions) {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const lastPlan = useRef<{
-    plan: LayoutPlan;
-    questionKey: number;
-    box: ContainerBox;
-  } | null>(null);
   const [box, setBox] = useState<ContainerBox | null>(null);
-  const [state, setState] = useState<PlanState>({ plan: null, placed: {} });
+  const [state, setState] = useState<PlanState>({ questionKey: null, plan: null, placed: {} });
   // Bumped when something that changes natural sizes finishes loading. Multiple
   // arrivals in the same frame are coalesced so the panels re-plan once instead
   // of animating through several intermediate layouts.
@@ -139,7 +139,7 @@ export function useQuestionLayout({
     cancelAnimationFrame(measureFrameRef.current);
     measureFrameRef.current = requestAnimationFrame(() => setMeasureVersion((n) => n + 1));
   }, []);
-  const [fontsReady, setFontsReady] = useState(false);
+  const [fontsReady, setFontsReady] = useState<boolean>(() => typeof document !== "undefined" && !document.fonts);
 
   useEffect(() => () => cancelAnimationFrame(measureFrameRef.current), []);
 
@@ -175,40 +175,52 @@ export function useQuestionLayout({
     return () => observer.disconnect();
   }, []);
 
-  // Image sizes are needed before the panels have their real height.
+  // Resolve the whole question before exposing its layout. Revealing each
+  // image separately paints several candidate arrangements on a cold cache.
   const imageKey = imageSources.join("|");
+  const vectorKey = vectorSources.join("|");
   useEffect(() => {
     let cancelled = false;
-    for (const src of imageKey ? imageKey.split("|") : []) {
-      if (getGraphAspect(src) !== null) continue;
-      preloadGraphAspect(src).then(() => {
-        if (!cancelled) bumpMeasure();
-      });
-    }
-    return () => {
-      cancelled = true;
-    };
-  }, [imageKey, bumpMeasure]);
+    const images = imageKey ? imageKey.split("|") : [];
+    const vectors = vectorKey ? vectorKey.split("|") : [];
+    if (images.every(hasGraphAspect) && vectors.every(hasSourceSvg)) return;
+    Promise.all([
+      ...images.map(preloadGraphAspect),
+      ...vectors.map(preloadSourceSvg),
+    ]).then(() => {
+      if (!cancelled) bumpMeasure();
+    });
+    return () => { cancelled = true; };
+  }, [imageKey, vectorKey, bumpMeasure]);
 
   // Web fonts (KaTeX, serif body) change text metrics when they arrive.
   useEffect(() => {
     if (typeof document === "undefined" || !document.fonts) return;
+    const fonts = document.fonts;
     let frame = 0;
+    let cancelled = false;
+    const loading = () => setFontsReady(false);
     const schedule = () => {
+      if (cancelled) return;
       setFontsReady(true);
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(bumpMeasure);
     };
-    document.fonts.addEventListener("loadingdone", schedule);
-    document.fonts.ready.then(schedule);
+    fonts.addEventListener("loading", loading);
+    fonts.addEventListener("loadingdone", schedule);
+    fonts.ready.then(schedule);
     return () => {
+      cancelled = true;
       cancelAnimationFrame(frame);
-      document.fonts.removeEventListener("loadingdone", schedule);
+      fonts.removeEventListener("loading", loading);
+      fonts.removeEventListener("loadingdone", schedule);
     };
   }, [bumpMeasure]);
 
+  const settled = fontsReady && imageSources.every(hasGraphAspect) && vectorSources.every(hasSourceSvg);
+
   useLayoutEffect(() => {
-    if (!box || box.width <= 0 || box.height <= 0) return;
+    if (!settled || !box || box.width <= 0 || box.height <= 0) return;
     const statementEl = registry.elements.statement;
     const optionsEl = registry.elements.options;
     if (!statementEl || !optionsEl) return;
@@ -234,19 +246,20 @@ export function useQuestionLayout({
           explanation: null,
         },
       });
-      lastPlan.current = { plan: next, questionKey, box };
       if (graphSrc && next.graphMax !== null) {
         graphCeilings.set(graphSrc, { space: spaceKey(box), graphMax: next.graphMax, owner: questionKey });
       }
 
       setState((current) => {
-        if (samePlan(current.plan, next)) return current;
+        const sameQuestion = current.questionKey === questionKey;
+        if (sameQuestion && samePlan(current.plan, next)) return current;
         const placed: Partial<Record<PanelId, boolean>> = {
-          statement: Boolean(current.plan?.rects.statement),
-          options: Boolean(current.plan?.rects.options),
-          explanation: Boolean(current.plan?.rects.explanation),
+          statement: sameQuestion && Boolean(current.plan?.rects.statement),
+          options: sameQuestion && Boolean(current.plan?.rects.options),
+          explanation: sameQuestion && Boolean(current.plan?.rects.explanation),
         };
         return {
+          questionKey,
           plan: next,
           placed,
         };
@@ -255,35 +268,35 @@ export function useQuestionLayout({
 
     compute();
 
+    if (typeof ResizeObserver === "undefined") return;
     const observer = new ResizeObserver(compute);
     observer.observe(statementEl);
     observer.observe(optionsEl);
     return () => observer.disconnect();
-  }, [box, questionKey, hasGraph, hasStatementText, optionCount, measureVersion, registry, graphSrc]);
+  }, [box, questionKey, hasGraph, hasStatementText, optionCount, measureVersion, registry, graphSrc, settled]);
 
   // A new question starts at the top.
-  useEffect(() => {
+  useLayoutEffect(() => {
     containerRef.current?.scrollTo?.({ top: 0 });
   }, [questionKey]);
 
   const { plan, placed } = state;
 
-  // Panels animate only once the question has settled: web fonts are loaded and
-  // every image aspect is known. Until then, re-plans snap into place instead of
-  // animating through the intermediate layouts, which is what reads as flicker.
-  const settled = fontsReady && imageSources.every((src) => hasGraphAspect(src));
+  const ready = settled && state.questionKey === questionKey && plan !== null;
 
   const slot = useCallback(
     (id: PanelId): PanelSlot => ({
       register: registry.refs[id],
       rect: plan?.rects[id] ?? null,
-      animate: settled && Boolean(placed[id]),
+      animate: ready && Boolean(placed[id]),
     }),
-    [plan, placed, registry, settled],
+    [plan, placed, registry, ready],
   );
 
   return {
     containerRef,
+    ready,
+    animate: ready && Boolean(placed.statement || placed.options),
     plan,
     slot,
     /** Height for the positioning stage; undefined before the first plan. */

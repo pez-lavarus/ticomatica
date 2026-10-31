@@ -260,8 +260,8 @@ button:not(:disabled),
 
 /* Question screen: panels are placed by the layout engine (see
    useQuestionLayout). The frame animates its position and size to the new
-   plan; the stage animates the scroll height. A panel's first placement is
-   not animated (data-animate="false"), so it never flies in from a corner. */
+   plan; the stage animates the scroll height. Each question's first placement
+   skips both transitions, so new content never reflows inside the old frame. */
 .question-panel {
   transition:
     transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
@@ -269,7 +269,8 @@ button:not(:disabled),
     height 420ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.question-panel[data-animate="false"] {
+.question-panel[data-animate="false"],
+.question-stage[data-animate="false"] {
   transition: none;
 }
 

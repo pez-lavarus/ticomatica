@@ -8,6 +8,29 @@ import Image from "next/image";
 // to be missing are remembered so they fall straight through to the raster.
 const svgContentCache = new Map<string, string>();
 const svgMissingCache = new Set<string>();
+const svgRequests = new Map<string, Promise<void>>();
+
+export function hasSourceSvg(src: string): boolean {
+  return svgContentCache.has(src) || svgMissingCache.has(src);
+}
+
+/** Share in-flight requests between preloading, measuring and rendering. Failed
+ * vectors settle too, so a missing SVG never blocks the raster fallback. */
+export function preloadSourceSvg(src: string): Promise<void> {
+  if (hasSourceSvg(src)) return Promise.resolve();
+  const pending = svgRequests.get(src);
+  if (pending) return pending;
+  const request = fetch(src)
+    .then((res) => (res.ok ? res.text() : null))
+    .then((content) => {
+      if (content) svgContentCache.set(src, sanitizeSvg(content, hashString(src)));
+      else svgMissingCache.add(src);
+    })
+    .catch(() => { svgMissingCache.add(src); })
+    .finally(() => { svgRequests.delete(src); });
+  svgRequests.set(src, request);
+  return request;
+}
 
 function hashString(value: string): string {
   let hash = 0;
@@ -118,20 +141,9 @@ export function SourceImage({
   useEffect(() => {
     if (!svg || svgContentCache.has(svg) || svgMissingCache.has(svg)) return;
     let cancelled = false;
-    fetch(svg)
-      .then((res) => (res.ok ? res.text() : null))
-      .then((text) => {
-        if (cancelled) return;
-        if (text) svgContentCache.set(svg, sanitizeSvg(text, hashString(svg)));
-        else svgMissingCache.add(svg);
-        forceRender((n) => n + 1);
-      })
-      .catch(() => {
-        if (!cancelled) {
-          svgMissingCache.add(svg);
-          forceRender((n) => n + 1);
-        }
-      });
+    preloadSourceSvg(svg).then(() => {
+      if (!cancelled) forceRender((n) => n + 1);
+    });
     return () => {
       cancelled = true;
     };

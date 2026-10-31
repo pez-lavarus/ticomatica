@@ -61,7 +61,6 @@ export function ResponseOptions({
       slot={slot}
       contentKey={question.original_number}
       columns={columns}
-      className="panel-enter"
     >
       <div className="p-5 md:p-6">
         {question.problem && (

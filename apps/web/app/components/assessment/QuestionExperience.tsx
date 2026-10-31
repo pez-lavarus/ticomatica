@@ -74,19 +74,24 @@ export const QuestionExperience = memo(function QuestionExperience({
   const revealed = behavior.immediateFeedback && (reviewMode || Boolean(selectedAnswer));
 
   // Every image that affects panel sizes, so the layout can re-plan once their
-  // dimensions are known. Only the raster PNGs are preloaded for aspect ratio:
-  // the inline SVGs scale to the same proportions.
+  // dimensions are known, including the preferred SVG's actual proportions.
   const imageSources = [
-    ...(sharedImageSrc ? [sharedImageSrc] : []),
+    ...(sharedImageSrc && !visualSpec ? [sharedImageSrc] : []),
     ...question.options.flatMap((option) => (option.image ? [option.image] : [])),
   ];
 
-  const { containerRef, slot, stageHeight, statementSplit, optionsColumns, graphMax } = useQuestionLayout({
+  const vectorSources = [
+    ...(sharedImageSrc && !visualSpec && question.graph_svg ? [question.graph_svg] : []),
+    ...question.options.flatMap((option) => (option.image && option.svg ? [option.svg] : [])),
+  ];
+
+  const { containerRef, ready, animate, slot, stageHeight, statementSplit, optionsColumns, graphMax } = useQuestionLayout({
     questionKey: question.original_number,
     hasGraph: Boolean(visualSpec) || Boolean(sharedImageSrc),
     hasStatementText: Boolean(question.statement),
     optionCount: question.options.length,
     imageSources,
+    vectorSources,
     graphSrc: sharedImageSrc,
   });
 
@@ -130,15 +135,18 @@ export const QuestionExperience = memo(function QuestionExperience({
     <div className="flex flex-col gap-4 md:gap-6 h-full">
       <div
         ref={containerRef}
+        aria-busy={!ready}
         className="relative flex-1 min-h-0 -mx-1.5 px-1.5 -mb-2 pb-2 overflow-y-auto hide-scrollbar"
       >
         <div
+          data-ready={ready ? "true" : "false"}
+          data-animate={animate ? "true" : "false"}
+          style={{ height: stageHeight, visibility: ready ? "visible" : "hidden" }}
           className={
             stageHeight === undefined
               ? "flex flex-col gap-4 md:gap-6"
               : "question-stage relative"
           }
-          style={stageHeight === undefined ? undefined : { height: stageHeight }}
         >
           <QuestionStatement
             question={question}

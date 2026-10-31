@@ -10,6 +10,8 @@ import ConfirmModal from "@/app/components/ConfirmModal";
 import FormulaModal from "@/app/components/FormulaModal";
 import SectionModal from "@/app/components/SectionModal";
 import HintModal from "@/app/components/HintModal";
+import { preloadGraphAspect } from "@/lib/graph-aspects";
+import { preloadSourceSvg } from "@/app/components/assessment/SourceImage";
 import { QuestionExperience } from "@/app/components/assessment/QuestionExperience";
 import { DesktopNavigator } from "@/app/components/assessment/DesktopNavigator";
 import { useHintPanelWidth } from "@/app/components/assessment/useQuestionLayout";
@@ -114,6 +116,26 @@ export default function QuestionPage() {
     testMode: currentTestMode,
     hasMoreSections,
   } = assessment;
+
+  // Warm the neighboring questions without fetching the entire exam. Shared
+  // in-flight caches also cover an immediate click before preloading completes.
+  useEffect(() => {
+    if (!mounted) return;
+    for (const offset of [-1, 1]) {
+      const neighbor = currentSectionQuestionsWithGlobalIndex[sectionIndex + offset];
+      const question = neighbor && quizData.questions[neighbor.globalIndex];
+      if (!question) continue;
+      if (question.graph_image && !question.visual_spec) {
+        void preloadGraphAspect(question.graph_image);
+        if (question.graph_svg) void preloadSourceSvg(question.graph_svg);
+      }
+      for (const option of question.options) {
+        if (!option.image) continue;
+        void preloadGraphAspect(option.image);
+        if (option.svg) void preloadSourceSvg(option.svg);
+      }
+    }
+  }, [mounted, sectionIndex, currentSectionQuestionsWithGlobalIndex]);
 
   // Blink the hint lightbulb for a few seconds whenever a new question opens.
   useEffect(() => {

@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { render, cleanup } from "@testing-library/react";
+import { act, render, cleanup, waitFor } from "@testing-library/react";
 import React from "react";
 import { QuestionExperience } from "./QuestionExperience";
 import type { Question } from "@/lib/types";
@@ -106,4 +106,111 @@ describe("QuestionExperience layout and math rendering", () => {
     const katexElements = container.querySelectorAll(".katex");
     expect(katexElements.length).toBeGreaterThan(0);
   });
+
+  it("switches questions without reusing animated geometry or entrance motion", () => {
+    const { container, rerender } = render(<QuestionExperience {...baseProps} />);
+    const scroller = container.querySelector("[aria-busy]");
+    expect(scroller).toHaveAttribute("aria-busy", "false");
+
+    rerender(<QuestionExperience {...baseProps} question={{ ...question, original_number: 8 }} />);
+
+    expect(scroller).toHaveAttribute("aria-busy", "false");
+    expect(container.querySelectorAll("[data-panel][data-animate='false']")).toHaveLength(2);
+    expect(container.querySelector("[data-ready]")).toHaveAttribute("data-animate", "false");
+    expect(container.querySelector(".panel-enter")).toBeNull();
+  });
+
+  it("waits for the raster dimensions and SVG before exposing the measured question", async () => {
+    let finishRaster: () => void = () => {};
+    vi.stubGlobal("Image", class {
+      naturalWidth = 600;
+      naturalHeight = 200;
+      onload: (() => void) | null = null;
+      set src(_src: string) { finishRaster = () => this.onload?.(); }
+    });
+    let finishSvg: (response: Response) => void = () => {};
+    const fetchSvg = vi.fn(() => new Promise<Response>((resolve) => { finishSvg = resolve; }));
+    vi.stubGlobal("fetch", fetchSvg);
+    const { container, rerender } = render(<QuestionExperience {...baseProps} />);
+    const next = { ...question, original_number: 81, graph_svg: "/deferred-graph.svg" };
+
+    rerender(<QuestionExperience {...baseProps} question={next} sharedImageSrc="/deferred-graph.png" />);
+    const stage = container.querySelector<HTMLElement>("[data-ready]")!;
+    expect(stage.style.visibility).toBe("hidden");
+    expect(container.querySelector("[aria-busy]")).toHaveAttribute("aria-busy", "true");
+
+    await act(async () => { finishRaster(); });
+    expect(stage.style.visibility).toBe("hidden");
+    await act(async () => {
+      finishSvg(new Response('<svg viewBox="0 0 600 200"><path /></svg>'));
+    });
+    await waitFor(() => expect(stage.style.visibility).toBe("visible"));
+    expect(stage).toHaveAttribute("data-animate", "false");
+    expect(container.querySelector(".graph-svg svg")).not.toBeNull();
+    // The panel and layout hook share the same in-flight SVG request.
+    expect(fetchSvg).toHaveBeenCalledTimes(1);
+
+    rerender(<QuestionExperience {...baseProps} />);
+    rerender(<QuestionExperience {...baseProps} question={next} sharedImageSrc="/deferred-graph.png" />);
+    expect(stage.style.visibility).toBe("visible");
+    expect(fetchSvg).toHaveBeenCalledTimes(1);
+  });
+
+  it("settles on the raster fallback when the preferred SVG is missing", async () => {
+    let finishRaster: () => void = () => {};
+    vi.stubGlobal("Image", class {
+      naturalWidth = 400;
+      naturalHeight = 300;
+      onload: (() => void) | null = null;
+      set src(_src: string) { finishRaster = () => this.onload?.(); }
+    });
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response(null, { status: 404 })));
+    const { container } = render(
+      <QuestionExperience {...baseProps} question={{ ...question, graph_svg: "/missing.svg" }} sharedImageSrc="/fallback.png" />,
+    );
+    await act(async () => { finishRaster(); });
+    await waitFor(() => expect(container.querySelector("[data-ready]")).toHaveAttribute("data-ready", "true"));
+    expect(container.querySelector('img[alt="Imagen de apoyo"]')).toHaveAttribute("src", expect.stringContaining("fallback.png"));
+    expect(container.querySelectorAll("[data-panel][data-animate='false']")).toHaveLength(2);
+  });
+
+  it("ignores late assets from a question the student has already left", async () => {
+    let failRaster: () => void = () => {};
+    vi.stubGlobal("Image", class {
+      onerror: (() => void) | null = null;
+      set src(_src: string) { failRaster = () => this.onerror?.(); }
+    });
+    let failSvg: (reason: Error) => void = () => {};
+    vi.stubGlobal("fetch", () => new Promise<Response>((_resolve, reject) => { failSvg = reject; }));
+    const { container, rerender } = render(
+      <QuestionExperience {...baseProps} question={{ ...question, graph_svg: "/late.svg" }} sharedImageSrc="/late.png" />,
+    );
+    expect(container.querySelector("[data-ready]")).toHaveAttribute("data-ready", "false");
+    rerender(<QuestionExperience {...baseProps} question={{ ...question, original_number: 82 }} />);
+    const rects = panelRects(container);
+    await act(async () => { failRaster(); failSvg(new Error("Missing SVG")); });
+    expect(container.querySelector("[data-ready]")).toHaveAttribute("data-ready", "true");
+    expect(panelRects(container)).toEqual(rects);
+  });
+
+  it("waits for text metrics when web fonts are loading", async () => {
+    const fonts = new EventTarget();
+    let finishFonts: () => void = () => {};
+    Object.assign(fonts, {
+      status: "loading",
+      ready: new Promise<void>((resolve) => { finishFonts = resolve; }),
+    });
+    Object.defineProperty(document, "fonts", { configurable: true, value: fonts });
+    try {
+      const { container } = render(<QuestionExperience {...baseProps} />);
+      const stage = container.querySelector<HTMLElement>("[data-ready]")!;
+      expect(stage.style.visibility).toBe("hidden");
+      await act(async () => { finishFonts(); });
+      expect(stage.style.visibility).toBe("visible");
+      expect(stage).toHaveAttribute("data-animate", "false");
+    } finally {
+      Reflect.deleteProperty(document, "fonts");
+    }
+  });
+
 });

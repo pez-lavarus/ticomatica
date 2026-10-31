@@ -6,6 +6,7 @@ interface GraphDimensions {
 }
 
 const dimensionsCache = new Map<string, GraphDimensions | null>();
+const pendingAspects = new Map<string, Promise<number | null>>();
 
 export function getGraphDimensions(src: string | undefined): GraphDimensions | null {
   if (!src) return null;
@@ -31,7 +32,9 @@ export function preloadGraphAspect(src: string): Promise<number | null> {
   if (cached !== undefined) {
     return Promise.resolve(cached ? cached.width / cached.height : null);
   }
-  return new Promise((resolve) => {
+  const pending = pendingAspects.get(src);
+  if (pending) return pending;
+  const request = new Promise<number | null>((resolve) => {
     const image = new window.Image();
     image.onload = () => {
       const width = image.naturalWidth;
@@ -45,7 +48,9 @@ export function preloadGraphAspect(src: string): Promise<number | null> {
       resolve(null);
     };
     image.src = src;
-  });
+  }).finally(() => { pendingAspects.delete(src); });
+  pendingAspects.set(src, request);
+  return request;
 }
 
 export function preloadGraphAspects(sources: string[]): Promise<(number | null)[]> {

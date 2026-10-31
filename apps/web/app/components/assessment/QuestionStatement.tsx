@@ -59,7 +59,6 @@ export function QuestionStatement({
       contentKey={question.original_number}
       split={split}
       graphMax={graphMax}
-      className="panel-enter"
     >
       {/* `group-data-[split=true]` reads the data-split attribute on the panel
           content, which is how the layout switches this arrangement. */}
