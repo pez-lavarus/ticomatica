@@ -11,6 +11,7 @@ Reviewed against `82d89ea20afa4f66a18ab9c3d427312378565c93` on 2026-10-31.
 | The desktop navigator rebuilt its data and rendered on countdown updates. | Reconciles all question rows and answer indicators every second. | Memoize navigator data and the component, and stabilize the results callback. |
 | The layout measurement cache included graph height for every panel. | Repeats synchronous DOM measurements for options and explanations whose sizes do not depend on the statement graph's height. | Keep graph height in the statement cache key only. Caches remain local to each search so content, font, and viewport changes receive fresh measurements. |
 | Infrastructure specified `ignoreDeprecations: "6.0"` with TypeScript 5.9. | Blocks root type checking and infrastructure builds. | Remove the unsupported compiler option. |
+| Infrastructure tests also discovered compiled `dist/test/*.js` after a build. | Reruns generated CommonJS test files that cannot import Vitest, breaking tests after builds. | Scope Vitest discovery to `test/**/*.test.ts` in an ESM configuration file. |
 
 ## Measurements
 
