@@ -138,6 +138,10 @@ img:not(.graph-image), video, .no-transition, .no-transition * {
 /* Source SVG graphs render inline so `currentColor` inherits the theme's
    graph-stroke color (white in dark mode, dark grey in light mode). */
 .graph-svg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-height: var(--graph-max, 450px);
   color: var(--graph-stroke, var(--foreground));
   max-width: 100%;
 }
@@ -150,6 +154,7 @@ img:not(.graph-image), video, .no-transition, .no-transition * {
   max-height: var(--graph-max, 450px);
 }
 
+.graph-svg-expanded,
 .graph-svg-expanded svg {
   max-height: 84dvh;
 }

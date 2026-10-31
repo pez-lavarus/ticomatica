@@ -129,6 +129,7 @@ export function useQuestionLayout({
   graphSrc,
 }: UseQuestionLayoutOptions) {
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const lastArrangement = useRef<{ space: string; plan: LayoutPlan } | null>(null);
   const [box, setBox] = useState<ContainerBox | null>(null);
   const [state, setState] = useState<PlanState>({ questionKey: null, plan: null, placed: {} });
   // Bumped when something that changes natural sizes finishes loading. Multiple
@@ -233,6 +234,8 @@ export function useQuestionLayout({
         hasGraph,
         graphCeiling: graphCeilingFor(graphSrc, box, questionKey),
         previous: null,
+        preferredArrangement: lastArrangement.current?.space === spaceKey(box)
+          ? lastArrangement.current.plan : null,
         panels: {
           statement: createMeasurer(
             statementEl,
@@ -247,6 +250,7 @@ export function useQuestionLayout({
           explanation: null,
         },
       });
+      lastArrangement.current = { space: spaceKey(box), plan: next };
       if (graphSrc && next.graphMax !== null) {
         graphCeilings.set(graphSrc, { space: spaceKey(box), graphMax: next.graphMax, owner: questionKey });
       }

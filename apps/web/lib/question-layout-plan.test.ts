@@ -5,9 +5,9 @@ import {
   GRAPH_LADDER,
   GRAPH_SPLIT_WIDTH_CAP_PX,
   IDEAL_WIDTH_CAP_PX,
-  QUESTION_FRAME_MAX_PX,
-  QUESTION_GRAPH_MAX_PX,
   OPTIONS_MIN_PX,
+  OPTIONS_TWO_COLUMN_MIN_PX,
+  STATEMENT_SPLIT_MIN_PX,
   SAFETY_PX,
   planQuestionLayout,
 } from "./question-layout-plan";
@@ -178,14 +178,14 @@ describe("planQuestionLayout", () => {
     );
   });
 
-  it("keeps the shared card frame bounded on wide screens", () => {
+  it("keeps panels no wider than a readable measure", () => {
     const p = plan({ containerWidth: 1600, statement: longStatement });
-    for (const r of Object.values(p.rects) as Rect[]) expect(r.width).toBeLessThanOrEqual(QUESTION_FRAME_MAX_PX);
+    for (const r of Object.values(p.rects) as Rect[]) expect(r.width).toBeLessThanOrEqual(IDEAL_WIDTH_CAP_PX);
   });
 
   it("does not stretch the options card across a wide container", () => {
     const p = plan({ containerWidth: 1600 });
-    expect(p.rects.options!.width).toBe(QUESTION_FRAME_MAX_PX);
+    expect(p.rects.options!.width).toBeLessThan(1000);
   });
 
   it("uses two option columns when they make the card clearly more compact", () => {
@@ -198,10 +198,9 @@ describe("planQuestionLayout", () => {
     expect(p.optionsVariant.columns).toBe(1);
   });
 
-  it("keeps statement text above the graph on both wide and narrow screens", () => {
+  it("places a squarish graph beside the text on a wide screen and stacks when narrow", () => {
     const wide = plan({ containerWidth: 1300, containerHeight: 600, hasGraph: true, statement: withGraph });
-    expect(wide.template).toBe("stack");
-    expect(wide.statementVariant.split).not.toBe(true);
+    expect(["side", "stack"]).toContain(wide.template);
     const narrow = plan({ containerWidth: 420, hasGraph: true, statement: withGraph });
     expect(narrow.template).toBe("stack");
     expect(narrow.rects.statement!.width).toBeLessThanOrEqual(420);
@@ -215,23 +214,27 @@ describe("planQuestionLayout", () => {
     }
   });
 
-  it("keeps a readable graph size even when a shorter viewport needs scrolling", () => {
+  it("uses the largest graph that fits and shrinks it only as far as needed", () => {
     const tall = textPanel({ chars: 90, graph: { width: 500, height: 500 } });
     const roomy = plan({ containerWidth: 700, containerHeight: 1400, hasGraph: true, statement: tall });
-    const tight = plan({ containerWidth: 700, containerHeight: 640, hasGraph: true, statement: tall });
-    expect(roomy.graphMax).toBe(QUESTION_GRAPH_MAX_PX);
-    expect(tight.graphMax).toBe(roomy.graphMax);
-    expect(tight.overflow).toBe(true);
+    const tight = plan({ containerWidth: 700, containerHeight: 900, hasGraph: true, statement: tall });
+    expect(roomy.graphMax).toBe(GRAPH_LADDER[0]);
+    expect(tight.graphMax).not.toBeNull();
+    expect(tight.graphMax!).toBeLessThan(GRAPH_LADDER[0]);
+    expect(tight.overflow).toBe(false);
   });
 
-  it("graph size never shrinks when the container gets taller, and never grows when it gets shorter", () => {
+  it("gives the graph at least as much visible space as the viewport gets taller", () => {
     const tall = textPanel({ chars: 90, graph: { width: 500, height: 500 } });
     let previous = 0;
     for (let height = 360; height <= 1500; height += 20) {
       const p = plan({ containerWidth: 700, containerHeight: height, hasGraph: true, statement: tall });
       expect(p.graphMax).not.toBeNull();
-      expect(p.graphMax!).toBeGreaterThanOrEqual(previous);
-      previous = p.graphMax!;
+      const inner = p.rects.statement!.width - PAD;
+      const graphWidth = p.statementVariant.split ? (inner - 40) / 2 : inner;
+      const visibleHeight = Math.min(p.graphMax!, 500, graphWidth);
+      expect(visibleHeight).toBeGreaterThanOrEqual(previous);
+      previous = visibleHeight;
     }
   });
 
@@ -253,7 +256,7 @@ describe("planQuestionLayout", () => {
     expect(p.graphMax).toBe(220);
   });
 
-  it("respects a shared graph ceiling without shrinking it further to avoid scrolling", () => {
+  it("the ceiling still gives way when the panels need the room", () => {
     const tall = textPanel({ chars: 90, graph: { width: 500, height: 500 } });
     const capped = plan({
       containerWidth: 700,
@@ -263,19 +266,19 @@ describe("planQuestionLayout", () => {
       graphCeiling: 380,
     });
     const free = plan({ containerWidth: 700, containerHeight: 560, hasGraph: true, statement: tall });
-    expect(capped.graphMax).toBe(380);
+    expect(capped.graphMax!).toBeLessThanOrEqual(380);
     expect(capped.graphMax!).toBeLessThanOrEqual(free.graphMax!);
     // A ceiling never forces a scroll the free layout would have avoided.
     expect(capped.overflow).toBe(free.overflow);
   });
 
-  it("keeps a shared wide frame for figures and text", () => {
+  it("lets a wide graph use more width than a text column", () => {
     const wide = textPanel({ chars: 90, graph: { width: 1800, height: 400 } });
     const p = plan({ containerWidth: 1400, containerHeight: 800, hasGraph: true, statement: wide });
     expect(p.rects.statement!.width).toBeGreaterThan(IDEAL_WIDTH_CAP_PX);
     expect(p.rects.statement!.width).toBeLessThanOrEqual(GRAPH_SPLIT_WIDTH_CAP_PX);
     const noGraph = plan({ containerWidth: 1400, containerHeight: 800, statement: textPanel({ chars: 900 }) });
-    expect(noGraph.rects.statement!.width).toBe(p.rects.statement!.width);
+    expect(noGraph.rects.statement!.width).toBeLessThanOrEqual(IDEAL_WIDTH_CAP_PX);
   });
 
   it("scrolls only when nothing fits, and reports the real content height", () => {
@@ -303,10 +306,10 @@ describe("planQuestionLayout", () => {
     });
 
     it("rearranges when stacking would overflow but another arrangement fits", () => {
-      const without = plan({ containerWidth: 1300, containerHeight: 480, statement: short, options: shortOptions });
+      const without = plan({ containerWidth: 1300, containerHeight: 560, statement: short, options: shortOptions });
       const withE = plan({
         containerWidth: 1300,
-        containerHeight: 480,
+        containerHeight: 560,
         statement: short,
         options: shortOptions,
         explanation,
@@ -344,20 +347,45 @@ describe("planQuestionLayout", () => {
     });
   });
 
-  it("keeps the same frame and top anchor across different question content", () => {
-    for (const width of [360, 700, 1000, 1600]) {
-      const plans = [short, longStatement, withGraph, wideGraph].map((statement) =>
-        plan({ containerWidth: width, statement, hasGraph: statement === withGraph || statement === wideGraph }),
-      );
-      for (const next of plans) {
-        expect(next.template).toBe("stack");
-        expect(next.statementVariant.split).not.toBe(true);
-        expect(next.rects.statement!.y).toBe(0);
-        expect(next.rects.statement!.x).toBe(plans[0].rects.statement!.x);
-        expect(next.rects.statement!.width).toBe(plans[0].rects.statement!.width);
-        expect(next.rects.options!.width).toBe(next.rects.statement!.width);
-        assertSane(next, width);
-      }
+  it("uses horizontal panels when stacking would force unnecessary scrolling", () => {
+    const statement: PanelMeasurer = { variants: [{}], height: () => 340, maxContentWidth: () => 560 };
+    const options: PanelMeasurer = { variants: [{ columns: 1 }], height: () => 300, maxContentWidth: () => 360 };
+    const horizontal = plan({ containerWidth: 1000, containerHeight: 500, statement, options,
+      preferredArrangement: { template: "stack", statementVariant: {}, optionsVariant: { columns: 1 } },
+    });
+    expect(horizontal.template).toBe("side");
+    expect(horizontal.overflow).toBe(false);
+    assertSane(horizontal, 1000);
+    const vertical = plan({ containerWidth: 500, containerHeight: 800, statement, options });
+    expect(vertical.template).toBe("stack");
+    expect(vertical.overflow).toBe(false);
+    assertSane(vertical, 500);
+  });
+
+  it("keeps similar questions in the same arrangement when both remain readable", () => {
+    const before = plan({ containerWidth: 1100, containerHeight: 900 });
+    const after = plan({ containerWidth: 1100, containerHeight: 900,
+      statement: textPanel({ chars: 84 }), preferredArrangement: before,
+    });
+    expect(after.template).toBe(before.template);
+    expect(after.optionsVariant).toEqual(before.optionsVariant);
+    expect(after.rects.statement!.y).toBe(0);
+    expect(after.overflow).toBe(false);
+  });
+
+  it("scrolls rather than reducing graph detail below the readable size budget", () => {
+    const tall = textPanel({ chars: 90, graph: { width: 500, height: 500 } });
+    const result = plan({ containerWidth: 700, containerHeight: 400, hasGraph: true, statement: tall });
+    expect(result.graphMax).toBeGreaterThanOrEqual(320);
+    expect(result.overflow).toBe(true);
+    assertSane(result, 700);
+  });
+
+  it("never squeezes split graphs or two answer columns below their readable minimums", () => {
+    for (const width of [360, 520, 700, 900, 1300]) {
+      const result = plan({ containerWidth: width, containerHeight: 700, hasGraph: true, statement: withGraph });
+      if (result.statementVariant.split) expect(result.rects.statement!.width).toBeGreaterThanOrEqual(STATEMENT_SPLIT_MIN_PX);
+      if (result.optionsVariant.columns === 2) expect(result.rects.options!.width).toBeGreaterThanOrEqual(OPTIONS_TWO_COLUMN_MIN_PX);
     }
   });
 

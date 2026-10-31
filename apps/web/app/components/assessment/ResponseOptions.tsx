@@ -101,7 +101,7 @@ export function ResponseOptions({
                   type="button"
                   onClick={() => onOpenImageModal(option.image!, `Opción ${option.label}`, option.svg)}
                   aria-label={`Ampliar gráfica de opción ${option.label}`}
-                  className="flex-1 min-w-0 pt-0.5 md:pt-1 cursor-zoom-in rounded-sm"
+                  className="flex flex-1 items-center justify-center min-w-0 [--graph-max:240px] cursor-zoom-in rounded-sm"
                 >
                   <SourceImage
                     svg={option.svg}

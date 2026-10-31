@@ -53,7 +53,7 @@ export function QuestionStatement({
         )}
 
         {visualSpec ? (
-          <div className="min-w-0 flex justify-center group-data-[split=true]:flex-1 w-full">
+          <div className="min-w-0 flex items-center justify-center group-data-[split=true]:flex-1 w-full">
             <VisualRenderer
               spec={visualSpec}
               itemId={question.original_number}
@@ -62,11 +62,11 @@ export function QuestionStatement({
           </div>
         ) : sharedImageSrc ? (
           /* Source graph: inline SVG when available, PNG fallback. */
-          <div className="min-w-0 flex justify-center group-data-[split=true]:flex-1">
+          <div className="min-w-0 flex items-center justify-center group-data-[split=true]:flex-1">
             <button
               type="button"
               aria-label="Ampliar imagen de apoyo"
-              className="w-fit max-w-full rounded-sm border border-border overflow-hidden cursor-zoom-in hover:border-accent transition-colors shadow-sm"
+              className="flex items-center justify-center w-fit max-w-full rounded-sm border border-border overflow-hidden cursor-zoom-in hover:border-accent transition-colors shadow-sm"
               onClick={() => onOpenImageModal(sharedImageSrc, "Imagen de apoyo", question.graph_svg)}
             >
               <SourceImage

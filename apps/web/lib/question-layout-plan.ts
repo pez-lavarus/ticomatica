@@ -3,10 +3,18 @@
 // `PanelMeasurer` per panel; this module decides where each one goes and how
 // big it is, and is unit-tested with synthetic measurers.
 //
-// The question/answer view uses a stable reading column: aligned full-width
-// cards, statement before answers, a fixed graph limit and natural heights.
-// Content may scroll instead of shrinking diagrams to make a question fit.
-// The optional three-panel explanation view retains its adaptive templates.
+// Model
+//  - Three panels (statement, options, optional explanation) are placed as
+//    "bands" (rows) of "columns" (stacks). Each panel hugs its content: its
+//    width comes from its max-content width (capped to a readable measure) and
+//    its height is whatever the content needs at that width. Empty space is
+//    allowed around the panels, never inside them.
+//  - Every candidate arrangement x panel variant (statement text beside the
+//    graph, options in one or two columns) x graph size is laid out and
+//    scored; the lowest score wins. The graph is always sized in local pixels
+//    from `GRAPH_LADDER`: the largest rung whose arrangement still fits. When
+//    the explanation shows, it is simply one more panel in the search, so the
+//    others resize or move only when that yields a better whole.
 //
 // Unit convention: lengths are local CSS pixels, i.e. what clientWidth and
 // offsetHeight report inside the font-scale `zoom` wrapper. A larger font
@@ -60,6 +68,9 @@ export interface PlanInput {
   /** Plan on screen for this same question and container, used to limit how
    *  much the existing panels move when the explanation appears. */
   previous?: LayoutPlan | null;
+  /** Soft preference across questions at the same viewport size. It never
+   * overrides a fitting layout in favor of one that requires scrolling. */
+  preferredArrangement?: Pick<LayoutPlan, "template" | "statementVariant" | "optionsVariant"> | null;
   /** Largest graph max-height (px) this question may use. Questions that share
    *  a graph pass the size a sibling settled on, so the graph does not jump
    *  around while navigating. It is a ceiling, not a pin: the graph still
@@ -110,15 +121,15 @@ export const OPTIONS_COLUMN_GAP_PX = 16;
 
 export const STATEMENT_MIN_PX = 300;
 export const STATEMENT_WITH_GRAPH_MIN_PX = 340;
-export const STATEMENT_SPLIT_MIN_PX = 620;
-export const OPTIONS_MIN_PX = 240;
-// padding + two columns of at least 200 + their gap.
-export const OPTIONS_TWO_COLUMN_MIN_PX = PANEL_PADDING_X_PX + 2 * 200 + OPTIONS_COLUMN_GAP_PX;
+export const STATEMENT_SPLIT_MIN_PX = 760;
+export const OPTIONS_MIN_PX = 320;
+// Padding plus two readable answer columns and their gap.
+export const OPTIONS_TWO_COLUMN_MIN_PX = PANEL_PADDING_X_PX + 2 * 240 + OPTIONS_COLUMN_GAP_PX;
 export const EXPLANATION_MIN_PX = 340;
 
 /** Graph max-heights tried, largest first. Always local pixels (the same unit
  *  as the container), never a viewport breakpoint. */
-export const GRAPH_LADDER: ReadonlyArray<number> = [600, 520, 450, 380, 320, 260, 210, 170, 140];
+export const GRAPH_LADDER: ReadonlyArray<number> = [600, 520, 450, 380, 320];
 
 /** Sub-pixel slack so rounding never clips the last row of a panel. */
 export const SAFETY_PX = 1;
@@ -283,7 +294,10 @@ function layoutCandidate(
     const min = minPanelWidth(id, v, ctx.hasGraph);
     const content = measurer(id).maxContentWidth(v, graphValue);
     const cap = widthCap(id, v, ctx.hasGraph);
-    return Math.min(clamp(content, min, Math.max(min, cap)), Math.max(ctx.width, 1));
+    // Shared width increments reduce small card-width changes between questions
+    // without narrowing content or exceeding the readable cap.
+    const rounded = Math.ceil(content / 80) * 80;
+    return Math.min(clamp(rounded, min, Math.max(min, cap)), Math.max(ctx.width, 1));
   };
 
   const columnInfo = template.bands.map((band) =>
@@ -333,6 +347,13 @@ function layoutCandidate(
     let x = 0;
     const placed: PanelStat[] = [];
     for (let c = 0; c < cols.length; c++) {
+      // A single narrow column is valid for ordinary text, but not for a
+      // split graph or two answer columns: those variants need their minimums.
+      if (cols[c].ids.some((id) => {
+        const variant = variantOf(id);
+        return (variant.split || variant.columns === 2)
+          && widths[c] < minPanelWidth(id, variant, ctx.hasGraph);
+      })) return null;
       let cy = y;
       cols[c].ids.forEach((id, i) => {
         const v = variantOf(id);
@@ -452,66 +473,7 @@ export function graphLadder(hasGraph: boolean, ceiling?: number | null): Readonl
   return [ceiling, ...below];
 }
 
-/** Shared frame and graph size for every question. Prose inside the frame
- * keeps its own readable measure; figures and two-column answers use the rest. */
-export const QUESTION_FRAME_MAX_PX = 1040;
-export const QUESTION_GRAPH_MAX_PX = 450;
-const TWO_COLUMN_READABLE_MIN_PX = 760;
-
-function planReadingColumn(input: PlanInput): LayoutPlan {
-  const width = Math.min(Math.max(input.containerWidth, 1), QUESTION_FRAME_MAX_PX);
-  const x = Math.floor((Math.max(input.containerWidth, 1) - width) / 2);
-  const graphMax = input.hasGraph
-    ? Math.min(QUESTION_GRAPH_MAX_PX, input.graphCeiling ?? QUESTION_GRAPH_MAX_PX)
-    : null;
-  const statementVariant = input.panels.statement.variants.find((v) => !v.split)
-    ?? input.panels.statement.variants[0];
-  const options = input.panels.options;
-  const single = options.variants.find((v) => v.columns === 1) ?? options.variants[0];
-  const double = options.variants.find((v) => v.columns === 2);
-  // Two columns are only useful when the complete answer fits at its natural
-  // width. Long formulas and prose keep the full card instead of squeezing.
-  const optionsVariant = double && width >= TWO_COLUMN_READABLE_MIN_PX
-    && options.maxContentWidth(double, null) <= width
-    ? double : single;
-  const statementHeight = Math.ceil(input.panels.statement.height(width, statementVariant, graphMax)) + SAFETY_PX;
-  const optionsHeight = Math.ceil(options.height(width, optionsVariant, null)) + SAFETY_PX;
-  const optionsY = statementHeight + gapFor(width);
-  const contentHeight = optionsY + optionsHeight;
-  return {
-    template: "stack",
-    rects: {
-      statement: { x, y: 0, width, height: statementHeight },
-      options: { x, y: optionsY, width, height: optionsHeight },
-    },
-    statementVariant,
-    optionsVariant,
-    graphMax,
-    contentHeight,
-    stageHeight: Math.max(contentHeight, input.containerHeight),
-    overflow: contentHeight > input.containerHeight,
-    score: 0,
-  };
-}
-
 export function planQuestionLayout(input: PlanInput): LayoutPlan {
-  if (!input.panels.explanation) return planReadingColumn(input);
-  // Adding an explanation should not disturb an already readable column when
-  // the new panel fits below it. Otherwise retain the adaptive three-card path.
-  if (input.previous?.template === "stack" && !input.previous.overflow) {
-    const before = input.previous;
-    const frame = before.rects.options!;
-    const height = Math.ceil(input.panels.explanation.height(frame.width, {}, null)) + SAFETY_PX;
-    const y = before.contentHeight + gapFor(input.containerWidth);
-    const contentHeight = y + height;
-    if (contentHeight <= input.containerHeight) return {
-      ...before,
-      template: "stack3",
-      rects: { ...before.rects, explanation: { x: frame.x, y, width: frame.width, height } },
-      contentHeight,
-      stageHeight: input.containerHeight,
-    };
-  }
   const { containerWidth, containerHeight, hasGraph } = input;
   const withExplanation = Boolean(input.panels.explanation);
   const ladder = graphLadder(hasGraph, input.graphCeiling);
@@ -533,16 +495,34 @@ export function planQuestionLayout(input: PlanInput): LayoutPlan {
   const templates = withExplanation ? TEMPLATES_THREE : TEMPLATES_TWO;
 
   let best: { candidate: Candidate; score: number } | null = null;
+  const candidates: { candidate: Candidate; score: number; overflow: number }[] = [];
 
   for (const template of templates) {
     for (const sv of input.panels.statement.variants) {
       for (const ov of input.panels.options.variants) {
         const chosen = fitGraph(ctx, template, sv, ov);
         if (!chosen) continue;
-        const score = scoreCandidate(chosen, ctx, input.previous);
-        if (!best || score < best.score - 1e-9) best = { candidate: chosen, score };
+        let score = scoreCandidate(chosen, ctx, input.previous);
+        const preferred = input.preferredArrangement;
+        if (preferred) {
+          if (chosen.template.name !== preferred.template) score += 0.35;
+          if (Boolean(sv.split) !== Boolean(preferred.statementVariant.split)) score += 0.15;
+          if (ov.columns !== preferred.optionsVariant.columns) score += 0.15;
+        }
+        const overflow = Math.max(0, chosen.totalHeight - ctx.height);
+        candidates.push({ candidate: chosen, score, overflow });
       }
     }
+  }
+
+  // Fitting layouts always beat scrolling layouts, regardless of aesthetic
+  // scores or the previous question's orientation. If none fit, limit the
+  // shortlist to within one small spacing unit of the least scrolling option.
+  const leastOverflow = Math.min(...candidates.map((c) => c.overflow));
+  const allowance = leastOverflow === 0 ? 0 : 24;
+  for (const candidate of candidates) {
+    if (candidate.overflow > leastOverflow + allowance) continue;
+    if (!best || candidate.score < best.score - 1e-9) best = candidate;
   }
 
   // The stacked template is always feasible, so this only guards bad input.
@@ -559,8 +539,8 @@ export function planQuestionLayout(input: PlanInput): LayoutPlan {
 
   const { candidate } = best;
   const overflow = candidate.totalHeight > ctx.height;
-  const slack = Math.max(0, ctx.height - candidate.totalHeight);
-  const top = overflow ? 0 : Math.round(Math.min(slack * TOP_BIAS, MAX_TOP_OFFSET_PX));
+  // Keep the start of the problem anchored as its content height changes.
+  const top = 0;
   const left = Math.round((ctx.width - candidate.layoutWidth) / 2);
 
   const rects: Partial<Record<PanelId, Rect>> = {};
