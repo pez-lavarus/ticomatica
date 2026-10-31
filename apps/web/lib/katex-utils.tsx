@@ -29,6 +29,16 @@ function renderPlainText(text: string, keyPrefix: string) {
   );
 }
 
+/** Keep quantities, coordinates and short substitutions in the sentence;
+ * give complete equations and substantial expressions their own visual line. */
+function isProminentFormula(math: string): boolean {
+  const compact = math.replace(/\s/g, "");
+  const relation = /[=<>]|\\(?:leq?|geq?|neq|approx)\b/.test(math);
+  return /\\(?:d?frac|sqrt|sum|int|begin)\b/.test(math)
+    || (relation && compact.length >= 12)
+    || /[a-z]\s*\([^)]*\)\s*=/.test(math);
+}
+
 /**
  * Renders a text string that may contain LaTeX delimiters:
  * - \$ (Escaped dollar sign, rendered as plain "$")
@@ -37,7 +47,7 @@ function renderPlainText(text: string, keyPrefix: string) {
  * - **bold** (Bold markdown in plain text)
  * - \n (Line breaks in plain text)
  */
-export function KaTeXText({ text }: { text: string }) {
+export function KaTeXText({ text, emphasizeFormulas = false }: { text: string; emphasizeFormulas?: boolean }) {
   if (!text) return null;
 
   // Regex matches:
@@ -60,11 +70,24 @@ export function KaTeXText({ text }: { text: string }) {
         if (part.startsWith("\\[") && part.endsWith("\\]")) {
           return <BlockMath key={i} math={part.slice(2, -2)} />;
         }
-        if (part.startsWith("$") && part.endsWith("$")) {
-          return <InlineMath key={i} math={part.slice(1, -1)} />;
-        }
-        if (part.startsWith("\\(") && part.endsWith("\\)")) {
-          return <InlineMath key={i} math={part.slice(2, -2)} />;
+        const math = part.startsWith("$") && part.endsWith("$")
+          ? part.slice(1, -1)
+          : part.startsWith("\\(") && part.endsWith("\\)")
+            ? part.slice(2, -2)
+            : null;
+        if (math !== null) {
+          if (emphasizeFormulas && isProminentFormula(math)) {
+            // Sentence punctuation belongs with the formula, not on a line
+            // by itself underneath it. The source question stays unchanged.
+            const punctuation = parts[i + 1]?.match(/^[.,;:!?]/)?.[0] ?? "";
+            if (punctuation) parts[i + 1] = parts[i + 1].slice(1);
+            return (
+              <span key={i} className="question-formula">
+                <InlineMath math={`\\displaystyle ${math}`} />{punctuation}
+              </span>
+            );
+          }
+          return <InlineMath key={i} math={math} />;
         }
 
         return renderPlainText(part, `plain-${i}`);

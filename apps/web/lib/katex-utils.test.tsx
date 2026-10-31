@@ -49,6 +49,34 @@ describe("katex-utils", () => {
     });
   });
 
+  describe("question formula emphasis", () => {
+    it("gives complete equations a separate line while preserving surrounding prose and punctuation", () => {
+      const { container } = render(<KaTeXText emphasizeFormulas text="La circunferencia es $(x-2)^2 + (y-3)^2 = 25$. Determine su radio." />);
+      const formula = container.querySelector(".question-formula");
+      expect(formula?.querySelector(".katex")).not.toBeNull();
+      expect(formula?.textContent).toMatch(/\.$/);
+      expect(container.textContent).toContain("La circunferencia es");
+      expect(container.textContent).toContain("Determine su radio.");
+    });
+
+    it("keeps short substitutions, quantities and coordinates inline", () => {
+      const { container } = render(<KaTeXText emphasizeFormulas text="Centro $(2,3)$, radio $20$ y $x=2$." />);
+      expect(container.querySelector(".question-formula")).toBeNull();
+      expect(container.querySelectorAll(".katex")).toHaveLength(3);
+    });
+
+    it("emphasizes function definitions and fractions with either inline delimiter", () => {
+      const { container } = render(<KaTeXText emphasizeFormulas text={"Sea \\(f(x)=2x+1\\). El resultado es $\\frac{25}{4}$."} />);
+      expect(container.querySelectorAll(".question-formula")).toHaveLength(2);
+    });
+
+    it("leaves the default rendering and explicitly authored display formulas intact", () => {
+      const { container } = render(<KaTeXText text="$(x-2)^2+(y-3)^2=25$ y $$A=\\pi r^2$$" />);
+      expect(container.querySelector(".question-formula")).toBeNull();
+      expect(container.querySelectorAll(".katex-display")).toHaveLength(1);
+    });
+  });
+
   describe("ExplanationText", () => {
     it("renders solution step with math and bold formatting", () => {
       const { container } = render(

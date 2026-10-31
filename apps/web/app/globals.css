@@ -171,6 +171,36 @@ button:not(:disabled),
   overflow-y: hidden;
 }
 
+/* More breathing room for question prose without disturbing mathematical
+   typesetting, whose spacing is already determined by KaTeX. */
+.assessment-copy {
+  letter-spacing: 0.012em;
+  word-spacing: 0.035em;
+  line-height: 1.85;
+}
+
+.assessment-copy .katex {
+  letter-spacing: normal;
+  word-spacing: normal;
+}
+
+.question-formula {
+  display: block;
+  max-width: 100%;
+  margin-block: 0.8em;
+  padding: 0.35em 0.15em;
+  text-align: center;
+  line-height: 1.5;
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  letter-spacing: normal;
+  word-spacing: normal;
+}
+
+.question-formula:first-child { margin-top: 0.2em; }
+.question-formula:last-child { margin-bottom: 0.2em; }
+
 /* Response options: keep each formula on a single horizontal line (no line
    breaks); the option scrolls horizontally, without a scrollbar, when a
    formula is wider than its card. The vertical padding and matching negative
