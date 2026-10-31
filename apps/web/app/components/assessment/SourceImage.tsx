@@ -18,24 +18,56 @@ function hashString(value: string): string {
 }
 
 /**
- * Makes a fetched SVG safe to inline alongside others. Keeps the SVG's own
- * `<style>` (it carries the fill/stroke rules that make shapes render as
- * outlines rather than solid black), but removes the color-forcing rules that
- * would leak onto the page or fight the theme:
- *   - `:root { color: ... }` and `svg { color: ... }` (would set document text
- *     color / every svg's color);
- *   - `@media(prefers-color-scheme: ...) { ... }` blocks (the app's theme is
- *     class-based, not OS-scheme-based).
+ * Removes the parts of an SVG's inline CSS that would leak onto the page or
+ * fight the class-based theme, while keeping the fill/stroke rules that make
+ * shapes render correctly (as outlines instead of solid black):
+ *   - `@media(prefers-color-scheme: ...) { ... }` blocks (matched by balanced
+ *     braces, since they can contain several nested rules);
+ *   - `:root { color: ... }` and `svg { color: ... }` rules (which would set the
+ *     document's text color / every svg's color).
  * With those gone, `currentColor` inherits `.graph-svg`'s `--graph-stroke`.
- * Also gives <title>/<desc> unique ids and rewrites aria-labelledby to match.
+ */
+function sanitizeSvgStyle(css: string): string {
+  let cleaned = css;
+
+  // Remove OS-scheme @media blocks (balanced braces, so multi-rule blocks are
+  // removed whole and never leave a stray closing brace behind).
+  for (let guard = 0; guard < 8; guard += 1) {
+    const idx = cleaned.indexOf("@media");
+    if (idx === -1) break;
+    const open = cleaned.indexOf("{", idx);
+    if (open === -1) break;
+    if (!cleaned.slice(idx, open).includes("prefers-color-scheme")) break;
+    let depth = 0;
+    let close = -1;
+    for (let j = open; j < cleaned.length; j += 1) {
+      if (cleaned[j] === "{") depth += 1;
+      else if (cleaned[j] === "}") {
+        depth -= 1;
+        if (depth === 0) {
+          close = j;
+          break;
+        }
+      }
+    }
+    if (close === -1) break;
+    cleaned = cleaned.slice(0, idx) + cleaned.slice(close + 1);
+  }
+
+  return cleaned
+    .replace(/:\s*root\s*\{[^}]*\}/g, "")
+    .replace(/\bsvg\s*\{[^}]*\}/g, "");
+}
+
+/**
+ * Makes a fetched SVG safe to inline alongside others. Keeps the SVG's own
+ * `<style>` (minus the color-forcing rules), and gives <title>/<desc> unique
+ * ids with aria-labelledby rewired to match.
  */
 function sanitizeSvg(content: string, uid: string): string {
   return content
     .replace(/<style[^>]*>([\s\S]*?)<\/style>/gi, (_match, css: string) => {
-      const cleaned = css
-        .replace(/:\s*root\s*\{[^}]*\}/g, "")
-        .replace(/\bsvg\s*\{[^}]*\}/g, "")
-        .replace(/@media[^{]*prefers-color-scheme[^{]*\{[^}]*\}/g, "");
+      const cleaned = sanitizeSvgStyle(css);
       return cleaned.trim() ? `<style>${cleaned}</style>` : "";
     })
     .replace(/id="title"/g, `id="title-${uid}"`)
