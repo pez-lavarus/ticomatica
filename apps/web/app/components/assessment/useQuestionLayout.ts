@@ -142,7 +142,11 @@ export function useQuestionLayout({
     };
     return {
       elements,
-      refs: { statement: make("statement"), options: make("options") },
+      refs: {
+        statement: make("statement"),
+        options: make("options"),
+        explanation: make("explanation"),
+      },
     };
   });
 
@@ -226,12 +230,14 @@ export function useQuestionLayout({
 
       setState((current) => {
         if (samePlan(current.plan, next)) return current;
+        const placed: Partial<Record<PanelId, boolean>> = {
+          statement: Boolean(current.plan?.rects.statement),
+          options: Boolean(current.plan?.rects.options),
+          explanation: Boolean(current.plan?.rects.explanation),
+        };
         return {
           plan: next,
-          placed: {
-            statement: Boolean(current.plan?.rects.statement),
-            options: Boolean(current.plan?.rects.options),
-          },
+          placed,
         };
       });
     };

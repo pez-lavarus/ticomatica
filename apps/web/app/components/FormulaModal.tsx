@@ -84,6 +84,24 @@ export default function FormulaModal({ isOpen, onClose, section }: FormulaModalP
                     <BlockMath math="S = 180^\circ(n - 2)" />
                   </div>
                 </div>
+                <div className="p-8 bg-muted/20 rounded-sm border border-border/40">
+                  <p className="text-xs font-bold uppercase tracking-[0.1em] text-muted-foreground mb-4">Ángulo interno de polígono regular</p>
+                  <div className="text-lg py-2">
+                    <BlockMath math="i = \frac{180^\circ(n - 2)}{n}" />
+                  </div>
+                </div>
+                <div className="p-8 bg-muted/20 rounded-sm border border-border/40">
+                  <p className="text-xs font-bold uppercase tracking-[0.1em] text-muted-foreground mb-4">Apotema</p>
+                  <div className="text-lg py-2">
+                    <BlockMath math="a = \frac{r\sqrt{3}}{n}" />
+                  </div>
+                </div>
+                <div className="p-8 bg-muted/20 rounded-sm border border-border/40">
+                  <p className="text-xs font-bold uppercase tracking-[0.1em] text-muted-foreground mb-4">Ángulo externo de polígono regular</p>
+                  <div className="text-lg py-2">
+                    <BlockMath math="e = \frac{360^\circ}{n}" />
+                  </div>
+                </div>
               </div>
             </section>
           )}
@@ -140,6 +158,18 @@ export default function FormulaModal({ isOpen, onClose, section }: FormulaModalP
                   <p className="text-xs font-bold uppercase tracking-[0.1em] text-muted-foreground mb-4">Media Aritmética</p>
                   <div className="text-lg py-2">
                     <BlockMath math="\bar{x} = \frac{\sum_{i=1}^n x_i}{n}" />
+                  </div>
+                </div>
+                <div className="p-8 bg-muted/20 rounded-sm border border-border/40">
+                  <p className="text-xs font-bold uppercase tracking-[0.1em] text-muted-foreground mb-4">Coeficiente de variación</p>
+                  <div className="text-lg py-2">
+                    <BlockMath math="C_v = \frac{\text{Desviación estándar}}{\text{Media aritmética}} * 100" />
+                  </div>
+                </div>
+                <div className="p-8 bg-muted/20 rounded-sm border border-border/40">
+                  <p className="text-xs font-bold uppercase tracking-[0.1em] text-muted-foreground mb-4">Posición relativa de un dato</p>
+                  <div className="text-lg py-2">
+                    <BlockMath math="P_r = \frac{\text{Dato - Media aritmética}}{\text{Desviación estándar}}" />
                   </div>
                 </div>
               </div>
