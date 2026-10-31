@@ -73,7 +73,7 @@ export default function QuestionPage() {
   const hintPanelRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (!isHintModalOpen) return;
+    if (!isHintModalOpen || reviewMode) return;
     const handleClick = (e: MouseEvent) => {
       const path = e.composedPath ? e.composedPath() : [];
       const isInsideHintPanel = hintPanelRef.current && path.includes(hintPanelRef.current);
@@ -108,7 +108,7 @@ export default function QuestionPage() {
       clearTimeout(timer);
       document.removeEventListener("click", handleClick);
     };
-  }, [isHintModalOpen]);
+  }, [isHintModalOpen, reviewMode, setIsHintModalOpen]);
 
   const handleFinishTest = useCallback(() => {
     setIsConfirmModalOpen(true);
@@ -263,7 +263,7 @@ export default function QuestionPage() {
                 <RotateCcw className="text-foreground" />
               </HeaderIconButton>
             )}
-            {!reviewMode && (
+            {!reviewMode && testMode !== "full" && (
               <HeaderIconButton
                 label="Pistas"
                 onClick={() => setIsHintModalOpen((prev) => !prev)}

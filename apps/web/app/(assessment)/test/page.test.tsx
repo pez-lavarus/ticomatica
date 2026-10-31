@@ -156,4 +156,30 @@ describe("question page rendering", () => {
     expect(screen.getByText("Aprobado")).toBeInTheDocument();
   });
 
+  it.each(["full", "Geometría"] as const)("keeps hints open throughout %s question review without a header toggle", (mode) => {
+    saveTestSession({ ...EMPTY_SESSION, mode, phase: "results" });
+    route.pathname = "/results";
+    const { rerender } = render(<FontScaleProvider><AssessmentLayout><ResultsPage /></AssessmentLayout></FontScaleProvider>);
+    act(() => { renderNavigator.mock.lastCall![0].onJumpToQuestion(0); });
+    const showQuestion = () => rerender(<FontScaleProvider><AssessmentLayout><QuestionPage /></AssessmentLayout></FontScaleProvider>);
+    showQuestion();
+    expect(screen.getByText("Pistas de la Pregunta")).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Pistas" })).not.toBeInTheDocument();
+    expect(renderQuestion.mock.lastCall![0].selectedAnswer).toBeUndefined();
+    act(() => { vi.advanceTimersByTime(50); });
+    fireEvent.click(document.body);
+    expect(screen.getByText("Pistas de la Pregunta")).toBeInTheDocument();
+    act(() => { renderQuestion.mock.lastCall![0].onNext(); });
+    expect(screen.getByText("Pistas de la Pregunta")).toBeInTheDocument();
+    expect(renderQuestion.mock.lastCall![0].currentIndex).toBe(1);
+    expect(loadTestSession().answers).toEqual({});
+
+    fireEvent.click(screen.getByRole("button", { name: "Resultado" }));
+    rerender(<FontScaleProvider><AssessmentLayout><ResultsPage /></AssessmentLayout></FontScaleProvider>);
+    fireEvent.click(screen.getByRole("button", { name: "Reintentar" }));
+    showQuestion();
+    expect(screen.queryByText("Pistas de la Pregunta")).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Pistas" }) !== null).toBe(mode !== "full");
+  });
+
 });
