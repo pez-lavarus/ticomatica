@@ -80,7 +80,7 @@ export const DesktopNavigator = memo(function DesktopNavigator({
                     <span className="flex items-center gap-5">
                       {ANSWER_LETTERS.map((letter) => {
                         const isSelected = selectedLetter === letter;
-                        const showLetter = isSelected || reviewMode || isCurrent;
+                        const showLetter = isSelected || (reviewMode && isAnswered) || isCurrent;
                         const circleClasses = isSelected
                           ? (showCorrectness
                             ? (isCorrect
