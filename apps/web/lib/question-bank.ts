@@ -1,7 +1,8 @@
 // Transforms the structured 2026_2 item bank into the shape the question UI
-// consumes (QuizData). The bank carries structured `visual_spec` graphs (SVG)
-// instead of the legacy PNG placeholders, plus per-item solution steps that
-// double as progressive hints.
+// consumes (QuizData). Graphs extracted from the exam PDF are referenced by
+// file name (`image` on items/groups, `option_images` on items) and resolved to
+// their bundled URLs; structured tables still use `visual_spec` (SVG/HTML).
+// Per-item solution steps double as progressive hints.
 //
 // `questions.json` is the single source of truth: shared contexts and figures
 // (items that refer to the same graph/table) live in its top-level `groups`
@@ -10,6 +11,7 @@
 import questionsRaw from "@/data/2026_2/questions.json";
 import type { VisualSpec } from "@/app/types";
 import type { Explanation, Question, QuizData, QuizMetadata } from "@/lib/types";
+import { resolveSourceImage } from "@/lib/source-images";
 
 /** Consistent graph width (px) injected into every visual so the figures do
  *  not jump in size from question to question. */
@@ -31,9 +33,11 @@ type RawItem = {
   statement?: string;
   problem?: string;
   options?: Record<string, string>;
+  option_images?: Record<string, string> | null;
   correct_answer?: string;
   solution_steps?: (string | { explanation?: string })[];
   group_id?: string | null;
+  image?: string | null;
   visual_spec?: VisualSpec | null;
 };
 
@@ -43,6 +47,7 @@ type RawGroup = {
   title?: string;
   visual_spec?: VisualSpec | null;
   context_text?: string | null;
+  image?: string | null;
 };
 
 type RawBank = {
@@ -82,12 +87,17 @@ function buildBank(): QuizData {
 
   const groupVisual = new Map<string, VisualSpec>();
   const groupContext = new Map<string, string>();
+  const groupImage = new Map<string, string>();
   for (const group of groups) {
     if (group.group_id && group.visual_spec) {
       groupVisual.set(group.group_id, group.visual_spec);
     }
     if (group.group_id && group.context_text) {
       groupContext.set(group.group_id, group.context_text);
+    }
+    if (group.group_id && group.image) {
+      const resolved = resolveSourceImage(group.image);
+      if (resolved) groupImage.set(group.group_id, resolved);
     }
   }
 
@@ -99,10 +109,14 @@ function buildBank(): QuizData {
     const topic = AREA_TO_TOPIC[areaId] ?? item.topic ?? areaId;
     const sectionNumber = (sectionCounters[areaId] = (sectionCounters[areaId] ?? 0) + 1);
 
-    const options = (["A", "B", "C", "D"] as const).map((label) => ({
-      label,
-      text: item.options?.[label] ?? "",
-    }));
+    const options = (["A", "B", "C", "D"] as const).map((label) => {
+      const optionImage = resolveSourceImage(item.option_images?.[label]);
+      return {
+        label,
+        text: item.options?.[label] ?? "",
+        ...(optionImage ? { image: optionImage } : {}),
+      };
+    });
 
     const steps = (item.solution_steps ?? []).map(stepText);
     const hints = steps.length > 1 ? steps.slice(0, -1) : steps;
@@ -110,6 +124,10 @@ function buildBank(): QuizData {
     const ownVisual = item.visual_spec;
     const inheritedVisual = item.group_id ? groupVisual.get(item.group_id) ?? null : null;
     const visualSpec = withVisualWidth(ownVisual ?? inheritedVisual, VISUAL_WIDTH);
+
+    const ownImage = resolveSourceImage(item.image);
+    const inheritedImage = item.group_id ? groupImage.get(item.group_id) : undefined;
+    const graphImage = ownImage ?? inheritedImage;
 
     const itemStatement = item.statement ?? "";
     const groupStatement = item.group_id ? (groupContext.get(item.group_id) ?? "") : "";
@@ -120,6 +138,7 @@ function buildBank(): QuizData {
       statement: itemStatement || groupStatement,
       problem: item.problem ?? "",
       visual_spec: visualSpec,
+      graph_image: graphImage,
       options,
       correct_answer: (item.correct_answer as Question["correct_answer"]) ?? "A",
       topic,
@@ -147,7 +166,7 @@ function buildBank(): QuizData {
     items_practica: `1 a ${items.length}`,
     format: "Selección única",
     source: bank.source ?? "Práctica BXM Matemáticas 02-2026",
-    notes: "Gráficos vectoriales generados desde la especificación visual de cada ítem.",
+    notes: "Gráficos desde las imágenes de origen extraídas del PDF 02-2026 y tablas estructuradas.",
   };
 
   return {

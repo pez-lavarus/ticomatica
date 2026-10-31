@@ -75,11 +75,14 @@ export const QuestionExperience = memo(function QuestionExperience({
 
   // Every image that affects panel sizes, so the layout can re-plan once their
   // dimensions are known.
-  const imageSources = question.options.flatMap((option) => (option.image ? [option.image] : []));
+  const imageSources = [
+    ...(sharedImageSrc ? [sharedImageSrc] : []),
+    ...question.options.flatMap((option) => (option.image ? [option.image] : [])),
+  ];
 
   const { containerRef, slot, stageHeight, statementSplit, optionsColumns, graphMax } = useQuestionLayout({
     questionKey: question.original_number,
-    hasGraph: Boolean(visualSpec),
+    hasGraph: Boolean(visualSpec) || Boolean(sharedImageSrc),
     hasStatementText: Boolean(question.statement),
     optionCount: question.options.length,
     imageSources,

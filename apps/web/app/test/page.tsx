@@ -303,6 +303,7 @@ export default function QuestionPage() {
               onOpenImageModal={openImageModal}
               isLastQuestionInSection={sectionIndex === currentSectionQuestionsWithGlobalIndex.length - 1}
               hasMoreSections={hasMoreSections}
+              sharedImageSrc={currentQuestion.graph_image ?? undefined}
               visualSpec={currentQuestion.visual_spec ?? null}
               reviewMode={reviewMode}
             />

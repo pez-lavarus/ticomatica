@@ -17,6 +17,8 @@ export interface Question {
   shared_image?: string;
   /** Structured graph spec rendered by `VisualRenderer`. */
   visual_spec?: VisualSpec | null;
+  /** Resolved source-image URL for the question's statement graph. */
+  graph_image?: string;
   options: QuestionOption[];
   correct_answer: "A" | "B" | "C" | "D";
   topic: string;
