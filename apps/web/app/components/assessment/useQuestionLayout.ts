@@ -15,14 +15,13 @@ import type { PanelSlot } from "./QuestionPanel";
 interface UseQuestionLayoutOptions {
   questionKey: number;
   hasGraph: boolean;
+  hasOptionGraphs: boolean;
   hasStatementText: boolean;
   optionCount: number;
   /** Every image the panels show, so the layout re-plans once sizes are known. */
   imageSources: string[];
   /** Inline SVGs can have different proportions from their raster fallback. */
   vectorSources: string[];
-  /** The shared graph source, so its chosen size is reused across questions. */
-  graphSrc?: string;
 }
 
 interface ContainerBox {
@@ -39,22 +38,7 @@ interface PlanState {
 
 const px = (value: string) => Number.parseFloat(value) || 0;
 
-/** Graph size a shared image settled on, for the available space it was
- *  planned in. Sibling questions that show the same graph start from it as a
- *  ceiling so the graph keeps its size while the student navigates. The entry
- *  is tied to the container size (which already includes the font scale), so a
- *  resize or a font change starts over and the graph can grow back. */
-const graphCeilings = new Map<string, { space: string; graphMax: number; owner: number }>();
-
 const spaceKey = (box: ContainerBox) => `${box.width}x${box.height}`;
-
-/** Only a sibling's size limits this question; its own earlier plans must not,
- *  or a re-plan after a font or image arrives could never grow the graph. */
-function graphCeilingFor(src: string | undefined, box: ContainerBox, owner: number): number | undefined {
-  if (!src) return undefined;
-  const entry = graphCeilings.get(src);
-  return entry && entry.owner !== owner && entry.space === spaceKey(box) ? entry.graphMax : undefined;
-}
 
 function getContentBox(el: HTMLElement): ContainerBox {
   const style = getComputedStyle(el);
@@ -122,11 +106,11 @@ function createMeasurer(el: HTMLElement, id: PanelId, variants: PanelVariant[]):
 export function useQuestionLayout({
   questionKey,
   hasGraph,
+  hasOptionGraphs,
   hasStatementText,
   optionCount,
   imageSources,
   vectorSources,
-  graphSrc,
 }: UseQuestionLayoutOptions) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const lastArrangement = useRef<{ space: string; plan: LayoutPlan } | null>(null);
@@ -232,7 +216,7 @@ export function useQuestionLayout({
         containerWidth: box.width,
         containerHeight: box.height,
         hasGraph,
-        graphCeiling: graphCeilingFor(graphSrc, box, questionKey),
+        hasOptionGraphs,
         previous: null,
         preferredArrangement: lastArrangement.current?.space === spaceKey(box)
           ? lastArrangement.current.plan : null,
@@ -251,9 +235,7 @@ export function useQuestionLayout({
         },
       });
       lastArrangement.current = { space: spaceKey(box), plan: next };
-      if (graphSrc && next.graphMax !== null) {
-        graphCeilings.set(graphSrc, { space: spaceKey(box), graphMax: next.graphMax, owner: questionKey });
-      }
+
 
       setState((current) => {
         const sameQuestion = current.questionKey === questionKey;
@@ -278,7 +260,7 @@ export function useQuestionLayout({
     observer.observe(statementEl);
     observer.observe(optionsEl);
     return () => observer.disconnect();
-  }, [box, questionKey, hasGraph, hasStatementText, optionCount, measureVersion, registry, graphSrc, settled]);
+  }, [box, questionKey, hasGraph, hasOptionGraphs, hasStatementText, optionCount, measureVersion, registry, settled]);
 
   // A new question starts at the top.
   useLayoutEffect(() => {

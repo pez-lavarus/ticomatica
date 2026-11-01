@@ -2,7 +2,6 @@ import { describe, expect, it, vi } from "vitest";
 import {
   EXPLANATION_MIN_PX,
   GAP_WIDE_PX,
-  GRAPH_LADDER,
   GRAPH_SPLIT_WIDTH_CAP_PX,
   IDEAL_WIDTH_CAP_PX,
   OPTIONS_MIN_PX,
@@ -11,6 +10,7 @@ import {
   SAFETY_PX,
   planQuestionLayout,
 } from "./question-layout-plan";
+import { STATEMENT_GRAPH_SIZE } from "./graph-sizes";
 import type { LayoutPlan, PanelMeasurer, PanelVariant, Rect } from "./question-layout-plan";
 
 const CHAR_W = 9;
@@ -214,13 +214,13 @@ describe("planQuestionLayout", () => {
     }
   });
 
-  it("uses the largest graph that fits and shrinks it only as far as needed", () => {
+  it("uses the same statement graph size in roomy and short viewports", () => {
     const tall = textPanel({ chars: 90, graph: { width: 500, height: 500 } });
     const roomy = plan({ containerWidth: 700, containerHeight: 1400, hasGraph: true, statement: tall });
     const tight = plan({ containerWidth: 700, containerHeight: 900, hasGraph: true, statement: tall });
-    expect(roomy.graphMax).toBe(GRAPH_LADDER[0]);
+    expect(roomy.graphMax).toBe(STATEMENT_GRAPH_SIZE.height);
     expect(tight.graphMax).not.toBeNull();
-    expect(tight.graphMax!).toBeLessThan(GRAPH_LADDER[0]);
+    expect(tight.graphMax).toBe(roomy.graphMax);
     expect(tight.overflow).toBe(false);
   });
 
@@ -238,38 +238,26 @@ describe("planQuestionLayout", () => {
     }
   });
 
-  it("only uses ladder sizes, in local pixels, and none without a graph", () => {
+  it("uses the shared statement size in local pixels, and no frame without a graph", () => {
     const withG = plan({ containerWidth: 900, containerHeight: 600, hasGraph: true, statement: withGraph });
-    expect(GRAPH_LADDER).toContain(withG.graphMax);
+    expect(withG.graphMax).toBe(STATEMENT_GRAPH_SIZE.height);
     expect(plan({ containerHeight: 600 }).graphMax).toBeNull();
   });
 
-  it("a sibling's graph size is a ceiling the graph keeps while there is room", () => {
-    const tall = textPanel({ chars: 90, graph: { width: 500, height: 500 } });
-    const p = plan({
-      containerWidth: 700,
-      containerHeight: 1400,
-      hasGraph: true,
-      statement: tall,
-      graphCeiling: 220,
-    });
-    expect(p.graphMax).toBe(220);
+  it("keeps graph sizing independent of question length and navigation history", () => {
+    const first = plan({ hasGraph: true, statement: withGraph });
+    const next = plan({ hasGraph: true, statement: wideGraph, options: longOptions, preferredArrangement: first });
+    expect(next.graphMax).toBe(first.graphMax);
+    expect(next.graphMax).toBe(320);
   });
 
-  it("the ceiling still gives way when the panels need the room", () => {
-    const tall = textPanel({ chars: 90, graph: { width: 500, height: 500 } });
-    const capped = plan({
-      containerWidth: 700,
-      containerHeight: 560,
-      hasGraph: true,
-      statement: tall,
-      graphCeiling: 380,
-    });
-    const free = plan({ containerWidth: 700, containerHeight: 560, hasGraph: true, statement: tall });
-    expect(capped.graphMax!).toBeLessThanOrEqual(380);
-    expect(capped.graphMax!).toBeLessThanOrEqual(free.graphMax!);
-    // A ceiling never forces a scroll the free layout would have avoided.
-    expect(capped.overflow).toBe(free.overflow);
+  it("reserves enough card width for uniform option graphs in either answer arrangement", () => {
+    for (const width of [700, 1000, 1400]) {
+      const result = plan({ containerWidth: width, hasOptionGraphs: true });
+      const columns = result.optionsVariant.columns ?? 1;
+      const innerColumn = (result.rects.options!.width - 50 - (columns - 1) * 16) / columns;
+      expect(innerColumn).toBeGreaterThanOrEqual(200 + 96);
+    }
   });
 
   it("lets a wide graph use more width than a text column", () => {

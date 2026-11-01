@@ -88,11 +88,11 @@ export const QuestionExperience = memo(function QuestionExperience({
   const { containerRef, ready, animate, slot, stageHeight, statementSplit, optionsColumns, graphMax } = useQuestionLayout({
     questionKey: question.original_number,
     hasGraph: Boolean(visualSpec) || Boolean(sharedImageSrc),
+    hasOptionGraphs: question.options.some((option) => Boolean(option.image)),
     hasStatementText: Boolean(question.statement),
     optionCount: question.options.length,
     imageSources,
     vectorSources,
-    graphSrc: sharedImageSrc,
   });
 
   if (prevQuestionKeyRef.current !== question.original_number) {

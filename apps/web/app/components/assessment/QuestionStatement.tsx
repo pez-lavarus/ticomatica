@@ -1,5 +1,6 @@
 "use client";
 
+import { STATEMENT_GRAPH_SIZE } from "@/lib/graph-sizes";
 import { KaTeXText } from "@/lib/katex-utils";
 import { getGraphDimensions } from "@/lib/graph-aspects";
 import type { Question } from "@/lib/types";
@@ -33,6 +34,7 @@ export function QuestionStatement({
   graphMax,
 }: QuestionStatementProps) {
   const graphDimensions = getGraphDimensions(sharedImageSrc);
+  const isStructuredGraph = visualSpec && (visualSpec.visual ?? visualSpec).type !== "table";
   return (
     <QuestionPanel
       id="statement"
@@ -53,7 +55,8 @@ export function QuestionStatement({
         )}
 
         {visualSpec ? (
-          <div className="min-w-0 flex items-center justify-center group-data-[split=true]:flex-1 w-full">
+          <div className={`min-w-0 flex items-center justify-center mx-auto ${isStructuredGraph ? "source-graph-frame statement-visual-frame" : "w-full"}`}
+            style={isStructuredGraph ? { width: STATEMENT_GRAPH_SIZE.width, maxWidth: "100%", aspectRatio: `${STATEMENT_GRAPH_SIZE.width} / ${STATEMENT_GRAPH_SIZE.height}` } : undefined}>
             <VisualRenderer
               spec={visualSpec}
               itemId={question.original_number}
@@ -65,11 +68,13 @@ export function QuestionStatement({
           <div className="min-w-0 flex items-center justify-center group-data-[split=true]:flex-1">
             <button
               type="button"
+              style={{ width: STATEMENT_GRAPH_SIZE.width + 2 }}
               aria-label="Ampliar imagen de apoyo"
               className="flex items-center justify-center w-fit max-w-full rounded-sm border border-border overflow-hidden cursor-zoom-in hover:border-accent transition-colors shadow-sm"
               onClick={() => onOpenImageModal(sharedImageSrc, "Imagen de apoyo", question.graph_svg)}
             >
               <SourceImage
+                size="statement"
                 svg={question.graph_svg}
                 png={sharedImageSrc}
                 alt="Imagen de apoyo"

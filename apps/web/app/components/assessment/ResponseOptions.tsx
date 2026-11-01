@@ -104,6 +104,7 @@ export function ResponseOptions({
                   className="flex flex-1 items-center justify-center min-w-0 [--graph-max:240px] cursor-zoom-in rounded-sm"
                 >
                   <SourceImage
+                    size="option"
                     svg={option.svg}
                     png={option.image}
                     alt={`Opción ${option.label}`}

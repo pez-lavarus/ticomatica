@@ -1,7 +1,10 @@
+import { STATEMENT_GRAPH_SIZE, OPTION_GRAPH_SIZE } from "./graph-sizes";
+
 // Layout engine for the question screen. Pure: nothing here touches the DOM.
 // `useQuestionLayout` measures the real panels and hands this module a
 // `PanelMeasurer` per panel; this module decides where each one goes and how
-// big it is, and is unit-tested with synthetic measurers.
+// big it is, and is unit-tested with synthetic measurers. Graph frames have
+// shared statement/option sizes; only the surrounding layout adapts.
 //
 // Model
 //  - Three panels (statement, options, optional explanation) are placed as
@@ -9,12 +12,8 @@
 //    width comes from its max-content width (capped to a readable measure) and
 //    its height is whatever the content needs at that width. Empty space is
 //    allowed around the panels, never inside them.
-//  - Every candidate arrangement x panel variant (statement text beside the
-//    graph, options in one or two columns) x graph size is laid out and
-//    scored; the lowest score wins. The graph is always sized in local pixels
-//    from `GRAPH_LADDER`: the largest rung whose arrangement still fits. When
-//    the explanation shows, it is simply one more panel in the search, so the
-//    others resize or move only when that yields a better whole.
+//  - Candidate arrangements and answer-column counts are measured around
+//    shared graph frames. The search changes card placement, never graph size.
 //
 // Unit convention: lengths are local CSS pixels, i.e. what clientWidth and
 // offsetHeight report inside the font-scale `zoom` wrapper. A larger font
@@ -60,6 +59,7 @@ export interface PlanInput {
   containerWidth: number;
   containerHeight: number;
   hasGraph: boolean;
+  hasOptionGraphs?: boolean;
   panels: {
     statement: PanelMeasurer;
     options: PanelMeasurer;
@@ -71,13 +71,7 @@ export interface PlanInput {
   /** Soft preference across questions at the same viewport size. It never
    * overrides a fitting layout in favor of one that requires scrolling. */
   preferredArrangement?: Pick<LayoutPlan, "template" | "statementVariant" | "optionsVariant"> | null;
-  /** Largest graph max-height (px) this question may use. Questions that share
-   *  a graph pass the size a sibling settled on, so the graph does not jump
-   *  around while navigating. It is a ceiling, not a pin: the graph still
-   *  shrinks when the panels need the room (for example when the explanation
-   *  opens), and the caller drops the ceiling when the available space changes
-   *  so the graph can grow back. */
-  graphCeiling?: number | null;
+
 }
 
 export interface LayoutPlan {
@@ -120,16 +114,12 @@ export const PANEL_PADDING_X_PX = 50;
 export const OPTIONS_COLUMN_GAP_PX = 16;
 
 export const STATEMENT_MIN_PX = 300;
-export const STATEMENT_WITH_GRAPH_MIN_PX = 340;
+export const STATEMENT_WITH_GRAPH_MIN_PX = STATEMENT_GRAPH_SIZE.width + PANEL_PADDING_X_PX + 2;
 export const STATEMENT_SPLIT_MIN_PX = 760;
 export const OPTIONS_MIN_PX = 320;
 // Padding plus two readable answer columns and their gap.
 export const OPTIONS_TWO_COLUMN_MIN_PX = PANEL_PADDING_X_PX + 2 * 240 + OPTIONS_COLUMN_GAP_PX;
 export const EXPLANATION_MIN_PX = 340;
-
-/** Graph max-heights tried, largest first. Always local pixels (the same unit
- *  as the container), never a viewport breakpoint. */
-export const GRAPH_LADDER: ReadonlyArray<number> = [600, 520, 450, 380, 320];
 
 /** Sub-pixel slack so rounding never clips the last row of a panel. */
 export const SAFETY_PX = 1;
@@ -146,12 +136,16 @@ export function widthCap(id: PanelId, variant: PanelVariant, hasGraph: boolean) 
   return IDEAL_WIDTH_CAP_PX;
 }
 
-export function minPanelWidth(id: PanelId, variant: PanelVariant, hasGraph: boolean) {
+export function minPanelWidth(id: PanelId, variant: PanelVariant, hasGraph: boolean, hasOptionGraphs = false) {
   if (id === "statement") {
     if (variant.split) return STATEMENT_SPLIT_MIN_PX;
     return hasGraph ? STATEMENT_WITH_GRAPH_MIN_PX : STATEMENT_MIN_PX;
   }
-  if (id === "options") return variant.columns === 2 ? OPTIONS_TWO_COLUMN_MIN_PX : OPTIONS_MIN_PX;
+  if (id === "options") {
+    const columns = variant.columns ?? 1;
+    const base = columns === 2 ? OPTIONS_TWO_COLUMN_MIN_PX : OPTIONS_MIN_PX;
+    return hasOptionGraphs ? Math.max(base, PANEL_PADDING_X_PX + columns * (OPTION_GRAPH_SIZE.width + 96) + (columns - 1) * OPTIONS_COLUMN_GAP_PX) : base;
+  }
   return EXPLANATION_MIN_PX;
 }
 
@@ -198,7 +192,6 @@ const W_RAGGED = 2; // empty space beside a shorter column in a band
 const W_TALL = 0.8; // panels much taller than wide
 const W_LONG_LINE = 1; // panels wider than a comfortable reading measure
 const W_CLIPPED_OPTIONS = 3; // options narrower than their widest line (it would scroll)
-const W_GRAPH_STEP = 0.3; // each ladder rung the graph is below the largest
 const W_MOVE = 2.5; // displacement of panels that were already on screen
 const TALL_RATIO = 1.4;
 
@@ -254,8 +247,6 @@ interface Candidate {
   statementVariant: PanelVariant;
   optionsVariant: PanelVariant;
   graphMax: number | null;
-  /** Rungs of `GRAPH_LADDER` above the chosen graph size. */
-  graphStep: number;
   stats: PanelStat[];
   layoutWidth: number;
   totalHeight: number;
@@ -268,8 +259,8 @@ interface Context {
   height: number;
   gap: number;
   hasGraph: boolean;
-  /** Rungs to try, largest first; `[null]` when there is no graph. */
-  ladder: ReadonlyArray<number | null>;
+  hasOptionGraphs: boolean;
+  graphMax: number | null;
   measurers: Partial<Record<PanelId, PanelMeasurer>>;
 }
 
@@ -287,7 +278,7 @@ function layoutCandidate(
 
   const idealOf = (id: PanelId) => {
     const v = variantOf(id);
-    const min = minPanelWidth(id, v, ctx.hasGraph);
+    const min = minPanelWidth(id, v, ctx.hasGraph, ctx.hasOptionGraphs);
     const content = measurer(id).maxContentWidth(v, graphValue);
     const cap = widthCap(id, v, ctx.hasGraph);
     // Shared width increments reduce small card-width changes between questions
@@ -300,7 +291,7 @@ function layoutCandidate(
     band.map((ids) => ({
       ids,
       ideal: Math.max(...ids.map(idealOf)),
-      min: Math.max(...ids.map((id) => minPanelWidth(id, variantOf(id), ctx.hasGraph))),
+      min: Math.max(...ids.map((id) => minPanelWidth(id, variantOf(id), ctx.hasGraph, ctx.hasOptionGraphs))),
     })),
   );
 
@@ -348,7 +339,7 @@ function layoutCandidate(
       if (cols[c].ids.some((id) => {
         const variant = variantOf(id);
         return (variant.split || variant.columns === 2)
-          && widths[c] < minPanelWidth(id, variant, ctx.hasGraph);
+          && widths[c] < minPanelWidth(id, variant, ctx.hasGraph, ctx.hasOptionGraphs);
       })) return null;
       let cy = y;
       cols[c].ids.forEach((id, i) => {
@@ -383,7 +374,6 @@ function layoutCandidate(
     statementVariant,
     optionsVariant,
     graphMax: graphValue,
-    graphStep: graphValue === null ? 0 : GRAPH_LADDER.filter((rung) => rung > graphValue).length,
     stats,
     layoutWidth,
     totalHeight: y - gap,
@@ -392,7 +382,7 @@ function layoutCandidate(
 }
 
 function scoreCandidate(c: Candidate, ctx: Context, previous?: LayoutPlan | null): number {
-  let score = c.template.complexity + W_GRAPH_STEP * c.graphStep;
+  let score = c.template.complexity;
 
   const overflow = Math.max(0, c.totalHeight - ctx.height);
   if (overflow > 0) score += W_OVERFLOW_FLAT + (W_OVERFLOW * overflow) / Math.max(ctx.height, 1);
@@ -439,50 +429,17 @@ function scoreCandidate(c: Candidate, ctx: Context, previous?: LayoutPlan | null
 // Entry point
 // ---------------------------------------------------------------------------
 
-/**
- * Largest graph size at which this arrangement fits the container; the
- * smallest rung when none does (the screen then scrolls). Layout height only
- * shrinks as the graph shrinks, so a bisection over the ladder finds it with
- * a handful of layouts instead of one per rung.
- */
-function fitGraph(
-  ctx: Context,
-  template: Template,
-  statementVariant: PanelVariant,
-  optionsVariant: PanelVariant,
-): Candidate | null {
-  const at = (index: number) =>
-    layoutCandidate(ctx, template, statementVariant, optionsVariant, ctx.ladder[index]);
-  let lo = 0;
-  let hi = ctx.ladder.length - 1;
-  while (lo < hi) {
-    const mid = (lo + hi) >> 1;
-    const candidate = at(mid);
-    if (!candidate) return null;
-    if (candidate.totalHeight <= ctx.height) hi = mid;
-    else lo = mid + 1;
-  }
-  return at(lo);
-}
-
-/** Rungs a question may use: the ladder at or below the ceiling. */
-export function graphLadder(hasGraph: boolean, ceiling?: number | null): ReadonlyArray<number | null> {
-  if (!hasGraph) return [null];
-  if (ceiling === undefined || ceiling === null) return GRAPH_LADDER;
-  const below = GRAPH_LADDER.filter((rung) => rung < ceiling);
-  return [ceiling, ...below];
-}
-
 export function planQuestionLayout(input: PlanInput): LayoutPlan {
   const { containerWidth, containerHeight, hasGraph } = input;
   const withExplanation = Boolean(input.panels.explanation);
-  const ladder = graphLadder(hasGraph, input.graphCeiling);
+  const graphMax = hasGraph ? STATEMENT_GRAPH_SIZE.height : null;
   const ctx: Context = {
     width: Math.max(containerWidth, 1),
     height: containerHeight,
     gap: gapFor(containerWidth),
     hasGraph,
-    ladder,
+    hasOptionGraphs: Boolean(input.hasOptionGraphs),
+    graphMax,
     measurers: {
       statement: memoized(input.panels.statement, hasGraph),
       // These panels never receive --graph-max. Reuse their measurements as
@@ -503,7 +460,7 @@ export function planQuestionLayout(input: PlanInput): LayoutPlan {
       // beside the answers. Do not split that reading sequence into columns.
       if (hasGraph && sv.split) continue;
       for (const ov of input.panels.options.variants) {
-        const chosen = fitGraph(ctx, template, sv, ov);
+        const chosen = layoutCandidate(ctx, template, sv, ov, graphMax);
         if (!chosen) continue;
         let score = scoreCandidate(chosen, ctx, input.previous);
         // Favor a graph card beside the answers when readability and fit are
@@ -538,7 +495,7 @@ export function planQuestionLayout(input: PlanInput): LayoutPlan {
       templates[0],
       input.panels.statement.variants[0],
       input.panels.options.variants[0],
-      ladder[ladder.length - 1],
+      graphMax,
     ) as Candidate;
     best = { candidate: fallback, score: 0 };
   }

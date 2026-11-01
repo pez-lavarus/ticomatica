@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { GRAPH_SIZES } from "@/lib/graph-sizes";
 
 // Fetched SVG content is cached for the lifetime of the session so navigating
 // between questions (or back to one) never re-fetches or re-flashes. URLs known
@@ -141,6 +142,7 @@ interface SourceImageProps {
   className?: string;
   /** Modal presentation: use the viewport instead of the question graph limit. */
   expanded?: boolean;
+  size?: keyof typeof GRAPH_SIZES;
 }
 
 /**
@@ -156,6 +158,7 @@ export function SourceImage({
   height,
   className,
   expanded = false,
+  size,
 }: SourceImageProps) {
   // Bumped when a fetch resolves; the module-level cache is the source of truth.
   const [, forceRender] = useState(0);
@@ -174,6 +177,13 @@ export function SourceImage({
   const content = svg ? svgContentCache.get(svg) : undefined;
   const missing = svg ? svgMissingCache.has(svg) : false;
 
+  const frameSize = !expanded && size ? GRAPH_SIZES[size] : null;
+  const frame = (image: React.ReactNode) => frameSize ? (
+    <div className={`source-graph-frame source-graph-${size}`} style={{
+      width: frameSize.width, maxWidth: "100%", aspectRatio: `${frameSize.width} / ${frameSize.height}`,
+    }}>{image}</div>
+  ) : image;
+
   if (svg && !missing) {
     const viewBox = content ? parseViewBox(content) : null;
     // Width comes from the raster (the intended display size); the height follows
@@ -185,12 +195,14 @@ export function SourceImage({
           ? `${width} / ${height}`
           : undefined;
     const style: React.CSSProperties = {
-      width: expanded ? "min(1400px, 88vw)" : width ? `${width}px` : "100%",
-      aspectRatio: expanded && content ? undefined : aspectRatio,
+      width: frameSize ? "100%" : expanded ? "min(1400px, 88vw)" : width ? `${width}px` : "100%",
+      height: frameSize ? "100%" : undefined,
+      maxHeight: frameSize ? "none" : undefined,
+      aspectRatio: frameSize || (expanded && content) ? undefined : aspectRatio,
     };
 
     if (content) {
-      return (
+      return frame(
         <div
           className={expanded ? "graph-svg graph-svg-expanded" : "graph-svg"}
           data-source-svg={svg ? hashString(svg) : undefined}
@@ -203,10 +215,10 @@ export function SourceImage({
 
     // Loading placeholder: reserves the raster's footprint so the layout does
     // not jump when the SVG arrives.
-    return <div className={expanded ? "graph-svg graph-svg-expanded" : "graph-svg"} style={style} aria-hidden="true" />;
+    return frame(<div className={expanded ? "graph-svg graph-svg-expanded" : "graph-svg"} style={style} aria-hidden="true" />);
   }
 
-  return (
+  return frame(
     <Image
       src={png}
       alt={alt}
