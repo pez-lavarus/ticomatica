@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { InlineMath, BlockMath } from "react-katex";
+import { InlineMath } from "react-katex";
 
 function renderPlainText(text: string, keyPrefix: string) {
   // Handle **bold** markdown and newlines in plain text
@@ -37,14 +37,14 @@ function renderPlainText(text: string, keyPrefix: string) {
  * - **bold** (Bold markdown in plain text)
  * - \n (Line breaks in plain text)
  */
-export function KaTeXText({ text }: { text: string }) {
+export function KaTeXText({ text, displayMath = false }: { text: string; displayMath?: boolean }) {
   if (!text) return null;
 
   // Regex matches:
   // 1) Escaped dollar sign: \$
   // 2) Block math: $$...$$ or \[...\]
   // 3) Inline math: $...$ or \(...\)
-  const parts = text.split(/(\\\$|\$\$.*?\$\$|\$[^\$]+?\$|\\\(.*?\\\)|\\\[.*?\\\])/g);
+  const parts = text.split(/(\\\$|\$\$[\s\S]*?\$\$|\$(?:\\.|[^$\n])+?\$|\\\([\s\S]*?\\\)|\\\[[\s\S]*?\\\])/g);
 
   return (
     <>
@@ -54,17 +54,23 @@ export function KaTeXText({ text }: { text: string }) {
         if (part === "\\$") {
           return <span key={i}>$</span>;
         }
-        if (part.startsWith("$$") && part.endsWith("$$")) {
-          return <BlockMath key={i} math={part.slice(2, -2)} />;
-        }
-        if (part.startsWith("\\[") && part.endsWith("\\]")) {
-          return <BlockMath key={i} math={part.slice(2, -2)} />;
-        }
-        if (part.startsWith("$") && part.endsWith("$")) {
-          return <InlineMath key={i} math={part.slice(1, -1)} />;
-        }
-        if (part.startsWith("\\(") && part.endsWith("\\)")) {
-          return <InlineMath key={i} math={part.slice(2, -2)} />;
+        const authoredBlock = part.startsWith("$$") || part.startsWith("\\[");
+        const math = authoredBlock ? part.slice(2, -2)
+          : part.startsWith("$") && part.endsWith("$") ? part.slice(1, -1)
+            : part.startsWith("\\(") && part.endsWith("\\)") ? part.slice(2, -2) : null;
+        if (math !== null) {
+          if (displayMath || authoredBlock) {
+            // Keep punctuation attached even when authors put whitespace or a
+            // newline between a math delimiter and the sentence-ending period.
+            const punctuation = parts[i + 1]?.match(/^\s*([)\]”’"']*[.,;:!?]+(?:[”’"'])?)(?!\d)/);
+            if (punctuation) parts[i + 1] = parts[i + 1].slice(punctuation[0].length);
+            return (
+              <span key={i} className={`math-line${authoredBlock ? " katex-display" : ""}`}>
+                <InlineMath math={`\\displaystyle ${math}`} />{punctuation?.[1]}
+              </span>
+            );
+          }
+          return <InlineMath key={i} math={math} />;
         }
 
         return renderPlainText(part, `plain-${i}`);

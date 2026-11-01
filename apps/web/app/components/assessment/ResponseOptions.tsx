@@ -46,8 +46,8 @@ export function ResponseOptions({
     >
       <div className="p-5 md:p-6">
         {question.problem && (
-          <div className="prose dark:prose-invert max-w-none text-base md:text-lg leading-[1.6] md:leading-[1.8] text-foreground font-serif mb-5 md:mb-6">
-            <KaTeXText text={question.problem} />
+          <div className="assessment-copy prose dark:prose-invert max-w-none text-base md:text-lg text-foreground font-serif mb-5 md:mb-6">
+            <KaTeXText text={question.problem} displayMath />
           </div>
         )}
 
@@ -123,8 +123,8 @@ export function ResponseOptions({
                 className={cardClasses}
               >
                 {letter}
-                <div className="flex-1 min-w-0 pt-0.5 md:pt-1 option-math text-base md:text-lg text-foreground font-serif">
-                  <KaTeXText text={option.text || ""} />
+                <div className="flex-1 min-w-0 pt-0.5 md:pt-1 assessment-copy option-math text-base md:text-lg text-foreground font-serif">
+                  <KaTeXText text={option.text || ""} displayMath />
                 </div>
               </button>
             );

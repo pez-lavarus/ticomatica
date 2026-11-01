@@ -11,7 +11,7 @@ import {
   planQuestionLayout,
 } from "./question-layout-plan";
 import { extractLayoutCharacteristics } from "./question-characteristics";
-import { STATEMENT_GRAPH_SIZE } from "./graph-sizes";
+import { STATEMENT_GRAPH_SIZE, OPTION_GRAPH_SIZE } from "./graph-sizes";
 import type { LayoutPlan, PanelMeasurer, PanelVariant, Rect } from "./question-layout-plan";
 
 const CHAR_W = 9;
@@ -257,7 +257,7 @@ describe("planQuestionLayout", () => {
       const result = plan({ containerWidth: width, hasOptionGraphs: true });
       const columns = result.optionsVariant.columns ?? 1;
       const innerColumn = (result.rects.options!.width - 50 - (columns - 1) * 16) / columns;
-      expect(innerColumn).toBeGreaterThanOrEqual(200 + 96);
+      expect(innerColumn).toBeGreaterThanOrEqual(OPTION_GRAPH_SIZE.width + 96);
     }
   });
 

@@ -49,8 +49,8 @@ export function QuestionStatement({
         {/* The text keeps a readable measure however wide the panel gets, so
             a wide graph can use the extra width without stretching the lines. */}
         {question.statement && (
-          <div className="prose dark:prose-invert w-full max-w-[72ch] mx-auto text-base md:text-lg leading-[1.6] md:leading-[1.8] text-foreground font-serif min-w-0 group-data-[split=true]:flex-1 group-data-[split=true]:max-w-none group-data-[split=true]:mx-0">
-            <KaTeXText text={question.statement} />
+          <div className="assessment-copy prose dark:prose-invert w-full max-w-[72ch] mx-auto text-base md:text-lg text-foreground font-serif min-w-0 group-data-[split=true]:flex-1 group-data-[split=true]:max-w-none group-data-[split=true]:mx-0">
+            <KaTeXText text={question.statement} displayMath />
           </div>
         )}
 

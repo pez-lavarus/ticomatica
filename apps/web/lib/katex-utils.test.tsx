@@ -49,6 +49,31 @@ describe("katex-utils", () => {
     });
   });
 
+  describe("separate mathematical reading lines", () => {
+    it("gives every expression its own line in question display mode", () => {
+      const { container } = render(<KaTeXText displayMath text={"Sea $x=2$ y \\(y=3\\)."} />);
+      expect(container.querySelectorAll(".math-line")).toHaveLength(2);
+      expect(container.querySelectorAll(".math-line .katex")).toHaveLength(2);
+    });
+
+    it.each(["$x=2$.", "$x=2$ \n .", "$$x=2$$.", "\\[x=2\\] .", "$x=2$, luego continúe.", "$x=2$).", "$x=2$.Siga leyendo."])(
+      "keeps punctuation with the expression in %s", (text) => {
+        const { container } = render(<KaTeXText displayMath text={text} />);
+        const line = container.querySelector(".math-line")!;
+        expect(line.textContent).toMatch(/[.,]$/);
+        const outsideText = Array.from(container.childNodes).filter((node) => node !== line).map((node) => node.textContent).join("");
+        expect(outsideText.trim()).not.toBe(".");
+      },
+    );
+
+    it("handles multiline block formulas and escaped currency without inventing math lines", () => {
+      const { container } = render(<KaTeXText displayMath text={"Costo \\$25. $$x =\n2$$."} />);
+      expect(container.querySelectorAll(".math-line")).toHaveLength(1);
+      expect(container.textContent).toContain("Costo $25.");
+      expect(container.querySelector(".math-line")?.textContent).toMatch(/\.$/);
+    });
+  });
+
   describe("ExplanationText", () => {
     it("renders solution step with math and bold formatting", () => {
       const { container } = render(

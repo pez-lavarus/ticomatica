@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { cleanup, render, waitFor } from "@testing-library/react";
-import { STATEMENT_GRAPH_SIZE } from "@/lib/graph-sizes";
+import { STATEMENT_GRAPH_SIZE, OPTION_GRAPH_SIZE } from "@/lib/graph-sizes";
 import { SourceImage } from "./SourceImage";
 import { ResponseOptions } from "./ResponseOptions";
 import { quizData } from "@/lib/question-bank";
@@ -104,8 +104,8 @@ describe("uniform graph frames", () => {
       expect(frame.querySelector<HTMLElement>(".graph-svg")!.style.height).toBe("100%");
     }
     const optionFrame = container.querySelector<HTMLElement>(".source-graph-option")!;
-    expect(optionFrame.style.width).toBe("200px");
-    expect(optionFrame.style.aspectRatio).toBe("200 / 140");
+    expect(optionFrame.style.width).toBe(`${OPTION_GRAPH_SIZE.width}px`);
+    expect(optionFrame.style.aspectRatio).toBe(`${OPTION_GRAPH_SIZE.width} / ${OPTION_GRAPH_SIZE.height}`);
     // Source geometry stays intact; the SVG's native aspect preservation fits
     // the drawing within the shared viewport instead of distorting its axes.
     expect(container.querySelectorAll("svg")[0]).toHaveAttribute("viewBox", "0 0 1000 200");
@@ -117,7 +117,7 @@ describe("uniform graph frames", () => {
     const { container } = render(<SourceImage svg="/uniform-missing.svg" png="/fallback.png" alt="Raster" size="option" width={1000} height={800} />);
     await waitFor(() => expect(container.querySelector("img")).not.toBeNull());
     const frame = container.querySelector<HTMLElement>(".source-graph-option")!;
-    expect(frame.style.width).toBe("200px");
-    expect(frame.style.aspectRatio).toBe("200 / 140");
+    expect(frame.style.width).toBe(`${OPTION_GRAPH_SIZE.width}px`);
+    expect(frame.style.aspectRatio).toBe(`${OPTION_GRAPH_SIZE.width} / ${OPTION_GRAPH_SIZE.height}`);
   });
 });
