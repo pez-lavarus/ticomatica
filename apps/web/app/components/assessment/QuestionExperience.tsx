@@ -88,7 +88,7 @@ export const QuestionExperience = memo(function QuestionExperience({
 
   const characteristics = useMemo(() => question.layoutCharacteristics ?? extractLayoutCharacteristics(question), [question]);
 
-  const { containerRef, ready, animate, slot, stageHeight, statementSplit, optionsColumns, graphMax } = useQuestionLayout({
+  const { containerRef, ready, wideAnswers, animate, slot, stageHeight, statementSplit, optionsColumns, graphMax } = useQuestionLayout({
     characteristics,
     questionKey: question.original_number,
     hasGraph: Boolean(visualSpec) || Boolean(sharedImageSrc),
@@ -143,6 +143,7 @@ export const QuestionExperience = memo(function QuestionExperience({
         className="relative flex-1 min-h-0 -mx-1.5 px-1.5 -mb-2 pb-2 overflow-y-auto hide-scrollbar"
       >
         <div
+          data-wide-answers={wideAnswers ? "true" : "false"}
           data-ready={ready ? "true" : "false"}
           data-animate={animate ? "true" : "false"}
           style={{ height: stageHeight, visibility: ready ? "visible" : "hidden" }}

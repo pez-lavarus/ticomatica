@@ -448,6 +448,35 @@ describe("planQuestionLayout", () => {
     assertSane(result, 1600);
   });
 
+  it("stacks long formulas at full width and reduces the graph only when height requires it", () => {
+    const characteristics = extractLayoutCharacteristics({ statement: "Observe el gráfico.", problem: "Elija:", graph_image: "/graph.png",
+      options: [{ label: "A", text: `$${"x+".repeat(25)}1=0$` }, { label: "B", text: "$x=2$" }],
+    });
+    const statement: PanelMeasurer = { variants: [{ split: false }], height: (_w, _v, graphMax) => 100 + (graphMax ?? 0), maxContentWidth: () => 600 };
+    const options: PanelMeasurer = { variants: [{ columns: 1 }, { columns: 2 }], height: () => 250, maxContentWidth: () => 900, minimumFormulaWidth: () => 900 };
+    const roomy = plan({ containerWidth: 1200, containerHeight: 1000, hasGraph: true, characteristics, statement, options });
+    const tight = plan({ containerWidth: 1200, containerHeight: 700, hasGraph: true, characteristics, statement, options,
+      preferredArrangement: { template: "side", statementVariant: {}, optionsVariant: { columns: 2 } },
+    });
+    expect(roomy.graphMax).toBe(STATEMENT_GRAPH_SIZE.height);
+    expect(tight.template).toBe("stack");
+    expect(tight.optionsVariant.columns).toBe(1);
+    expect(tight.rects.options!.width).toBe(1200);
+    expect(tight.wideAnswers).toBe(true);
+    expect(tight.graphMax).toBe(300);
+    expect(tight.overflow).toBe(false);
+    assertSane(tight, 1200);
+  });
+
+  it("uses actual measured formula width even when LaTeX source length is short", () => {
+    const options = { ...shortOptions, minimumFormulaWidth: () => 850 };
+    const result = plan({ containerWidth: 1100, containerHeight: 1000, hasGraph: true, statement: withGraph, options });
+    expect(result.template).toBe("stack");
+    expect(result.optionsVariant.columns).toBe(1);
+    expect(result.rects.options!.width).toBe(1100);
+    expect(result.wideAnswers).toBe(true);
+  });
+
   it("is deterministic", () => {
     const a = plan({ containerWidth: 1100, explanation });
     const b = plan({ containerWidth: 1100, explanation });

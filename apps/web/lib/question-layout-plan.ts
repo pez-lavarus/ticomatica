@@ -5,7 +5,7 @@ import { STATEMENT_GRAPH_SIZE, OPTION_GRAPH_SIZE } from "./graph-sizes";
 // `useQuestionLayout` measures the real panels and hands this module a
 // `PanelMeasurer` per panel; this module decides where each one goes and how
 // big it is, and is unit-tested with synthetic measurers. Graph frames have
-// shared statement/option sizes; only the surrounding layout adapts.
+// shared statement/option sizes; long-formula answers may reduce statement graphs.
 //
 // Model
 //  - Three panels (statement, options, optional explanation) are placed as
@@ -14,7 +14,8 @@ import { STATEMENT_GRAPH_SIZE, OPTION_GRAPH_SIZE } from "./graph-sizes";
 //    its height is whatever the content needs at that width. Empty space is
 //    allowed around the panels, never inside them.
 //  - Candidate arrangements and answer-column counts are measured around
-//    shared graph frames. The search changes card placement, never graph size.
+//    shared graph frames. Long-formula answers may reduce the statement graph
+//    only when that is necessary to fit the vertical answer layout.
 //
 // Unit convention: lengths are local CSS pixels, i.e. what clientWidth and
 // offsetHeight report inside the font-scale `zoom` wrapper. A larger font
@@ -40,6 +41,8 @@ export interface PanelVariant {
 export interface PanelMeasurer {
   /** Variants worth trying, default first. */
   variants: PanelVariant[];
+  /** Actual formula width including answer/card chrome, measured in local pixels. */
+  minimumFormulaWidth?(): number;
   /** Natural outer height at an outer width. Graph max-height only affects the statement panel. */
   height(width: number, variant: PanelVariant, graphMax: number | null): number;
   /** Outer width the content would take with no wrapping at all. */
@@ -77,6 +80,7 @@ export interface PlanInput {
 }
 
 export interface LayoutPlan {
+  wideAnswers?: boolean;
   template: TemplateName;
   rects: Partial<Record<PanelId, Rect>>;
   statementVariant: PanelVariant;
@@ -264,6 +268,8 @@ interface Context {
   hasOptionGraphs: boolean;
   compactOptionWidth?: number;
   graphFirst: boolean;
+  wideAnswers: boolean;
+  formulaWidth: number;
   graphMax: number | null;
   measurers: Partial<Record<PanelId, PanelMeasurer>>;
 }
@@ -287,8 +293,9 @@ function layoutCandidate(
   const idealOf = (id: PanelId) => {
     const v = variantOf(id);
     const min = minOf(id);
-    const content = measurer(id).maxContentWidth(v, graphValue);
-    const cap = widthCap(id, v, ctx.hasGraph);
+    const natural = measurer(id).maxContentWidth(v, graphValue);
+    const content = id === O && ctx.wideAnswers ? Math.max(natural, ctx.formulaWidth, ctx.width) : natural;
+    const cap = id === O && ctx.wideAnswers ? ctx.width : widthCap(id, v, ctx.hasGraph);
     // Shared width increments reduce small card-width changes between questions
     // without narrowing content or exceeding the readable cap.
     const rounded = Math.ceil(content / 80) * 80;
@@ -455,7 +462,9 @@ export function planQuestionLayout(input: PlanInput): LayoutPlan {
   const withExplanation = Boolean(input.panels.explanation);
   const graphMax = hasGraph ? STATEMENT_GRAPH_SIZE.height : null;
   const facts = input.characteristics;
-  const compactAnswers = facts?.hasStatementGraph && facts.optionGraphNum === 0
+  const formulaWidth = input.panels.options.minimumFormulaWidth?.() ?? 0;
+  const longAnswerFormula = (facts?.largestOptionFormulaLength ?? 0) > 36 || formulaWidth > 480;
+  const compactAnswers = !longAnswerFormula && facts?.hasStatementGraph && facts.optionGraphNum === 0
     && facts.largestResponseOptionLength <= 80 && facts.largestOptionFormulaLength <= 24;
   const ctx: Context = {
     width: Math.max(containerWidth, 1),
@@ -463,8 +472,10 @@ export function planQuestionLayout(input: PlanInput): LayoutPlan {
     gap: gapFor(containerWidth),
     hasGraph,
     hasOptionGraphs: Boolean(input.hasOptionGraphs),
-    graphFirst: hasGraph && !facts?.hasTable && !input.hasOptionGraphs,
-    compactOptionWidth: compactAnswers ? Math.max(240, Math.min(360, 120 + facts.largestResponseOptionLength * 8)) : undefined,
+    graphFirst: hasGraph && !facts?.hasTable && !input.hasOptionGraphs && !longAnswerFormula,
+    wideAnswers: longAnswerFormula,
+    formulaWidth,
+    compactOptionWidth: compactAnswers ? Math.max(formulaWidth, 240, Math.min(360, 120 + facts.largestResponseOptionLength * 8)) : undefined,
     graphMax,
     measurers: {
       statement: memoized(input.panels.statement, hasGraph),
@@ -481,32 +492,42 @@ export function planQuestionLayout(input: PlanInput): LayoutPlan {
   let best: { candidate: Candidate; score: number } | null = null;
   const candidates: { candidate: Candidate; score: number; overflow: number }[] = [];
 
+  const graphSizes = longAnswerFormula && hasGraph && !facts?.hasTable ? [graphMax!, 340, 300] : [graphMax];
   for (const template of templates) {
+    if (longAnswerFormula && !withExplanation && template.name !== "stack") continue;
     for (const sv of input.panels.statement.variants) {
       // A source graph is read after its statement, even when its card sits
       // beside the answers. Do not split that reading sequence into columns.
       if (hasGraph && sv.split) continue;
       for (const ov of input.panels.options.variants) {
-        if (preferences?.needsWideAnswers && ov.columns === 2) continue;
-        const chosen = layoutCandidate(ctx, template, sv, ov, graphMax);
-        if (!chosen) continue;
-        let score = scoreCandidate(chosen, ctx, input.previous);
-        if (preferences && !withExplanation) {
-          if (template.name !== preferences.template) score += 0.5;
-          const preferredColumns = compactAnswers && template.name === "side" ? 1 : preferences.columns;
-          if (ov.columns !== preferredColumns) score += 0.5;
+        if ((preferences?.needsWideAnswers || longAnswerFormula) && ov.columns === 2) continue;
+        for (const candidateGraphMax of graphSizes) {
+          const chosen = layoutCandidate(ctx, template, sv, ov, candidateGraphMax);
+          if (!chosen) continue;
+          const columns = ov.columns ?? 1;
+          const requiredFormulaWidth = PANEL_PADDING_X_PX + columns * Math.max(0, formulaWidth - PANEL_PADDING_X_PX)
+            + (columns - 1) * OPTIONS_COLUMN_GAP_PX;
+          if (formulaWidth > 0 && chosen.stats.find((panel) => panel.id === O)!.rect.width < requiredFormulaWidth
+            && (columns > 1 || formulaWidth <= ctx.width)) continue;
+          let score = scoreCandidate(chosen, ctx, input.previous);
+          if (candidateGraphMax !== null && graphMax !== null) score += (graphMax - candidateGraphMax) / graphMax;
+          if (preferences && !withExplanation) {
+            if (template.name !== preferences.template) score += 0.5;
+            const preferredColumns = compactAnswers && template.name === "side" ? 1 : preferences.columns;
+            if (ov.columns !== preferredColumns) score += 0.5;
+          }
+          // Favor a graph card beside the answers when readability and fit are
+          // comparable. Overflow and minimum-width safeguards still come first.
+          if (!preferences && hasGraph && !withExplanation && template.name === "stack") score += 0.65;
+          const preferred = input.preferredArrangement;
+          if (preferred) {
+            if (chosen.template.name !== preferred.template) score += 0.35;
+            if (Boolean(sv.split) !== Boolean(preferred.statementVariant.split)) score += 0.15;
+            if (ov.columns !== preferred.optionsVariant.columns) score += 0.15;
+          }
+          const overflow = Math.max(0, chosen.totalHeight - ctx.height);
+          candidates.push({ candidate: chosen, score, overflow });
         }
-        // Favor a graph card beside the answers when readability and fit are
-        // comparable. Overflow and minimum-width safeguards still come first.
-        if (!preferences && hasGraph && !withExplanation && template.name === "stack") score += 0.65;
-        const preferred = input.preferredArrangement;
-        if (preferred) {
-          if (chosen.template.name !== preferred.template) score += 0.35;
-          if (Boolean(sv.split) !== Boolean(preferred.statementVariant.split)) score += 0.15;
-          if (ov.columns !== preferred.optionsVariant.columns) score += 0.15;
-        }
-        const overflow = Math.max(0, chosen.totalHeight - ctx.height);
-        candidates.push({ candidate: chosen, score, overflow });
       }
     }
   }
@@ -516,8 +537,10 @@ export function planQuestionLayout(input: PlanInput): LayoutPlan {
   // shortlist to within one small spacing unit of the least scrolling option.
   const leastOverflow = Math.min(...candidates.map((c) => c.overflow));
   const allowance = leastOverflow === 0 ? 0 : 24;
-  for (const candidate of candidates) {
-    if (candidate.overflow > leastOverflow + allowance) continue;
+  const eligible = candidates.filter((candidate) => candidate.overflow <= leastOverflow + allowance);
+  const largestFittingGraph = Math.max(0, ...eligible.map(({ candidate }) => candidate.graphMax ?? 0));
+  for (const candidate of eligible) {
+    if (longAnswerFormula && hasGraph && candidate.candidate.graphMax !== largestFittingGraph) continue;
     if (!best || candidate.score < best.score - 1e-9) best = candidate;
   }
 
@@ -547,6 +570,7 @@ export function planQuestionLayout(input: PlanInput): LayoutPlan {
 
   return {
     template: candidate.template.name,
+    wideAnswers: longAnswerFormula,
     rects,
     statementVariant: candidate.statementVariant,
     optionsVariant: candidate.optionsVariant,
@@ -562,6 +586,7 @@ export function samePlan(a: LayoutPlan | null, b: LayoutPlan | null) {
   if (a === b) return true;
   if (!a || !b) return false;
   if (a.stageHeight !== b.stageHeight || a.graphMax !== b.graphMax) return false;
+  if (Boolean(a.wideAnswers) !== Boolean(b.wideAnswers)) return false;
   if (a.statementVariant.split !== b.statementVariant.split) return false;
   if (a.optionsVariant.columns !== b.optionsVariant.columns) return false;
   for (const id of ["statement", "options", "explanation"] as PanelId[]) {

@@ -364,3 +364,9 @@ button:not(:disabled),
   padding-inline-start: 0.2em;
   margin-block: 0.4em;
 }
+
+/* Formula-heavy answers use the entire reading column. Keep prose measures
+   elsewhere; horizontal scrolling remains a last resort on narrow screens. */
+[data-wide-answers="true"] .question-panel[data-panel="options"] .option-math {
+  max-width: none;
+}

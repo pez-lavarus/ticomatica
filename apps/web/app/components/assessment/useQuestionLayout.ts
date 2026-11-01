@@ -98,6 +98,27 @@ function createMeasurer(el: HTMLElement, id: PanelId, variants: PanelVariant[]):
 
   return {
     variants,
+    minimumFormulaWidth: id === "options" ? () => probe("max-content", { columns: 1 }, null, () => {
+      let minimum = 0;
+      for (const formula of el.querySelectorAll<HTMLElement>(".option-math .katex-html")) {
+        const answer = formula.closest<HTMLElement>(".response-option-button");
+        if (!answer) continue;
+        const answerStyle = getComputedStyle(answer);
+        const panelStyle = getComputedStyle(el.firstElementChild as HTMLElement);
+        const letter = answer.firstElementChild as HTMLElement | null;
+        const chrome = px(panelStyle.paddingLeft) + px(panelStyle.paddingRight) + chromeX
+          + px(answerStyle.paddingLeft) + px(answerStyle.paddingRight)
+          + px(answerStyle.borderLeftWidth) + px(answerStyle.borderRightWidth)
+          + px(answerStyle.columnGap) + (letter?.offsetWidth ?? 0) + 16;
+        let contentPadding = 0;
+        for (let parent = formula.parentElement; parent && parent !== answer; parent = parent.parentElement) {
+          const style = getComputedStyle(parent);
+          contentPadding += px(style.paddingLeft) + px(style.paddingRight);
+        }
+        minimum = Math.max(minimum, formula.offsetWidth + chrome + contentPadding);
+      }
+      return minimum;
+    }) : undefined,
     height: (width, variant, graphMax) =>
       probe(`${Math.max(width - chromeX, 1)}px`, variant, graphMax, () => el.offsetHeight + chromeY),
     maxContentWidth: (variant, graphMax) =>
@@ -287,6 +308,7 @@ export function useQuestionLayout({
   return {
     containerRef,
     ready,
+    wideAnswers: Boolean(plan?.wideAnswers),
     animate: ready && Boolean(placed.statement || placed.options),
     plan,
     slot,

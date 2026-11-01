@@ -180,7 +180,7 @@ export function SourceImage({
   const frameSize = !expanded && size ? GRAPH_SIZES[size] : null;
   const frame = (image: React.ReactNode) => frameSize ? (
     <div className={`source-graph-frame source-graph-${size}`} style={{
-      width: frameSize.width, maxWidth: "100%", aspectRatio: `${frameSize.width} / ${frameSize.height}`,
+      width: size === "statement" ? `calc(var(--graph-max, ${frameSize.height}px) * ${frameSize.width / frameSize.height})` : frameSize.width, maxWidth: "100%", aspectRatio: `${frameSize.width} / ${frameSize.height}`,
     }}>{image}</div>
   ) : image;
 
