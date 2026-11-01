@@ -549,7 +549,7 @@
       "id": 39, "set_id": "set_1", "area": "Relaciones y Álgebra", "area_id": "functions", "topic": "Función inversa — representación gráfica",
       "spec": { "block": "2. Relaciones y Álgebra", "affirmation": "A4", "affirmation_desc": null, "evidence": "A4.2", "evidence_desc": "Reconoce la gráfica de la inversa de una función a partir de la gráfica de la función en diversos contextos." },
       "statement": "Considere la representación gráfica de una función $p$:",
-      "problem": "Con base en la información dada, ¿cuál es la representación gráfica de la función inversa de $p$?",
+      "problem": "¿Cuál es la representación gráfica de la función inversa de $p$?",
       "options": { "A": "Gráfico A", "B": "Gráfico B", "C": "Gráfico C", "D": "Gráfico D" },
       "correct_answer": "A",
       "solution_steps": ["La gráfica de $p$ es una recta creciente que pasa por $(0,-3)$ y $(6,0)$.", "La gráfica de la inversa se obtiene intercambiando las coordenadas de cada punto: pasa por $(-3,0)$ y $(0,6)$.", "El gráfico A muestra una recta creciente que corta al eje $x$ en $-3$ y al eje $y$ en $6$.", "Opción correcta: A."],
