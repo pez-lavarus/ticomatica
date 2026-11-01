@@ -12,6 +12,7 @@ export interface QuestionOption {
 }
 
 export interface QuestionHint {
+  keywords: string[];
   hint: string;
   explanation: string;
 }

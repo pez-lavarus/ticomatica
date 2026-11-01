@@ -1,6 +1,6 @@
 "use client";
 
-import { type CSSProperties, useState, useCallback, useEffect, useRef } from "react";
+import { type CSSProperties, useState, useCallback, useEffect, useRef, useMemo } from "react";
 import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { Flag, RotateCcw, Lightbulb } from "lucide-react";
@@ -48,6 +48,12 @@ export default function QuestionPage() {
     testMode: currentTestMode,
     hasMoreSections,
   } = assessment;
+  const [helpView, setHelpView] = useState<{ question: number; tab: number } | null>(null);
+  const activeHelpTab = helpView && helpView.question === currentQuestion?.original_number
+    ? helpView.tab : selectedAnswers[currentIndex] ? 2 : 0;
+  const answerPreview = isHintModalOpen && activeHelpTab === 2 && !selectedAnswers[currentIndex] && testMode !== "full" && !reviewMode;
+  const highlightKeywords = useMemo(() => isHintModalOpen
+    ? [...new Set(currentQuestion?.hints?.flatMap((hint) => hint.keywords) ?? [])] : [], [isHintModalOpen, currentQuestion]);
   const hintWidth = useHintPanelWidth(reviewMode);
 
 
@@ -93,6 +99,7 @@ export default function QuestionPage() {
         !isTargetOptionButton &&
         !isTargetHeaderHintButton
       ) {
+        setHelpView(null);
         setIsHintModalOpen(false);
       }
     };
@@ -140,13 +147,14 @@ export default function QuestionPage() {
   }, [currentIndex]);
 
   const handleSelectOption = useCallback((option: string) => {
+    if (currentQuestion) setHelpView({ question: currentQuestion.original_number, tab: 2 });
     handleSelect(option);
     if (testMode !== "full" && !reviewMode) {
       setIsHintBlinking(true);
       // Open the hint modal automatically when an answer is selected.
       setIsHintModalOpen(true);
     }
-  }, [handleSelect, testMode, reviewMode]);
+  }, [handleSelect, testMode, reviewMode, currentQuestion, setIsHintModalOpen]);
 
   const handleNextWithFinish = useCallback(() => {
     if (sectionIndex === currentSectionQuestionsWithGlobalIndex.length - 1 && (!hasMoreSections || currentTestMode !== "full")) {
@@ -247,7 +255,10 @@ export default function QuestionPage() {
             {!reviewMode && testMode !== "full" && (
               <HeaderIconButton
                 label="Pistas"
-                onClick={() => setIsHintModalOpen((prev) => !prev)}
+                onClick={() => {
+                  setHelpView(null);
+                  setIsHintModalOpen((prev) => !prev);
+                }}
                 onMouseDown={(e) => e.stopPropagation()}
                 className="header-hint-button"
               >
@@ -263,6 +274,8 @@ export default function QuestionPage() {
           <div className="px-0 sm:px-4 lg:px-8 mx-auto h-full flex flex-col">
             <QuestionExperience
               question={currentQuestion}
+              answerPreview={answerPreview}
+              highlightKeywords={highlightKeywords}
               currentIndex={currentIndex}
               sectionQuestions={currentSectionQuestionsWithGlobalIndex}
               testMode={testMode}
@@ -292,6 +305,8 @@ export default function QuestionPage() {
           >
             <HintModal
               key={currentQuestion.original_number}
+              activeTab={activeHelpTab}
+              onTabChange={(tab) => setHelpView({ question: currentQuestion.original_number, tab })}
               keywords={currentQuestion.keywords}
               hints={currentQuestion.hints}
               formulas={currentQuestion.formulas}

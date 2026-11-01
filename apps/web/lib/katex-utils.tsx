@@ -2,9 +2,10 @@
 
 import React from "react";
 import { informationBlocks } from "./information-lists";
+import { highlightText, matchesMathKeyword } from "./keyword-highlight";
 import { InlineMath } from "react-katex";
 
-function renderPlainText(text: string, keyPrefix: string) {
+function renderPlainText(text: string, keyPrefix: string, highlightKeywords?: readonly string[]) {
   // Handle **bold** markdown and newlines in plain text
   const segments = text.split(/(\*\*.*?\*\*)/g);
   return (
@@ -13,7 +14,7 @@ function renderPlainText(text: string, keyPrefix: string) {
         if (seg.startsWith("**") && seg.endsWith("**")) {
           return (
             <strong key={j} className="font-semibold">
-              {seg.slice(2, -2)}
+              {highlightText(seg.slice(2, -2), highlightKeywords)}
             </strong>
           );
         }
@@ -22,7 +23,7 @@ function renderPlainText(text: string, keyPrefix: string) {
         return lines.map((line, k) => (
           <React.Fragment key={`${j}-${k}`}>
             {k > 0 && <br />}
-            {line}
+            {highlightText(line, highlightKeywords)}
           </React.Fragment>
         ));
       })}
@@ -51,16 +52,16 @@ function isRelevantExpression(math: string): boolean {
  * - **bold** (Bold markdown in plain text)
  * - \n (Line breaks in plain text)
  */
-export function KaTeXText({ text, displayMath = false, formatLists = false }: { text: string; displayMath?: boolean; formatLists?: boolean }) {
+export function KaTeXText({ text, displayMath = false, formatLists = false, highlightKeywords }: { text: string; displayMath?: boolean; formatLists?: boolean; highlightKeywords?: readonly string[] }) {
   if (!text) return null;
   if (formatLists) {
     const blocks = informationBlocks(text);
     if (blocks.some((block) => block.type === "list")) return <>
       {blocks.map((block, index) => block.type === "list" ? (
         <ul key={index} className="information-list">
-          {block.items.map((item, itemIndex) => <li key={itemIndex}><KaTeXText text={item} displayMath={displayMath} /></li>)}
+          {block.items.map((item, itemIndex) => <li key={itemIndex}><KaTeXText text={item} displayMath={displayMath} highlightKeywords={highlightKeywords} /></li>)}
         </ul>
-      ) : <KaTeXText key={index} text={block.text} displayMath={displayMath} />)}
+      ) : <KaTeXText key={index} text={block.text} displayMath={displayMath} highlightKeywords={highlightKeywords} />)}
     </>;
   }
 
@@ -83,22 +84,24 @@ export function KaTeXText({ text, displayMath = false, formatLists = false }: { 
           : part.startsWith("$") && part.endsWith("$") ? part.slice(1, -1)
             : part.startsWith("\\(") && part.endsWith("\\)") ? part.slice(2, -2) : null;
         if (math !== null) {
+          const expression = <InlineMath math={authoredBlock || (displayMath && isRelevantExpression(math)) ? `\\displaystyle ${math}` : math} />;
+          const renderedMath = matchesMathKeyword(math, highlightKeywords) ? <mark className="hint-keyword">{expression}</mark> : expression;
           // Keep sentence punctuation with both inline and displayed math.
           const punctuation = parts[i + 1]?.match(/^\s*([)\]”’"']*[.,;:!?]+(?:[”’"'])?)(?!\d)/);
           if (punctuation) parts[i + 1] = parts[i + 1].slice(punctuation[0].length);
           if (authoredBlock || (displayMath && isRelevantExpression(math))) {
             return (
               <span key={i} className={`math-line${authoredBlock ? " katex-display" : ""}`}>
-                <InlineMath math={`\\displaystyle ${math}`} />{punctuation?.[1]}
+                {renderedMath}{punctuation?.[1]}
               </span>
             );
           }
           return punctuation ? (
-            <span key={i} className="math-inline-punctuation"><InlineMath math={math} />{punctuation[1]}</span>
-          ) : <InlineMath key={i} math={math} />;
+            <span key={i} className="math-inline-punctuation">{renderedMath}{punctuation[1]}</span>
+          ) : <React.Fragment key={i}>{renderedMath}</React.Fragment>;
         }
 
-        return renderPlainText(part, `plain-${i}`);
+        return renderPlainText(part, `plain-${i}`, highlightKeywords);
       })}
     </>
   );

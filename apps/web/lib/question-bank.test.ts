@@ -22,6 +22,11 @@ describe("authored question help", () => {
       for (const hint of question.hints!) {
         expect(hint.hint.trim().length).toBeGreaterThan(0);
         expect(hint.explanation.trim().length).toBeGreaterThan(hint.hint.length);
+        expect(hint.keywords.length).toBeGreaterThan(0);
+        const content = [question.statement, question.problem, ...question.options.map((option) => option.text ?? "")].join(" ").toLocaleLowerCase();
+        for (const keyword of hint.keywords) {
+          expect(content).toContain(keyword.toLocaleLowerCase());
+        }
         validateMath(hint.hint);
         validateMath(hint.explanation);
       }

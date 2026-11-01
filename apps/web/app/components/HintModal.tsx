@@ -11,12 +11,19 @@ interface HintModalProps {
   formulas?: QuestionFormula[];
   answerSteps?: string[];
   hintStrategy?: string;
+  activeTab?: number;
+  onTabChange?: (tab: number) => void;
 }
 
 const tabs = ["Pistas", "Fórmulas", "Respuesta"] as const;
 
-export default function HintModal({ keywords = [], hints = [], formulas = [], answerSteps = [], hintStrategy }: HintModalProps) {
-  const [activeTab, setActiveTab] = useState(0);
+export default function HintModal({ keywords = [], hints = [], formulas = [], answerSteps = [], hintStrategy, activeTab: controlledTab, onTabChange }: HintModalProps) {
+  const [localTab, setLocalTab] = useState(0);
+  const activeTab = controlledTab ?? localTab;
+  const setActiveTab = (tab: number) => {
+    setLocalTab(tab);
+    onTabChange?.(tab);
+  };
   const id = useId();
   const buttons = useRef<(HTMLButtonElement | null)[]>([]);
   const topic = keywords[0];
@@ -69,6 +76,7 @@ export default function HintModal({ keywords = [], hints = [], formulas = [], an
             {index === 0 && (hints.length ? hints.map((entry, i) => (
               <article key={i} className={cardClass}>
                 <h4 className="font-semibold text-foreground"><KaTeXText text={entry.hint} /></h4>
+                <p className="flex flex-wrap gap-2">{entry.keywords.map((keyword) => <span key={keyword} className="hint-keyword text-xs font-semibold px-2 py-1 rounded-sm"><KaTeXText text={keyword.includes("\\") ? `$${keyword}$` : keyword} /></span>)}</p>
                 <div className={textClass}><KaTeXText text={entry.explanation} formatLists /></div>
               </article>
             )) : <p className="text-muted-foreground">No hay pistas disponibles para esta pregunta.</p>)}

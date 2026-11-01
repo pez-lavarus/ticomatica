@@ -256,9 +256,10 @@
           "type": "array", "minItems": 1,
           "items": {
             "type": "object", "additionalProperties": false,
-            "required": ["hint", "explanation"],
+            "required": ["hint", "explanation", "keywords"],
             "properties": {
               "hint": { "type": "string", "minLength": 1 },
+              "keywords": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "minLength": 1 }, "description": "Literal phrases from the question or response content, highlighted while help is open." },
               "explanation": { "type": "string", "minLength": 1 }
             }
           }

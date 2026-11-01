@@ -9,6 +9,7 @@ import type { PanelSlot } from "./QuestionPanel";
 
 interface ResponseOptionsProps {
   question: Question;
+  highlightKeywords?: readonly string[];
   selectedAnswer?: string;
   onSelect: (option: string) => void;
   onOpenImageModal: (src: string, alt: string, svg?: string) => void;
@@ -19,12 +20,14 @@ interface ResponseOptionsProps {
   revealed?: boolean;
   correctAnswer?: string;
   flash?: boolean;
+  preview?: boolean;
   /** Review mode: options are shown but not selectable. */
   readOnly?: boolean;
 }
 
 export function ResponseOptions({
   question,
+  highlightKeywords,
   selectedAnswer,
   onSelect,
   onOpenImageModal,
@@ -33,6 +36,7 @@ export function ResponseOptions({
   revealed,
   correctAnswer,
   flash,
+  preview,
   readOnly,
 }: ResponseOptionsProps) {
   const isCorrect = selectedAnswer === correctAnswer;
@@ -47,7 +51,7 @@ export function ResponseOptions({
       <div className="p-5 md:p-6">
         {question.problem && (
           <div className="assessment-copy prose dark:prose-invert max-w-none text-base md:text-lg text-foreground font-serif mb-5 md:mb-6">
-            <KaTeXText text={question.problem} displayMath formatLists />
+            <KaTeXText text={question.problem} displayMath formatLists highlightKeywords={highlightKeywords} />
           </div>
         )}
 
@@ -76,7 +80,7 @@ export function ResponseOptions({
               : isSelected
                 ? "bg-primary text-primary-foreground border-primary"
                 : "bg-card text-foreground border-border/60 group-hover:border-accent";
-            const flashClasses = flash && isSelected
+            const flashClasses = preview && isCorrectOption ? "answer-preview-flash" : flash && isSelected
               ? (isCorrect ? "answer-flash-correct" : "answer-flash-incorrect")
               : "";
             const letter = (
@@ -124,7 +128,7 @@ export function ResponseOptions({
               >
                 {letter}
                 <div className="flex-1 min-w-0 pt-0.5 md:pt-1 assessment-copy option-math text-base md:text-lg text-foreground font-serif">
-                  <KaTeXText text={option.text || ""} displayMath formatLists />
+                  <KaTeXText text={option.text || ""} displayMath formatLists highlightKeywords={highlightKeywords} />
                 </div>
               </button>
             );

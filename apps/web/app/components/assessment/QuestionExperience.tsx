@@ -25,6 +25,9 @@ interface QuestionExperienceProps {
 
   // State
   selectedAnswer?: string;
+  /** Temporary visual reveal, never recorded as an answer. */
+  answerPreview?: boolean;
+  highlightKeywords?: readonly string[];
   selectedAnswers: Record<number, string>;
   flaggedQuestions: Record<number, boolean>;
 
@@ -51,6 +54,8 @@ export const QuestionExperience = memo(function QuestionExperience({
   sectionQuestions,
   testMode,
   selectedAnswer,
+  answerPreview = false,
+  highlightKeywords,
   selectedAnswers,
   flaggedQuestions,
   onSelect,
@@ -155,6 +160,7 @@ export const QuestionExperience = memo(function QuestionExperience({
         >
           <QuestionStatement
             question={question}
+            highlightKeywords={highlightKeywords}
             sharedImageSrc={sharedImageSrc}
             visualSpec={visualSpec}
             onOpenImageModal={onOpenImageModal}
@@ -164,12 +170,14 @@ export const QuestionExperience = memo(function QuestionExperience({
           />
           <ResponseOptions
             question={question}
-            selectedAnswer={selectedAnswer}
+            highlightKeywords={highlightKeywords}
+            selectedAnswer={answerPreview ? question.correct_answer : selectedAnswer}
             onSelect={handleSelect}
             onOpenImageModal={onOpenImageModal}
             slot={slot("options")}
             columns={optionsColumns}
-            revealed={revealed}
+            revealed={revealed || answerPreview}
+            preview={answerPreview}
             correctAnswer={question.correct_answer}
             flash={flashActive}
             readOnly={reviewMode}

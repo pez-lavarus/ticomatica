@@ -92,6 +92,20 @@ describe("QuestionExperience layout and math rendering", () => {
     vi.unstubAllGlobals();
   });
 
+  it("shows a temporary green preview and highlights keywords without selecting an answer", () => {
+    const onSelect = vi.fn();
+    const { container, rerender } = render(<QuestionExperience {...baseProps} onSelect={onSelect} answerPreview highlightKeywords={["función", "valor"]} />);
+    const correct = container.querySelectorAll(".response-option-button")[2];
+    expect(correct).toHaveClass("border-success", "answer-preview-flash");
+    expect(container.querySelectorAll("mark")).toHaveLength(2);
+    expect(onSelect).not.toHaveBeenCalled();
+    rerender(<QuestionExperience {...baseProps} onSelect={onSelect} answerPreview={false} />);
+    expect(container.querySelector(".answer-preview-flash")).not.toBeInTheDocument();
+    expect(container.querySelector(".border-success")).not.toBeInTheDocument();
+    expect(container.querySelector("mark")).not.toBeInTheDocument();
+    expect(onSelect).not.toHaveBeenCalled();
+  });
+
   it("places the statement and the options as separate, content-sized panels and renders KaTeX math", () => {
     const { container } = render(<QuestionExperience {...baseProps} />);
     const rects = panelRects(container);

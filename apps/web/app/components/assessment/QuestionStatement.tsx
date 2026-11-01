@@ -12,6 +12,7 @@ import type { PanelSlot } from "./QuestionPanel";
 
 interface QuestionStatementProps {
   question: Question;
+  highlightKeywords?: readonly string[];
   sharedImageSrc?: string;
   /** Structured graph spec rendered by `VisualRenderer`. */
   visualSpec?: VisualSpec | null;
@@ -26,6 +27,7 @@ interface QuestionStatementProps {
 
 export function QuestionStatement({
   question,
+  highlightKeywords,
   sharedImageSrc,
   visualSpec,
   onOpenImageModal,
@@ -50,7 +52,7 @@ export function QuestionStatement({
             a wide graph can use the extra width without stretching the lines. */}
         {question.statement && (
           <div className="assessment-copy prose dark:prose-invert w-full max-w-[72ch] mx-auto text-base md:text-lg text-foreground font-serif min-w-0 group-data-[split=true]:flex-1 group-data-[split=true]:max-w-none group-data-[split=true]:mx-0">
-            <KaTeXText text={question.statement} displayMath formatLists />
+            <KaTeXText text={question.statement} displayMath formatLists highlightKeywords={highlightKeywords} />
           </div>
         )}
 

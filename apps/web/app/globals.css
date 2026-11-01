@@ -370,3 +370,18 @@ button:not(:disabled),
 [data-wide-answers="true"] .question-panel[data-panel="options"] .option-math {
   max-width: none;
 }
+
+/* The answer preview pulses for three seconds, then retains its success state. */
+.answer-preview-flash {
+  animation: answer-flash-correct 3s ease-in-out 1;
+}
+
+.hint-keyword {
+  background-color: #D4AF37;
+  color: #002147;
+  border-radius: 0.125rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .answer-preview-flash { animation: none; }
+}

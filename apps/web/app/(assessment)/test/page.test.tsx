@@ -62,6 +62,46 @@ describe("question page rendering", () => {
     expect(screen.getByRole("tab", { name: "Pistas" })).toHaveAttribute("aria-selected", "true");
   });
 
+  it("opens Respuesta after an actual practice answer without changing that saved answer on tab changes", () => {
+    saveTestSession({ ...EMPTY_SESSION, mode: "Geometría" });
+    render(<FontScaleProvider><AssessmentLayout><QuestionPage /></AssessmentLayout></FontScaleProvider>);
+    act(() => { renderQuestion.mock.lastCall![0].onSelect("A"); });
+    expect(screen.getByRole("tab", { name: "Respuesta" })).toHaveAttribute("aria-selected", "true");
+    expect(renderQuestion.mock.lastCall![0].answerPreview).toBe(false);
+    expect(loadTestSession().answers[0]).toBe("A");
+    fireEvent.click(screen.getByRole("tab", { name: "Pistas" }));
+    fireEvent.click(screen.getByRole("button", { name: "Pistas" }));
+    expect(loadTestSession().answers[0]).toBe("A");
+  });
+
+  it("previews unanswered practice questions only while Respuesta is active and never persists a response", () => {
+    saveTestSession({ ...EMPTY_SESSION, mode: "Geometría" });
+    render(<FontScaleProvider><AssessmentLayout><QuestionPage /></AssessmentLayout></FontScaleProvider>);
+    expect(renderQuestion.mock.lastCall![0].highlightKeywords).toEqual([]);
+    fireEvent.click(screen.getByRole("button", { name: "Pistas" }));
+    expect(renderQuestion.mock.lastCall![0].highlightKeywords).toContain("radio");
+    expect(renderQuestion.mock.lastCall![0].answerPreview).toBe(false);
+    fireEvent.click(screen.getByRole("tab", { name: "Respuesta" }));
+    expect(renderQuestion.mock.lastCall![0].answerPreview).toBe(true);
+    act(() => { vi.advanceTimersByTime(3500); });
+    expect(renderQuestion.mock.lastCall![0].answerPreview).toBe(true);
+    expect(loadTestSession().answers).toEqual({});
+    expect(renderQuestion.mock.lastCall![0].selectedAnswer).toBeUndefined();
+    fireEvent.click(screen.getByRole("tab", { name: "Fórmulas" }));
+    expect(renderQuestion.mock.lastCall![0].answerPreview).toBe(false);
+    fireEvent.click(screen.getByRole("tab", { name: "Respuesta" }));
+    fireEvent.click(screen.getByRole("button", { name: "Pistas" }));
+    expect(renderQuestion.mock.lastCall![0].answerPreview).toBe(false);
+    expect(renderQuestion.mock.lastCall![0].highlightKeywords).toEqual([]);
+    expect(loadTestSession().answers).toEqual({});
+    fireEvent.click(screen.getByRole("button", { name: "Pistas" }));
+    expect(screen.getByRole("tab", { name: "Pistas" })).toHaveAttribute("aria-selected", "true");
+    fireEvent.click(screen.getByRole("tab", { name: "Respuesta" }));
+    act(() => { renderQuestion.mock.lastCall![0].onNext(); });
+    expect(renderQuestion.mock.lastCall![0].answerPreview).toBe(false);
+    expect(screen.getByRole("tab", { name: "Pistas" })).toHaveAttribute("aria-selected", "true");
+  });
+
   it("does not render the question again when only the countdown changes", () => {
     render(<FontScaleProvider><AssessmentLayout><QuestionPage /></AssessmentLayout></FontScaleProvider>);
     const renders = renderQuestion.mock.calls.length;

@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import HintModal from "./HintModal";
 
-const hints = [{ hint: "Conserva el radio", explanation: "Una traslación solo cambia el centro." }];
+const hints = [{ hint: "Conserva el radio", keywords: ["radio"], explanation: "Una traslación solo cambia el centro." }];
 const formulas = [{ name: "Traslación", formula: "(x,y)\\mapsto(x+a,y+b)", explanation: "El vector indica el desplazamiento." }];
 
 describe("question help tabs", () => {
