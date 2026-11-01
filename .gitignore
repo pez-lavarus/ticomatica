@@ -28,6 +28,10 @@ playwright-report/
 *.tsbuildinfo
 next-env.d.ts
 
+# Prepared from the source document and installed PDF.js version before dev/build.
+apps/web/public/pdfjs/
+apps/web/public/documents/Practica-BxM-Matematicas-02-2026.pdf
+
 # misc
 .DS_Store
 *.pem

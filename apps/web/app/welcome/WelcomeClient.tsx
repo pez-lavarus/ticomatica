@@ -8,6 +8,7 @@ import { History, Play, ArrowRight } from "lucide-react";
 import type { TestMode, TestConfig } from "@/lib/types";
 import { loadTestSession, hasTestProgress, resetTestSession } from "@/lib/test-session";
 import { FULL_TEST_TIME, SECTION_TIME } from "@/lib/constants";
+import WelcomeExamPreview from "./WelcomeExamPreview";
 
 const userSchema = z.object({
   name: z.string().optional(),
@@ -60,9 +61,7 @@ export default function WelcomeClient({ testConfigs }: { testConfigs: Record<Tes
   const currentConfig = testConfigs[selectedMode];
 
   return (
-    <div className="flex items-center justify-center p-4 md:p-4 transition-colors relative overflow-hidden bg-transparent">
-      {/* <MathBackground /> */}
-      <div className="max-w-3xl w-full z-10 py-6">
+    <WelcomeExamPreview>
         {/* Main Card */}
         <div className="bg-card text-card-foreground border border-border shadow-md rounded-sm overflow-hidden">
           {/* Title Section */}
@@ -200,7 +199,6 @@ export default function WelcomeClient({ testConfigs }: { testConfigs: Record<Tes
           </form>
         </div>
 
-      </div>
-    </div>
+    </WelcomeExamPreview>
   );
 }
