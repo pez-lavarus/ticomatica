@@ -56,6 +56,18 @@ describe("Practice PDF reader", () => {
     expect(mocks.cancel).toHaveBeenCalled();
   });
 
+  it("resets scrolling when closed and reopened without reloading the document", async () => {
+    const { rerender } = render(<PdfReader openCycle={1} />);
+    const pages = await screen.findByLabelText("Páginas del documento de práctica");
+    pages.scrollTop = 1200;
+    rerender(<PdfReader active={false} openCycle={1} />);
+    expect(pages.scrollTop).toBe(0);
+    pages.scrollTop = 500;
+    rerender(<PdfReader active openCycle={2} />);
+    expect(pages.scrollTop).toBe(0);
+    expect(mocks.getDocument).toHaveBeenCalledOnce();
+  });
+
   it("keeps the previous canvas visible until its replacement finishes rendering", async () => {
     const { container, rerender } = render(<PdfReader />);
     await screen.findByText(/Contenido de la práctica/);

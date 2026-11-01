@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { PDFDocumentLoadingTask, PDFDocumentProxy, RenderTask } from "pdfjs-dist";
 import { version } from "pdfjs-dist/package.json";
 import { EXAM_DOCUMENT_URL } from "./exam-document";
@@ -105,6 +105,12 @@ export default function PdfReader({ active = true, openCycle = 0, onReady }: { a
   const [viewport, setViewport] = useState({ width: 0, revision: 0, cycle: -1 });
   const [visiblePages, setVisiblePages] = useState(5);
   const [scrollRoot, setScrollRoot] = useState<HTMLDivElement | null>(null);
+
+  useLayoutEffect(() => {
+    if (!scrollRoot) return;
+    scrollRoot.scrollTop = 0;
+    scrollRoot.scrollLeft = 0;
+  }, [scrollRoot, active, openCycle]);
 
   useEffect(() => {
     let cancelled = false;

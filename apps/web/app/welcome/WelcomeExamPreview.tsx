@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore, type ReactNode, type MouseEvent as ReactMouseEvent } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { BookOpen, Pause, Play, X } from "lucide-react";
@@ -23,8 +23,10 @@ export default function WelcomeExamPreview({ children }: { children: ReactNode }
   const [hasOpened, setHasOpened] = useState(false);
   const [ready, setReady] = useState(false);
   const [openCycle, setOpenCycle] = useState(0);
+  const openingClick = useRef<MouseEvent | null>(null);
   const onReady = useCallback(() => setReady(true), []);
-  const openPreview = () => {
+  const openPreview = (event: ReactMouseEvent<HTMLButtonElement>) => {
+    openingClick.current = event.nativeEvent;
     setReady(false);
     setOpenCycle(cycle => cycle + 1);
     setHasOpened(true);
@@ -43,6 +45,18 @@ export default function WelcomeExamPreview({ children }: { children: ReactNode }
   useEffect(() => {
     if (!open) return;
     closeButton.current?.focus({ preventScroll: true });
+    function onOutsideClick(event: MouseEvent) {
+      if (event === openingClick.current || reader.current?.contains(event.target as Node)) return;
+      // This click restores the welcome card before its controls can act.
+      event.preventDefault();
+      event.stopPropagation();
+      close();
+    }
+    function onDocumentClick(event: MouseEvent) {
+      if (event === openingClick.current) return;
+      // Let PDF controls (such as "Ver más") finish their action, then dismiss.
+      close();
+    }
     function onKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
         event.preventDefault();
@@ -63,7 +77,13 @@ export default function WelcomeExamPreview({ children }: { children: ReactNode }
       }
     }
     document.addEventListener("keydown", onKeyDown);
-    return () => document.removeEventListener("keydown", onKeyDown);
+    document.addEventListener("click", onOutsideClick, true);
+    document.addEventListener("click", onDocumentClick);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.removeEventListener("click", onOutsideClick, true);
+      document.removeEventListener("click", onDocumentClick);
+    };
   }, [open, mobile, close]);
 
   return (

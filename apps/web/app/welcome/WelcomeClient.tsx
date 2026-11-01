@@ -63,7 +63,7 @@ export default function WelcomeClient({ testConfigs }: { testConfigs: Record<Tes
   return (
     <WelcomeExamPreview>
         {/* Main Card */}
-        <div className="bg-card text-card-foreground border border-border shadow-md rounded-sm overflow-hidden">
+        <div className="bg-card/70 backdrop-blur-[2px] text-card-foreground border border-border shadow-md rounded-sm overflow-hidden">
           {/* Title Section */}
           <div className="px-5 md:px-12 pt-8 md:pt-16 pb-6 md:pb-12 border-b border-border bg-muted/20 relative">
             {/* <div className="absolute top-4 left-6 hidden md:block">
@@ -129,7 +129,7 @@ export default function WelcomeClient({ testConfigs }: { testConfigs: Record<Tes
           </div>
 
           {/* Form Section */}
-          <form onSubmit={handleSubmit} className="px-5 md:px-12 py-6 md:py-10 space-y-6 md:space-y-8 bg-card">
+          <form onSubmit={handleSubmit} className="px-5 md:px-12 py-6 md:py-10 space-y-6 md:space-y-8 bg-transparent">
             {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
               <div>
                 <label htmlFor="name" className="block text-xs md:text-xs font-bold text-foreground mb-2 md:mb-2.5 flex items-center gap-2 uppercase tracking-widest">

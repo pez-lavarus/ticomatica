@@ -50,4 +50,27 @@ describe("Welcome document preview", () => {
     fireEvent.click(screen.getByRole("button", { name: "Reanudar animación del documento" }));
     expect(screen.getByRole("button", { name: "Pausar animación del documento" })).toBeInTheDocument();
   });
+
+  it.each(["document", "welcome", "background"])("restores the welcome card when clicking the %s", (target) => {
+    setup();
+    fireEvent.click(screen.getByRole("button", { name: "Abrir vista previa del documento de práctica" }));
+    const element = target === "document" ? screen.getByLabelText("Páginas del documento de práctica")
+      : target === "welcome" ? screen.getByRole("button", { name: "Iniciar práctica" }) : document.body;
+    fireEvent.click(element);
+    expect(screen.queryByRole("region", { name: "Práctica de Matemáticas · 02-2026" })).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Abrir vista previa del documento de práctica" })).toHaveAttribute("aria-expanded", "false");
+  });
+
+  it("uses an outside control click to dismiss before that control can act", () => {
+    setup();
+    const onClick = vi.fn();
+    const { unmount } = render(<button onClick={onClick}>Header action</button>);
+    fireEvent.click(screen.getByRole("button", { name: "Abrir vista previa del documento de práctica" }));
+    fireEvent.click(screen.getByRole("button", { name: "Header action" }));
+    expect(onClick).not.toHaveBeenCalled();
+    expect(screen.queryByRole("region", { name: "Práctica de Matemáticas · 02-2026" })).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Header action" }));
+    expect(onClick).toHaveBeenCalledOnce();
+    unmount();
+  });
 });
