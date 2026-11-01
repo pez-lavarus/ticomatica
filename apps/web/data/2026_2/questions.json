@@ -38,7 +38,7 @@
       "group_id": "g_fuel_price",
       "items": [26, 27],
       "title": "Precio del combustible por semana",
-      "context_text": "Para responder los ítems 26 y 27 considere la siguiente información:\n\nLa siguiente representación gráfica muestra el precio $p(x)$ por litro de combustible, en colones, en función del tiempo “t” en semanas con $0 \\le x \\le 24$:",
+      "context_text": "La siguiente representación gráfica muestra el precio $p(x)$ por litro de combustible, en colones, en función del tiempo “t” en semanas con $0 \\le x \\le 24$:",
       "image": "02-2026-p_26-27.png"
     },
     {
