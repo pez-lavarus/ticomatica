@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { informationBlocks } from "./information-lists";
 import { InlineMath } from "react-katex";
 
 function renderPlainText(text: string, keyPrefix: string) {
@@ -50,8 +51,18 @@ function isRelevantExpression(math: string): boolean {
  * - **bold** (Bold markdown in plain text)
  * - \n (Line breaks in plain text)
  */
-export function KaTeXText({ text, displayMath = false }: { text: string; displayMath?: boolean }) {
+export function KaTeXText({ text, displayMath = false, formatLists = false }: { text: string; displayMath?: boolean; formatLists?: boolean }) {
   if (!text) return null;
+  if (formatLists) {
+    const blocks = informationBlocks(text);
+    if (blocks.some((block) => block.type === "list")) return <>
+      {blocks.map((block, index) => block.type === "list" ? (
+        <ul key={index} className="information-list">
+          {block.items.map((item, itemIndex) => <li key={itemIndex}><KaTeXText text={item} displayMath={displayMath} /></li>)}
+        </ul>
+      ) : <KaTeXText key={index} text={block.text} displayMath={displayMath} />)}
+    </>;
+  }
 
   // Regex matches:
   // 1) Escaped dollar sign: \$

@@ -396,8 +396,8 @@ export function VisualRenderer({
       const rows: unknown[] = Array.isArray(activeSpec.rows) ? activeSpec.rows : [];
 
       return (
-        <div role="img" aria-label={ariaLabel} className={className}>
-          <table className="border-collapse text-sm">
+        <div role="img" aria-label={ariaLabel} className={`max-w-full overflow-x-auto ${className ?? ""}`}>
+          <table className="mx-auto border-collapse text-sm">
             <thead>
               <tr>
                 {columns.map((column: unknown, index: number) => (
