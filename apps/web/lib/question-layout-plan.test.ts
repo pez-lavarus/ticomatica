@@ -419,6 +419,35 @@ describe("planQuestionLayout", () => {
     assertSane(result, 1000);
   });
 
+  it("gives a horizontal graph substantially more width than short answer options", () => {
+    const characteristics = extractLayoutCharacteristics({ statement: "Observe el gráfico.", problem: "Elija:", graph_image: "/graph.png",
+      options: [{ label: "A", text: "$5$" }, { label: "B", text: "$10$" }, { label: "C", text: "$15$" }, { label: "D", text: "$20$" }],
+    });
+    const statement: PanelMeasurer = { variants: [{ split: false }], height: () => 430, maxContentWidth: () => 900 };
+    const options: PanelMeasurer = { variants: [{ columns: 1 }, { columns: 2 }], height: () => 180, maxContentWidth: () => 400 };
+    for (const width of [1000, 1200, 1600]) {
+      const result = plan({ containerWidth: width, containerHeight: 700, hasGraph: true, characteristics, statement, options });
+      expect(result.template).toBe("side");
+      expect(result.optionsVariant.columns).toBe(1);
+      expect(result.rects.statement!.width).toBeGreaterThan(result.rects.options!.width * 2);
+      expect(result.rects.statement!.width).toBeGreaterThanOrEqual(STATEMENT_GRAPH_SIZE.width + 52);
+      expect(result.overflow).toBe(false);
+      assertSane(result, width);
+    }
+  });
+
+  it("retains room for long answers instead of applying the compact-answer allocation", () => {
+    const characteristics = extractLayoutCharacteristics({ statement: "Observe el gráfico.", problem: "Elija:", graph_image: "/graph.png",
+      options: [{ label: "A", text: "respuesta extensa ".repeat(12) }, { label: "B", text: "$10$" }, { label: "C", text: "$15$" }],
+    });
+    const result = plan({ containerWidth: 1600, containerHeight: 1000, hasGraph: true, characteristics,
+      statement: withGraph, options: longOptions,
+    });
+    expect(result.rects.options!.width).toBeGreaterThan(320);
+    expect(result.optionsVariant.columns).toBe(1);
+    assertSane(result, 1600);
+  });
+
   it("is deterministic", () => {
     const a = plan({ containerWidth: 1100, explanation });
     const b = plan({ containerWidth: 1100, explanation });

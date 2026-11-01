@@ -262,6 +262,8 @@ interface Context {
   gap: number;
   hasGraph: boolean;
   hasOptionGraphs: boolean;
+  compactOptionWidth?: number;
+  graphFirst: boolean;
   graphMax: number | null;
   measurers: Partial<Record<PanelId, PanelMeasurer>>;
 }
@@ -277,10 +279,14 @@ function layoutCandidate(
   const variantOf = (id: PanelId): PanelVariant =>
     id === S ? statementVariant : id === O ? optionsVariant : {};
   const measurer = (id: PanelId) => ctx.measurers[id] as PanelMeasurer;
+  const graphFirst = ctx.graphFirst && template.name === "side" && ctx.compactOptionWidth !== undefined;
+  const minOf = (id: PanelId) => id === O && graphFirst && optionsVariant.columns !== 2 && ctx.compactOptionWidth
+    ? ctx.compactOptionWidth
+    : minPanelWidth(id, variantOf(id), ctx.hasGraph, ctx.hasOptionGraphs);
 
   const idealOf = (id: PanelId) => {
     const v = variantOf(id);
-    const min = minPanelWidth(id, v, ctx.hasGraph, ctx.hasOptionGraphs);
+    const min = minOf(id);
     const content = measurer(id).maxContentWidth(v, graphValue);
     const cap = widthCap(id, v, ctx.hasGraph);
     // Shared width increments reduce small card-width changes between questions
@@ -293,14 +299,16 @@ function layoutCandidate(
     band.map((ids) => ({
       ids,
       ideal: Math.max(...ids.map(idealOf)),
-      min: Math.max(...ids.map((id) => minPanelWidth(id, variantOf(id), ctx.hasGraph, ctx.hasOptionGraphs))),
+      min: Math.max(...ids.map(minOf)),
     })),
   );
 
   const bandIdeal = columnInfo.map(
     (cols) => cols.reduce((sum, c) => sum + c.ideal, 0) + gap * (cols.length - 1),
   );
-  const layoutWidth = Math.min(ctx.width, Math.max(...bandIdeal));
+  const layoutWidth = Math.min(ctx.width, graphFirst
+    ? Math.min(GRAPH_WIDTH_CAP_PX, columnInfo[0][0].ideal) + columnInfo[0][1].min + gap
+    : Math.max(...bandIdeal));
 
   const stats: PanelStat[] = [];
   let y = 0;
@@ -312,7 +320,13 @@ function layoutCandidate(
     const total = cols.reduce((sum, c) => sum + c.ideal, 0);
     let widths = cols.map((c) => c.ideal);
 
-    if (total > available) {
+    if (graphFirst) {
+      if (available < cols[0].min + cols[1].min) return null;
+      // Reserve a readable answer column first, then give the graph the rest.
+      // Equal halves and equal visual area are not objectives for graph cards.
+      widths = [Math.min(GRAPH_WIDTH_CAP_PX, available - cols[1].min), 0];
+      widths[1] = available - widths[0];
+    } else if (total > available) {
       const slack = cols.reduce((sum, c) => sum + (c.ideal - c.min), 0);
       const need = total - available;
       if (need > slack + 0.5) {
@@ -394,8 +408,12 @@ function scoreCandidate(c: Candidate, ctx: Context, previous?: LayoutPlan | null
   for (const { id, rect, contentWidth } of c.stats) {
     // Options never wrap a formula, so a panel narrower than its widest line
     // makes that option scroll sideways. Cheap to avoid, so avoid it.
-    if (id === O && rect.width < contentWidth) {
-      score += W_CLIPPED_OPTIONS * (1 - rect.width / contentWidth);
+    const answerWidth = ctx.compactOptionWidth && c.template.name === "side"
+      ? Math.min(contentWidth, ctx.compactOptionWidth * (c.optionsVariant.columns ?? 1)
+        + (c.optionsVariant.columns === 2 ? OPTIONS_COLUMN_GAP_PX : 0))
+      : contentWidth;
+    if (id === O && rect.width < answerWidth) {
+      score += W_CLIPPED_OPTIONS * (1 - rect.width / answerWidth);
     }
     const a = rect.width * rect.height;
     area += a;
@@ -404,10 +422,11 @@ function scoreCandidate(c: Candidate, ctx: Context, previous?: LayoutPlan | null
     const cap = widthCap(id, id === S ? c.statementVariant : id === O ? c.optionsVariant : {}, ctx.hasGraph);
     score += W_LONG_LINE * Math.max(0, (rect.width - cap) / cap);
   }
-  if (area > 0) score += W_WASTE * (waste / area);
+  const graphFirst = ctx.graphFirst && c.template.name === "side";
+  if (!graphFirst && area > 0) score += W_WASTE * (waste / area);
 
   const bounding = c.layoutWidth * Math.max(c.totalHeight, 1);
-  score += (W_RAGGED * c.emptyBandArea) / bounding;
+  if (!graphFirst) score += (W_RAGGED * c.emptyBandArea) / bounding;
 
   if (previous) {
     let moved = 0;
@@ -435,12 +454,17 @@ export function planQuestionLayout(input: PlanInput): LayoutPlan {
   const { containerWidth, containerHeight, hasGraph } = input;
   const withExplanation = Boolean(input.panels.explanation);
   const graphMax = hasGraph ? STATEMENT_GRAPH_SIZE.height : null;
+  const facts = input.characteristics;
+  const compactAnswers = facts?.hasStatementGraph && facts.optionGraphNum === 0
+    && facts.largestResponseOptionLength <= 80 && facts.largestOptionFormulaLength <= 24;
   const ctx: Context = {
     width: Math.max(containerWidth, 1),
     height: containerHeight,
     gap: gapFor(containerWidth),
     hasGraph,
     hasOptionGraphs: Boolean(input.hasOptionGraphs),
+    graphFirst: hasGraph && !facts?.hasTable && !input.hasOptionGraphs,
+    compactOptionWidth: compactAnswers ? Math.max(240, Math.min(360, 120 + facts.largestResponseOptionLength * 8)) : undefined,
     graphMax,
     measurers: {
       statement: memoized(input.panels.statement, hasGraph),
@@ -469,7 +493,8 @@ export function planQuestionLayout(input: PlanInput): LayoutPlan {
         let score = scoreCandidate(chosen, ctx, input.previous);
         if (preferences && !withExplanation) {
           if (template.name !== preferences.template) score += 0.5;
-          if (ov.columns !== preferences.columns) score += 0.25;
+          const preferredColumns = compactAnswers && template.name === "side" ? 1 : preferences.columns;
+          if (ov.columns !== preferredColumns) score += 0.5;
         }
         // Favor a graph card beside the answers when readability and fit are
         // comparable. Overflow and minimum-width safeguards still come first.
