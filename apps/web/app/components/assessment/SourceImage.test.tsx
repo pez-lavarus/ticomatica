@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { cleanup, render, waitFor } from "@testing-library/react";
+import { STATEMENT_GRAPH_SIZE } from "@/lib/graph-sizes";
 import { SourceImage } from "./SourceImage";
 import { ResponseOptions } from "./ResponseOptions";
 import { quizData } from "@/lib/question-bank";
@@ -98,8 +99,8 @@ describe("uniform graph frames", () => {
     </>);
     await waitFor(() => expect(container.querySelectorAll("svg")).toHaveLength(3));
     for (const frame of container.querySelectorAll<HTMLElement>(".source-graph-statement")) {
-      expect(frame.style.width).toBe("480px");
-      expect(frame.style.aspectRatio).toBe("480 / 320");
+      expect(frame.style.width).toBe(`${STATEMENT_GRAPH_SIZE.width}px`);
+      expect(frame.style.aspectRatio).toBe(`${STATEMENT_GRAPH_SIZE.width} / ${STATEMENT_GRAPH_SIZE.height}`);
       expect(frame.querySelector<HTMLElement>(".graph-svg")!.style.height).toBe("100%");
     }
     const optionFrame = container.querySelector<HTMLElement>(".source-graph-option")!;

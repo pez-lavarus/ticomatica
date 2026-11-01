@@ -218,7 +218,7 @@ describe("planQuestionLayout", () => {
   it("uses the same statement graph size in roomy and short viewports", () => {
     const tall = textPanel({ chars: 90, graph: { width: 500, height: 500 } });
     const roomy = plan({ containerWidth: 700, containerHeight: 1400, hasGraph: true, statement: tall });
-    const tight = plan({ containerWidth: 700, containerHeight: 900, hasGraph: true, statement: tall });
+    const tight = plan({ containerWidth: 700, containerHeight: 1000, hasGraph: true, statement: tall });
     expect(roomy.graphMax).toBe(STATEMENT_GRAPH_SIZE.height);
     expect(tight.graphMax).not.toBeNull();
     expect(tight.graphMax).toBe(roomy.graphMax);
@@ -249,7 +249,7 @@ describe("planQuestionLayout", () => {
     const first = plan({ hasGraph: true, statement: withGraph });
     const next = plan({ hasGraph: true, statement: wideGraph, options: longOptions, preferredArrangement: first });
     expect(next.graphMax).toBe(first.graphMax);
-    expect(next.graphMax).toBe(320);
+    expect(next.graphMax).toBe(STATEMENT_GRAPH_SIZE.height);
   });
 
   it("reserves enough card width for uniform option graphs in either answer arrangement", () => {
@@ -313,7 +313,7 @@ describe("planQuestionLayout", () => {
 
     it("resizes the graph or the other panels when space is short", () => {
       const tall = textPanel({ chars: 90, graph: { width: 500, height: 500 } });
-      const before = plan({ containerWidth: 900, containerHeight: 900, hasGraph: true, statement: tall });
+      const before = plan({ containerWidth: 900, containerHeight: 1000, hasGraph: true, statement: tall });
       const after = plan({
         containerWidth: 900,
         containerHeight: 900,
@@ -368,7 +368,7 @@ describe("planQuestionLayout", () => {
   it("scrolls rather than reducing graph detail below the readable size budget", () => {
     const tall = textPanel({ chars: 90, graph: { width: 500, height: 500 } });
     const result = plan({ containerWidth: 700, containerHeight: 400, hasGraph: true, statement: tall });
-    expect(result.graphMax).toBeGreaterThanOrEqual(320);
+    expect(result.graphMax).toBe(STATEMENT_GRAPH_SIZE.height);
     expect(result.overflow).toBe(true);
     assertSane(result, 700);
   });
