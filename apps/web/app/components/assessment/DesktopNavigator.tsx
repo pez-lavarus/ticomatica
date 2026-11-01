@@ -22,6 +22,7 @@ interface DesktopNavigatorProps {
   currentTopicIndex: number;
   currentIndex: number;
   selectedAnswers: Record<number, string>;
+  expiredQuestions?: Record<number, boolean>;
   correctAnswers: Record<number, string>;
   flaggedQuestions: Record<number, boolean>;
   /** Review: show correct/incorrect coloring and no "current" highlight. */
@@ -36,6 +37,7 @@ export const DesktopNavigator = memo(function DesktopNavigator({
   currentTopicIndex,
   currentIndex,
   selectedAnswers,
+  expiredQuestions,
   correctAnswers,
   flaggedQuestions,
   reviewMode,
@@ -117,15 +119,17 @@ export const DesktopNavigator = memo(function DesktopNavigator({
   const renderQuestion = (q: NavigatorQuestion, docked = false) => {
     const isCurrent = q.globalIndex === currentIndex;
     const isFlaggedQ = flaggedQuestions[q.globalIndex];
-    const isAnswered = Boolean(selectedAnswers[q.globalIndex]);
+    const isExpired = Boolean(expiredQuestions?.[q.globalIndex]);
+    const isAnswered = Boolean(selectedAnswers[q.globalIndex]) || isExpired;
     const showCorrectness = testMode !== "full" || reviewMode;
     const selectedLetter = selectedAnswers[q.globalIndex];
-    const isCorrect = isAnswered && selectedLetter === correctAnswers[q.globalIndex];
+    const isCorrect = isAnswered && !isExpired && selectedLetter === correctAnswers[q.globalIndex];
     return (
       <button
         key={q.globalIndex}
         data-question-index={docked ? undefined : q.globalIndex}
         aria-current={isCurrent ? "step" : undefined}
+        title={isExpired ? "Tiempo agotado: incorrecta y bloqueada" : undefined}
         aria-hidden={isCurrent && dock && !docked ? true : undefined}
         tabIndex={isCurrent && dock && !docked ? -1 : undefined}
         onClick={() => onJumpToQuestion(q.globalIndex)}
@@ -136,6 +140,7 @@ export const DesktopNavigator = memo(function DesktopNavigator({
       >
         <span className={`text-base font-bold tabular-nums ${isCurrent ? "text-primary" : "text-foreground"}`}>
           {q.section_number}
+          {isExpired && <span className="sr-only"> Tiempo agotado: incorrecta y bloqueada</span>}
         </span>
 
         <span className="flex items-center gap-5">
@@ -150,7 +155,7 @@ export const DesktopNavigator = memo(function DesktopNavigator({
                 : "bg-primary text-primary-foreground border-primary")
               : (reviewMode && !isAnswered
                 ? "bg-wrong text-wrong-foreground border-wrong"
-                : "bg-transparent border-white");
+                : (isExpired ? "bg-wrong/10 text-wrong border-wrong" : "bg-transparent border-white"));
             return (
               <span
                 key={letter}

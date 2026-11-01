@@ -19,6 +19,10 @@ export const LEGACY_KEYS = [
 export type SessionPhase = "active" | "results";
 
 export interface TestSession {
+  hardMode: boolean;
+  questionTimeLeft: Record<number, number>;
+  expiredQuestions: Record<number, boolean>;
+  durationSeconds: number;
   phase: SessionPhase;
   mode: TestMode;
   answers: Record<number, string>;
@@ -30,6 +34,10 @@ export interface TestSession {
 }
 
 export const EMPTY_SESSION: TestSession = {
+  hardMode: false,
+  questionTimeLeft: {},
+  expiredQuestions: {},
+  durationSeconds: FULL_TEST_TIME,
   phase: "active",
   mode: "full",
   answers: {},
@@ -77,14 +85,24 @@ function parseIntSafe(raw: string | null, fallback: number): number {
 
 function normalize(raw: unknown): TestSession {
   const s = (typeof raw === "object" && raw !== null ? raw : {}) as Record<string, unknown>;
+  const mode = isTestMode(s.mode) ? s.mode : "full";
+  const durationSeconds = mode === "full" ? FULL_TEST_TIME : SECTION_TIME;
+  const savedTime = typeof s.timeLeft === "number" && Number.isFinite(s.timeLeft) ? Math.max(0, s.timeLeft) : durationSeconds;
+  // Older full sessions used 120 minutes. Preserve elapsed time when upgrading.
+  const extraTime = mode === "full" && s.durationSeconds === undefined && typeof s.timeLeft === "number" && s.phase !== "results" && s.review !== true ? 60 * 60 : 0;
+  const remaining = Object.fromEntries(Object.entries((s.questionTimeLeft && typeof s.questionTimeLeft === "object") ? s.questionTimeLeft : {}).filter(([, value]) => typeof value === "number" && Number.isFinite(value) && value >= 0));
   return {
+    hardMode: s.hardMode === true,
+    questionTimeLeft: remaining as Record<number, number>,
+    expiredQuestions: Object.fromEntries(Object.entries((s.expiredQuestions && typeof s.expiredQuestions === "object") ? s.expiredQuestions : {}).filter(([, value]) => value === true)),
+    durationSeconds,
     phase: s.phase === "results" ? "results" : "active",
     mode: isTestMode(s.mode) ? s.mode : "full",
     answers: (typeof s.answers === "object" && s.answers !== null ? s.answers : {}) as Record<number, string>,
     flags: (typeof s.flags === "object" && s.flags !== null ? s.flags : {}) as Record<number, boolean>,
     index: typeof s.index === "number" ? s.index : 0,
     topicIndex: typeof s.topicIndex === "number" ? s.topicIndex : 0,
-    timeLeft: typeof s.timeLeft === "number" ? s.timeLeft : FULL_TEST_TIME,
+    timeLeft: Math.min(durationSeconds, savedTime + extraTime),
     review: s.review === true,
   };
 }
@@ -99,17 +117,21 @@ function readLegacySession(): TestSession | null {
   const rawMode = window.localStorage.getItem("bxm-pilot-mode");
   const mode = isTestMode(rawMode) ? rawMode : "full";
   const defaultTime = mode === "full" ? FULL_TEST_TIME : SECTION_TIME;
+  const rawTime = window.localStorage.getItem("bxm-pilot-time-left");
+  const review = window.localStorage.getItem("bxm-pilot-review") === "true";
+  const extraTime = mode === "full" && rawTime !== null && !review ? 3600 : 0;
 
-  return {
+  return normalize({
     phase: "active",
     mode,
     answers: parseRecord(window.localStorage.getItem("bxm-pilot-answers")),
     flags: parseFlags(window.localStorage.getItem("bxm-pilot-flags")),
     index: parseIntSafe(window.localStorage.getItem("bxm-pilot-index"), 0),
     topicIndex: parseIntSafe(window.localStorage.getItem("bxm-pilot-topic-index"), 0),
-    timeLeft: parseIntSafe(window.localStorage.getItem("bxm-pilot-time-left"), defaultTime),
-    review: window.localStorage.getItem("bxm-pilot-review") === "true",
-  };
+    timeLeft: parseIntSafe(rawTime, defaultTime) + extraTime,
+    review,
+    durationSeconds: defaultTime,
+  });
 }
 
 export function loadTestSession(): TestSession {
@@ -142,8 +164,12 @@ export function saveTestSession(session: TestSession): void {
   window.localStorage.setItem(SESSION_KEY, JSON.stringify(session));
 }
 
-export function resetTestSession(mode: TestMode, timeLeft: number): TestSession {
+export function resetTestSession(mode: TestMode, timeLeft: number, hardMode = false): TestSession {
   const session: TestSession = {
+    hardMode,
+    questionTimeLeft: {},
+    expiredQuestions: {},
+    durationSeconds: timeLeft,
     phase: "active",
     mode,
     answers: {},
@@ -167,12 +193,14 @@ export function hasTestProgress(): boolean {
   const session = loadTestSession();
   return (
     Object.keys(session.answers).length > 0 ||
+    Object.keys(session.expiredQuestions).length > 0 ||
+    Object.keys(session.questionTimeLeft).length > 0 ||
     session.review ||
     session.phase === "results"
   );
 }
 
-type UpdatePatch = Partial<TestSession> | ((prev: TestSession) => Partial<TestSession>);
+export type UpdatePatch = Partial<TestSession> | ((prev: TestSession) => Partial<TestSession>);
 
 export function useTestSession() {
   const [session, setSession] = useState<TestSession>(EMPTY_SESSION);
@@ -197,8 +225,8 @@ export function useTestSession() {
     setSession(next);
   }, []);
 
-  const reset = useCallback((mode: TestMode, timeLeft: number) => {
-    const next = resetTestSession(mode, timeLeft);
+  const reset = useCallback((mode: TestMode, timeLeft: number, hardMode = false) => {
+    const next = resetTestSession(mode, timeLeft, hardMode);
     sessionRef.current = next;
     setSession(next);
   }, []);

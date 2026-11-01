@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { act, render, cleanup, waitFor } from "@testing-library/react";
+import { act, render, cleanup, waitFor, fireEvent } from "@testing-library/react";
 import React from "react";
 import { QuestionExperience } from "./QuestionExperience";
 import { computeHintPanelWidth } from "./useQuestionLayout";
@@ -103,6 +103,18 @@ describe("QuestionExperience layout and math rendering", () => {
     expect(container.querySelector(".answer-preview-flash")).not.toBeInTheDocument();
     expect(container.querySelector(".border-success")).not.toBeInTheDocument();
     expect(container.querySelector("mark")).not.toBeInTheDocument();
+    expect(onSelect).not.toHaveBeenCalled();
+  });
+
+  it("locks response options after expiry while leaving the question available for review", () => {
+    const onSelect = vi.fn();
+    const { container, getByRole } = render(<QuestionExperience {...baseProps} expired onSelect={onSelect} />);
+    expect(getByRole("status")).toHaveTextContent("Tiempo agotado");
+    const options = container.querySelectorAll<HTMLButtonElement>(".response-option-button");
+    for (const option of options) {
+      expect(option).toBeDisabled();
+      fireEvent.click(option);
+    }
     expect(onSelect).not.toHaveBeenCalled();
   });
 

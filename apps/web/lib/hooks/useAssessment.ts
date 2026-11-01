@@ -3,6 +3,8 @@
 import { useCallback, useEffect, useMemo, useRef } from "react";
 import type { QuizData } from "@/lib/types";
 import { FULL_TEST_TOPICS } from "@/lib/constants";
+import { advanceAssessmentClock, questionTimeSeconds } from "@/lib/assessment-clock";
+import type { UpdatePatch } from "@/lib/test-session";
 import { useTestSession } from "@/lib/test-session";
 
 interface UseAssessmentProps {
@@ -13,7 +15,22 @@ interface UseAssessmentProps {
 }
 
 export function useAssessment({ quizData, onTimerEnd, paused }: UseAssessmentProps) {
-  const { session, hydrated, update, reset } = useTestSession();
+  const { session, hydrated, update: persistUpdate, reset: resetStored } = useTestSession();
+  const clockStartedAt = useRef<number | null>(null);
+  // Settle time before every action so switching questions saves even partial seconds.
+  const update = useCallback((patch: UpdatePatch) => {
+    const now = Date.now();
+    const elapsed = clockStartedAt.current === null ? 0 : Math.max(0, (now - clockStartedAt.current) / 1000);
+    if (clockStartedAt.current !== null) clockStartedAt.current = now;
+    persistUpdate((prev) => {
+      const timed = advanceAssessmentClock(prev, quizData.questions, elapsed);
+      return { ...timed, ...(typeof patch === "function" ? patch(timed) : patch) };
+    });
+  }, [persistUpdate, quizData.questions]);
+  const reset = useCallback((mode: Parameters<typeof resetStored>[0], seconds: number, hardMode = false) => {
+    clockStartedAt.current = Date.now();
+    resetStored(mode, seconds, hardMode);
+  }, [resetStored]);
 
   const testMode = session.mode;
   const currentTopicIndex = session.topicIndex;
@@ -36,27 +53,23 @@ export function useAssessment({ quizData, onTimerEnd, paused }: UseAssessmentPro
   }, [hydrated, testMode, currentIndex, quizData.questions, update]);
 
   const isPaused = Boolean(paused) || reviewMode;
+  const clockPaused = isPaused || timeLeft <= 0;
 
-  // Timer: a single interval reads the latest timeLeft via a ref and decrements
-  // through the functional updater, so it neither re-creates itself each second
-  // nor drifts on a stale closure. It stops itself at zero.
-  const timeLeftRef = useRef(timeLeft);
-
+  // Wall-clock elapsed time keeps both timers accurate after a delayed browser tick.
   useEffect(() => {
-    timeLeftRef.current = timeLeft;
-  }, [timeLeft]);
-
-  useEffect(() => {
-    if (!hydrated || isPaused) return;
-    const timer = setInterval(() => {
-      if (timeLeftRef.current <= 0) {
-        clearInterval(timer);
-        return;
-      }
-      update((prev) => ({ timeLeft: prev.timeLeft - 1 }));
-    }, 1000);
-    return () => clearInterval(timer);
-  }, [hydrated, isPaused, update]);
+    if (!hydrated || clockPaused) return;
+    clockStartedAt.current = Date.now();
+    const tick = () => update({});
+    const timer = setInterval(tick, 1000);
+    window.addEventListener("pagehide", tick);
+    document.addEventListener("visibilitychange", tick);
+    return () => {
+      clearInterval(timer);
+      window.removeEventListener("pagehide", tick);
+      document.removeEventListener("visibilitychange", tick);
+      clockStartedAt.current = null;
+    };
+  }, [hydrated, clockPaused, update]);
 
   useEffect(() => {
     if (timeLeft === 0 && hydrated && !isPaused) {
@@ -76,7 +89,11 @@ export function useAssessment({ quizData, onTimerEnd, paused }: UseAssessmentPro
   const progress = Math.round(((sectionIndex + 1) / currentSectionQuestionsWithGlobalIndex.length) * 100) || 0;
 
   const handleSelect = useCallback((option: string) => {
-    update((prev) => ({ answers: { ...prev.answers, [currentIndex]: option } }));
+    update((prev) => {
+      if (prev.phase !== "active" || prev.review || prev.timeLeft <= 0 || prev.expiredQuestions[currentIndex]
+        || (prev.hardMode && prev.questionTimeLeft[currentIndex] === 0)) return {};
+      return { answers: { ...prev.answers, [currentIndex]: option } };
+    });
   }, [currentIndex, update]);
 
   const toggleFlag = useCallback((e: React.MouseEvent) => {
@@ -127,9 +144,8 @@ export function useAssessment({ quizData, onTimerEnd, paused }: UseAssessmentPro
 
   const totalQuestionsToFinish = testMode === "full" ? quizData.questions.length : currentSectionQuestionsWithGlobalIndex.length;
 
-  const answeredCount = testMode === "full"
-    ? Object.values(selectedAnswers).filter(val => val !== undefined && val !== "").length
-    : currentSectionQuestionsWithGlobalIndex.filter(q => selectedAnswers[q.globalIndex]).length;
+  const answeredCount = quizData.questions.filter((q, index) => (testMode === "full" || q.topic === testMode)
+    && (Boolean(selectedAnswers[index]) || Boolean(session.expiredQuestions[index]))).length;
 
   const hasMoreSections = currentTopicIndex < FULL_TEST_TOPICS.length - 1;
 
@@ -150,6 +166,10 @@ export function useAssessment({ quizData, onTimerEnd, paused }: UseAssessmentPro
     selectedAnswers,
     flaggedQuestions,
     timeLeft,
+    hardMode: session.hardMode,
+    expiredQuestions: session.expiredQuestions,
+    currentQuestionExpired: Boolean(session.expiredQuestions[currentIndex]),
+    questionTimeLeft: currentQuestion ? (session.questionTimeLeft[currentIndex] ?? questionTimeSeconds(currentQuestion)) : 0,
     reviewMode,
     currentTopic,
     currentQuestion,

@@ -228,7 +228,7 @@
     },
     "item": {
       "type": "object",
-      "required": ["id", "area", "area_id", "topic", "spec", "statement", "problem", "options", "correct_answer", "solution_steps", "hints", "formulas", "group_id", "visual_spec"],
+      "required": ["id", "area", "area_id", "topic", "spec", "statement", "problem", "options", "correct_answer", "solution_steps", "resolutionTimeMinutes", "hints", "formulas", "group_id", "visual_spec"],
       "properties": {
         "id": { "type": "integer", "minimum": 1 },
         "set_id": { "type": "string" },
@@ -251,6 +251,7 @@
         },
         "correct_answer": { "enum": ["A", "B", "C", "D"] },
         "solution_steps": { "type": "array", "items": { "type": "string" } },
+        "resolutionTimeMinutes": { "type": "integer", "minimum": 1, "description": "Estimated minutes to read, interpret and solve this question; the question limit in hard mode." },
         "hints": {
           "description": "Question-specific fundamental concepts, separate from solution steps.",
           "type": "array", "minItems": 1,

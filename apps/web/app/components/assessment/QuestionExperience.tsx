@@ -27,6 +27,8 @@ interface QuestionExperienceProps {
   selectedAnswer?: string;
   /** Temporary visual reveal, never recorded as an answer. */
   answerPreview?: boolean;
+  expired?: boolean;
+  expiredQuestions?: Record<number, boolean>;
   highlightKeywords?: readonly string[];
   selectedAnswers: Record<number, string>;
   flaggedQuestions: Record<number, boolean>;
@@ -55,6 +57,8 @@ export const QuestionExperience = memo(function QuestionExperience({
   testMode,
   selectedAnswer,
   answerPreview = false,
+  expired = false,
+  expiredQuestions,
   highlightKeywords,
   selectedAnswers,
   flaggedQuestions,
@@ -77,7 +81,7 @@ export const QuestionExperience = memo(function QuestionExperience({
     ? { autoAdvance: false, immediateFeedback: true, showExplanation: true, collapseOptions: false }
     : getModeBehavior(testMode);
 
-  const revealed = behavior.immediateFeedback && (reviewMode || Boolean(selectedAnswer));
+  const revealed = behavior.immediateFeedback && (reviewMode || Boolean(selectedAnswer) || expired);
 
   // Every image that affects panel sizes, so the layout can re-plan once their
   // dimensions are known, including the preferred SVG's actual proportions.
@@ -121,6 +125,7 @@ export const QuestionExperience = memo(function QuestionExperience({
   }, [question.original_number]);
 
   const handleSelect = (label: string) => {
+    if (expired || reviewMode) return;
     onSelect(label);
     if (autoNextTimer.current) {
       clearTimeout(autoNextTimer.current);
@@ -142,6 +147,7 @@ export const QuestionExperience = memo(function QuestionExperience({
 
   return (
     <div className="flex flex-col gap-4 md:gap-6 h-full">
+      {expired && <p role="status" className="text-sm text-wrong font-semibold px-2">Tiempo agotado. Esta pregunta cuenta como incorrecta y sus respuestas están bloqueadas.</p>}
       <div
         ref={containerRef}
         aria-busy={!ready}
@@ -180,7 +186,7 @@ export const QuestionExperience = memo(function QuestionExperience({
             preview={answerPreview}
             correctAnswer={question.correct_answer}
             flash={flashActive}
-            readOnly={reviewMode}
+            readOnly={reviewMode || expired}
           />
         </div>
       </div>
@@ -243,7 +249,9 @@ export const QuestionExperience = memo(function QuestionExperience({
                     }}
                     className={`relative aspect-square flex items-center justify-center text-xs font-bold rounded-sm border transition-all active:scale-90 ${q.globalIndex === currentIndex
                       ? "bg-primary text-primary-foreground border-primary shadow-sm ring-2 ring-primary/20"
-                      : selectedAnswers[q.globalIndex]
+                      : expiredQuestions?.[q.globalIndex]
+                        ? "border-wrong bg-wrong/10 text-wrong"
+                        : selectedAnswers[q.globalIndex]
                         ? "bg-success/15 border-success/40 text-foreground"
                         : "bg-card border-border/60 text-foreground"
                       }`}

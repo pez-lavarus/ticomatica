@@ -16,7 +16,7 @@ export function AssessmentNavigator() {
   const router = useRouter();
   const showingResults = pathname === "/results";
   const { mounted, testMode, currentTopicIndex, currentIndex, selectedAnswers,
-    flaggedQuestions, reviewMode, update, jumpToQuestion, isHintModalOpen } = useAssessmentContext();
+    flaggedQuestions, expiredQuestions, reviewMode, update, jumpToQuestion, isHintModalOpen } = useAssessmentContext();
   const sections = useMemo(() => (testMode === "full" ? FULL_TEST_TOPICS : [testMode]).map((topic) => ({
     topic,
     questions: questions.filter((q) => q.topic === topic).map((q) => ({
@@ -45,6 +45,7 @@ export function AssessmentNavigator() {
         currentTopicIndex={currentTopicIndex}
         currentIndex={showingResults ? -1 : currentIndex}
         selectedAnswers={selectedAnswers}
+        expiredQuestions={expiredQuestions}
         correctAnswers={correctAnswers}
         flaggedQuestions={flaggedQuestions}
         reviewMode={showingResults || reviewMode}

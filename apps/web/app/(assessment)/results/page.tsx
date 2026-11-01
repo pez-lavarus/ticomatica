@@ -28,7 +28,7 @@ export default function ResultsPage() {
     .filter((q) => testMode === "full" || q.topic === testMode);
 
   const score = testQuestionsWithGlobalIndex.reduce(
-    (acc: number, q) => acc + (selectedAnswers[q.globalIndex] === q.correct_answer ? 1 : 0),
+    (acc: number, q) => acc + (!session.expiredQuestions[q.globalIndex] && selectedAnswers[q.globalIndex] === q.correct_answer ? 1 : 0),
     0
   );
 
@@ -42,7 +42,7 @@ export default function ResultsPage() {
     const correct = questions.reduce((acc, q) => {
       // Need global index here
       const gIdx = quizData.questions.findIndex((qu) => qu.original_number === q.original_number);
-      return acc + (selectedAnswers[gIdx] === q.correct_answer ? 1 : 0);
+      return acc + (!session.expiredQuestions[gIdx] && selectedAnswers[gIdx] === q.correct_answer ? 1 : 0);
     }, 0);
     return {
       topic,
@@ -53,7 +53,7 @@ export default function ResultsPage() {
   }).filter((s) => testMode === "full" || s.topic === testMode);
 
   const handleRetake = () => {
-    reset(testMode, testMode === "full" ? FULL_TEST_TIME : SECTION_TIME);
+    reset(testMode, testMode === "full" ? FULL_TEST_TIME : SECTION_TIME, session.hardMode);
     router.push("/test", { scroll: false });
   };
 

@@ -19,6 +19,7 @@ export default function WelcomeClient({ testConfigs }: { testConfigs: Record<Tes
   const [formData] = useState({ name: "", age: "" });
   const [, setErrors] = useState<{ name?: string; age?: string }>({});
   const [selectedMode, setSelectedMode] = useState<TestMode>("full");
+  const [hardMode, setHardMode] = useState(false);
   const [hasSession, setHasSession] = useState(false);
 
   useEffect(() => {
@@ -51,7 +52,7 @@ export default function WelcomeClient({ testConfigs }: { testConfigs: Record<Tes
 
     // Persist test configuration and start a fresh session
     const duration = selectedMode === "full" ? FULL_TEST_TIME : SECTION_TIME;
-    resetTestSession(selectedMode, duration);
+    resetTestSession(selectedMode, duration, hardMode);
 
     router.push("/test");
   };
@@ -105,7 +106,7 @@ export default function WelcomeClient({ testConfigs }: { testConfigs: Record<Tes
                       : "bg-card border-border hover:border-accent text-foreground"
                       }`}
                   >
-                    {mode === "full" ? "Exámen Completo" : mode}
+                    {mode === "full" ? "Examen Completo" : mode}
                   </button>
                 ))}
               </div>
@@ -165,6 +166,14 @@ export default function WelcomeClient({ testConfigs }: { testConfigs: Record<Tes
                 {errors.age && <p className="mt-2 text-xs md:text-xs text-destructive font-bold uppercase tracking-widest">{errors.age}</p>}
               </div>
             </div> */}
+
+            <label className="flex items-start gap-3 p-4 rounded-sm border border-border bg-muted/20 cursor-pointer">
+              <input type="checkbox" checked={hardMode} onChange={(event) => setHardMode(event.target.checked)} className="mt-1 h-4 w-4 accent-primary" aria-describedby="hard-mode-description" />
+              <span>
+                <span className="block font-bold">Modo difícil</span>
+                <span id="hard-mode-description" className="block text-sm text-muted-foreground mt-1 leading-relaxed">Cada pregunta tiene un límite de tiempo. Si se agota sin responder, cuenta como incorrecta y queda bloqueada. Al cambiar de pregunta se conserva el tiempo restante.</span>
+              </span>
+            </label>
 
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 md:gap-5 pt-4 md:pt-6">

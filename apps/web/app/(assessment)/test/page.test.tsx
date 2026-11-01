@@ -147,6 +147,61 @@ describe("question page rendering", () => {
     expect(renderQuestion.mock.lastCall![0].highlightKeywords).toEqual([]);
   });
 
+  it.each(["full", "Geometría"] as const)("shows the small question timer before the general timer and auto-advances on %s expiry", (mode) => {
+    saveTestSession({ ...EMPTY_SESSION, mode, hardMode: true, questionTimeLeft: { 0: 1 } });
+    render(<FontScaleProvider><AssessmentLayout><QuestionPage /></AssessmentLayout></FontScaleProvider>);
+    const questionTimer = screen.getByRole("timer", { name: "Tiempo de la pregunta" });
+    expect(questionTimer).toHaveTextContent("0:01");
+    expect(questionTimer.querySelector(".text-wrong")).toBeInTheDocument();
+    expect(questionTimer.nextElementSibling).toHaveTextContent(mode === "full" ? "180:00" : "40:00");
+    act(() => { vi.advanceTimersByTime(1000); });
+    expect(loadTestSession().expiredQuestions[0]).toBe(true);
+    expect(loadTestSession().answers[0]).toBeUndefined();
+    expect(renderQuestion.mock.lastCall![0].currentIndex).toBe(1);
+    expect(renderNavigator.mock.lastCall![0].expiredQuestions![0]).toBe(true);
+    act(() => { renderQuestion.mock.lastCall![0].onPrev(); });
+    expect(renderQuestion.mock.lastCall![0].expired).toBe(true);
+    expect(screen.getByRole("timer", { name: "Tiempo de la pregunta" })).toHaveTextContent("0:00");
+  });
+
+  it.each(["full", "Geometría"] as const)("finishes after the last %s timeout, counts it wrong, and preserves hard mode on retake", (mode) => {
+    const scoped = quizData.questions.flatMap((q, i) => mode === "full" || q.topic === mode ? [i] : []);
+    const last = scoped[scoped.length - 1];
+    saveTestSession({ ...EMPTY_SESSION, mode, hardMode: true, index: last,
+      topicIndex: mode === "full" ? 2 : 0,
+      answers: Object.fromEntries(scoped.slice(0, -1).map((i) => [i, quizData.questions[i].correct_answer])),
+      questionTimeLeft: { [last]: 1 },
+    });
+    const { rerender } = render(<FontScaleProvider><AssessmentLayout><QuestionPage /></AssessmentLayout></FontScaleProvider>);
+    act(() => { vi.advanceTimersByTime(1000); });
+    expect(route.pathname).toBe("/results");
+    expect(loadTestSession().expiredQuestions[last]).toBe(true);
+    rerender(<FontScaleProvider><AssessmentLayout><ResultsPage /></AssessmentLayout></FontScaleProvider>);
+    expect(screen.getByText("Incorrectas").parentElement).toHaveTextContent("1");
+    expect(screen.getByText("Correctas").parentElement).toHaveTextContent(String(scoped.length - 1));
+    fireEvent.click(screen.getByRole("button", { name: "Reintentar" }));
+    expect(loadTestSession()).toMatchObject({ hardMode: true, expiredQuestions: {}, questionTimeLeft: {}, answers: {} });
+    expect(loadTestSession().timeLeft).toBe(mode === "full" ? 10800 : 2400);
+  });
+
+  it("ends a hard full exam when its overall timer expires instead of moving sections", () => {
+    saveTestSession({ ...EMPTY_SESSION, hardMode: true, timeLeft: 1 });
+    render(<FontScaleProvider><AssessmentLayout><QuestionPage /></AssessmentLayout></FontScaleProvider>);
+    act(() => { vi.advanceTimersByTime(1000); });
+    expect(route.pathname).toBe("/results");
+    expect(loadTestSession().phase).toBe("results");
+    expect(loadTestSession().topicIndex).toBe(0);
+    expect(loadTestSession().timeLeft).toBe(0);
+  });
+
+  it("does not render or activate a per-question timer when hard mode is off", () => {
+    render(<FontScaleProvider><AssessmentLayout><QuestionPage /></AssessmentLayout></FontScaleProvider>);
+    expect(screen.queryByRole("timer", { name: "Tiempo de la pregunta" })).not.toBeInTheDocument();
+    act(() => { vi.advanceTimersByTime(1000); });
+    expect(loadTestSession().expiredQuestions).toEqual({});
+    expect(loadTestSession().questionTimeLeft).toEqual({});
+  });
+
   it("does not render the question again when only the countdown changes", () => {
     render(<FontScaleProvider><AssessmentLayout><QuestionPage /></AssessmentLayout></FontScaleProvider>);
     const renders = renderQuestion.mock.calls.length;

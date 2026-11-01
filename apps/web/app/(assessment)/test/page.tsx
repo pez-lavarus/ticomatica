@@ -17,7 +17,6 @@ import { useAssessmentContext } from "@/app/components/assessment/AssessmentCont
 import { FontScaleControl, HeaderIconButton, HeaderReadout, HeaderTextButton } from "@/app/components/HeaderControls";
 import { AssessmentErrorBoundary } from "@/app/components/error/AssessmentErrorBoundary";
 
-import { FULL_TEST_TOPICS } from "@/lib/constants";
 
 export default function QuestionPage() {
   const router = useRouter();
@@ -29,11 +28,14 @@ export default function QuestionPage() {
     setIsHintModalOpen,
     mounted,
     testMode,
-    currentTopicIndex,
     currentIndex,
     selectedAnswers,
     flaggedQuestions,
     timeLeft,
+    hardMode,
+    questionTimeLeft,
+    currentQuestionExpired,
+    expiredQuestions,
     reviewMode,
     update,
     currentQuestion,
@@ -45,7 +47,6 @@ export default function QuestionPage() {
     handleNext,
     handlePrev,
     jumpToQuestion,
-    handleNextSection,
     testMode: currentTestMode,
     hasMoreSections,
   } = assessment;
@@ -170,17 +171,18 @@ export default function QuestionPage() {
     }
   }, [sectionIndex, currentSectionQuestionsWithGlobalIndex.length, hasMoreSections, currentTestMode, handleFinishTest, handleNext]);
 
-  // Timer end effect: transitions to the next section or the finish dialog.
+  // The overall timer belongs to the entire selected exam or practice section.
   useEffect(() => {
-    if (timeLeft === 0 && mounted && !reviewMode) {
-      if (testMode === "full" && currentTopicIndex < FULL_TEST_TOPICS.length - 1) {
-        handleNextSection();
+    if (timeLeft <= 0 && mounted && !reviewMode) {
+      if (hardMode) {
+        update({ phase: "results", review: false });
+        router.push("/results", { scroll: false });
       } else {
         // eslint-disable-next-line react-hooks/set-state-in-effect
         handleFinishTest();
       }
     }
-  }, [timeLeft, mounted, testMode, currentTopicIndex, handleNextSection, handleFinishTest, reviewMode]);
+  }, [timeLeft, mounted, hardMode, handleFinishTest, reviewMode, update, router]);
 
   const confirmFinishTest = () => {
     setIsConfirmModalOpen(false);
@@ -191,6 +193,7 @@ export default function QuestionPage() {
 
   const resetCurrentQuestion = useCallback(() => {
     update((prev) => {
+      if (prev.expiredQuestions[currentIndex]) return {};
       const answers = { ...prev.answers };
       delete answers[currentIndex];
       return { answers };
@@ -198,8 +201,9 @@ export default function QuestionPage() {
   }, [currentIndex, update]);
 
   const formatTime = (seconds: number) => {
-    const min = Math.floor(seconds / 60);
-    const sec = seconds % 60;
+    const rounded = Math.ceil(seconds);
+    const min = Math.floor(rounded / 60);
+    const sec = rounded % 60;
     return `${min}:${sec < 10 ? "0" : ""}${sec}`;
   };
 
@@ -227,6 +231,11 @@ export default function QuestionPage() {
         createPortal(
           <>
             <div className="flex items-center gap-1.5 md:gap-3">
+              {!reviewMode && hardMode && (
+                <div role="timer" aria-label="Tiempo de la pregunta" title="Tiempo restante de esta pregunta" className="h-8 md:h-14 px-2 md:px-3 flex items-center rounded-sm border border-wrong/50 bg-card shadow-sm">
+                  <span className="font-mono text-xs md:text-lg font-bold tabular-nums text-wrong">{formatTime(questionTimeLeft)}</span>
+                </div>
+              )}
               {!reviewMode && (
                 <HeaderReadout>
                   <span className="font-mono text-xs md:text-2xl font-bold tabular-nums text-foreground min-w-[35px] md:min-w-[80px] text-center">
@@ -253,7 +262,7 @@ export default function QuestionPage() {
               <HeaderIconButton
                 label="Limpiar respuesta"
                 onClick={resetCurrentQuestion}
-                disabled={!selectedAnswers[currentIndex]}
+                disabled={!selectedAnswers[currentIndex] || currentQuestionExpired}
               >
                 <RotateCcw className="text-foreground" />
               </HeaderIconButton>
@@ -280,6 +289,8 @@ export default function QuestionPage() {
           <div className="px-0 sm:px-4 lg:px-8 mx-auto h-full flex flex-col">
             <QuestionExperience
               question={currentQuestion}
+              expired={currentQuestionExpired}
+              expiredQuestions={expiredQuestions}
               answerPreview={answerPreview}
               highlightKeywords={highlightKeywords}
               currentIndex={currentIndex}

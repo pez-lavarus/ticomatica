@@ -27,6 +27,7 @@ const AREA_TO_TOPIC: Record<string, string> = {
 
 type RawItem = {
   id: number;
+  resolutionTimeMinutes?: number;
   area_id?: string;
   topic?: string;
   statement?: string;
@@ -162,6 +163,7 @@ function buildBank(): QuizData {
       knowledge_topic: item.topic,
       group_id: item.group_id ?? null,
       keywords: item.topic ? [item.topic] : [],
+      resolutionTimeMinutes: item.resolutionTimeMinutes,
       hints: item.hints ?? [],
       formulas: item.formulas ?? [],
       answerSteps,

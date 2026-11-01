@@ -24,6 +24,7 @@ export interface QuestionFormula {
 }
 
 export interface Question {
+  resolutionTimeMinutes?: number;
   layoutCharacteristics?: LayoutCharacteristics;
   original_number: number;
   section_number: number;

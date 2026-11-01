@@ -104,6 +104,7 @@
       "correct_answer": "B",
       "solution_steps": ["La ecuación ordinaria de una circunferencia con centro $(h,k)$ y radio $r$ es $(x-h)^2 + (y-k)^2 = r^2$.", "Sustituyendo $h=2$, $k=3$, $r=5$: $(x-2)^2 + (y-3)^2 = 25$.", "Opción correcta: B."],
       "group_id": null, "visual_spec": null,
+      "resolutionTimeMinutes": 2,
       "hints": [
         {
           "hint": "Lee el centro sin invertirlo",
@@ -138,6 +139,7 @@
       "correct_answer": "A",
       "solution_steps": ["El centro de la circunferencia es $(5, -4)$ porque está $5\\text{ km}$ al este y $4\\text{ km}$ al sur.", "El radio es $20\\text{ km}$, por lo que $r^2 = 400$.", "La ecuación es $(x-5)^2 + (y+4)^2 = 400$.", "Opción correcta: A."],
       "group_id": null, "visual_spec": null,
+      "resolutionTimeMinutes": 3,
       "hints": [
         {
           "hint": "Traduce los signos del centro",
@@ -174,6 +176,7 @@
       "group_id": null,
       "visual_spec": null,
       "image": "02-2026-p_03.png",
+      "resolutionTimeMinutes": 3,
       "hints": [
         {
           "hint": "Localiza el centro en el eje vertical",
@@ -213,6 +216,7 @@
       "correct_answer": "A",
       "solution_steps": ["La ecuación dada está en forma ordinaria: $(x+2)^2 + (y-7)^2 = 49$.", "El radio al cuadrado es $49$, por lo tanto el radio es $7$.", "El alcance máximo es el radio: $7\\text{ m}$.", "Opción correcta: A."],
       "group_id": null, "visual_spec": null,
+      "resolutionTimeMinutes": 2,
       "hints": [
         {
           "hint": "Lee el miembro derecho como un cuadrado",
@@ -249,6 +253,7 @@
       "group_id": null,
       "visual_spec": null,
       "image": "02-2026-p_05.png",
+      "resolutionTimeMinutes": 3,
       "hints": [
         {
           "hint": "Traslada el centro",
@@ -295,6 +300,7 @@
         "C": "02-2026-r_06-c.png",
         "D": "02-2026-r_06-d.png"
       },
+      "resolutionTimeMinutes": 3,
       "hints": [
         {
           "hint": "Separa posición y tamaño",
@@ -334,6 +340,7 @@
       "correct_answer": "D",
       "solution_steps": ["Centro de $c$: $(-2, 0)$. Centro de $d$: $(0, -3)$.", "Para ir de $(-2,0)$ a $(0,-3)$: $x$ aumenta en $2$ (derecha), $y$ disminuye en $3$ (abajo).", "Opción correcta: D."],
       "group_id": null, "visual_spec": null,
+      "resolutionTimeMinutes": 3,
       "hints": [
         {
           "hint": "Compara centros, no los signos escritos",
@@ -373,6 +380,7 @@
       "correct_answer": "B",
       "solution_steps": ["La circunferencia tiene centro $(2,0)$ y radio $\\sqrt{5} \\approx 2{,}236$.", "Un punto $(x,y)$ es interior si $(x-2)^2 + y^2 < 5$.", "Evaluar $(1,0)$: $(1-2)^2 + 0^2 = 1 < 5 \\rightarrow$ interior.", "Las demás opciones dan valores $\\ge 5$: $(0,2)\\to 8$; $(2,3)\\to 9$; $(3,3)\\to 10$.", "Opción correcta: B."],
       "group_id": null, "visual_spec": null,
+      "resolutionTimeMinutes": 2,
       "hints": [
         {
           "hint": "Comprueba el interior mediante distancias",
@@ -409,6 +417,7 @@
       "group_id": null,
       "visual_spec": null,
       "image": "02-2026-p_09.png",
+      "resolutionTimeMinutes": 3,
       "hints": [
         {
           "hint": "Identifica la zona de cobertura",
@@ -443,6 +452,7 @@
       "correct_answer": "C",
       "solution_steps": ["La circunferencia tiene centro $(2,0)$ y radio $2$.", "Una recta es secante si la distancia del centro a la recta es menor que el radio.", "Para $x=1$: distancia $= |1-2| = 1 < 2 \\rightarrow$ secante.", "Para $x=5$: distancia $= 3 > 2$ (exterior). Para $y=3$: distancia $= 3 > 2$ (exterior). Para $y=-2$: distancia $= 2 = r$ (tangente).", "Opción correcta: C."],
       "group_id": null, "visual_spec": null,
+      "resolutionTimeMinutes": 3,
       "hints": [
         {
           "hint": "Distingue secante de tangente",
@@ -477,6 +487,7 @@
       "correct_answer": "C",
       "solution_steps": ["Centro $(3,-2)$, radio $1$.", "Una recta es tangente si la distancia del centro a la recta es igual al radio.", "Para $y = -1$: distancia $= |-1 - (-2)| = 1 \\rightarrow$ tangente.", "Para $y = 0$: distancia $= 2$; para $x = 1$: distancia $= 2$; para $x = -2$: distancia $= 5$. Todas son exteriores.", "Opción correcta: C."],
       "group_id": null, "visual_spec": null,
+      "resolutionTimeMinutes": 3,
       "hints": [
         {
           "hint": "La tangencia exige igualdad",
@@ -513,6 +524,7 @@
       "group_id": null,
       "visual_spec": null,
       "image": "02-2026-p_12.png",
+      "resolutionTimeMinutes": 5,
       "hints": [
         {
           "hint": "Usa la base correcta",
@@ -554,6 +566,7 @@
       "group_id": null,
       "visual_spec": null,
       "image": "02-2026-p_13.png",
+      "resolutionTimeMinutes": 3,
       "hints": [
         {
           "hint": "Compara con el segmento recto",
@@ -588,6 +601,7 @@
       "correct_answer": "D",
       "solution_steps": ["Fórmulas dadas: $a = \\frac{r\\sqrt{3}}{2}$ y $m\\angle i = \\frac{180^\\circ(n-2)}{n}$.", "Ángulo interno $120^\\circ$: $180(n-2)/n = 120 \\rightarrow 60n = 360 \\rightarrow n = 6$ (hexágono).", "$2\\sqrt{3} = \\frac{r\\sqrt{3}}{2} \\rightarrow r = 4$; en un hexágono regular el lado es igual al radio, $L = 4$.", "Perímetro $= 6 \\times 4 = 24$.", "Opción correcta: D."],
       "group_id": null, "visual_spec": null,
+      "resolutionTimeMinutes": 4,
       "hints": [
         {
           "hint": "Identifica el polígono por sus ángulos",
@@ -627,6 +641,7 @@
       "correct_answer": "A",
       "solution_steps": ["Fórmula dada: $m\\angle e = \\frac{360^\\circ}{n}$. Con $90^\\circ$: $n = 4$ (cuadrado).", "El radio es la mitad de la diagonal: diagonal $= 6\\sqrt{2}$, por lo que el lado es $L = \\frac{6\\sqrt{2}}{\\sqrt{2}} = 6$.", "Área $= L^2 = 36$.", "Opción correcta: A."],
       "group_id": null, "visual_spec": null,
+      "resolutionTimeMinutes": 4,
       "hints": [
         {
           "hint": "Empieza por el ángulo exterior",
@@ -666,6 +681,7 @@
       "correct_answer": "B",
       "solution_steps": ["La sección plana de una esfera es un círculo. Su radio $r$ cumple $r^2 + d^2 = R^2$, con $d=12$ y $R=13$.", "$r^2 = 169 - 144 = 25 \\rightarrow r = 5$.", "Perímetro $= 2\\pi r = 2 \\times 3{,}14 \\times 5 = 31{,}4\\text{ cm}$.", "Opción correcta: B."],
       "group_id": null, "visual_spec": null,
+      "resolutionTimeMinutes": 4,
       "hints": [
         {
           "hint": "Imagina el triángulo dentro de la esfera",
@@ -705,6 +721,7 @@
       "correct_answer": "A",
       "solution_steps": ["Se cumple $R^2 = r^2 + d^2$.", "$25^2 = 24^2 + d^2 \\rightarrow 625 = 576 + d^2 \\rightarrow d^2 = 49 \\rightarrow d = 7$.", "Opción correcta: A."],
       "group_id": null, "visual_spec": null,
+      "resolutionTimeMinutes": 3,
       "hints": [
         {
           "hint": "Distingue los dos radios",
@@ -739,6 +756,7 @@
       "correct_answer": "C",
       "solution_steps": ["El corte perpendicular a las bases que pasa por los centros es un rectángulo.", "Sus dimensiones son la altura ($40\\text{ cm}$) y el diámetro de la base ($2 \\times 15 = 30\\text{ cm}$).", "Área $= 40 \\times 30 = 1200\\text{ cm}^2$.", "Opción correcta: C."],
       "group_id": null, "visual_spec": null,
+      "resolutionTimeMinutes": 3,
       "hints": [
         {
           "hint": "Visualiza un corte que pasa por el eje",
@@ -775,6 +793,7 @@
       "group_id": null,
       "visual_spec": null,
       "image": "02-2026-p_19.png",
+      "resolutionTimeMinutes": 2,
       "hints": [
         {
           "hint": "Prueba el plegado mental",
@@ -805,6 +824,7 @@
       "group_id": null,
       "visual_spec": null,
       "image": "02-2026-p_20.png",
+      "resolutionTimeMinutes": 2,
       "hints": [
         {
           "hint": "Conserva la altura",
@@ -839,6 +859,7 @@
       "correct_answer": "D",
       "solution_steps": ["Vértices de #2: $(1,4)$, $(3,4)$, $(3,1)$, $(2,1)$. Vértices de #4: $(-3,-1)$, $(-2,-1)$, $(-1,-4)$, $(-3,-4)$.", "Una homotecia de razón $k$ centrada en el origen lleva $(x,y)$ a $(kx,ky)$.", "Con $k=-1$, los vértices de #2 pasan a $(-1,-4)$, $(-3,-4)$, $(-3,-1)$, $(-2,-1)$, que son los vértices de #4.", "Opción correcta: D."],
       "group_id": "g_transformations", "visual_spec": null,
+      "resolutionTimeMinutes": 3,
       "hints": [
         {
           "hint": "Compara vértices correspondientes",
@@ -873,6 +894,7 @@
       "correct_answer": "B",
       "solution_steps": ["Vértices de #4: $(-3,-1)$, $(-2,-1)$, $(-1,-4)$, $(-3,-4)$. Vértices de #3: $(5,-1)$, $(4,-1)$, $(3,-4)$, $(5,-4)$.", "Los puntos correspondientes conservan la coordenada $y$ y cambian la $x$: es una reflexión sobre una recta vertical $x = c$.", "La recta equidista de $-3$ y $5$: $c = \\frac{-3+5}{2} = 1$. Se verifica con $-2 \\to 4$ y $-1 \\to 3$.", "Opción correcta: B."],
       "group_id": "g_transformations", "visual_spec": null,
+      "resolutionTimeMinutes": 3,
       "hints": [
         {
           "hint": "Observa qué coordenada se conserva",
@@ -907,6 +929,7 @@
       "correct_answer": "A",
       "solution_steps": ["Una rotación de $270^\\circ$ en sentido horario equivale a una de $90^\\circ$ en sentido antihorario.", "La rotación de $90^\\circ$ antihoraria lleva $(x,y)$ a $(-y,x)$.", "Para $(-1,3)$: $(-3, -1)$.", "Opción correcta: A."],
       "group_id": "g_transformations", "visual_spec": null,
+      "resolutionTimeMinutes": 3,
       "hints": [
         {
           "hint": "Convierte el giro en uno equivalente",
@@ -948,6 +971,7 @@
         "C": "02-2026-r_24-c.png",
         "D": "02-2026-r_24-d.png"
       },
+      "resolutionTimeMinutes": 3,
       "hints": [
         {
           "hint": "Cada entrada tiene una sola salida",
@@ -976,6 +1000,7 @@
       "correct_answer": "C",
       "solution_steps": ["$(a \\circ b)(x)$ está bien definida cuando el ámbito de $b$ está contenido en el dominio de $a$.", "$g \\circ f$: ámbito de $f$ $[1,5] \\not\\subseteq [2,6]$. $p \\circ f$: $[1,5] \\not\\subseteq [2,6]$.", "$f \\circ p$: ámbito de $p$ $[0,4] \\subseteq [0,4]$ (dominio de $f$). Está bien definida.", "$g \\circ p$: $[0,4] \\not\\subseteq [2,6]$.", "Opción correcta: C."],
       "group_id": null, "visual_spec": null,
+      "resolutionTimeMinutes": 4,
       "hints": [
         {
           "hint": "Lee la composición de derecha a izquierda",
@@ -1010,6 +1035,7 @@
       "correct_answer": "C",
       "solution_steps": ["Entre las semanas $8$ y $12$ la gráfica es un segmento horizontal en $p(x) = 750$.", "La semana $10$ está en ese tramo, por lo que el precio fue de $750$ colones.", "Opción correcta: C."],
       "group_id": "g_fuel_price", "visual_spec": null,
+      "resolutionTimeMinutes": 2,
       "hints": [
         {
           "hint": "Empieza por la semana, no por el precio",
@@ -1038,6 +1064,7 @@
       "correct_answer": "B",
       "solution_steps": ["El punto más alto de la gráfica es $(16, 900)$.", "El precio máximo se registró en la semana $16$.", "Opción correcta: B."],
       "group_id": "g_fuel_price", "visual_spec": null,
+      "resolutionTimeMinutes": 2,
       "hints": [
         {
           "hint": "Busca la mayor altura de la gráfica",
@@ -1066,6 +1093,7 @@
       "correct_answer": "B",
       "solution_steps": ["Como $(3,19)$ pertenece a la gráfica, $g(3) = 19$.", "$3m + 4 = 19 \\rightarrow 3m = 15 \\rightarrow m = 5$.", "Opción correcta: B."],
       "group_id": null, "visual_spec": null,
+      "resolutionTimeMinutes": 2,
       "hints": [
         {
           "hint": "Sustituye un punto de la recta",
@@ -1102,6 +1130,7 @@
       "group_id": null,
       "visual_spec": null,
       "image": "02-2026-p_29.png",
+      "resolutionTimeMinutes": 3,
       "hints": [
         {
           "hint": "El máximo está en el vértice",
@@ -1136,6 +1165,7 @@
       "correct_answer": "D",
       "solution_steps": ["Sustituyendo $(-2,1)$: $1 = 2(-2) + b \\rightarrow b = 5$.", "La recta es $y = 2x + 5$, que corta al eje $y$ en $(0, 5)$.", "Opción correcta: D."],
       "group_id": null, "visual_spec": null,
+      "resolutionTimeMinutes": 3,
       "hints": [
         {
           "hint": "Determina primero el término independiente",
@@ -1170,6 +1200,7 @@
       "correct_answer": "B",
       "solution_steps": ["Solo se pagan las clases asistidas: $12$.", "Total $= 25\\,000 + 4000 \\cdot 12 = 25\\,000 + 48\\,000 = 73\\,000$.", "Opción correcta: B."],
       "group_id": null, "visual_spec": null,
+      "resolutionTimeMinutes": 3,
       "hints": [
         {
           "hint": "Distingue reserva de asistencia",
@@ -1204,6 +1235,7 @@
       "correct_answer": "A",
       "solution_steps": ["Se plantea $F(C) = 41$: $\\frac{9}{5}C + 32 = 41$.", "$\\frac{9}{5}C = 9 \\rightarrow C = 5$.", "Opción correcta: A."],
       "group_id": null, "visual_spec": null,
+      "resolutionTimeMinutes": 3,
       "hints": [
         {
           "hint": "La temperatura conocida es la salida",
@@ -1238,6 +1270,7 @@
       "correct_answer": "B",
       "solution_steps": ["Sea $x$ la cantidad de queques y $y$ la de paquetes de galletas: $4x + 3y = 110$ y $2x + y = 50$.", "De la segunda: $y = 50 - 2x$. Sustituyendo: $4x + 150 - 6x = 110 \\rightarrow x = 20$.", "Se produjeron $20$ queques (y $y = 10$ paquetes de galletas).", "Opción correcta: B."],
       "group_id": null, "visual_spec": null,
+      "resolutionTimeMinutes": 5,
       "hints": [
         {
           "hint": "Representa las dos cantidades producidas",
@@ -1272,6 +1305,7 @@
       "correct_answer": "B",
       "solution_steps": ["Sea $z$ el precio por kg de zanahoria y $b$ el de brócoli: $5z + 3b = 4650$ y $3z + 5b = 5350$.", "Multiplicando por $3$ y por $5$ y restando: $16z = 7200 \\rightarrow z = 450$.", "$3b = 4650 - 5(450) = 2400 \\rightarrow b = 800$.", "Opción correcta: B."],
       "group_id": null, "visual_spec": null,
+      "resolutionTimeMinutes": 5,
       "hints": [
         {
           "hint": "Los precios por kilogramo son comunes",
@@ -1306,6 +1340,7 @@
       "correct_answer": "D",
       "solution_steps": ["Una función tiene inversa si y solo si es biyectiva.", "Como el codominio es igual al ámbito, es sobreyectiva; solo se requiere que sea inyectiva: elementos distintos del dominio tienen imágenes distintas.", "Opción correcta: D."],
       "group_id": null, "visual_spec": null,
+      "resolutionTimeMinutes": 2,
       "hints": [
         {
           "hint": "Piensa en deshacer la asignación",
@@ -1336,6 +1371,7 @@
       "group_id": null,
       "visual_spec": null,
       "image": "02-2026-p_36.png",
+      "resolutionTimeMinutes": 3,
       "hints": [
         {
           "hint": "Evita repetir imágenes",
@@ -1364,6 +1400,7 @@
       "correct_answer": "B",
       "solution_steps": ["Se escribe $y = \\frac{6-2x}{8}$ y se despeja $x$: $8y = 6 - 2x \\rightarrow 2x = 6 - 8y \\rightarrow x = 3 - 4y$.", "Se intercambian las variables: $r^{-1}(x) = -4x + 3$.", "Entonces $a = -4$ y $b = 3$.", "Opción correcta: B."],
       "group_id": null, "visual_spec": null,
+      "resolutionTimeMinutes": 4,
       "hints": [
         {
           "hint": "La inversa deshace la función",
@@ -1398,6 +1435,7 @@
       "correct_answer": "D",
       "solution_steps": ["Una traslación vertical de $k$ unidades hacia abajo resta $k$ a la función completa: $h(x) = f(x) - k$.", "Con $k = 3$: $h(x) = \\sqrt{x} - 3$.", "Las opciones A y B corresponden a traslaciones horizontales.", "Opción correcta: D."],
       "group_id": null, "visual_spec": null,
+      "resolutionTimeMinutes": 2,
       "hints": [
         {
           "hint": "Una resta externa mueve alturas",
@@ -1434,6 +1472,7 @@
         "C": "02-2026-r_39-c.png",
         "D": "02-2026-r_39-d.png"
       },
+      "resolutionTimeMinutes": 3,
       "hints": [
         {
           "hint": "Intercambia entrada y salida",
@@ -1462,6 +1501,7 @@
       "correct_answer": "B",
       "solution_steps": ["Se plantea $2000 \\cdot 2^{x/5} = 16\\,000 \\rightarrow 2^{x/5} = 8 = 2^3$.", "Igualando exponentes: $\\frac{x}{5} = 3 \\rightarrow x = 15$.", "Opción correcta: B."],
       "group_id": null, "visual_spec": null,
+      "resolutionTimeMinutes": 4,
       "hints": [
         {
           "hint": "Compara la población con la inicial",
@@ -1496,6 +1536,7 @@
       "correct_answer": "B",
       "solution_steps": ["Se plantea $5\\sqrt{v} = 20 \\rightarrow \\sqrt{v} = 4$.", "Elevando al cuadrado: $v = 16$.", "Se compartió $16$ miles de veces.", "Opción correcta: B."],
       "group_id": null, "visual_spec": null,
+      "resolutionTimeMinutes": 3,
       "hints": [
         {
           "hint": "Respeta la unidad de la variable",
@@ -1530,6 +1571,7 @@
       "correct_answer": "A",
       "solution_steps": ["$p(27) = 2\\log_3(27)$.", "Como $3^3 = 27$, $\\log_3(27) = 3$.", "$p(27) = 2 \\cdot 3 = 6$.", "Opción correcta: A."],
       "group_id": null, "visual_spec": null,
+      "resolutionTimeMinutes": 2,
       "hints": [
         {
           "hint": "Interpreta el logaritmo como exponente",
@@ -1564,6 +1606,7 @@
       "correct_answer": "B",
       "solution_steps": ["La inversa de la función exponencial $f(x) = a^x$ es la función logarítmica de la misma base: $f^{-1}(x) = \\log_a(x)$.", "Para $a = 2$: $f^{-1}(x) = \\log_2(x)$.", "Opción correcta: B."],
       "group_id": null, "visual_spec": null,
+      "resolutionTimeMinutes": 2,
       "hints": [
         {
           "hint": "Exponencial y logaritmo se deshacen",
@@ -1598,6 +1641,7 @@
       "correct_answer": "A",
       "solution_steps": ["Se plantea $3^{x+8} = 9^{x+1}$ y se escribe $9 = 3^2$: $3^{x+8} = 3^{2x+2}$.", "Igualando exponentes: $x + 8 = 2x + 2 \\rightarrow x = 6$.", "Opción correcta: A."],
       "group_id": null, "visual_spec": null,
+      "resolutionTimeMinutes": 4,
       "hints": [
         {
           "hint": "Expresa ambas potencias con la misma base",
@@ -1632,6 +1676,7 @@
       "correct_answer": "D",
       "solution_steps": ["El monto inicial es $250$ y se duplica cada año, por lo que se multiplica por $2$ en cada período.", "Después de $t$ años el factor acumulado es $2^t$.", "El modelo es $D(t) = 250 \\cdot 2^t$.", "Opción correcta: D."],
       "group_id": null, "visual_spec": null,
+      "resolutionTimeMinutes": 2,
       "hints": [
         {
           "hint": "La cantidad inicial es un factor",
@@ -1666,6 +1711,7 @@
       "correct_answer": "C",
       "solution_steps": ["El costo fijo por viaje es $1500$ (seguro de vida) y el costo variable es $1000$ por cada kilómetro.", "$C(x) = 1000x + 1500$.", "Opción correcta: C."],
       "group_id": null, "visual_spec": null,
+      "resolutionTimeMinutes": 2,
       "hints": [
         {
           "hint": "Separa inicio y recorrido",
@@ -1700,6 +1746,7 @@
       "correct_answer": "B",
       "solution_steps": ["Si el ancho es $x$, el largo es $3x$.", "$A(x) = \\text{ancho} \\cdot \\text{largo} = x \\cdot 3x = 3x^2$.", "Opción correcta: B."],
       "group_id": null, "visual_spec": null,
+      "resolutionTimeMinutes": 2,
       "hints": [
         {
           "hint": "Expresa ambas dimensiones con la misma variable",
@@ -1734,6 +1781,7 @@
       "correct_answer": "A",
       "solution_steps": ["Se busca $C(t) = \\log_b(t)$ con $C(8) = 3$, es decir, $\\log_b(8) = 3$.", "Esto equivale a $b^3 = 8 \\rightarrow b = 2$.", "Por lo tanto, $C(t) = \\log_2(t)$.", "Opción correcta: A."],
       "group_id": null, "visual_spec": null,
+      "resolutionTimeMinutes": 3,
       "hints": [
         {
           "hint": "Traduce el dato a una potencia",
@@ -1778,6 +1826,7 @@
           "total_row": ["Total", 100]
         }
       },
+      "resolutionTimeMinutes": 4,
       "hints": [
         {
           "hint": "Cada marca representa a su intervalo",
@@ -1820,6 +1869,7 @@
           "rows": [["I Parcial", "30%", 70], ["II Parcial", "35%", 80], ["Quices y tareas", "15%", 90], ["Laboratorio", "20%", 85]]
         }
       },
+      "resolutionTimeMinutes": 4,
       "hints": [
         {
           "hint": "Convierte porcentajes en pesos",
@@ -1856,6 +1906,7 @@
       "group_id": null,
       "visual_spec": null,
       "image": "02-2026-p_51.png",
+      "resolutionTimeMinutes": 3,
       "hints": [
         {
           "hint": "Observa hacia dónde se alarga la cola",
@@ -1888,6 +1939,7 @@
         "alt": "Resumen de cinco números de la duración de baterías.",
         "visual": { "type": "table", "variant": "summary", "columns": ["Mín", "Q1", "Me", "Q3", "Máx"], "rows": [[12, 16, 20, 22, 28]] }
       },
+      "resolutionTimeMinutes": 2,
       "hints": [
         {
           "hint": "El centro del diagrama es la caja",
@@ -1916,6 +1968,7 @@
       "correct_answer": "C",
       "solution_steps": ["$E$: repostería dulce con café negro $= 8$ órdenes. $F$: repostería salada con café negro $= 15$ órdenes. El total es $80$.", "$E$ y $F$ no pueden ocurrir a la vez: $E \\cap F = \\emptyset$.", "$P(E \\cup F) = P(E) + P(F) = \\frac{8}{80} + \\frac{15}{80} = \\frac{23}{80}$.", "Opción correcta: C."],
       "group_id": "g_cont_table", "visual_spec": null,
+      "resolutionTimeMinutes": 4,
       "hints": [
         {
           "hint": "Traduce la unión a casos concretos",
@@ -1955,6 +2008,7 @@
       "correct_answer": "C",
       "solution_steps": ["$F$: repostería salada con café negro ($15$ órdenes). $G$: repostería salada con café con leche o jugo natural ($16 + 14 = 30$ órdenes).", "Una misma orden no puede tener café negro y, a la vez, café con leche o jugo natural como bebida.", "Por lo tanto, $F \\cap G = \\emptyset$ es un evento imposible.", "Opción correcta: C."],
       "group_id": "g_cont_table", "visual_spec": null,
+      "resolutionTimeMinutes": 3,
       "hints": [
         {
           "hint": "Compara las categorías de los eventos",
@@ -1983,6 +2037,7 @@
       "correct_answer": "C",
       "solution_steps": ["En el diagrama no hay ningún estudiante en la región común a los tres conjuntos.", "El total de estudiantes es $8 + 4 + 11 + 3 + 17 = 43$.", "$P(\\text{tres disciplinas}) = \\frac{0}{43} = 0$.", "Opción correcta: C."],
       "group_id": "g_venn_3set", "visual_spec": null,
+      "resolutionTimeMinutes": 2,
       "hints": [
         {
           "hint": "Busca la región común a los tres conjuntos",
@@ -2017,6 +2072,7 @@
       "correct_answer": "A",
       "solution_steps": ["Estudiantes en exactamente dos disciplinas: Música y Pintura ($4$) más Pintura y Ballet ($3$) $= 7$.", "Total de estudiantes: $43$.", "$P(\\text{dos disciplinas}) = \\frac{7}{43}$.", "Opción correcta: A."],
       "group_id": "g_venn_3set", "visual_spec": null,
+      "resolutionTimeMinutes": 3,
       "hints": [
         {
           "hint": "Exactamente dos excluye uno y tres",
@@ -2051,6 +2107,7 @@
       "correct_answer": "D",
       "solution_steps": ["El mínimo de la empresa A es $23$ años.", "El mínimo de la empresa B es $19$ años.", "El empleado de menor edad entre ambas empresas tiene $19$ años.", "Opción correcta: D."],
       "group_id": "g_emp_ages", "visual_spec": null,
+      "resolutionTimeMinutes": 2,
       "hints": [
         {
           "hint": "El mínimo aparece en el extremo inferior",
@@ -2079,6 +2136,7 @@
       "correct_answer": "B",
       "solution_steps": ["A) Falso: el máximo de ambas empresas es $45$, por lo que el mayor pertenece a ambas.", "B) Verdadero: la mediana de A es $33$ y la de B es $33$; al menos el $50\\%$ de los empleados de cada empresa tiene $33$ años o más.", "C) Falso: en B, $Q_3 = 38$; solo al menos el $25\\%$ tiene $38$ años o más.", "D) Falso: la mediana puede ser un promedio de dos datos, por lo que no se garantiza un empleado con exactamente $33$ años.", "Opción correcta: B."],
       "group_id": "g_emp_ages", "visual_spec": null,
+      "resolutionTimeMinutes": 3,
       "hints": [
         {
           "hint": "La mediana divide en dos mitades",
@@ -2107,6 +2165,7 @@
       "correct_answer": "B",
       "solution_steps": ["$C_v = \\frac{\\text{desviación estándar}}{\\text{media aritmética}} \\cdot 100$.", "$C_{v,H} = \\frac{4{,}4}{15} \\cdot 100 \\approx 29{,}33\\%$; $C_{v,Q} = \\frac{4{,}5}{16} \\cdot 100 \\approx 28{,}13\\%$.", "$C_{v,S} = \\frac{5{,}3}{18} \\cdot 100 \\approx 29{,}44\\%$; $C_{v,P} = \\frac{5}{17} \\cdot 100 \\approx 29{,}41\\%$.", "El menor coeficiente de variación corresponde al grupo Q.", "Opción correcta: B."],
       "group_id": "g_volunteer", "visual_spec": null,
+      "resolutionTimeMinutes": 4,
       "hints": [
         {
           "hint": "Compara dispersión relativa",
@@ -2141,6 +2200,7 @@
       "correct_answer": "C",
       "solution_steps": ["$P_r = \\frac{\\text{dato} - \\text{media}}{\\text{desviación estándar}}$.", "Sofía (H): $\\frac{15 - 15}{4{,}4} = 0$. María (Q): $\\frac{17 - 16}{4{,}5} \\approx 0{,}222$.", "Andrés (S): $\\frac{19 - 18}{5{,}3} \\approx 0{,}189$. Rosa (P): $\\frac{16 - 17}{5} = -0{,}2$.", "El mayor valor de posición relativa es el de María.", "Opción correcta: C."],
       "group_id": "g_volunteer", "visual_spec": null,
+      "resolutionTimeMinutes": 4,
       "hints": [
         {
           "hint": "Compara desempeños respecto a su campaña",

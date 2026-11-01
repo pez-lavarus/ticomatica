@@ -12,8 +12,11 @@ function validateMath(text: string) {
 describe("authored question help", () => {
   it("loads concept pairs and relevant formulas separately from existing answer steps for all 60 items", () => {
     expect(quizData.questions).toHaveLength(60);
+    expect(quizData.questions.reduce((sum, q) => sum + q.resolutionTimeMinutes!, 0)).toBe(180);
     for (const question of quizData.questions) {
       const item = raw.items.find((item) => item.id === question.original_number)!;
+      expect(question.resolutionTimeMinutes).toBe(item.resolutionTimeMinutes);
+      expect(question.resolutionTimeMinutes).toBeGreaterThan(0);
       expect(question.hints).toEqual(item.hints);
       expect(question.hints!.length).toBeGreaterThan(0);
       expect(question.formulas).toEqual(item.formulas);
