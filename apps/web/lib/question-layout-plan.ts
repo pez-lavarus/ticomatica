@@ -134,10 +134,6 @@ export const GRAPH_LADDER: ReadonlyArray<number> = [600, 520, 450, 380, 320];
 /** Sub-pixel slack so rounding never clips the last row of a panel. */
 export const SAFETY_PX = 1;
 
-/** Share of the free vertical space placed above the panels. */
-export const TOP_BIAS = 0.25;
-export const MAX_TOP_OFFSET_PX = 72;
-
 export function gapFor(containerWidth: number) {
   return containerWidth >= GAP_BREAKPOINT_PX ? GAP_WIDE_PX : GAP_NARROW_PX;
 }
@@ -371,7 +367,11 @@ function layoutCandidate(
       bandHeight = Math.max(bandHeight, colHeight);
       x += widths[c] + gap;
     }
-    cols.forEach((_, c) => {
+    cols.forEach((column, c) => {
+      const offset = Math.floor((bandHeight - columnHeights[c]) / 2);
+      for (const panel of placed) {
+        if (column.ids.includes(panel.id)) panel.rect.y += offset;
+      }
       emptyBandArea += (bandHeight - columnHeights[c]) * widths[c];
     });
     stats.push(...placed);
@@ -499,10 +499,16 @@ export function planQuestionLayout(input: PlanInput): LayoutPlan {
 
   for (const template of templates) {
     for (const sv of input.panels.statement.variants) {
+      // A source graph is read after its statement, even when its card sits
+      // beside the answers. Do not split that reading sequence into columns.
+      if (hasGraph && sv.split) continue;
       for (const ov of input.panels.options.variants) {
         const chosen = fitGraph(ctx, template, sv, ov);
         if (!chosen) continue;
         let score = scoreCandidate(chosen, ctx, input.previous);
+        // Favor a graph card beside the answers when readability and fit are
+        // comparable. Overflow and minimum-width safeguards still come first.
+        if (hasGraph && !withExplanation && template.name === "stack") score += 0.65;
         const preferred = input.preferredArrangement;
         if (preferred) {
           if (chosen.template.name !== preferred.template) score += 0.35;
@@ -539,8 +545,9 @@ export function planQuestionLayout(input: PlanInput): LayoutPlan {
 
   const { candidate } = best;
   const overflow = candidate.totalHeight > ctx.height;
-  // Keep the start of the problem anchored as its content height changes.
-  const top = 0;
+  // Center the complete arrangement on both axes whenever it fits. Long
+  // content starts at the top so every part remains reachable by scrolling.
+  const top = Math.floor(Math.max(0, ctx.height - candidate.totalHeight) / 2);
   const left = Math.round((ctx.width - candidate.layoutWidth) / 2);
 
   const rects: Partial<Record<PanelId, Rect>> = {};

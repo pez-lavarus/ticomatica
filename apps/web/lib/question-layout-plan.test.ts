@@ -287,12 +287,15 @@ describe("planQuestionLayout", () => {
     expect(p.stageHeight).toBe(p.contentHeight);
   });
 
-  it("centers the layout horizontally and biases it toward the top", () => {
+  it("centers the whole arrangement on both axes when there is room", () => {
     const p = plan({ containerWidth: 1600, containerHeight: 1000 });
-    const statement = p.rects.statement!;
-    expect(statement.x).toBeGreaterThan(0);
-    expect(statement.y).toBeGreaterThanOrEqual(0);
-    expect(statement.y).toBeLessThan((1000 - p.contentHeight) / 2);
+    const rects = Object.values(p.rects) as Rect[];
+    const left = Math.min(...rects.map((r) => r.x));
+    const right = Math.max(...rects.map((r) => r.x + r.width));
+    const top = Math.min(...rects.map((r) => r.y));
+    const bottom = Math.max(...rects.map((r) => r.y + r.height));
+    expect(Math.abs(left - (1600 - right))).toBeLessThanOrEqual(1);
+    expect(Math.abs(top - (1000 - bottom))).toBeLessThanOrEqual(1);
   });
 
   describe("with the explanation", () => {
@@ -369,7 +372,7 @@ describe("planQuestionLayout", () => {
     });
     expect(after.template).toBe(before.template);
     expect(after.optionsVariant).toEqual(before.optionsVariant);
-    expect(after.rects.statement!.y).toBe(0);
+    expect(after.rects.statement!.y).toBeGreaterThanOrEqual(0);
     expect(after.overflow).toBe(false);
   });
 
@@ -387,6 +390,23 @@ describe("planQuestionLayout", () => {
       if (result.statementVariant.split) expect(result.rects.statement!.width).toBeGreaterThanOrEqual(STATEMENT_SPLIT_MIN_PX);
       if (result.optionsVariant.columns === 2) expect(result.rects.options!.width).toBeGreaterThanOrEqual(OPTIONS_TWO_COLUMN_MIN_PX);
     }
+  });
+
+  it("prefers horizontal graph questions while keeping the statement above the figure", () => {
+    const result = plan({ containerWidth: 1300, containerHeight: 900, hasGraph: true, statement: withGraph });
+    expect(result.template).toBe("side");
+    expect(result.statementVariant.split).not.toBe(true);
+    const s = result.rects.statement!;
+    const o = result.rects.options!;
+    expect(Math.abs((s.y + s.height / 2) - (o.y + o.height / 2))).toBeLessThanOrEqual(1);
+    expect(result.overflow).toBe(false);
+  });
+
+  it("keeps graph questions vertical when the screen is too narrow for readable horizontal cards", () => {
+    const result = plan({ containerWidth: 420, containerHeight: 1000, hasGraph: true, statement: withGraph });
+    expect(result.template).toBe("stack");
+    expect(result.statementVariant.split).not.toBe(true);
+    assertSane(result, 420);
   });
 
   it("is deterministic", () => {

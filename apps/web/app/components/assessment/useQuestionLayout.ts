@@ -240,7 +240,7 @@ export function useQuestionLayout({
           statement: createMeasurer(
             statementEl,
             "statement",
-            hasGraph && hasStatementText ? [{ split: false }, { split: true }] : [{}],
+            hasGraph ? [{ split: false }] : [{}],
           ),
           options: createMeasurer(
             optionsEl,
