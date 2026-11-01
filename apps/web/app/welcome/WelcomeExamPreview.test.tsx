@@ -22,7 +22,11 @@ describe("Welcome document preview", () => {
     expect(screen.getByRole("button", { name: "Iniciar práctica" })).toBeEnabled();
     expect(screen.getByRole("button", { name: "Cerrar vista previa del documento" })).toHaveFocus();
     fireEvent.keyDown(document, { key: "Escape" });
-    expect(screen.queryByText("Interactive PDF reader")).not.toBeInTheDocument();
+    expect(screen.queryByRole("region", { name: "Práctica de Matemáticas · 02-2026" })).not.toBeInTheDocument();
+    // Keep the reader mounted across close/reopen to avoid loading flashes.
+    const retainedReader = screen.getByText("Interactive PDF reader");
+    fireEvent.click(screen.getByRole("button", { name: "Abrir vista previa del documento de práctica" }));
+    expect(screen.getByText("Interactive PDF reader")).toBe(retainedReader);
   });
 
   it("opens a modal on small screens and contains keyboard focus", () => {

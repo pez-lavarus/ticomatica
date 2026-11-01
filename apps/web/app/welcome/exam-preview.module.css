@@ -12,7 +12,7 @@
 }
 .stage[data-open="true"] { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); column-gap: 28px; }
 .card { grid-column: 1; grid-row: 1; width: 100%; max-width: 768px; justify-self: center; position: relative; z-index: 2; }
-.teaser { position: absolute; z-index: 1; top: 54px; left: calc(50% + 80px); width: min(44vw, 520px); height: calc(100% - 65px); max-height: 760px; transform: rotate(6deg); }
+.teaser { position: absolute; z-index: 1; top: 54px; left: calc(50% + 80px); width: min(44vw, 520px); height: calc(100% - 65px); max-height: 760px; transform: rotate(6deg); transition: left 500ms cubic-bezier(.22, 1, .36, 1), width 500ms cubic-bezier(.22, 1, .36, 1), height 500ms, top 500ms, transform 500ms, opacity 240ms; }
 .paperButton { position: relative; display: block; width: 100%; height: 100%; overflow: hidden; border: 1px solid var(--border); border-radius: 12px; background: white; opacity: .34; box-shadow: 0 20px 65px #00214724; transition: opacity 250ms; mask-image: linear-gradient(to bottom, black 80%, transparent); }
 .paperButton:hover, .paperButton:focus-visible { opacity: .65; }
 :global(.dark) .paperButton { opacity: .23; }
@@ -24,8 +24,8 @@
 .pause { position: absolute; bottom: 28px; right: 16px; z-index: 1; padding: 10px; background: var(--card); border: 1px solid var(--border); border-radius: 50%; color: var(--foreground); }
 .previewLink { display: inline-flex; gap: 8px; align-items: center; font-size: 14px; font-weight: 700; color: var(--foreground); padding: 8px 12px; border: 1px solid var(--border); border-radius: 4px; background: var(--card); }
 .previewLink:hover { border-color: var(--accent); }
-.reader { grid-column: 2; grid-row: 1; position: sticky; top: 12px; z-index: 3; display: flex; flex-direction: column; min-width: 0; height: min(850px, calc(100dvh - 140px)); min-height: 480px; overflow: hidden; border-radius: 12px; animation: reader-enter 400ms ease-out; }
-.pdfScroll { min-height: 0; flex: 1; overflow: auto; overscroll-behavior: contain; border-radius: 12px; background: transparent; scrollbar-width: thin; scroll-behavior: auto; }
+.reader { grid-column: 2; grid-row: 1; position: sticky; top: 12px; z-index: 3; display: flex; flex-direction: column; min-width: 0; height: min(850px, calc(100dvh - 140px)); min-height: 480px; overflow: hidden; border-radius: 12px; visibility: hidden; pointer-events: none; }
+.pdfScroll { min-height: 0; flex: 1; overflow: auto; overscroll-behavior: contain; border-radius: 12px; background: transparent; scrollbar-width: none; -ms-overflow-style: none; overflow-anchor: none; scroll-behavior: auto; }
 .pdfPages { min-width: 100%; width: 100%; }
 .pdfPage { position: relative; margin: 0 auto 16px; background: white; color: #002147; border-radius: 12px; overflow: hidden; }
 .pdfPage:last-child { margin-bottom: 0; }
@@ -34,7 +34,7 @@
 .pageError { position: absolute; inset: 24px; font-size: 14px; }
 .stage button:focus-visible, .reader a:focus-visible, .pdfScroll:focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; }
 @keyframes paper-scroll { from { transform: translateY(0); } to { transform: translateY(-46%); } }
-@keyframes reader-enter { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: translateX(0); } }
+
 @media (max-width: 1099px) {
   .stage, .stage[data-open="true"] { grid-template-columns: minmax(0, 1fr); padding: 20px 0; }
   .stage[data-open="true"] { z-index: 60; }
@@ -48,9 +48,29 @@
   .reader { padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .stage { transition: none; }
+  .stage, .teaser, .readerContent, .loadingCover { transition: none; }
   .paperStrip, .reader { animation: none; }
   .pause { display: none; }
 }
 .closeButton { position: absolute; top: 10px; right: 18px; z-index: 2; display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border: 1px solid var(--border); border-radius: 50%; background: var(--card); color: var(--foreground); box-shadow: 0 2px 8px #0001; }
 .closeButton:hover { background: var(--muted); }
+
+.pdfScroll::-webkit-scrollbar { display: none; }
+.stage[data-open="true"] .teaser { left: calc(45% + 17px); top: 36px; width: calc(55% - 29px); height: min(850px, calc(100dvh - 140px)); max-height: none; transform: rotate(0); }
+.stage[data-open="true"] .paperButton { opacity: 1; mask-image: none; }
+.stage[data-open="true"] .paperCaption, .stage[data-open="true"] .pause { visibility: hidden; }
+.stage[data-open="true"][data-ready="true"] .teaser { opacity: 0; }
+.stage[data-open="true"] .reader { visibility: visible; pointer-events: auto; }
+.readerContent { display: flex; flex: 1; min-height: 0; opacity: 0; transition: opacity 240ms ease; }
+.stage[data-open="true"][data-ready="true"] .readerContent { opacity: 1; }
+.loadingCover { position: absolute; inset: 0; width: 100%; height: auto; border-radius: 12px; pointer-events: none; opacity: 1; transition: opacity 240ms ease; display: none; }
+.stage[data-ready="true"] .loadingCover { opacity: 0; }
+.loadMore { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 24px 12px; }
+@media (max-width: 1099px) {
+  .loadingCover { display: block; }
+  .stage[data-open="true"] .teaser { left: auto; right: 0; top: 42px; width: 44%; height: calc(100% - 130px); }
+}
+@media (max-width: 600px) {
+  .stage[data-open="true"] .teaser { top: auto; right: auto; width: 85%; height: 340px; }
+}
+@media (prefers-reduced-motion: reduce) { .teaser, .readerContent, .loadingCover { transition: none; } }
