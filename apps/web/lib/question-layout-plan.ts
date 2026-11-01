@@ -1,3 +1,4 @@
+import { layoutPreferences, type LayoutCharacteristics } from "./question-characteristics";
 import { STATEMENT_GRAPH_SIZE, OPTION_GRAPH_SIZE } from "./graph-sizes";
 
 // Layout engine for the question screen. Pure: nothing here touches the DOM.
@@ -56,6 +57,7 @@ export type TemplateName =
   | "right-explanation";
 
 export interface PlanInput {
+  characteristics?: LayoutCharacteristics;
   containerWidth: number;
   containerHeight: number;
   hasGraph: boolean;
@@ -450,6 +452,7 @@ export function planQuestionLayout(input: PlanInput): LayoutPlan {
   };
 
   const templates = withExplanation ? TEMPLATES_THREE : TEMPLATES_TWO;
+  const preferences = input.characteristics ? layoutPreferences(input.characteristics) : null;
 
   let best: { candidate: Candidate; score: number } | null = null;
   const candidates: { candidate: Candidate; score: number; overflow: number }[] = [];
@@ -460,12 +463,17 @@ export function planQuestionLayout(input: PlanInput): LayoutPlan {
       // beside the answers. Do not split that reading sequence into columns.
       if (hasGraph && sv.split) continue;
       for (const ov of input.panels.options.variants) {
+        if (preferences?.needsWideAnswers && ov.columns === 2) continue;
         const chosen = layoutCandidate(ctx, template, sv, ov, graphMax);
         if (!chosen) continue;
         let score = scoreCandidate(chosen, ctx, input.previous);
+        if (preferences && !withExplanation) {
+          if (template.name !== preferences.template) score += 0.5;
+          if (ov.columns !== preferences.columns) score += 0.25;
+        }
         // Favor a graph card beside the answers when readability and fit are
         // comparable. Overflow and minimum-width safeguards still come first.
-        if (hasGraph && !withExplanation && template.name === "stack") score += 0.65;
+        if (!preferences && hasGraph && !withExplanation && template.name === "stack") score += 0.65;
         const preferred = input.preferredArrangement;
         if (preferred) {
           if (chosen.template.name !== preferred.template) score += 0.35;

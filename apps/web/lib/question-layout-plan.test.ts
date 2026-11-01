@@ -10,6 +10,7 @@ import {
   SAFETY_PX,
   planQuestionLayout,
 } from "./question-layout-plan";
+import { extractLayoutCharacteristics } from "./question-characteristics";
 import { STATEMENT_GRAPH_SIZE } from "./graph-sizes";
 import type { LayoutPlan, PanelMeasurer, PanelVariant, Rect } from "./question-layout-plan";
 
@@ -395,6 +396,27 @@ describe("planQuestionLayout", () => {
     expect(result.template).toBe("stack");
     expect(result.statementVariant.split).not.toBe(true);
     assertSane(result, 420);
+  });
+
+  it("stacks wordy statements over short options when the vertical layout fits", () => {
+    const characteristics = extractLayoutCharacteristics({ statement: "palabra ".repeat(50), problem: "Elija:",
+      graph_image: "/graph.png", options: [{ label: "A", text: "$5$" }, { label: "B", text: "$10$" }, { label: "C", text: "$15$" }],
+    });
+    const result = plan({ containerWidth: 1200, containerHeight: 1200, hasGraph: true, characteristics,
+      statement: textPanel({ chars: 400, graph: { width: 420, height: 380 } }),
+    });
+    expect(result.template).toBe("stack");
+    expect(result.overflow).toBe(false);
+  });
+
+  it("uses extracted long-formula characteristics to protect answer readability", () => {
+    const characteristics = extractLayoutCharacteristics({ statement: "", problem: "", options: [
+      { label: "A", text: `$${"x+".repeat(25)}1=0$` },
+      { label: "B", text: "$x=1$" }, { label: "C", text: "$x=2$" },
+    ] });
+    const result = plan({ containerWidth: 1000, containerHeight: 1200, characteristics });
+    expect(result.optionsVariant.columns).toBe(1);
+    assertSane(result, 1000);
   });
 
   it("is deterministic", () => {

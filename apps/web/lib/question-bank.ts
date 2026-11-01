@@ -8,6 +8,7 @@
 // (items that refer to the same graph/table) live in its top-level `groups`
 // array and are referenced from each item through `group_id`.
 
+import { extractLayoutCharacteristics } from "./question-characteristics";
 import questionsRaw from "@/data/2026_2/questions.json";
 import type { VisualSpec } from "@/app/types";
 import type { Explanation, Question, QuizData, QuizMetadata } from "@/lib/types";
@@ -140,7 +141,14 @@ function buildBank(): QuizData {
     const itemStatement = item.statement ?? "";
     const groupStatement = item.group_id ? (groupContext.get(item.group_id) ?? "") : "";
 
+    const content = {
+      statement: itemStatement || groupStatement,
+      problem: item.problem ?? "",
+      options, visual_spec: visualSpec, graph_image: graphImage, graph_svg: graphSvg,
+      group_id: item.group_id ?? null,
+    };
     return {
+      layoutCharacteristics: extractLayoutCharacteristics(content),
       original_number: item.id,
       section_number: sectionNumber,
       statement: itemStatement || groupStatement,

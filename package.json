@@ -4,6 +4,8 @@
   "private": true,
   "packageManager": "pnpm@11.3.0",
   "scripts": {
+    "update:layout-characteristics": "node --experimental-strip-types scripts/update-layout-characteristics.mjs",
+    "check:layout-characteristics": "node --experimental-strip-types scripts/update-layout-characteristics.mjs --check",
     "dev": "pnpm --filter @ticomatica/web dev",
     "build": "pnpm -r build",
     "lint": "pnpm --filter @ticomatica/web lint",

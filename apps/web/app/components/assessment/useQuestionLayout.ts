@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import type { LayoutCharacteristics } from "@/lib/question-characteristics";
 import { useFontScale } from "@/lib/font-scale";
 import { hasGraphAspect, preloadGraphAspect } from "@/lib/graph-aspects";
 import { planQuestionLayout, samePlan } from "@/lib/question-layout-plan";
@@ -13,6 +14,7 @@ import type { PanelSlot } from "./QuestionPanel";
 // scrolls) lives in `lib/question-layout-plan.ts`, which is unit-tested.
 
 interface UseQuestionLayoutOptions {
+  characteristics: LayoutCharacteristics;
   questionKey: number;
   hasGraph: boolean;
   hasOptionGraphs: boolean;
@@ -104,6 +106,7 @@ function createMeasurer(el: HTMLElement, id: PanelId, variants: PanelVariant[]):
 }
 
 export function useQuestionLayout({
+  characteristics,
   questionKey,
   hasGraph,
   hasOptionGraphs,
@@ -213,6 +216,7 @@ export function useQuestionLayout({
 
     const compute = () => {
       const next = planQuestionLayout({
+        characteristics,
         containerWidth: box.width,
         containerHeight: box.height,
         hasGraph,
@@ -260,7 +264,7 @@ export function useQuestionLayout({
     observer.observe(statementEl);
     observer.observe(optionsEl);
     return () => observer.disconnect();
-  }, [box, questionKey, hasGraph, hasOptionGraphs, hasStatementText, optionCount, measureVersion, registry, settled]);
+  }, [box, characteristics, questionKey, hasGraph, hasOptionGraphs, hasStatementText, optionCount, measureVersion, registry, settled]);
 
   // A new question starts at the top.
   useLayoutEffect(() => {

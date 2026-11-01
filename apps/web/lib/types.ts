@@ -1,5 +1,6 @@
 // Shared TypeScript interfaces for Ticomatica
 
+import type { LayoutCharacteristics } from "./question-characteristics";
 import type { VisualSpec } from "@/app/types";
 
 export interface QuestionOption {
@@ -11,6 +12,7 @@ export interface QuestionOption {
 }
 
 export interface Question {
+  layoutCharacteristics?: LayoutCharacteristics;
   original_number: number;
   section_number: number;
   statement: string;

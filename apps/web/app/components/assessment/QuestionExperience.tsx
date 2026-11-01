@@ -1,6 +1,6 @@
 "use client";
 
-import { memo, useEffect, useRef, useState } from "react";
+import { memo, useMemo, useEffect, useRef, useState } from "react";
 import {
   ChevronLeft,
   ChevronRight,
@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import type { Question, TestMode } from "@/lib/types";
 import type { VisualSpec } from "@/app/types";
+import { extractLayoutCharacteristics } from "@/lib/question-characteristics";
 import { getModeBehavior } from "@/lib/practice-mode";
 import { QuestionStatement } from "./QuestionStatement";
 import { ResponseOptions } from "./ResponseOptions";
@@ -85,7 +86,10 @@ export const QuestionExperience = memo(function QuestionExperience({
     ...question.options.flatMap((option) => (option.image && option.svg ? [option.svg] : [])),
   ];
 
+  const characteristics = useMemo(() => question.layoutCharacteristics ?? extractLayoutCharacteristics(question), [question]);
+
   const { containerRef, ready, animate, slot, stageHeight, statementSplit, optionsColumns, graphMax } = useQuestionLayout({
+    characteristics,
     questionKey: question.original_number,
     hasGraph: Boolean(visualSpec) || Boolean(sharedImageSrc),
     hasOptionGraphs: question.options.some((option) => Boolean(option.image)),
