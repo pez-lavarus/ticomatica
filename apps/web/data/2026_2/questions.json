@@ -562,7 +562,7 @@
         "C": "02-2026-r_39-c.png",
         "D": "02-2026-r_39-d.png"
       },
-      "layoutCharacteristics": {"version":1,"wordNum":23,"questionStatementWordNum":7,"responseStatementWordNum":16,"responseOptionsWordNum":0,"questionStatementLength":55,"responseStatementLength":97,"largestResponseOptionLength":0,"totalResponseOptionsLength":0,"longestWordLength":14,"longestOptionWordLength":0,"hasGraph":true,"hasStatementGraph":true,"hasTable":false,"hasSharedContext":false,"optionGraphNum":4,"optionNum":4,"optionContentType":"graph","hasFormula":true,"formulaNum":2,"questionFormulaNum":1,"responseFormulaNum":1,"optionFormulaNum":0,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":1,"largestOptionFormulaLength":0,"questionParagraphNum":1,"responseParagraphNum":1}
+      "layoutCharacteristics": {"version":1,"wordNum":17,"questionStatementWordNum":7,"responseStatementWordNum":10,"responseOptionsWordNum":0,"questionStatementLength":55,"responseStatementLength":64,"largestResponseOptionLength":0,"totalResponseOptionsLength":0,"longestWordLength":14,"longestOptionWordLength":0,"hasGraph":true,"hasStatementGraph":true,"hasTable":false,"hasSharedContext":false,"optionGraphNum":4,"optionNum":4,"optionContentType":"graph","hasFormula":true,"formulaNum":2,"questionFormulaNum":1,"responseFormulaNum":1,"optionFormulaNum":0,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":1,"largestOptionFormulaLength":0,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
       "id": 40, "set_id": "set_1", "area": "Relaciones y Álgebra", "area_id": "functions", "topic": "Ecuaciones exponenciales",

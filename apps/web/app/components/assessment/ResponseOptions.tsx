@@ -84,7 +84,7 @@ export function ResponseOptions({
                 {option.label}
               </span>
             );
-            const cardClasses = `response-option-button w-full flex gap-3 md:gap-5 p-3 md:p-4 rounded-sm border-2 text-left transition-all group active:scale-[0.98] disabled:cursor-default disabled:active:scale-100 ${buttonClasses} ${flashClasses}`;
+            const cardClasses = `response-option-button w-full flex items-center gap-3 md:gap-5 p-3 md:p-4 rounded-sm border-2 text-center transition-all group active:scale-[0.98] disabled:cursor-default disabled:active:scale-100 ${buttonClasses} ${flashClasses}`;
             return option.image ? (
               <div key={option.label} className={cardClasses}>
                 <button
@@ -123,7 +123,7 @@ export function ResponseOptions({
                 className={cardClasses}
               >
                 {letter}
-                <div className="flex-1 min-w-0 pt-0.5 md:pt-1 assessment-copy option-math text-base md:text-lg text-foreground font-serif">
+                <div className="flex-1 min-w-0 text-center assessment-copy option-math text-base md:text-lg text-foreground font-serif">
                   <KaTeXText text={option.text || ""} displayMath />
                 </div>
               </button>
