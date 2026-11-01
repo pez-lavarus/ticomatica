@@ -3,12 +3,10 @@
 import { type CSSProperties, useState, useCallback, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
-import { Clock, Flag, BookOpen, Shapes, BarChart3, Binary, RotateCcw, Lightbulb } from "lucide-react";
+import { Flag, RotateCcw, Lightbulb } from "lucide-react";
 import { quizData } from "@/lib/question-bank";
 import ImageModal from "@/app/components/ImageModal";
 import ConfirmModal from "@/app/components/ConfirmModal";
-import FormulaModal from "@/app/components/FormulaModal";
-import SectionModal from "@/app/components/SectionModal";
 import HintModal from "@/app/components/HintModal";
 import { preloadGraphAspect } from "@/lib/graph-aspects";
 import { preloadSourceSvg } from "@/app/components/assessment/SourceImage";
@@ -37,7 +35,6 @@ export default function QuestionPage() {
     timeLeft,
     reviewMode,
     update,
-    currentTopic,
     currentQuestion,
     currentSectionQuestionsWithGlobalIndex,
     sectionIndex,
@@ -57,8 +54,6 @@ export default function QuestionPage() {
   // Modals state
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
-  const [isFormulaModalOpen, setIsFormulaModalOpen] = useState(false);
-  const [isSectionModalOpen, setIsSectionModalOpen] = useState(false);
   const [isHintBlinking, setIsHintBlinking] = useState(false);
   const [modalImage, setModalImage] = useState<{ src: string; alt: string; svg?: string }>({ src: "", alt: "" });
   const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
@@ -209,7 +204,6 @@ export default function QuestionPage() {
     );
   }
 
-  const hasSelectedAnswer = Boolean(selectedAnswers[currentIndex]);
 
   return (
     <AssessmentErrorBoundary>
@@ -226,22 +220,9 @@ export default function QuestionPage() {
                   </span>
                 </HeaderReadout>
               )}
-
-              <HeaderIconButton
-                label="Información de la sección"
-                iconSize="lg"
-                onClick={() => setIsSectionModalOpen(true)}
-                className="text-destructive"
-              >
-                {currentTopic === "Geometría" && <Shapes />}
-                {currentTopic === "Estadística y Probabilidad" && <BarChart3 />}
-                {currentTopic === "Funciones" && <Binary />}
-                {currentTopic === "full" && <Clock />}
-              </HeaderIconButton>
             </div>
 
             <div className="flex items-center gap-2 md:gap-6">
-              <HeaderTextButton label="Fórmulas" icon={<BookOpen />} onClick={() => setIsFormulaModalOpen(true)} />
               {!reviewMode && (
                 <HeaderTextButton
                   label="Finalizar"
@@ -310,17 +291,12 @@ export default function QuestionPage() {
             className={`font-scaled shrink-0 flex-col border-l border-border bg-card min-h-0 panel-enter transition-all duration-300 ease-out ${reviewMode ? "flex flex-1 xl:flex-none w-full xl:w-[var(--hint-panel-width)]" : "hidden lg:flex w-[var(--hint-panel-width)]"}`}
           >
             <HintModal
+              key={currentQuestion.original_number}
               keywords={currentQuestion.keywords}
               hints={currentQuestion.hints}
+              formulas={currentQuestion.formulas}
+              answerSteps={currentQuestion.answerSteps}
               hintStrategy={currentQuestion.hint_strategy}
-              onRevealSolution={
-                testMode !== "full" && !hasSelectedAnswer
-                  ? () => {
-                      handleSelectOption(currentQuestion.correct_answer);
-                      setIsHintModalOpen(false);
-                    }
-                  : undefined
-              }
             />
           </aside>
         )}
@@ -349,19 +325,6 @@ export default function QuestionPage() {
         confirmText="Sí, finalizar"
         cancelText="Seguir practicando"
         variant={isComplete ? "primary" : "danger"}
-      />
-
-      <FormulaModal
-        isOpen={isFormulaModalOpen}
-        onClose={() => setIsFormulaModalOpen(false)}
-        section={currentTopic}
-      />
-
-      <SectionModal
-        isOpen={isSectionModalOpen}
-        onClose={() => setIsSectionModalOpen(false)}
-        currentTopic={currentTopic}
-        testMode={testMode}
       />
     </div>
     </AssessmentErrorBoundary>

@@ -11,6 +11,17 @@ export interface QuestionOption {
   svg?: string;
 }
 
+export interface QuestionHint {
+  hint: string;
+  explanation: string;
+}
+
+export interface QuestionFormula {
+  name: string;
+  formula: string;
+  explanation: string;
+}
+
 export interface Question {
   layoutCharacteristics?: LayoutCharacteristics;
   original_number: number;
@@ -33,7 +44,9 @@ export interface Question {
   /** Shared-context group id (same graph/statement across sibling items). */
   group_id?: string | null;
   keywords?: string[];
-  hints?: string[];
+  hints?: QuestionHint[];
+  formulas?: QuestionFormula[];
+  answerSteps?: string[];
   hint_strategy?: string;
 }
 

@@ -2,7 +2,7 @@
 // consumes (QuizData). Graphs extracted from the exam PDF are referenced by
 // file name (`image` on items/groups, `option_images` on items) and resolved to
 // their public URLs; structured tables still use `visual_spec` (SVG/HTML).
-// Per-item solution steps double as progressive hints.
+// Concept hints and relevant formulas are authored separately from solution steps.
 //
 // `questions.json` is the single source of truth: shared contexts and figures
 // (items that refer to the same graph/table) live in its top-level `groups`
@@ -11,7 +11,7 @@
 import { extractLayoutCharacteristics } from "./question-characteristics";
 import questionsRaw from "@/data/2026_2/questions.json";
 import type { VisualSpec } from "@/app/types";
-import type { Explanation, Question, QuizData, QuizMetadata } from "@/lib/types";
+import type { Explanation, Question, QuestionHint, QuestionFormula, QuizData, QuizMetadata } from "@/lib/types";
 import { sourceImageUrl, sourceSvgUrl } from "@/lib/source-images";
 
 /** Consistent graph width (px) injected into every visual so the figures do
@@ -24,8 +24,6 @@ const AREA_TO_TOPIC: Record<string, string> = {
   statistics: "Estadística y Probabilidad",
 };
 
-const HINT_STRATEGY =
-  "Cada pista corresponde a un paso de la solución, en orden; la respuesta final solo se muestra al pedir la solución.";
 
 type RawItem = {
   id: number;
@@ -36,6 +34,8 @@ type RawItem = {
   options?: Record<string, string>;
   option_images?: Record<string, string> | null;
   correct_answer?: string;
+  hints?: QuestionHint[];
+  formulas?: QuestionFormula[];
   solution_steps?: (string | { explanation?: string })[];
   group_id?: string | null;
   image?: string | null;
@@ -126,7 +126,7 @@ function buildBank(): QuizData {
     });
 
     const steps = (item.solution_steps ?? []).map(stepText);
-    const hints = steps.length > 1 ? steps.slice(0, -1) : steps;
+    const answerSteps = steps.length > 1 ? steps.slice(0, -1) : steps;
 
     const ownVisual = item.visual_spec;
     const inheritedVisual = item.group_id ? groupVisual.get(item.group_id) ?? null : null;
@@ -162,8 +162,9 @@ function buildBank(): QuizData {
       knowledge_topic: item.topic,
       group_id: item.group_id ?? null,
       keywords: item.topic ? [item.topic] : [],
-      hints,
-      hint_strategy: HINT_STRATEGY,
+      hints: item.hints ?? [],
+      formulas: item.formulas ?? [],
+      answerSteps,
     };
   });
 

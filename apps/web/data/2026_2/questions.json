@@ -104,6 +104,23 @@
       "correct_answer": "B",
       "solution_steps": ["La ecuación ordinaria de una circunferencia con centro $(h,k)$ y radio $r$ es $(x-h)^2 + (y-k)^2 = r^2$.", "Sustituyendo $h=2$, $k=3$, $r=5$: $(x-2)^2 + (y-3)^2 = 25$.", "Opción correcta: B."],
       "group_id": null, "visual_spec": null,
+      "hints": [
+        {
+          "hint": "Lee el centro sin invertirlo",
+          "explanation": "En $(x-h)^2+(y-k)^2=r^2$, el centro es $(h,k)$. Para $(2,3)$, ambos paréntesis llevan resta."
+        },
+        {
+          "hint": "Distingue radio de radio al cuadrado",
+          "explanation": "El radio es $5$, pero el miembro derecho de la ecuación debe contener su cuadrado."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Ecuación de una circunferencia",
+          "formula": "(x-h)^2+(y-k)^2=r^2",
+          "explanation": "$(h,k)$ es el centro y $r$ el radio."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":18,"questionStatementWordNum":12,"responseStatementWordNum":6,"responseOptionsWordNum":0,"questionStatementLength":74,"responseStatementLength":33,"largestResponseOptionLength":24,"totalResponseOptionsLength":96,"longestWordLength":14,"longestOptionWordLength":0,"hasGraph":false,"hasStatementGraph":false,"hasTable":false,"hasSharedContext":false,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":6,"questionFormulaNum":2,"responseFormulaNum":0,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":22,"largestOptionFormulaLength":22,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -115,6 +132,23 @@
       "correct_answer": "A",
       "solution_steps": ["El centro de la circunferencia es $(5, -4)$ porque está $5\\text{ km}$ al este y $4\\text{ km}$ al sur.", "El radio es $20\\text{ km}$, por lo que $r^2 = 400$.", "La ecuación es $(x-5)^2 + (y+4)^2 = 400$.", "Opción correcta: A."],
       "group_id": null, "visual_spec": null,
+      "hints": [
+        {
+          "hint": "Traduce los signos del centro",
+          "explanation": "La coordenada vertical del radar es negativa: restar $-4$ produce $y+4$."
+        },
+        {
+          "hint": "Representa el alcance",
+          "explanation": "Los $20$ de alcance representan el radio, no el diámetro. El lado derecho debe ser $20^2$."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Ecuación de una circunferencia",
+          "formula": "(x-h)^2+(y-k)^2=r^2",
+          "explanation": "$(h,k)$ es el centro y $r$ el radio."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":60,"questionStatementWordNum":44,"responseStatementWordNum":16,"responseOptionsWordNum":0,"questionStatementLength":279,"responseStatementLength":87,"largestResponseOptionLength":25,"totalResponseOptionsLength":100,"longestWordLength":10,"longestOptionWordLength":0,"hasGraph":false,"hasStatementGraph":false,"hasTable":false,"hasSharedContext":false,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":9,"questionFormulaNum":5,"responseFormulaNum":0,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":23,"largestOptionFormulaLength":23,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -128,6 +162,28 @@
       "group_id": null,
       "visual_spec": null,
       "image": "02-2026-p_03.png",
+      "hints": [
+        {
+          "hint": "Localiza el centro en el eje vertical",
+          "explanation": "Los extremos verticales están en $5$ y $-1$; su punto medio da la altura del centro. La coordenada horizontal es cero."
+        },
+        {
+          "hint": "Mide el radio desde el centro",
+          "explanation": "La distancia del centro a cualquiera de esos extremos es el radio. No uses la separación completa entre los extremos."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Ecuación de una circunferencia",
+          "formula": "(x-h)^2+(y-k)^2=r^2",
+          "explanation": "$(h,k)$ es el centro y $r$ el radio."
+        },
+        {
+          "name": "Punto medio de dos alturas",
+          "formula": "k=\\frac{y_1+y_2}{2}",
+          "explanation": "El centro queda a mitad de camino entre los dos extremos verticales de la circunferencia."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":24,"questionStatementWordNum":12,"responseStatementWordNum":12,"responseOptionsWordNum":0,"questionStatementLength":86,"responseStatementLength":68,"largestResponseOptionLength":21,"totalResponseOptionsLength":84,"longestWordLength":14,"longestOptionWordLength":0,"hasGraph":true,"hasStatementGraph":true,"hasTable":false,"hasSharedContext":false,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":4,"questionFormulaNum":0,"responseFormulaNum":0,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":19,"largestOptionFormulaLength":19,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -139,6 +195,23 @@
       "correct_answer": "A",
       "solution_steps": ["La ecuación dada está en forma ordinaria: $(x+2)^2 + (y-7)^2 = 49$.", "El radio al cuadrado es $49$, por lo tanto el radio es $7$.", "El alcance máximo es el radio: $7\\text{ m}$.", "Opción correcta: A."],
       "group_id": null, "visual_spec": null,
+      "hints": [
+        {
+          "hint": "Lee el miembro derecho como un cuadrado",
+          "explanation": "En la ecuación del faro, $49$ representa el radio al cuadrado. El alcance es la raíz positiva."
+        },
+        {
+          "hint": "Relaciona radio y cobertura",
+          "explanation": "La distancia máxima desde el faro a un punto iluminado es el radio, no el diámetro ni el área."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Ecuación de una circunferencia",
+          "formula": "(x-h)^2+(y-k)^2=r^2",
+          "explanation": "$(h,k)$ es el centro y $r$ el radio."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":43,"questionStatementWordNum":32,"responseStatementWordNum":11,"responseOptionsWordNum":0,"questionStatementLength":204,"responseStatementLength":51,"largestResponseOptionLength":13,"totalResponseOptionsLength":51,"longestWordLength":14,"longestOptionWordLength":0,"hasGraph":false,"hasStatementGraph":false,"hasTable":false,"hasSharedContext":false,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":5,"questionFormulaNum":1,"responseFormulaNum":0,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":26,"largestOptionFormulaLength":11,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -152,6 +225,28 @@
       "group_id": null,
       "visual_spec": null,
       "image": "02-2026-p_05.png",
+      "hints": [
+        {
+          "hint": "Traslada el centro",
+          "explanation": "Mover cinco unidades a la izquierda resta cinco a la coordenada horizontal; bajar tres resta tres a la vertical del centro $(4,0)$."
+        },
+        {
+          "hint": "Conserva el radio",
+          "explanation": "Una traslación cambia la posición de la circunferencia, pero conserva su radio. Revisa los signos al escribir el nuevo centro en la ecuación."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Traslación de un punto",
+          "formula": "(h,k)\\mapsto(h+a,k+b)",
+          "explanation": "$a$ es el desplazamiento horizontal y $b$ el vertical; izquierda y abajo llevan signo negativo."
+        },
+        {
+          "name": "Ecuación de una circunferencia",
+          "formula": "(x-h)^2+(y-k)^2=r^2",
+          "explanation": "$(h,k)$ es el centro y $r$ el radio."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":44,"questionStatementWordNum":10,"responseStatementWordNum":34,"responseOptionsWordNum":0,"questionStatementLength":77,"responseStatementLength":211,"largestResponseOptionLength":23,"totalResponseOptionsLength":92,"longestWordLength":14,"longestOptionWordLength":0,"hasGraph":true,"hasStatementGraph":true,"hasTable":false,"hasSharedContext":false,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":7,"questionFormulaNum":1,"responseFormulaNum":2,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":21,"largestOptionFormulaLength":21,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -170,6 +265,28 @@
         "C": "02-2026-r_06-c.png",
         "D": "02-2026-r_06-d.png"
       },
+      "hints": [
+        {
+          "hint": "Separa posición y tamaño",
+          "explanation": "La ecuación original identifica el centro $(2,3)$ y un radio de $2$. Trasladar la figura no cambia ese radio."
+        },
+        {
+          "hint": "Aplica los dos desplazamientos",
+          "explanation": "Restar dos a la primera coordenada y sumar tres a la segunda determina el centro que debes buscar en las gráficas."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Traslación de un punto",
+          "formula": "(h,k)\\mapsto(h+a,k+b)",
+          "explanation": "$a$ es el desplazamiento horizontal y $b$ el vertical; izquierda y abajo llevan signo negativo."
+        },
+        {
+          "name": "Ecuación de una circunferencia",
+          "formula": "(x-h)^2+(y-k)^2=r^2",
+          "explanation": "$(h,k)$ es el centro y $r$ el radio."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":44,"questionStatementWordNum":33,"responseStatementWordNum":11,"responseOptionsWordNum":0,"questionStatementLength":238,"responseStatementLength":72,"largestResponseOptionLength":0,"totalResponseOptionsLength":0,"longestWordLength":14,"longestOptionWordLength":0,"hasGraph":true,"hasStatementGraph":false,"hasTable":false,"hasSharedContext":false,"optionGraphNum":4,"optionNum":4,"optionContentType":"graph","hasFormula":true,"formulaNum":4,"questionFormulaNum":4,"responseFormulaNum":0,"optionFormulaNum":0,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":27,"largestOptionFormulaLength":0,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -181,6 +298,28 @@
       "correct_answer": "D",
       "solution_steps": ["Centro de $c$: $(-2, 0)$. Centro de $d$: $(0, -3)$.", "Para ir de $(-2,0)$ a $(0,-3)$: $x$ aumenta en $2$ (derecha), $y$ disminuye en $3$ (abajo).", "Opción correcta: D."],
       "group_id": null, "visual_spec": null,
+      "hints": [
+        {
+          "hint": "Compara centros, no los signos escritos",
+          "explanation": "En $(x+2)^2+y^2=6$ el centro es $(-2,0)$; en $x^2+(y+3)^2=6$ es $(0,-3)$."
+        },
+        {
+          "hint": "Obtén el desplazamiento entre centros",
+          "explanation": "Resta las coordenadas del centro inicial a las del final. Los radios iguales permiten que una traslación lleve una circunferencia a la otra."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Traslación de un punto",
+          "formula": "(h,k)\\mapsto(h+a,k+b)",
+          "explanation": "$a$ es el desplazamiento horizontal y $b$ el vertical; izquierda y abajo llevan signo negativo."
+        },
+        {
+          "name": "Ecuación de una circunferencia",
+          "formula": "(x-h)^2+(y-k)^2=r^2",
+          "explanation": "$(h,k)$ es el centro y $r$ el radio."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":71,"questionStatementWordNum":13,"responseStatementWordNum":10,"responseOptionsWordNum":48,"questionStatementLength":116,"responseStatementLength":69,"largestResponseOptionLength":79,"totalResponseOptionsLength":310,"longestWordLength":14,"longestOptionWordLength":9,"hasGraph":false,"hasStatementGraph":false,"hasTable":false,"hasSharedContext":false,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":10,"questionFormulaNum":2,"responseFormulaNum":0,"optionFormulaNum":8,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":21,"largestOptionFormulaLength":1,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -192,6 +331,23 @@
       "correct_answer": "B",
       "solution_steps": ["La circunferencia tiene centro $(2,0)$ y radio $\\sqrt{5} \\approx 2{,}236$.", "Un punto $(x,y)$ es interior si $(x-2)^2 + y^2 < 5$.", "Evaluar $(1,0)$: $(1-2)^2 + 0^2 = 1 < 5 \\rightarrow$ interior.", "Las demás opciones dan valores $\\ge 5$: $(0,2)\\to 8$; $(2,3)\\to 9$; $(3,3)\\to 10$.", "Opción correcta: B."],
       "group_id": null, "visual_spec": null,
+      "hints": [
+        {
+          "hint": "Comprueba el interior mediante distancias",
+          "explanation": "Calcula la distancia al cuadrado desde cada punto hasta $(2,0)$; así evitas raíces innecesarias."
+        },
+        {
+          "hint": "Usa una desigualdad estricta",
+          "explanation": "Un punto interior tiene distancia al cuadrado menor que $5$. La igualdad lo situaría sobre la circunferencia."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Distancia al cuadrado",
+          "formula": "d^2=(x-h)^2+(y-k)^2",
+          "explanation": "Compara $d^2$ con $r^2$: menor para interior, igual para borde y mayor para exterior."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":14,"questionStatementWordNum":14,"responseStatementWordNum":0,"responseOptionsWordNum":0,"questionStatementLength":108,"responseStatementLength":0,"largestResponseOptionLength":8,"totalResponseOptionsLength":32,"longestWordLength":14,"longestOptionWordLength":0,"hasGraph":false,"hasStatementGraph":false,"hasTable":false,"hasSharedContext":false,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":5,"questionFormulaNum":1,"responseFormulaNum":0,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":17,"largestOptionFormulaLength":6,"questionParagraphNum":1,"responseParagraphNum":0}
     },
     {
@@ -205,6 +361,23 @@
       "group_id": null,
       "visual_spec": null,
       "image": "02-2026-p_09.png",
+      "hints": [
+        {
+          "hint": "Identifica la zona de cobertura",
+          "explanation": "En la gráfica, el radar está centrado en $(5,0)$ y tiene radio $4$. Compara cada ubicación con ese centro."
+        },
+        {
+          "hint": "Suma ambos desplazamientos al cuadrado",
+          "explanation": "Estar cerca horizontalmente no basta: también cuenta la separación vertical. Fuera del radar, la suma supera $16$."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Distancia al cuadrado",
+          "formula": "d^2=(x-h)^2+(y-k)^2",
+          "explanation": "Compara $d^2$ con $r^2$: menor para interior, igual para borde y mayor para exterior."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":55,"questionStatementWordNum":35,"responseStatementWordNum":20,"responseOptionsWordNum":0,"questionStatementLength":218,"responseStatementLength":181,"largestResponseOptionLength":3,"totalResponseOptionsLength":12,"longestWordLength":14,"longestOptionWordLength":0,"hasGraph":true,"hasStatementGraph":true,"hasTable":false,"hasSharedContext":false,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":10,"questionFormulaNum":2,"responseFormulaNum":4,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":11,"largestOptionFormulaLength":1,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -216,6 +389,23 @@
       "correct_answer": "C",
       "solution_steps": ["La circunferencia tiene centro $(2,0)$ y radio $2$.", "Una recta es secante si la distancia del centro a la recta es menor que el radio.", "Para $x=1$: distancia $= |1-2| = 1 < 2 \\rightarrow$ secante.", "Para $x=5$: distancia $= 3 > 2$ (exterior). Para $y=3$: distancia $= 3 > 2$ (exterior). Para $y=-2$: distancia $= 2 = r$ (tangente).", "Opción correcta: C."],
       "group_id": null, "visual_spec": null,
+      "hints": [
+        {
+          "hint": "Distingue secante de tangente",
+          "explanation": "Una secante corta la circunferencia en dos puntos; una tangente solo la toca en uno."
+        },
+        {
+          "hint": "Compara distancia y radio",
+          "explanation": "Desde el centro $(2,0)$, calcula la distancia perpendicular a cada recta horizontal o vertical. Para ser secante debe ser menor que $2$."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Distancia a una recta horizontal o vertical",
+          "formula": "\\begin{aligned}y=c:&\\quad d=\\lvert k-c\\rvert\\\\x=c:&\\quad d=\\lvert h-c\\rvert\\end{aligned}",
+          "explanation": "Se mide desde el centro $(h,k)$. Es secante si $d<r$ y tangente si $d=r$."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":11,"questionStatementWordNum":11,"responseStatementWordNum":0,"responseOptionsWordNum":0,"questionStatementLength":91,"responseStatementLength":0,"largestResponseOptionLength":8,"totalResponseOptionsLength":29,"longestWordLength":14,"longestOptionWordLength":0,"hasGraph":false,"hasStatementGraph":false,"hasTable":false,"hasSharedContext":false,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":5,"questionFormulaNum":1,"responseFormulaNum":0,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":19,"largestOptionFormulaLength":6,"questionParagraphNum":1,"responseParagraphNum":0}
     },
     {
@@ -227,6 +417,23 @@
       "correct_answer": "C",
       "solution_steps": ["Centro $(3,-2)$, radio $1$.", "Una recta es tangente si la distancia del centro a la recta es igual al radio.", "Para $y = -1$: distancia $= |-1 - (-2)| = 1 \\rightarrow$ tangente.", "Para $y = 0$: distancia $= 2$; para $x = 1$: distancia $= 2$; para $x = -2$: distancia $= 5$. Todas son exteriores.", "Opción correcta: C."],
       "group_id": null, "visual_spec": null,
+      "hints": [
+        {
+          "hint": "La tangencia exige igualdad",
+          "explanation": "La distancia perpendicular del centro $(3,-2)$ a una recta tangente debe coincidir con el radio $1$."
+        },
+        {
+          "hint": "Lee cada tipo de recta",
+          "explanation": "Para una recta horizontal compara alturas; para una vertical compara coordenadas horizontales. Una distancia mayor que el radio no produce intersección."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Distancia a una recta horizontal o vertical",
+          "formula": "\\begin{aligned}y=c:&\\quad d=\\lvert k-c\\rvert\\\\x=c:&\\quad d=\\lvert h-c\\rvert\\end{aligned}",
+          "explanation": "Se mide desde el centro $(h,k)$. Es secante si $d<r$ y tangente si $d=r$."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":11,"questionStatementWordNum":11,"responseStatementWordNum":0,"responseOptionsWordNum":0,"questionStatementLength":98,"responseStatementLength":0,"largestResponseOptionLength":8,"totalResponseOptionsLength":30,"longestWordLength":14,"longestOptionWordLength":0,"hasGraph":false,"hasStatementGraph":false,"hasTable":false,"hasSharedContext":false,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":5,"questionFormulaNum":1,"responseFormulaNum":0,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":25,"largestOptionFormulaLength":6,"questionParagraphNum":1,"responseParagraphNum":0}
     },
     {
@@ -240,6 +447,28 @@
       "group_id": null,
       "visual_spec": null,
       "image": "02-2026-p_12.png",
+      "hints": [
+        {
+          "hint": "Usa la base correcta",
+          "explanation": "La región comienza en $y=40$. Las alturas de los trozos se miden desde esa línea, no desde el eje horizontal."
+        },
+        {
+          "hint": "Aproxima por figuras sencillas",
+          "explanation": "Divide la región curva en trapecios y un triángulo según la cuadrícula. Suma sus áreas y busca el intervalo que contiene la estimación."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Área de un trapecio",
+          "formula": "A=\\frac{(B+b)h}{2}",
+          "explanation": "$B$ y $b$ son los lados paralelos; $h$ es su separación perpendicular."
+        },
+        {
+          "name": "Área de un triángulo",
+          "formula": "A=\\frac{bh}{2}",
+          "explanation": "Usa base y altura medidas respecto a la misma línea de referencia."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":56,"questionStatementWordNum":25,"responseStatementWordNum":19,"responseOptionsWordNum":12,"questionStatementLength":169,"responseStatementLength":108,"largestResponseOptionLength":29,"totalResponseOptionsLength":116,"longestWordLength":14,"longestOptionWordLength":5,"hasGraph":true,"hasStatementGraph":true,"hasTable":false,"hasSharedContext":false,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":8,"questionFormulaNum":0,"responseFormulaNum":0,"optionFormulaNum":8,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":4,"largestOptionFormulaLength":4,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -253,6 +482,23 @@
       "group_id": null,
       "visual_spec": null,
       "image": "02-2026-p_13.png",
+      "hints": [
+        {
+          "hint": "Compara con el segmento recto",
+          "explanation": "El segmento que une $(2,2)$ con $(7,6)$ queda debajo de la curva representada. Su trapecio proporciona un área menor que la región curva."
+        },
+        {
+          "hint": "Calcula primero el área de referencia",
+          "explanation": "El trapecio tiene lados paralelos de longitudes $2$ y $6$, separados $5$ unidades. Usa esa referencia para decidir si el área real es mayor o menor."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Área de un trapecio",
+          "formula": "A=\\frac{(B+b)h}{2}",
+          "explanation": "$B$ y $b$ son los lados paralelos; $h$ es su separación perpendicular."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":73,"questionStatementWordNum":44,"responseStatementWordNum":21,"responseOptionsWordNum":8,"questionStatementLength":270,"responseStatementLength":125,"largestResponseOptionLength":15,"totalResponseOptionsLength":60,"longestWordLength":14,"longestOptionWordLength":5,"hasGraph":true,"hasStatementGraph":true,"hasTable":false,"hasSharedContext":false,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":4,"questionFormulaNum":0,"responseFormulaNum":0,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":2,"largestOptionFormulaLength":2,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -264,6 +510,28 @@
       "correct_answer": "D",
       "solution_steps": ["Fórmulas dadas: $a = \\frac{r\\sqrt{3}}{2}$ y $m\\angle i = \\frac{180^\\circ(n-2)}{n}$.", "Ángulo interno $120^\\circ$: $180(n-2)/n = 120 \\rightarrow 60n = 360 \\rightarrow n = 6$ (hexágono).", "$2\\sqrt{3} = \\frac{r\\sqrt{3}}{2} \\rightarrow r = 4$; en un hexágono regular el lado es igual al radio, $L = 4$.", "Perímetro $= 6 \\times 4 = 24$.", "Opción correcta: D."],
       "group_id": null, "visual_spec": null,
+      "hints": [
+        {
+          "hint": "Identifica el polígono por sus ángulos",
+          "explanation": "Un ángulo interior de $120^\\circ$ deja un ángulo exterior de $60^\\circ$. La vuelta completa permite hallar el número de lados."
+        },
+        {
+          "hint": "Relaciona apotema y lado",
+          "explanation": "En el hexágono regular, al dividir un triángulo central por su altura obtienes un triángulo de $30^\\circ$ y $60^\\circ$. Usa la apotema $2\\sqrt3$ para obtener el lado y después el perímetro."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Ángulo exterior regular",
+          "formula": "e=\\frac{360^\\circ}{n}",
+          "explanation": "$n$ es el número de lados; el ángulo interior y el exterior suman $180^\\circ$."
+        },
+        {
+          "name": "Lado y perímetro del hexágono regular",
+          "formula": "a=\\frac{\\sqrt3}{2}L,\\qquad P=6L",
+          "explanation": "$a$ es la apotema y $L$ la longitud de un lado."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":20,"questionStatementWordNum":13,"responseStatementWordNum":7,"responseOptionsWordNum":0,"questionStatementLength":92,"responseStatementLength":40,"largestResponseOptionLength":4,"totalResponseOptionsLength":16,"longestWordLength":9,"longestOptionWordLength":0,"hasGraph":false,"hasStatementGraph":false,"hasTable":false,"hasSharedContext":false,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":6,"questionFormulaNum":2,"responseFormulaNum":0,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":1,"largestFormulaLength":9,"largestOptionFormulaLength":2,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -275,6 +543,28 @@
       "correct_answer": "A",
       "solution_steps": ["Fórmula dada: $m\\angle e = \\frac{360^\\circ}{n}$. Con $90^\\circ$: $n = 4$ (cuadrado).", "El radio es la mitad de la diagonal: diagonal $= 6\\sqrt{2}$, por lo que el lado es $L = \\frac{6\\sqrt{2}}{\\sqrt{2}} = 6$.", "Área $= L^2 = 36$.", "Opción correcta: A."],
       "group_id": null, "visual_spec": null,
+      "hints": [
+        {
+          "hint": "Empieza por el ángulo exterior",
+          "explanation": "Si cada giro exterior mide $90^\\circ$, los giros completan la vuelta con cuatro lados: se trata de un cuadrado."
+        },
+        {
+          "hint": "El radio llega a un vértice",
+          "explanation": "El radio $3\\sqrt2$ es la mitad de la diagonal del cuadrado. Obtén primero el lado mediante Pitágoras y después eleva ese lado al cuadrado."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Ángulo exterior regular",
+          "formula": "e=\\frac{360^\\circ}{n}",
+          "explanation": "$n$ es el número de lados; el ángulo interior y el exterior suman $180^\\circ$."
+        },
+        {
+          "name": "Diagonal y área del cuadrado",
+          "formula": "d=L\\sqrt2,\\qquad d=2R,\\qquad A=L^2",
+          "explanation": "$R$ es el radio hasta un vértice; no es la apotema."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":22,"questionStatementWordNum":15,"responseStatementWordNum":7,"responseOptionsWordNum":0,"questionStatementLength":95,"responseStatementLength":33,"largestResponseOptionLength":4,"totalResponseOptionsLength":16,"longestWordLength":8,"longestOptionWordLength":0,"hasGraph":false,"hasStatementGraph":false,"hasTable":false,"hasSharedContext":false,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":6,"questionFormulaNum":2,"responseFormulaNum":0,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":1,"largestFormulaLength":9,"largestOptionFormulaLength":2,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -286,6 +576,28 @@
       "correct_answer": "B",
       "solution_steps": ["La sección plana de una esfera es un círculo. Su radio $r$ cumple $r^2 + d^2 = R^2$, con $d=12$ y $R=13$.", "$r^2 = 169 - 144 = 25 \\rightarrow r = 5$.", "Perímetro $= 2\\pi r = 2 \\times 3{,}14 \\times 5 = 31{,}4\\text{ cm}$.", "Opción correcta: B."],
       "group_id": null, "visual_spec": null,
+      "hints": [
+        {
+          "hint": "Imagina el triángulo dentro de la esfera",
+          "explanation": "El radio de la esfera, la distancia al plano de corte y el radio de la abertura forman un triángulo rectángulo. La hipotenusa mide $13$ y un cateto $12$."
+        },
+        {
+          "hint": "Piden el borde, no la superficie",
+          "explanation": "Una vez hallado el radio de la abertura circular, calcula su longitud de circunferencia. No uses la fórmula del área."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Sección circular de una esfera",
+          "formula": "R^2=r^2+d^2",
+          "explanation": "$R$ es el radio de la esfera, $r$ el de la sección y $d$ la distancia perpendicular del centro al plano."
+        },
+        {
+          "name": "Longitud de una circunferencia",
+          "formula": "P=2\\pi r",
+          "explanation": "Utiliza el radio de la abertura circular."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":54,"questionStatementWordNum":41,"responseStatementWordNum":13,"responseOptionsWordNum":0,"questionStatementLength":240,"responseStatementLength":88,"largestResponseOptionLength":8,"totalResponseOptionsLength":32,"longestWordLength":15,"longestOptionWordLength":0,"hasGraph":false,"hasStatementGraph":false,"hasTable":false,"hasSharedContext":false,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":6,"questionFormulaNum":2,"responseFormulaNum":0,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":12,"largestOptionFormulaLength":6,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -297,6 +609,23 @@
       "correct_answer": "A",
       "solution_steps": ["Se cumple $R^2 = r^2 + d^2$.", "$25^2 = 24^2 + d^2 \\rightarrow 625 = 576 + d^2 \\rightarrow d^2 = 49 \\rightarrow d = 7$.", "Opción correcta: A."],
       "group_id": null, "visual_spec": null,
+      "hints": [
+        {
+          "hint": "Distingue los dos radios",
+          "explanation": "El radio de la esfera es $25$ y el de la sección es $24$. El radio mayor es la hipotenusa del triángulo rectángulo."
+        },
+        {
+          "hint": "Despeja la distancia al plano",
+          "explanation": "Resta el cuadrado del radio de la sección al de la esfera. La distancia buscada es la raíz positiva del resultado."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Sección circular de una esfera",
+          "formula": "R^2=r^2+d^2",
+          "explanation": "$R$ es el radio de la esfera, $r$ el de la sección y $d$ la distancia perpendicular del centro al plano."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":28,"questionStatementWordNum":16,"responseStatementWordNum":12,"responseOptionsWordNum":0,"questionStatementLength":89,"responseStatementLength":68,"largestResponseOptionLength":4,"totalResponseOptionsLength":15,"longestWordLength":9,"longestOptionWordLength":0,"hasGraph":false,"hasStatementGraph":false,"hasTable":false,"hasSharedContext":false,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":6,"questionFormulaNum":2,"responseFormulaNum":0,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":2,"largestOptionFormulaLength":2,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -308,6 +637,23 @@
       "correct_answer": "C",
       "solution_steps": ["El corte perpendicular a las bases que pasa por los centros es un rectángulo.", "Sus dimensiones son la altura ($40\\text{ cm}$) y el diámetro de la base ($2 \\times 15 = 30\\text{ cm}$).", "Área $= 40 \\times 30 = 1200\\text{ cm}^2$.", "Opción correcta: C."],
       "group_id": null, "visual_spec": null,
+      "hints": [
+        {
+          "hint": "Visualiza un corte que pasa por el eje",
+          "explanation": "El plano perpendicular a las bases y que pasa por sus centros genera un rectángulo, no un círculo."
+        },
+        {
+          "hint": "Usa el diámetro como anchura",
+          "explanation": "El rectángulo tiene altura $40$ y anchura igual al diámetro de la base, el doble de $15$. Multiplica ambas dimensiones."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Área de un rectángulo",
+          "formula": "A=bh",
+          "explanation": "En el corte axial del cilindro, la base del rectángulo es $2r$ y su altura es la del cilindro."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":48,"questionStatementWordNum":36,"responseStatementWordNum":12,"responseOptionsWordNum":0,"questionStatementLength":225,"responseStatementLength":71,"largestResponseOptionLength":6,"totalResponseOptionsLength":22,"longestWordLength":13,"longestOptionWordLength":0,"hasGraph":false,"hasStatementGraph":false,"hasTable":false,"hasSharedContext":false,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":6,"questionFormulaNum":2,"responseFormulaNum":0,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":12,"largestOptionFormulaLength":4,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -321,6 +667,17 @@
       "group_id": null,
       "visual_spec": null,
       "image": "02-2026-p_19.png",
+      "hints": [
+        {
+          "hint": "Prueba el plegado mental",
+          "explanation": "Un eje de simetría divide la figura en dos partes que coinciden al reflejarlas. Comprueba las diagonales del rombo."
+        },
+        {
+          "hint": "No confundas rombo con cuadrado",
+          "explanation": "Las diagonales horizontal y vertical tienen longitudes diferentes. Las rectas paralelas a sus lados no aportan los ejes adicionales de un cuadrado."
+        }
+      ],
+      "formulas": [],
       "layoutCharacteristics": {"version":1,"wordNum":28,"questionStatementWordNum":4,"responseStatementWordNum":24,"responseOptionsWordNum":0,"questionStatementLength":39,"responseStatementLength":135,"largestResponseOptionLength":3,"totalResponseOptionsLength":12,"longestWordLength":11,"longestOptionWordLength":0,"hasGraph":true,"hasStatementGraph":true,"hasTable":false,"hasSharedContext":false,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":6,"questionFormulaNum":1,"responseFormulaNum":1,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":4,"largestOptionFormulaLength":1,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -334,6 +691,23 @@
       "group_id": null,
       "visual_spec": null,
       "image": "02-2026-p_20.png",
+      "hints": [
+        {
+          "hint": "Conserva la altura",
+          "explanation": "Reflejar respecto al eje vertical deja intacta la coordenada vertical de $J(4,5)$."
+        },
+        {
+          "hint": "Busca la misma distancia al otro lado",
+          "explanation": "La coordenada horizontal cambia de signo. Localiza el punto rotulado a cuatro unidades a la izquierda del eje y a altura cinco."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Reflexión respecto al eje vertical",
+          "formula": "(x,y)\\mapsto(-x,y)",
+          "explanation": "Solo cambia el signo de la coordenada horizontal."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":23,"questionStatementWordNum":4,"responseStatementWordNum":19,"responseOptionsWordNum":0,"questionStatementLength":42,"responseStatementLength":112,"largestResponseOptionLength":3,"totalResponseOptionsLength":12,"longestWordLength":11,"longestOptionWordLength":0,"hasGraph":true,"hasStatementGraph":true,"hasTable":false,"hasSharedContext":false,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":7,"questionFormulaNum":1,"responseFormulaNum":2,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":7,"largestOptionFormulaLength":1,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -345,6 +719,23 @@
       "correct_answer": "D",
       "solution_steps": ["Vértices de #2: $(1,4)$, $(3,4)$, $(3,1)$, $(2,1)$. Vértices de #4: $(-3,-1)$, $(-2,-1)$, $(-1,-4)$, $(-3,-4)$.", "Una homotecia de razón $k$ centrada en el origen lleva $(x,y)$ a $(kx,ky)$.", "Con $k=-1$, los vértices de #2 pasan a $(-1,-4)$, $(-3,-4)$, $(-3,-1)$, $(-2,-1)$, que son los vértices de #4.", "Opción correcta: D."],
       "group_id": "g_transformations", "visual_spec": null,
+      "hints": [
+        {
+          "hint": "Compara vértices correspondientes",
+          "explanation": "En una homotecia centrada en el origen, las dos coordenadas se multiplican por la misma razón. Comprueba un vértice del polígono #2 y su imagen en #4."
+        },
+        {
+          "hint": "Interpreta signo y magnitud",
+          "explanation": "El mismo tamaño exige una razón de valor absoluto uno. Estar en el lado opuesto del origen exige una razón negativa."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Homotecia centrada en el origen",
+          "formula": "(x,y)\\mapsto(kx,ky)",
+          "explanation": "La razón $k$ multiplica ambas coordenadas y su signo determina el lado del origen."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":39,"questionStatementWordNum":12,"responseStatementWordNum":27,"responseOptionsWordNum":0,"questionStatementLength":72,"responseStatementLength":155,"largestResponseOptionLength":4,"totalResponseOptionsLength":13,"longestWordLength":11,"longestOptionWordLength":0,"hasGraph":true,"hasStatementGraph":true,"hasTable":false,"hasSharedContext":true,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":5,"questionFormulaNum":0,"responseFormulaNum":1,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":5,"largestOptionFormulaLength":2,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -356,6 +747,23 @@
       "correct_answer": "B",
       "solution_steps": ["Vértices de #4: $(-3,-1)$, $(-2,-1)$, $(-1,-4)$, $(-3,-4)$. Vértices de #3: $(5,-1)$, $(4,-1)$, $(3,-4)$, $(5,-4)$.", "Los puntos correspondientes conservan la coordenada $y$ y cambian la $x$: es una reflexión sobre una recta vertical $x = c$.", "La recta equidista de $-3$ y $5$: $c = \\frac{-3+5}{2} = 1$. Se verifica con $-2 \\to 4$ y $-1 \\to 3$.", "Opción correcta: B."],
       "group_id": "g_transformations", "visual_spec": null,
+      "hints": [
+        {
+          "hint": "Observa qué coordenada se conserva",
+          "explanation": "Entre los polígonos #4 y #3, los vértices correspondientes mantienen su altura. Por tanto, busca una recta de reflexión vertical."
+        },
+        {
+          "hint": "Sitúa el eje a mitad de camino",
+          "explanation": "El eje debe quedar a igual distancia de cada par de puntos homólogos. Calcula el punto medio entre las coordenadas horizontales $-3$ y $5$ y verifica otro par."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Eje de reflexión vertical",
+          "formula": "c=\\frac{x+x'}{2}",
+          "explanation": "Los puntos correspondientes $(x,y)$ y $(x',y)$ están a la misma distancia de $x=c$."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":27,"questionStatementWordNum":12,"responseStatementWordNum":15,"responseOptionsWordNum":0,"questionStatementLength":72,"responseStatementLength":86,"largestResponseOptionLength":7,"totalResponseOptionsLength":28,"longestWordLength":11,"longestOptionWordLength":0,"hasGraph":true,"hasStatementGraph":true,"hasTable":false,"hasSharedContext":true,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":4,"questionFormulaNum":0,"responseFormulaNum":0,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":5,"largestOptionFormulaLength":5,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -367,6 +775,23 @@
       "correct_answer": "A",
       "solution_steps": ["Una rotación de $270^\\circ$ en sentido horario equivale a una de $90^\\circ$ en sentido antihorario.", "La rotación de $90^\\circ$ antihoraria lleva $(x,y)$ a $(-y,x)$.", "Para $(-1,3)$: $(-3, -1)$.", "Opción correcta: A."],
       "group_id": "g_transformations", "visual_spec": null,
+      "hints": [
+        {
+          "hint": "Convierte el giro en uno equivalente",
+          "explanation": "Girar $270^\\circ$ en sentido horario equivale a girar $90^\\circ$ en sentido antihorario alrededor del origen."
+        },
+        {
+          "hint": "Intercambia coordenadas con el signo correcto",
+          "explanation": "Para ese giro, la nueva primera coordenada es la opuesta de la segunda original y la nueva segunda es la primera original. Aplícalo a $(-1,3)$."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Giro de noventa grados antihorario",
+          "formula": "(x,y)\\mapsto(-y,x)",
+          "explanation": "Equivale a $270^\\circ$ en sentido horario, siempre con centro en el origen."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":38,"questionStatementWordNum":12,"responseStatementWordNum":26,"responseOptionsWordNum":0,"questionStatementLength":72,"responseStatementLength":161,"largestResponseOptionLength":10,"totalResponseOptionsLength":36,"longestWordLength":11,"longestOptionWordLength":0,"hasGraph":true,"hasStatementGraph":true,"hasTable":false,"hasSharedContext":true,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":7,"questionFormulaNum":0,"responseFormulaNum":3,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":9,"largestOptionFormulaLength":8,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -385,6 +810,17 @@
         "C": "02-2026-r_24-c.png",
         "D": "02-2026-r_24-d.png"
       },
+      "hints": [
+        {
+          "hint": "Cada entrada tiene una sola salida",
+          "explanation": "Una relación es función cuando a cada valor horizontal de su dominio le corresponde exactamente un valor vertical."
+        },
+        {
+          "hint": "Aplica la prueba de la recta vertical",
+          "explanation": "Imagina rectas verticales atravesando cada opción. Si alguna corta una gráfica en dos o más puntos, esa opción no representa una función."
+        }
+      ],
+      "formulas": [],
       "layoutCharacteristics": {"version":1,"wordNum":18,"questionStatementWordNum":11,"responseStatementWordNum":7,"responseOptionsWordNum":0,"questionStatementLength":95,"responseStatementLength":41,"largestResponseOptionLength":0,"totalResponseOptionsLength":0,"longestWordLength":13,"longestOptionWordLength":0,"hasGraph":true,"hasStatementGraph":false,"hasTable":false,"hasSharedContext":false,"optionGraphNum":4,"optionNum":4,"optionContentType":"graph","hasFormula":true,"formulaNum":2,"questionFormulaNum":2,"responseFormulaNum":0,"optionFormulaNum":0,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":1,"largestOptionFormulaLength":0,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -396,6 +832,23 @@
       "correct_answer": "C",
       "solution_steps": ["$(a \\circ b)(x)$ está bien definida cuando el ámbito de $b$ está contenido en el dominio de $a$.", "$g \\circ f$: ámbito de $f$ $[1,5] \\not\\subseteq [2,6]$. $p \\circ f$: $[1,5] \\not\\subseteq [2,6]$.", "$f \\circ p$: ámbito de $p$ $[0,4] \\subseteq [0,4]$ (dominio de $f$). Está bien definida.", "$g \\circ p$: $[0,4] \\not\\subseteq [2,6]$.", "Opción correcta: C."],
       "group_id": null, "visual_spec": null,
+      "hints": [
+        {
+          "hint": "Lee la composición de derecha a izquierda",
+          "explanation": "En $f\\circ p$ se aplica primero $p$ y después $f$. La salida de la primera función debe poder entrar en la segunda."
+        },
+        {
+          "hint": "Comprueba todo el intervalo de salida",
+          "explanation": "No basta con que los intervalos se solapen: el ámbito completo de la función interior debe estar contenido en el dominio de la exterior. Compara los extremos indicados."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Composición bien definida",
+          "formula": "\\begin{gathered}(f\\circ g)(x)=f(g(x))\\\\\\operatorname{Im}(g)\\subseteq\\operatorname{Dom}(f)\\end{gathered}",
+          "explanation": "Todas las salidas de la función interior deben ser entradas admitidas por la exterior."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":21,"questionStatementWordNum":11,"responseStatementWordNum":10,"responseOptionsWordNum":0,"questionStatementLength":189,"responseStatementLength":70,"largestResponseOptionLength":16,"totalResponseOptionsLength":64,"longestWordLength":13,"longestOptionWordLength":0,"hasGraph":false,"hasStatementGraph":false,"hasTable":false,"hasSharedContext":false,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":10,"questionFormulaNum":6,"responseFormulaNum":0,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":28,"largestOptionFormulaLength":14,"questionParagraphNum":2,"responseParagraphNum":1}
     },
     {
@@ -407,6 +860,17 @@
       "correct_answer": "C",
       "solution_steps": ["Entre las semanas $8$ y $12$ la gráfica es un segmento horizontal en $p(x) = 750$.", "La semana $10$ está en ese tramo, por lo que el precio fue de $750$ colones.", "Opción correcta: C."],
       "group_id": "g_fuel_price", "visual_spec": null,
+      "hints": [
+        {
+          "hint": "Empieza por la semana, no por el precio",
+          "explanation": "Localiza $10$ en el eje horizontal y sube hasta la gráfica; después lee la altura en el eje de precios."
+        },
+        {
+          "hint": "Reconoce un tramo constante",
+          "explanation": "El segmento entre las semanas $8$ y $12$ es horizontal. Todas las semanas de ese tramo tienen el mismo precio."
+        }
+      ],
+      "formulas": [],
       "layoutCharacteristics": {"version":1,"wordNum":34,"questionStatementWordNum":21,"responseStatementWordNum":13,"responseOptionsWordNum":0,"questionStatementLength":157,"responseStatementLength":76,"largestResponseOptionLength":5,"totalResponseOptionsLength":20,"longestWordLength":14,"longestOptionWordLength":0,"hasGraph":true,"hasStatementGraph":true,"hasTable":false,"hasSharedContext":true,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":7,"questionFormulaNum":2,"responseFormulaNum":1,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":14,"largestOptionFormulaLength":3,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -418,6 +882,17 @@
       "correct_answer": "B",
       "solution_steps": ["El punto más alto de la gráfica es $(16, 900)$.", "El precio máximo se registró en la semana $16$.", "Opción correcta: B."],
       "group_id": "g_fuel_price", "visual_spec": null,
+      "hints": [
+        {
+          "hint": "Busca la mayor altura de la gráfica",
+          "explanation": "El precio máximo corresponde al punto más alto de todo el periodo, no al punto situado más a la derecha."
+        },
+        {
+          "hint": "Responde con la coordenada solicitada",
+          "explanation": "Una vez localizado el máximo, lee su semana en el eje horizontal. La altura indica el precio, pero la pregunta pide cuándo ocurrió."
+        }
+      ],
+      "formulas": [],
       "layoutCharacteristics": {"version":1,"wordNum":34,"questionStatementWordNum":21,"responseStatementWordNum":13,"responseOptionsWordNum":0,"questionStatementLength":157,"responseStatementLength":66,"largestResponseOptionLength":4,"totalResponseOptionsLength":16,"longestWordLength":14,"longestOptionWordLength":0,"hasGraph":true,"hasStatementGraph":true,"hasTable":false,"hasSharedContext":true,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":6,"questionFormulaNum":2,"responseFormulaNum":0,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":14,"largestOptionFormulaLength":2,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -429,6 +904,23 @@
       "correct_answer": "B",
       "solution_steps": ["Como $(3,19)$ pertenece a la gráfica, $g(3) = 19$.", "$3m + 4 = 19 \\rightarrow 3m = 15 \\rightarrow m = 5$.", "Opción correcta: B."],
       "group_id": null, "visual_spec": null,
+      "hints": [
+        {
+          "hint": "Sustituye un punto de la recta",
+          "explanation": "Que $(3,19)$ pertenezca a la gráfica significa que al introducir $x=3$ se obtiene $g(x)=19$."
+        },
+        {
+          "hint": "Aísla el coeficiente de crecimiento",
+          "explanation": "En $19=3m+4$, resta primero el valor inicial $4$ y divide después entre $3$. La pendiente mide el cambio por cada unidad horizontal."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Pendiente con un punto y el intercepto",
+          "formula": "m=\\frac{y-b}{x}\\quad(x\\ne0)",
+          "explanation": "En esta pregunta $b=4$ y el punto dado es $(3,19)$."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":20,"questionStatementWordNum":15,"responseStatementWordNum":5,"responseOptionsWordNum":0,"questionStatementLength":117,"responseStatementLength":29,"largestResponseOptionLength":4,"totalResponseOptionsLength":13,"longestWordLength":9,"longestOptionWordLength":0,"hasGraph":false,"hasStatementGraph":false,"hasTable":false,"hasSharedContext":false,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":9,"questionFormulaNum":4,"responseFormulaNum":1,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":13,"largestOptionFormulaLength":2,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -442,6 +934,23 @@
       "group_id": null,
       "visual_spec": null,
       "image": "02-2026-p_29.png",
+      "hints": [
+        {
+          "hint": "El máximo está en el vértice",
+          "explanation": "Como el coeficiente cuadrático es negativo, la parábola abre hacia abajo. Su punto más alto es el vértice."
+        },
+        {
+          "hint": "Usa la simetría entre las raíces",
+          "explanation": "El eje vertical de la parábola pasa por el punto medio de los cortes $-4$ y $2$. Piden su coordenada horizontal, no la altura $5$."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Abscisa del vértice",
+          "formula": "x_v=\\frac{x_1+x_2}{2}",
+          "explanation": "$x_1$ y $x_2$ son las raíces; el eje de simetría queda a mitad de camino."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":19,"questionStatementWordNum":11,"responseStatementWordNum":8,"responseOptionsWordNum":0,"questionStatementLength":114,"responseStatementLength":54,"largestResponseOptionLength":4,"totalResponseOptionsLength":14,"longestWordLength":14,"longestOptionWordLength":0,"hasGraph":true,"hasStatementGraph":true,"hasTable":false,"hasSharedContext":false,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":9,"questionFormulaNum":3,"responseFormulaNum":2,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":20,"largestOptionFormulaLength":2,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -453,6 +962,23 @@
       "correct_answer": "D",
       "solution_steps": ["Sustituyendo $(-2,1)$: $1 = 2(-2) + b \\rightarrow b = 5$.", "La recta es $y = 2x + 5$, que corta al eje $y$ en $(0, 5)$.", "Opción correcta: D."],
       "group_id": null, "visual_spec": null,
+      "hints": [
+        {
+          "hint": "Determina primero el término independiente",
+          "explanation": "Sustituye $x=-2$ e $y=1$ en $y=2x+b$ para despejar $b$. Cuida el signo del producto."
+        },
+        {
+          "hint": "En el eje vertical la entrada vale cero",
+          "explanation": "La intersección con el eje $y$ tiene forma $(0,b)$. No intercambies sus coordenadas con las de un corte horizontal."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Recta y corte vertical",
+          "formula": "y=mx+b,\\qquad y(0)=b",
+          "explanation": "Sustituye el punto conocido para hallar $b$; el corte vertical es $(0,b)$."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":23,"questionStatementWordNum":6,"responseStatementWordNum":17,"responseOptionsWordNum":0,"questionStatementLength":41,"responseStatementLength":109,"largestResponseOptionLength":9,"totalResponseOptionsLength":34,"longestWordLength":12,"longestOptionWordLength":0,"hasGraph":false,"hasStatementGraph":false,"hasTable":false,"hasSharedContext":false,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":7,"questionFormulaNum":1,"responseFormulaNum":2,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":10,"largestOptionFormulaLength":7,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -464,6 +990,23 @@
       "correct_answer": "B",
       "solution_steps": ["Solo se pagan las clases asistidas: $12$.", "Total $= 25\\,000 + 4000 \\cdot 12 = 25\\,000 + 48\\,000 = 73\\,000$.", "Opción correcta: B."],
       "group_id": null, "visual_spec": null,
+      "hints": [
+        {
+          "hint": "Distingue reserva de asistencia",
+          "explanation": "El cobro variable se aplica a las clases asistidas. Usa $12$, aunque se hubieran reservado $15$."
+        },
+        {
+          "hint": "Incluye el cargo fijo una sola vez",
+          "explanation": "Suma la inscripción de $25\\,000$ al producto del precio por clase y la asistencia. El total no es solo el costo de las clases."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Costo con cuota fija",
+          "formula": "C(n)=C_0+pn",
+          "explanation": "$C_0$ es la cuota de inscripción, $p$ el costo por clase y $n$ las clases asistidas."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":54,"questionStatementWordNum":50,"responseStatementWordNum":4,"responseOptionsWordNum":0,"questionStatementLength":351,"responseStatementLength":22,"largestResponseOptionLength":17,"totalResponseOptionsLength":68,"longestWordLength":13,"longestOptionWordLength":0,"hasGraph":false,"hasStatementGraph":false,"hasTable":false,"hasSharedContext":false,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":8,"questionFormulaNum":4,"responseFormulaNum":0,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":15,"largestOptionFormulaLength":15,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -475,6 +1018,23 @@
       "correct_answer": "A",
       "solution_steps": ["Se plantea $F(C) = 41$: $\\frac{9}{5}C + 32 = 41$.", "$\\frac{9}{5}C = 9 \\rightarrow C = 5$.", "Opción correcta: A."],
       "group_id": null, "visual_spec": null,
+      "hints": [
+        {
+          "hint": "La temperatura conocida es la salida",
+          "explanation": "Los $41$ grados corresponden a Fahrenheit, es decir, a $F(C)$, no a la entrada $C$."
+        },
+        {
+          "hint": "Deshaz las operaciones en orden inverso",
+          "explanation": "Resta primero $32$ y multiplica después por $5/9$. Así obtienes una temperatura en Celsius."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Conversión a Celsius",
+          "formula": "C=\\frac59(F-32)",
+          "explanation": "Se obtiene despejando la entrada en $F(C)=\\frac95C+32$."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":46,"questionStatementWordNum":38,"responseStatementWordNum":8,"responseOptionsWordNum":0,"questionStatementLength":276,"responseStatementLength":60,"largestResponseOptionLength":8,"totalResponseOptionsLength":22,"longestWordLength":11,"longestOptionWordLength":0,"hasGraph":false,"hasStatementGraph":false,"hasTable":false,"hasSharedContext":false,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":8,"questionFormulaNum":4,"responseFormulaNum":0,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":1,"largestFormulaLength":24,"largestOptionFormulaLength":6,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -486,6 +1046,23 @@
       "correct_answer": "B",
       "solution_steps": ["Sea $x$ la cantidad de queques y $y$ la de paquetes de galletas: $4x + 3y = 110$ y $2x + y = 50$.", "De la segunda: $y = 50 - 2x$. Sustituyendo: $4x + 150 - 6x = 110 \\rightarrow x = 20$.", "Se produjeron $20$ queques (y $y = 10$ paquetes de galletas).", "Opción correcta: B."],
       "group_id": null, "visual_spec": null,
+      "hints": [
+        {
+          "hint": "Representa las dos cantidades producidas",
+          "explanation": "Define una incógnita para queques y otra para paquetes de galletas. Cada total de horas aporta una ecuación distinta."
+        },
+        {
+          "hint": "Conserva las unidades de cada ecuación",
+          "explanation": "En horneado, los coeficientes son $4$ y $3$; en decoración, $2$ y $1$. Despeja la cantidad de galletas en la segunda y sustitúyela en la primera."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Sistema de horas",
+          "formula": "\\begin{cases}4x+3y=110\\\\2x+y=50\\end{cases}",
+          "explanation": "$x$ cuenta queques e $y$ paquetes de galletas; la primera ecuación es horneado y la segunda decoración."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":48,"questionStatementWordNum":42,"responseStatementWordNum":6,"responseOptionsWordNum":0,"questionStatementLength":345,"responseStatementLength":44,"largestResponseOptionLength":4,"totalResponseOptionsLength":15,"longestWordLength":10,"longestOptionWordLength":0,"hasGraph":false,"hasStatementGraph":false,"hasTable":false,"hasSharedContext":false,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":10,"questionFormulaNum":6,"responseFormulaNum":0,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":12,"largestOptionFormulaLength":2,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -497,6 +1074,23 @@
       "correct_answer": "B",
       "solution_steps": ["Sea $z$ el precio por kg de zanahoria y $b$ el de brócoli: $5z + 3b = 4650$ y $3z + 5b = 5350$.", "Multiplicando por $3$ y por $5$ y restando: $16z = 7200 \\rightarrow z = 450$.", "$3b = 4650 - 5(450) = 2400 \\rightarrow b = 800$.", "Opción correcta: B."],
       "group_id": null, "visual_spec": null,
+      "hints": [
+        {
+          "hint": "Los precios por kilogramo son comunes",
+          "explanation": "Ambas compras comparten las mismas dos incógnitas: precio de zanahoria y precio de brócoli. Los kilogramos son sus coeficientes."
+        },
+        {
+          "hint": "Elimina una incógnita y responde la pedida",
+          "explanation": "Combina las ecuaciones para cancelar un precio. Si hallas primero el de zanahoria, aún debes sustituirlo para encontrar el de brócoli."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Sistema de precios",
+          "formula": "\\begin{cases}5z+3b=4650\\\\3z+5b=5350\\end{cases}",
+          "explanation": "$z$ y $b$ son precios por kilogramo de zanahoria y brócoli, respectivamente."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":45,"questionStatementWordNum":39,"responseStatementWordNum":6,"responseOptionsWordNum":0,"questionStatementLength":289,"responseStatementLength":38,"largestResponseOptionLength":13,"totalResponseOptionsLength":52,"longestWordLength":9,"longestOptionWordLength":0,"hasGraph":false,"hasStatementGraph":false,"hasTable":false,"hasSharedContext":false,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":10,"questionFormulaNum":6,"responseFormulaNum":0,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":12,"largestOptionFormulaLength":11,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -508,6 +1102,17 @@
       "correct_answer": "D",
       "solution_steps": ["Una función tiene inversa si y solo si es biyectiva.", "Como el codominio es igual al ámbito, es sobreyectiva; solo se requiere que sea inyectiva: elementos distintos del dominio tienen imágenes distintas.", "Opción correcta: D."],
       "group_id": null, "visual_spec": null,
+      "hints": [
+        {
+          "hint": "Piensa en deshacer la asignación",
+          "explanation": "Para que la inversa sea función, una misma salida no puede proceder de dos entradas distintas: se necesita inyectividad."
+        },
+        {
+          "hint": "Usa la condición sobre el codominio",
+          "explanation": "Aquí el codominio ya coincide con el ámbito, de modo que todas sus salidas se alcanzan. Solo falta garantizar imágenes distintas para entradas distintas."
+        }
+      ],
+      "formulas": [],
       "layoutCharacteristics": {"version":1,"wordNum":67,"questionStatementWordNum":13,"responseStatementWordNum":17,"responseOptionsWordNum":37,"questionStatementLength":93,"responseStatementLength":114,"largestResponseOptionLength":86,"totalResponseOptionsLength":236,"longestWordLength":11,"longestOptionWordLength":10,"hasGraph":false,"hasStatementGraph":false,"hasTable":false,"hasSharedContext":false,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":6,"questionFormulaNum":3,"responseFormulaNum":0,"optionFormulaNum":3,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":6,"largestOptionFormulaLength":6,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -521,6 +1126,17 @@
       "group_id": null,
       "visual_spec": null,
       "image": "02-2026-p_36.png",
+      "hints": [
+        {
+          "hint": "Evita repetir imágenes",
+          "explanation": "En la parábola, entradas opuestas como $-1$ y $1$ tienen la misma imagen. Un dominio que conserve ambas impide una inversa."
+        },
+        {
+          "hint": "Elige una sola rama",
+          "explanation": "Restringe el dominio a un lado del vértice, donde la función es estrictamente creciente o decreciente. Revisa si los intervalos propuestos cruzan ese vértice."
+        }
+      ],
+      "formulas": [],
       "layoutCharacteristics": {"version":1,"wordNum":22,"questionStatementWordNum":9,"responseStatementWordNum":13,"responseOptionsWordNum":0,"questionStatementLength":87,"responseStatementLength":87,"largestResponseOptionLength":15,"totalResponseOptionsLength":52,"longestWordLength":11,"longestOptionWordLength":0,"hasGraph":true,"hasStatementGraph":true,"hasTable":false,"hasSharedContext":false,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":8,"questionFormulaNum":2,"responseFormulaNum":2,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":16,"largestOptionFormulaLength":13,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -532,6 +1148,23 @@
       "correct_answer": "B",
       "solution_steps": ["Se escribe $y = \\frac{6-2x}{8}$ y se despeja $x$: $8y = 6 - 2x \\rightarrow 2x = 6 - 8y \\rightarrow x = 3 - 4y$.", "Se intercambian las variables: $r^{-1}(x) = -4x + 3$.", "Entonces $a = -4$ y $b = 3$.", "Opción correcta: B."],
       "group_id": null, "visual_spec": null,
+      "hints": [
+        {
+          "hint": "La inversa deshace la función",
+          "explanation": "Escribe $y=(6-2x)/8$ e intercambia los papeles de entrada y salida."
+        },
+        {
+          "hint": "Despeja antes de identificar coeficientes",
+          "explanation": "Resuelve para la nueva salida y organiza el resultado como $ax+b$. Mantén el signo negativo al dividir y compara los coeficientes, no el orden de las operaciones originales."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Obtención de la inversa",
+          "formula": "y=f(x)\\quad\\Longleftrightarrow\\quad x=f^{-1}(y)",
+          "explanation": "Intercambia las variables y despeja la nueva salida."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":18,"questionStatementWordNum":11,"responseStatementWordNum":3,"responseOptionsWordNum":4,"questionStatementLength":100,"responseStatementLength":14,"largestResponseOptionLength":19,"totalResponseOptionsLength":72,"longestWordLength":7,"longestOptionWordLength":1,"hasGraph":false,"hasStatementGraph":false,"hasTable":false,"hasSharedContext":false,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":11,"questionFormulaNum":3,"responseFormulaNum":0,"optionFormulaNum":8,"displayFormulaNum":0,"complexFormulaNum":1,"largestFormulaLength":23,"largestOptionFormulaLength":6,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -543,6 +1176,17 @@
       "correct_answer": "D",
       "solution_steps": ["Una traslación vertical de $k$ unidades hacia abajo resta $k$ a la función completa: $h(x) = f(x) - k$.", "Con $k = 3$: $h(x) = \\sqrt{x} - 3$.", "Las opciones A y B corresponden a traslaciones horizontales.", "Opción correcta: D."],
       "group_id": null, "visual_spec": null,
+      "hints": [
+        {
+          "hint": "Una resta externa mueve alturas",
+          "explanation": "En $\\sqrt{x}-3$, cada valor de salida baja tres unidades; no cambia la entrada que permite iniciar la raíz."
+        },
+        {
+          "hint": "Compara el punto inicial de la curva",
+          "explanation": "La gráfica de $\\sqrt{x}$ empieza en $(0,0)$. Un desplazamiento vertical conserva esa coordenada horizontal; uno dentro de la raíz cambiaría el dominio."
+        }
+      ],
+      "formulas": [],
       "layoutCharacteristics": {"version":1,"wordNum":25,"questionStatementWordNum":20,"responseStatementWordNum":5,"responseOptionsWordNum":0,"questionStatementLength":154,"responseStatementLength":31,"largestResponseOptionLength":14,"totalResponseOptionsLength":56,"longestWordLength":13,"longestOptionWordLength":0,"hasGraph":false,"hasStatementGraph":false,"hasTable":false,"hasSharedContext":false,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":8,"questionFormulaNum":3,"responseFormulaNum":1,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":5,"largestFormulaLength":15,"largestOptionFormulaLength":12,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -562,6 +1206,17 @@
         "C": "02-2026-r_39-c.png",
         "D": "02-2026-r_39-d.png"
       },
+      "hints": [
+        {
+          "hint": "Intercambia entrada y salida",
+          "explanation": "Cada punto $(x,y)$ de una función se transforma en $(y,x)$ en su inversa. Aplica esto a los cortes $(0,-3)$ y $(6,0)$."
+        },
+        {
+          "hint": "Comprueba los dos cortes de la nueva recta",
+          "explanation": "La gráfica inversa debe contener ambos puntos intercambiados. También debe ser el reflejo de la original respecto de $y=x$."
+        }
+      ],
+      "formulas": [],
       "layoutCharacteristics": {"version":1,"wordNum":17,"questionStatementWordNum":7,"responseStatementWordNum":10,"responseOptionsWordNum":0,"questionStatementLength":55,"responseStatementLength":64,"largestResponseOptionLength":0,"totalResponseOptionsLength":0,"longestWordLength":14,"longestOptionWordLength":0,"hasGraph":true,"hasStatementGraph":true,"hasTable":false,"hasSharedContext":false,"optionGraphNum":4,"optionNum":4,"optionContentType":"graph","hasFormula":true,"formulaNum":2,"questionFormulaNum":1,"responseFormulaNum":1,"optionFormulaNum":0,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":1,"largestOptionFormulaLength":0,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -573,6 +1228,23 @@
       "correct_answer": "B",
       "solution_steps": ["Se plantea $2000 \\cdot 2^{x/5} = 16\\,000 \\rightarrow 2^{x/5} = 8 = 2^3$.", "Igualando exponentes: $\\frac{x}{5} = 3 \\rightarrow x = 15$.", "Opción correcta: B."],
       "group_id": null, "visual_spec": null,
+      "hints": [
+        {
+          "hint": "Compara la población con la inicial",
+          "explanation": "Divide $16\\,000$ entre $2000$ para saber por qué factor debe multiplicarse la población."
+        },
+        {
+          "hint": "Cuenta periodos de duplicación",
+          "explanation": "En $2^{x/5}$, el exponente cuenta periodos de cinco años. Expresa el factor buscado como potencia de dos y después convierte los periodos a años."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Crecimiento por duplicación",
+          "formula": "P(t)=P_0\\,2^{t/T}",
+          "explanation": "$P_0$ es la población inicial y $T$ el tiempo que tarda en duplicarse."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":27,"questionStatementWordNum":16,"responseStatementWordNum":11,"responseOptionsWordNum":0,"questionStatementLength":160,"responseStatementLength":82,"largestResponseOptionLength":4,"totalResponseOptionsLength":14,"longestWordLength":13,"longestOptionWordLength":0,"hasGraph":false,"hasStatementGraph":false,"hasTable":false,"hasSharedContext":false,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":9,"questionFormulaNum":4,"responseFormulaNum":1,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":1,"largestFormulaLength":33,"largestOptionFormulaLength":2,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -584,6 +1256,23 @@
       "correct_answer": "B",
       "solution_steps": ["Se plantea $5\\sqrt{v} = 20 \\rightarrow \\sqrt{v} = 4$.", "Elevando al cuadrado: $v = 16$.", "Se compartió $16$ miles de veces.", "Opción correcta: B."],
       "group_id": null, "visual_spec": null,
+      "hints": [
+        {
+          "hint": "Respeta la unidad de la variable",
+          "explanation": "La variable $v$ representa miles. El valor numérico que despejes debe interpretarse en esa unidad."
+        },
+        {
+          "hint": "Deshaz primero el factor externo",
+          "explanation": "En $20=5\\sqrt v$, divide entre cinco antes de elevar al cuadrado. Verifica el resultado sustituyéndolo en la expresión original."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Despeje de una raíz",
+          "formula": "T=a\\sqrt v\\quad\\Longrightarrow\\quad v=\\left(\\frac Ta\\right)^2",
+          "explanation": "Divide antes de elevar al cuadrado; aquí $a=5$ y $T=20$."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":42,"questionStatementWordNum":36,"responseStatementWordNum":6,"responseOptionsWordNum":0,"questionStatementLength":253,"responseStatementLength":37,"largestResponseOptionLength":4,"totalResponseOptionsLength":15,"longestWordLength":11,"longestOptionWordLength":0,"hasGraph":false,"hasStatementGraph":false,"hasTable":false,"hasSharedContext":false,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":8,"questionFormulaNum":4,"responseFormulaNum":0,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":1,"largestFormulaLength":23,"largestOptionFormulaLength":2,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -595,6 +1284,23 @@
       "correct_answer": "A",
       "solution_steps": ["$p(27) = 2\\log_3(27)$.", "Como $3^3 = 27$, $\\log_3(27) = 3$.", "$p(27) = 2 \\cdot 3 = 6$.", "Opción correcta: A."],
       "group_id": null, "visual_spec": null,
+      "hints": [
+        {
+          "hint": "Interpreta el logaritmo como exponente",
+          "explanation": "El valor de $\\log_3 27$ es el exponente al que hay que elevar $3$ para obtener $27$."
+        },
+        {
+          "hint": "Aplica después el factor de la función",
+          "explanation": "El criterio es $2\\log_3 x$: una vez evaluado el logaritmo en $27$, multiplica su resultado por dos."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Definición de logaritmo",
+          "formula": "\\log_b a=c\\quad\\Longleftrightarrow\\quad b^c=a",
+          "explanation": "La base debe cumplir $b>0$, $b\\ne1$, y el argumento $a>0$."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":38,"questionStatementWordNum":31,"responseStatementWordNum":7,"responseOptionsWordNum":0,"questionStatementLength":234,"responseStatementLength":34,"largestResponseOptionLength":4,"totalResponseOptionsLength":14,"longestWordLength":13,"longestOptionWordLength":0,"hasGraph":false,"hasStatementGraph":false,"hasTable":false,"hasSharedContext":false,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":8,"questionFormulaNum":4,"responseFormulaNum":0,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":17,"largestOptionFormulaLength":2,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -606,6 +1312,23 @@
       "correct_answer": "B",
       "solution_steps": ["La inversa de la función exponencial $f(x) = a^x$ es la función logarítmica de la misma base: $f^{-1}(x) = \\log_a(x)$.", "Para $a = 2$: $f^{-1}(x) = \\log_2(x)$.", "Opción correcta: B."],
       "group_id": null, "visual_spec": null,
+      "hints": [
+        {
+          "hint": "Exponencial y logaritmo se deshacen",
+          "explanation": "La inversa debe convertir la salida de $2^x$ en el exponente que la produjo."
+        },
+        {
+          "hint": "Conserva la base",
+          "explanation": "Al pasar de forma exponencial a logarítmica, la base sigue siendo dos. Cambiarla o usar un recíproco no invierte esta función."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Definición de logaritmo",
+          "formula": "\\log_b a=c\\quad\\Longleftrightarrow\\quad b^c=a",
+          "explanation": "La base debe cumplir $b>0$, $b\\ne1$, y el argumento $a>0$."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":10,"questionStatementWordNum":10,"responseStatementWordNum":0,"responseOptionsWordNum":0,"questionStatementLength":73,"responseStatementLength":0,"largestResponseOptionLength":35,"totalResponseOptionsLength":100,"longestWordLength":10,"longestOptionWordLength":0,"hasGraph":false,"hasStatementGraph":false,"hasTable":false,"hasSharedContext":false,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":5,"questionFormulaNum":1,"responseFormulaNum":0,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":2,"largestFormulaLength":33,"largestOptionFormulaLength":33,"questionParagraphNum":1,"responseParagraphNum":0}
     },
     {
@@ -617,6 +1340,23 @@
       "correct_answer": "A",
       "solution_steps": ["Se plantea $3^{x+8} = 9^{x+1}$ y se escribe $9 = 3^2$: $3^{x+8} = 3^{2x+2}$.", "Igualando exponentes: $x + 8 = 2x + 2 \\rightarrow x = 6$.", "Opción correcta: A."],
       "group_id": null, "visual_spec": null,
+      "hints": [
+        {
+          "hint": "Expresa ambas potencias con la misma base",
+          "explanation": "Reescribe $9$ como $3^2$. Al elevar una potencia a otra, multiplica sus exponentes."
+        },
+        {
+          "hint": "Iguala exponentes, no las bases",
+          "explanation": "Con la misma base positiva distinta de uno, la igualdad de potencias exige exponentes iguales. Resuelve la ecuación lineal resultante respetando el paréntesis $x+1$."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Potencia de una potencia",
+          "formula": "(a^m)^n=a^{mn}",
+          "explanation": "Permite escribir $9^{x+1}$ como $3^{2(x+1)}$."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":60,"questionStatementWordNum":43,"responseStatementWordNum":17,"responseOptionsWordNum":0,"questionStatementLength":312,"responseStatementLength":116,"largestResponseOptionLength":4,"totalResponseOptionsLength":13,"longestWordLength":13,"longestOptionWordLength":0,"hasGraph":false,"hasStatementGraph":false,"hasTable":false,"hasSharedContext":false,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":8,"questionFormulaNum":3,"responseFormulaNum":1,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":7,"largestOptionFormulaLength":2,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -628,6 +1368,23 @@
       "correct_answer": "D",
       "solution_steps": ["El monto inicial es $250$ y se duplica cada año, por lo que se multiplica por $2$ en cada período.", "Después de $t$ años el factor acumulado es $2^t$.", "El modelo es $D(t) = 250 \\cdot 2^t$.", "Opción correcta: D."],
       "group_id": null, "visual_spec": null,
+      "hints": [
+        {
+          "hint": "La cantidad inicial es un factor",
+          "explanation": "La población al tiempo cero es $250$. El modelo debe recuperar esa cantidad cuando el exponente sea cero."
+        },
+        {
+          "hint": "Duplicar no es sumar una cantidad fija",
+          "explanation": "Cada año multiplica la población por dos. Busca un modelo exponencial con base dos y tiempo medido en años."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Crecimiento por duplicación",
+          "formula": "P(t)=P_0\\,2^{t/T}",
+          "explanation": "$P_0$ es la población inicial y $T$ el tiempo que tarda en duplicarse."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":42,"questionStatementWordNum":23,"responseStatementWordNum":19,"responseOptionsWordNum":0,"questionStatementLength":146,"responseStatementLength":121,"largestResponseOptionLength":15,"totalResponseOptionsLength":50,"longestWordLength":10,"longestOptionWordLength":0,"hasGraph":false,"hasStatementGraph":false,"hasTable":false,"hasSharedContext":false,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":7,"questionFormulaNum":1,"responseFormulaNum":2,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":13,"largestOptionFormulaLength":13,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -639,6 +1396,23 @@
       "correct_answer": "C",
       "solution_steps": ["El costo fijo por viaje es $1500$ (seguro de vida) y el costo variable es $1000$ por cada kilómetro.", "$C(x) = 1000x + 1500$.", "Opción correcta: C."],
       "group_id": null, "visual_spec": null,
+      "hints": [
+        {
+          "hint": "Separa inicio y recorrido",
+          "explanation": "Los $1500$ se pagan incluso con cero kilómetros: son el término fijo. Los $1000$ se cobran por cada kilómetro."
+        },
+        {
+          "hint": "Asocia cada dato con su lugar en la recta",
+          "explanation": "El precio por kilómetro multiplica a $x$, mientras la tarifa inicial se suma una sola vez. Comprueba qué da el modelo para $x=0$."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Tarifa lineal",
+          "formula": "C(x)=C_0+px",
+          "explanation": "$C_0$ es el costo inicial y $p$ el precio por kilómetro recorrido."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":43,"questionStatementWordNum":31,"responseStatementWordNum":12,"responseOptionsWordNum":0,"questionStatementLength":228,"responseStatementLength":77,"largestResponseOptionLength":14,"totalResponseOptionsLength":41,"longestWordLength":10,"longestOptionWordLength":0,"hasGraph":false,"hasStatementGraph":false,"hasTable":false,"hasSharedContext":false,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":9,"questionFormulaNum":4,"responseFormulaNum":1,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":12,"largestOptionFormulaLength":12,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -650,6 +1424,23 @@
       "correct_answer": "B",
       "solution_steps": ["Si el ancho es $x$, el largo es $3x$.", "$A(x) = \\text{ancho} \\cdot \\text{largo} = x \\cdot 3x = 3x^2$.", "Opción correcta: B."],
       "group_id": null, "visual_spec": null,
+      "hints": [
+        {
+          "hint": "Expresa ambas dimensiones con la misma variable",
+          "explanation": "Si el ancho es $x$, el largo es $3x$. No son dos cantidades independientes."
+        },
+        {
+          "hint": "El área multiplica largo por ancho",
+          "explanation": "Multiplica $x$ por $3x$. Sumar lados calcularía parte del perímetro, no el área solicitada."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Área del rectángulo",
+          "formula": "A=\\text{largo}\\cdot\\text{ancho}",
+          "explanation": "Aquí el largo es tres veces el ancho $x$."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":52,"questionStatementWordNum":33,"responseStatementWordNum":19,"responseOptionsWordNum":0,"questionStatementLength":178,"responseStatementLength":118,"largestResponseOptionLength":29,"totalResponseOptionsLength":70,"longestWordLength":13,"longestOptionWordLength":0,"hasGraph":false,"hasStatementGraph":false,"hasTable":false,"hasSharedContext":false,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":6,"questionFormulaNum":0,"responseFormulaNum":2,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":2,"largestFormulaLength":27,"largestOptionFormulaLength":27,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -661,6 +1452,23 @@
       "correct_answer": "A",
       "solution_steps": ["Se busca $C(t) = \\log_b(t)$ con $C(8) = 3$, es decir, $\\log_b(8) = 3$.", "Esto equivale a $b^3 = 8 \\rightarrow b = 2$.", "Por lo tanto, $C(t) = \\log_2(t)$.", "Opción correcta: A."],
       "group_id": null, "visual_spec": null,
+      "hints": [
+        {
+          "hint": "Traduce el dato a una potencia",
+          "explanation": "Que el modelo logarítmico tome el valor $3$ en $8$ significa que su base elevada a tres debe dar ocho."
+        },
+        {
+          "hint": "Identifica una base válida",
+          "explanation": "La base del logaritmo debe ser positiva y distinta de uno. Busca la que satisface el dato, no un coeficiente que multiplique al logaritmo."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Definición de logaritmo",
+          "formula": "\\log_b a=c\\quad\\Longleftrightarrow\\quad b^c=a",
+          "explanation": "La base debe cumplir $b>0$, $b\\ne1$, y el argumento $a>0$."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":43,"questionStatementWordNum":33,"responseStatementWordNum":10,"responseOptionsWordNum":0,"questionStatementLength":212,"responseStatementLength":71,"largestResponseOptionLength":11,"totalResponseOptionsLength":44,"longestWordLength":13,"longestOptionWordLength":0,"hasGraph":false,"hasStatementGraph":false,"hasTable":false,"hasSharedContext":false,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":9,"questionFormulaNum":4,"responseFormulaNum":1,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":9,"largestOptionFormulaLength":9,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -682,6 +1490,23 @@
           "total_row": ["Total", 100]
         }
       },
+      "hints": [
+        {
+          "hint": "Cada marca representa a su intervalo",
+          "explanation": "Para estimar la media agrupada usa los puntos medios $5$, $15$ y $25$, asociados a sus frecuencias $50$, $30$ y $20$."
+        },
+        {
+          "hint": "Pondera antes de promediar",
+          "explanation": "Multiplica cada marca por su frecuencia y divide la suma entre el total de observaciones. Promediar solo las tres marcas daría el mismo peso a grupos de tamaños distintos."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Media de datos agrupados",
+          "formula": "\\bar x\\approx\\frac{\\sum_i m_i f_i}{\\sum_i f_i}",
+          "explanation": "$m_i$ es la marca de clase y $f_i$ su frecuencia; es una estimación basada en puntos medios."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":42,"questionStatementWordNum":26,"responseStatementWordNum":16,"responseOptionsWordNum":0,"questionStatementLength":190,"responseStatementLength":103,"largestResponseOptionLength":4,"totalResponseOptionsLength":15,"longestWordLength":12,"longestOptionWordLength":0,"hasGraph":false,"hasStatementGraph":false,"hasTable":true,"hasSharedContext":false,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":5,"questionFormulaNum":1,"responseFormulaNum":0,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":3,"largestOptionFormulaLength":2,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -701,6 +1526,23 @@
           "rows": [["I Parcial", "30%", 70], ["II Parcial", "35%", 80], ["Quices y tareas", "15%", 90], ["Laboratorio", "20%", 85]]
         }
       },
+      "hints": [
+        {
+          "hint": "Convierte porcentajes en pesos",
+          "explanation": "Las notas no cuentan por igual. Los pesos son $0{,}30$, $0{,}35$, $0{,}15$ y $0{,}20$, cuya suma es uno."
+        },
+        {
+          "hint": "Empareja cada nota con su porcentaje",
+          "explanation": "Multiplica cada calificación por su peso correspondiente y suma los cuatro aportes. No dividas otra vez entre cuatro."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Media ponderada",
+          "formula": "\\bar x=\\sum_i w_i x_i,\\qquad\\sum_i w_i=1",
+          "explanation": "Cada nota $x_i$ lleva el peso decimal $w_i$ de su porcentaje."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":54,"questionStatementWordNum":40,"responseStatementWordNum":14,"responseOptionsWordNum":0,"questionStatementLength":256,"responseStatementLength":72,"largestResponseOptionLength":9,"totalResponseOptionsLength":36,"longestWordLength":14,"longestOptionWordLength":0,"hasGraph":false,"hasStatementGraph":false,"hasTable":true,"hasSharedContext":false,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":4,"questionFormulaNum":0,"responseFormulaNum":0,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":7,"largestOptionFormulaLength":7,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -714,6 +1556,17 @@
       "group_id": null,
       "visual_spec": null,
       "image": "02-2026-p_51.png",
+      "hints": [
+        {
+          "hint": "Observa hacia dónde se alarga la cola",
+          "explanation": "En la distribución representada, la cola hacia valores pequeños desplaza la media hacia la izquierda."
+        },
+        {
+          "hint": "Relaciona las medidas con esa forma",
+          "explanation": "La mediana indicada es $80$ y la moda $85$. Usa la asimetría mostrada para comparar la media con la mediana, en vez de identificarla con el pico."
+        }
+      ],
+      "formulas": [],
       "layoutCharacteristics": {"version":1,"wordNum":67,"questionStatementWordNum":44,"responseStatementWordNum":12,"responseOptionsWordNum":11,"questionStatementLength":290,"responseStatementLength":75,"largestResponseOptionLength":32,"totalResponseOptionsLength":77,"longestWordLength":16,"longestOptionWordLength":5,"hasGraph":true,"hasStatementGraph":true,"hasTable":false,"hasSharedContext":false,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":7,"questionFormulaNum":2,"responseFormulaNum":0,"optionFormulaNum":5,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":2,"largestOptionFormulaLength":2,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -729,6 +1582,17 @@
         "alt": "Resumen de cinco números de la duración de baterías.",
         "visual": { "type": "table", "variant": "summary", "columns": ["Mín", "Q1", "Me", "Q3", "Máx"], "rows": [[12, 16, 20, 22, 28]] }
       },
+      "hints": [
+        {
+          "hint": "El centro del diagrama es la caja",
+          "explanation": "La caja se extiende desde el primer cuartil hasta el tercero. Representa el tramo central del conjunto, no todo el recorrido."
+        },
+        {
+          "hint": "Lee ambos bordes, no los bigotes",
+          "explanation": "Para ubicar el $50\\%$ central de las duraciones, utiliza $Q_1=16$ y $Q_3=22$. Los extremos de los bigotes no delimitan ese tramo."
+        }
+      ],
+      "formulas": [],
       "layoutCharacteristics": {"version":1,"wordNum":49,"questionStatementWordNum":20,"responseStatementWordNum":21,"responseOptionsWordNum":8,"questionStatementLength":134,"responseStatementLength":123,"largestResponseOptionLength":18,"totalResponseOptionsLength":71,"longestWordLength":12,"longestOptionWordLength":5,"hasGraph":false,"hasStatementGraph":false,"hasTable":true,"hasSharedContext":false,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":9,"questionFormulaNum":0,"responseFormulaNum":1,"optionFormulaNum":8,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":4,"largestOptionFormulaLength":2,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -740,6 +1604,28 @@
       "correct_answer": "C",
       "solution_steps": ["$E$: repostería dulce con café negro $= 8$ órdenes. $F$: repostería salada con café negro $= 15$ órdenes. El total es $80$.", "$E$ y $F$ no pueden ocurrir a la vez: $E \\cap F = \\emptyset$.", "$P(E \\cup F) = P(E) + P(F) = \\frac{8}{80} + \\frac{15}{80} = \\frac{23}{80}$.", "Opción correcta: C."],
       "group_id": "g_cont_table", "visual_spec": null,
+      "hints": [
+        {
+          "hint": "Traduce la unión a casos concretos",
+          "explanation": "Se cuenta a quienes pertenecen a $E$ o a $F$: las dos celdas correspondientes a café negro, con acompañamiento dulce o salado."
+        },
+        {
+          "hint": "Evita contar dos veces",
+          "explanation": "Esas categorías son excluyentes, por lo que sumas sus frecuencias $8$ y $15$. El denominador es el total de $80$ personas, no un subtotal de fila."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Unión de eventos",
+          "formula": "P(E\\cup F)=P(E)+P(F)-P(E\\cap F)",
+          "explanation": "En esta tabla, las categorías $E$ y $F$ no comparten personas."
+        },
+        {
+          "name": "Probabilidad con casos equiprobables",
+          "formula": "P(A)=\\frac{n(A)}{n(\\Omega)}",
+          "explanation": "Cuenta casos favorables y total de participantes sin duplicar regiones."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":74,"questionStatementWordNum":65,"responseStatementWordNum":9,"responseOptionsWordNum":0,"questionStatementLength":367,"responseStatementLength":60,"largestResponseOptionLength":15,"totalResponseOptionsLength":58,"longestWordLength":12,"longestOptionWordLength":0,"hasGraph":false,"hasStatementGraph":false,"hasTable":true,"hasSharedContext":true,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":5,"questionFormulaNum":0,"responseFormulaNum":1,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":4,"largestFormulaLength":13,"largestOptionFormulaLength":13,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -751,6 +1637,17 @@
       "correct_answer": "C",
       "solution_steps": ["$F$: repostería salada con café negro ($15$ órdenes). $G$: repostería salada con café con leche o jugo natural ($16 + 14 = 30$ órdenes).", "Una misma orden no puede tener café negro y, a la vez, café con leche o jugo natural como bebida.", "Por lo tanto, $F \\cap G = \\emptyset$ es un evento imposible.", "Opción correcta: C."],
       "group_id": "g_cont_table", "visual_spec": null,
+      "hints": [
+        {
+          "hint": "Compara las categorías de los eventos",
+          "explanation": "El evento $F$ exige acompañamiento salado y café negro; $G$ exige acompañamiento salado y otra bebida. Compartir acompañamiento no implica compartir personas."
+        },
+        {
+          "hint": "La intersección exige cumplir ambas condiciones",
+          "explanation": "Cada persona aparece en una sola celda. No puede elegir simultáneamente las bebidas de ambas categorías, de modo que debes buscar la afirmación de incompatibilidad."
+        }
+      ],
+      "formulas": [],
       "layoutCharacteristics": {"version":1,"wordNum":77,"questionStatementWordNum":71,"responseStatementWordNum":6,"responseOptionsWordNum":0,"questionStatementLength":400,"responseStatementLength":37,"largestResponseOptionLength":14,"totalResponseOptionsLength":48,"longestWordLength":11,"longestOptionWordLength":0,"hasGraph":false,"hasStatementGraph":false,"hasTable":true,"hasSharedContext":true,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":4,"questionFormulaNum":0,"responseFormulaNum":0,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":12,"largestOptionFormulaLength":12,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -762,6 +1659,23 @@
       "correct_answer": "C",
       "solution_steps": ["En el diagrama no hay ningún estudiante en la región común a los tres conjuntos.", "El total de estudiantes es $8 + 4 + 11 + 3 + 17 = 43$.", "$P(\\text{tres disciplinas}) = \\frac{0}{43} = 0$.", "Opción correcta: C."],
       "group_id": "g_venn_3set", "visual_spec": null,
+      "hints": [
+        {
+          "hint": "Busca la región común a los tres conjuntos",
+          "explanation": "La intersección triple requiere que la persona practique las tres disciplinas a la vez. No sumes intersecciones de solo dos."
+        },
+        {
+          "hint": "Distingue región vacía de población vacía",
+          "explanation": "La región triple no contiene personas, aunque el diagrama sí tenga participantes. Un evento sin casos favorables tiene probabilidad cero."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Probabilidad con casos equiprobables",
+          "formula": "P(A)=\\frac{n(A)}{n(\\Omega)}",
+          "explanation": "Cuenta casos favorables y total de participantes sin duplicar regiones."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":46,"questionStatementWordNum":23,"responseStatementWordNum":23,"responseOptionsWordNum":0,"questionStatementLength":152,"responseStatementLength":144,"largestResponseOptionLength":15,"totalResponseOptionsLength":36,"longestWordLength":12,"longestOptionWordLength":0,"hasGraph":true,"hasStatementGraph":true,"hasTable":false,"hasSharedContext":true,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":4,"questionFormulaNum":0,"responseFormulaNum":0,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":2,"largestFormulaLength":13,"largestOptionFormulaLength":13,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -773,6 +1687,23 @@
       "correct_answer": "A",
       "solution_steps": ["Estudiantes en exactamente dos disciplinas: Música y Pintura ($4$) más Pintura y Ballet ($3$) $= 7$.", "Total de estudiantes: $43$.", "$P(\\text{dos disciplinas}) = \\frac{7}{43}$.", "Opción correcta: A."],
       "group_id": "g_venn_3set", "visual_spec": null,
+      "hints": [
+        {
+          "hint": "Exactamente dos excluye uno y tres",
+          "explanation": "Identifica solo las regiones compartidas por dos disciplinas. No añadas las zonas exclusivas de una disciplina."
+        },
+        {
+          "hint": "Cuenta cada participante una sola vez",
+          "explanation": "Suma las regiones de dos disciplinas con $4$ y $3$ personas. Para el total, suma todas las regiones disjuntas del diagrama, no los totales de cada conjunto por separado."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Probabilidad con casos equiprobables",
+          "formula": "P(A)=\\frac{n(A)}{n(\\Omega)}",
+          "explanation": "Cuenta casos favorables y total de participantes sin duplicar regiones."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":47,"questionStatementWordNum":23,"responseStatementWordNum":24,"responseOptionsWordNum":0,"questionStatementLength":152,"responseStatementLength":147,"largestResponseOptionLength":15,"totalResponseOptionsLength":59,"longestWordLength":12,"longestOptionWordLength":0,"hasGraph":true,"hasStatementGraph":true,"hasTable":false,"hasSharedContext":true,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":4,"questionFormulaNum":0,"responseFormulaNum":0,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":4,"largestFormulaLength":13,"largestOptionFormulaLength":13,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -784,6 +1715,17 @@
       "correct_answer": "D",
       "solution_steps": ["El mínimo de la empresa A es $23$ años.", "El mínimo de la empresa B es $19$ años.", "El empleado de menor edad entre ambas empresas tiene $19$ años.", "Opción correcta: D."],
       "group_id": "g_emp_ages", "visual_spec": null,
+      "hints": [
+        {
+          "hint": "El mínimo aparece en el extremo inferior",
+          "explanation": "En estos diagramas, el extremo izquierdo del bigote muestra la menor edad de cada empresa; no lo confundas con el borde izquierdo de la caja."
+        },
+        {
+          "hint": "Compara los dos mínimos",
+          "explanation": "Lee $23$ para A y $19$ para B. La menor edad del conjunto de ambas empresas es el menor de esos dos valores."
+        }
+      ],
+      "formulas": [],
       "layoutCharacteristics": {"version":1,"wordNum":37,"questionStatementWordNum":26,"responseStatementWordNum":11,"responseOptionsWordNum":0,"questionStatementLength":145,"responseStatementLength":68,"largestResponseOptionLength":4,"totalResponseOptionsLength":16,"longestWordLength":11,"longestOptionWordLength":0,"hasGraph":true,"hasStatementGraph":true,"hasTable":false,"hasSharedContext":true,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":4,"questionFormulaNum":0,"responseFormulaNum":0,"optionFormulaNum":4,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":2,"largestOptionFormulaLength":2,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -795,6 +1737,17 @@
       "correct_answer": "B",
       "solution_steps": ["A) Falso: el máximo de ambas empresas es $45$, por lo que el mayor pertenece a ambas.", "B) Verdadero: la mediana de A es $33$ y la de B es $33$; al menos el $50\\%$ de los empleados de cada empresa tiene $33$ años o más.", "C) Falso: en B, $Q_3 = 38$; solo al menos el $25\\%$ tiene $38$ años o más.", "D) Falso: la mediana puede ser un promedio de dos datos, por lo que no se garantiza un empleado con exactamente $33$ años.", "Opción correcta: B."],
       "group_id": "g_emp_ages", "visual_spec": null,
+      "hints": [
+        {
+          "hint": "La mediana divide en dos mitades",
+          "explanation": "Ambas empresas tienen mediana $33$. Al menos la mitad de los datos está en $33$ o por encima, y al menos la mitad en $33$ o por debajo."
+        },
+        {
+          "hint": "No confundas cuartil con porcentaje acumulado inverso",
+          "explanation": "El tercer cuartil deja al menos el $75\\%$ de los datos por debajo o en él. Una mediana tampoco garantiza que exista una observación exactamente igual a ella."
+        }
+      ],
+      "formulas": [],
       "layoutCharacteristics": {"version":1,"wordNum":88,"questionStatementWordNum":26,"responseStatementWordNum":7,"responseOptionsWordNum":55,"questionStatementLength":145,"responseStatementLength":50,"largestResponseOptionLength":91,"totalResponseOptionsLength":314,"longestWordLength":12,"longestOptionWordLength":10,"hasGraph":true,"hasStatementGraph":true,"hasTable":false,"hasSharedContext":true,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":5,"questionFormulaNum":0,"responseFormulaNum":0,"optionFormulaNum":5,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":4,"largestOptionFormulaLength":4,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -806,6 +1759,23 @@
       "correct_answer": "B",
       "solution_steps": ["$C_v = \\frac{\\text{desviación estándar}}{\\text{media aritmética}} \\cdot 100$.", "$C_{v,H} = \\frac{4{,}4}{15} \\cdot 100 \\approx 29{,}33\\%$; $C_{v,Q} = \\frac{4{,}5}{16} \\cdot 100 \\approx 28{,}13\\%$.", "$C_{v,S} = \\frac{5{,}3}{18} \\cdot 100 \\approx 29{,}44\\%$; $C_{v,P} = \\frac{5}{17} \\cdot 100 \\approx 29{,}41\\%$.", "El menor coeficiente de variación corresponde al grupo Q.", "Opción correcta: B."],
       "group_id": "g_volunteer", "visual_spec": null,
+      "hints": [
+        {
+          "hint": "Compara dispersión relativa",
+          "explanation": "Las medias de las campañas son diferentes. Divide cada desviación estándar por su media para comparar variabilidad en proporción al nivel típico."
+        },
+        {
+          "hint": "Busca la menor razón, no solo la menor desviación",
+          "explanation": "Calcula los cuatro cocientes de la tabla con suficiente precisión. Dos campañas pueden tener cocientes muy próximos aunque sus desviaciones sean distintas."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Coeficiente de variación",
+          "formula": "CV=\\frac{\\sigma}{\\mu}\\cdot100\\%",
+          "explanation": "Una razón menor indica menor dispersión relativa; usa media y desviación de la misma campaña."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":49,"questionStatementWordNum":36,"responseStatementWordNum":9,"responseOptionsWordNum":4,"questionStatementLength":240,"responseStatementLength":65,"largestResponseOptionLength":1,"totalResponseOptionsLength":4,"longestWordLength":12,"longestOptionWordLength":1,"hasGraph":false,"hasStatementGraph":false,"hasTable":true,"hasSharedContext":true,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":false,"formulaNum":0,"questionFormulaNum":0,"responseFormulaNum":0,"optionFormulaNum":0,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":0,"largestOptionFormulaLength":0,"questionParagraphNum":1,"responseParagraphNum":1}
     },
     {
@@ -817,6 +1787,23 @@
       "correct_answer": "C",
       "solution_steps": ["$P_r = \\frac{\\text{dato} - \\text{media}}{\\text{desviación estándar}}$.", "Sofía (H): $\\frac{15 - 15}{4{,}4} = 0$. María (Q): $\\frac{17 - 16}{4{,}5} \\approx 0{,}222$.", "Andrés (S): $\\frac{19 - 18}{5{,}3} \\approx 0{,}189$. Rosa (P): $\\frac{16 - 17}{5} = -0{,}2$.", "El mayor valor de posición relativa es el de María.", "Opción correcta: C."],
       "group_id": "g_volunteer", "visual_spec": null,
+      "hints": [
+        {
+          "hint": "Compara desempeños respecto a su campaña",
+          "explanation": "Las campañas tienen medias y desviaciones distintas. La mayor cantidad absoluta de horas no implica el mejor desempeño relativo."
+        },
+        {
+          "hint": "Estandariza cada resultado",
+          "explanation": "Resta a las horas de cada persona la media de su campaña y divide por la desviación de esa misma campaña. El mayor puntaje indica la posición relativa más alta."
+        }
+      ],
+      "formulas": [
+        {
+          "name": "Puntaje estandarizado",
+          "formula": "z=\\frac{x-\\mu}{\\sigma}",
+          "explanation": "Indica cuántas desviaciones estándar queda el dato por encima o por debajo de su media."
+        }
+      ],
       "layoutCharacteristics": {"version":1,"wordNum":122,"questionStatementWordNum":36,"responseStatementWordNum":82,"responseOptionsWordNum":4,"questionStatementLength":240,"responseStatementLength":537,"largestResponseOptionLength":7,"totalResponseOptionsLength":23,"longestWordLength":12,"longestOptionWordLength":6,"hasGraph":false,"hasStatementGraph":false,"hasTable":true,"hasSharedContext":true,"optionGraphNum":0,"optionNum":4,"optionContentType":"text","hasFormula":true,"formulaNum":4,"questionFormulaNum":0,"responseFormulaNum":4,"optionFormulaNum":0,"displayFormulaNum":0,"complexFormulaNum":0,"largestFormulaLength":2,"largestOptionFormulaLength":0,"questionParagraphNum":1,"responseParagraphNum":2}
     }
   ]

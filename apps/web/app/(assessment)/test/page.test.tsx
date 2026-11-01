@@ -51,6 +51,17 @@ describe("question page rendering", () => {
     vi.useRealTimers();
   });
 
+  it("removes standalone section/formula controls and resets help to concepts on question navigation", () => {
+    saveTestSession({ ...EMPTY_SESSION, mode: "Geometría" });
+    render(<FontScaleProvider><AssessmentLayout><QuestionPage /></AssessmentLayout></FontScaleProvider>);
+    expect(screen.queryByRole("button", { name: "Información de la sección" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Fórmulas" })).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Pistas" }));
+    fireEvent.click(screen.getByRole("tab", { name: "Respuesta" }));
+    act(() => { renderQuestion.mock.lastCall![0].onNext(); });
+    expect(screen.getByRole("tab", { name: "Pistas" })).toHaveAttribute("aria-selected", "true");
+  });
+
   it("does not render the question again when only the countdown changes", () => {
     render(<FontScaleProvider><AssessmentLayout><QuestionPage /></AssessmentLayout></FontScaleProvider>);
     const renders = renderQuestion.mock.calls.length;

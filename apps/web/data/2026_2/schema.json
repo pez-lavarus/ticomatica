@@ -228,7 +228,7 @@
     },
     "item": {
       "type": "object",
-      "required": ["id", "area", "area_id", "topic", "spec", "statement", "problem", "options", "correct_answer", "solution_steps", "group_id", "visual_spec"],
+      "required": ["id", "area", "area_id", "topic", "spec", "statement", "problem", "options", "correct_answer", "solution_steps", "hints", "formulas", "group_id", "visual_spec"],
       "properties": {
         "id": { "type": "integer", "minimum": 1 },
         "set_id": { "type": "string" },
@@ -251,6 +251,31 @@
         },
         "correct_answer": { "enum": ["A", "B", "C", "D"] },
         "solution_steps": { "type": "array", "items": { "type": "string" } },
+        "hints": {
+          "description": "Question-specific fundamental concepts, separate from solution steps.",
+          "type": "array", "minItems": 1,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["hint", "explanation"],
+            "properties": {
+              "hint": { "type": "string", "minLength": 1 },
+              "explanation": { "type": "string", "minLength": 1 }
+            }
+          }
+        },
+        "formulas": {
+          "description": "Relevant formulas with raw LaTeX, without delimiters. Empty when no formula is needed.",
+          "type": "array",
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["name", "formula", "explanation"],
+            "properties": {
+              "name": { "type": "string", "minLength": 1 },
+              "formula": { "type": "string", "minLength": 1 },
+              "explanation": { "type": "string", "minLength": 1 }
+            }
+          }
+        },
         "group_id": { "type": ["string", "null"] },
         "visual_spec": { "$ref": "#/$defs/visual_spec" },
         "image": { "type": ["string", "null"] },
