@@ -48,6 +48,7 @@ describe("question page rendering", () => {
   afterEach(() => {
     cleanup();
     document.getElementById("test-header-controls")?.remove();
+    document.getElementById("test-app-header")?.remove();
     vi.useRealTimers();
   });
 
@@ -100,6 +101,50 @@ describe("question page rendering", () => {
     act(() => { renderQuestion.mock.lastCall![0].onNext(); });
     expect(renderQuestion.mock.lastCall![0].answerPreview).toBe(false);
     expect(screen.getByRole("tab", { name: "Pistas" })).toHaveAttribute("aria-selected", "true");
+  });
+
+  it("keeps help and its current tab open for header actions but still dismisses it outside", () => {
+    saveTestSession({ ...EMPTY_SESSION, mode: "Geometría" });
+    const controls = document.getElementById("test-header-controls")!;
+    const header = document.createElement("header");
+    header.id = "test-app-header";
+    controls.replaceWith(header);
+    header.appendChild(controls);
+    const brandAction = document.createElement("button");
+    brandAction.textContent = "Acción de cabecera";
+    header.prepend(brandAction);
+    render(<FontScaleProvider><AssessmentLayout><QuestionPage /></AssessmentLayout></FontScaleProvider>);
+    fireEvent.click(screen.getByRole("button", { name: "Pistas" }));
+    fireEvent.click(screen.getByRole("tab", { name: "Respuesta" }));
+    act(() => { vi.advanceTimersByTime(50); });
+    fireEvent.click(brandAction);
+    expect(screen.getByRole("tab", { name: "Respuesta" })).toHaveAttribute("aria-selected", "true");
+    expect(renderQuestion.mock.lastCall![0].answerPreview).toBe(true);
+    fireEvent.click(screen.getByRole("button", { name: "Aumentar tamaño de texto" }));
+    expect(screen.getByRole("tab", { name: "Respuesta" })).toHaveAttribute("aria-selected", "true");
+    fireEvent.click(screen.getByRole("button", { name: "Finalizar" }));
+    expect(screen.getByRole("tab", { name: "Respuesta" })).toBeInTheDocument();
+    fireEvent.click(document.body);
+    expect(screen.queryByRole("tab", { name: "Respuesta" })).not.toBeInTheDocument();
+  });
+
+  it("highlights only Pistas and lists hints in the question's keyword reading order", () => {
+    saveTestSession({ ...EMPTY_SESSION, mode: "Geometría" });
+    render(<FontScaleProvider><AssessmentLayout><QuestionPage /></AssessmentLayout></FontScaleProvider>);
+    fireEvent.click(screen.getByRole("button", { name: "Pistas" }));
+    expect(renderQuestion.mock.lastCall![0].highlightKeywords).toContain("radio");
+    const headings = screen.getAllByRole("heading", { level: 4 });
+    // Question 1 mentions the radius before the center, unlike the authored hint order.
+    expect(headings.map((heading) => heading.textContent)).toEqual(["Distingue radio de radio al cuadrado", "Lee el centro sin invertirlo"]);
+    fireEvent.click(screen.getByRole("tab", { name: "Fórmulas" }));
+    expect(renderQuestion.mock.lastCall![0].highlightKeywords).toEqual([]);
+    fireEvent.click(screen.getByRole("tab", { name: "Respuesta" }));
+    expect(renderQuestion.mock.lastCall![0].highlightKeywords).toEqual([]);
+    fireEvent.click(screen.getByRole("tab", { name: "Pistas" }));
+    expect(renderQuestion.mock.lastCall![0].highlightKeywords).toContain("centro");
+    act(() => { renderQuestion.mock.lastCall![0].onSelect("A"); });
+    expect(screen.getByRole("tab", { name: "Respuesta" })).toHaveAttribute("aria-selected", "true");
+    expect(renderQuestion.mock.lastCall![0].highlightKeywords).toEqual([]);
   });
 
   it("does not render the question again when only the countdown changes", () => {

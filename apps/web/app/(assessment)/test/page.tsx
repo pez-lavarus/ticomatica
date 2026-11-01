@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { Flag, RotateCcw, Lightbulb } from "lucide-react";
 import { quizData } from "@/lib/question-bank";
+import { orderHintsByAppearance } from "@/lib/hint-order";
 import ImageModal from "@/app/components/ImageModal";
 import ConfirmModal from "@/app/components/ConfirmModal";
 import HintModal from "@/app/components/HintModal";
@@ -52,8 +53,13 @@ export default function QuestionPage() {
   const activeHelpTab = helpView && helpView.question === currentQuestion?.original_number
     ? helpView.tab : selectedAnswers[currentIndex] ? 2 : 0;
   const answerPreview = isHintModalOpen && activeHelpTab === 2 && !selectedAnswers[currentIndex] && testMode !== "full" && !reviewMode;
-  const highlightKeywords = useMemo(() => isHintModalOpen
-    ? [...new Set(currentQuestion?.hints?.flatMap((hint) => hint.keywords) ?? [])] : [], [isHintModalOpen, currentQuestion]);
+  const highlightKeywords = useMemo(() => isHintModalOpen && activeHelpTab === 0
+    ? [...new Set(currentQuestion?.hints?.flatMap((hint) => hint.keywords) ?? [])] : [], [isHintModalOpen, activeHelpTab, currentQuestion]);
+  const orderedHints = useMemo(() => orderHintsByAppearance(currentQuestion?.hints ?? [], [
+    currentQuestion?.statement ?? "",
+    currentQuestion?.problem ?? "",
+    ...(currentQuestion?.options.map((option) => option.text ?? "") ?? []),
+  ]), [currentQuestion]);
   const hintWidth = useHintPanelWidth(reviewMode);
 
 
@@ -81,23 +87,23 @@ export default function QuestionPage() {
       const isOptionButton = path.some(
         (el) => el instanceof HTMLElement && (el.classList.contains("response-option-button") || el.closest?.(".response-option-button"))
       );
-      const isHeaderHintButton = path.some(
-        (el) => el instanceof HTMLElement && (el.classList.contains("header-hint-button") || el.closest?.(".header-hint-button"))
+      const isHeaderAction = path.some(
+        (el) => el instanceof Element && Boolean(el.closest("header, #test-header-controls"))
       );
 
       // Fallback target check in case composedPath is unavailable or target was connected
       const target = e.target as HTMLElement | null;
       const isTargetInHintPanel = hintPanelRef.current?.contains(target as Node);
       const isTargetOptionButton = Boolean(target?.closest(".response-option-button"));
-      const isTargetHeaderHintButton = Boolean(target?.closest(".header-hint-button"));
+      const isTargetHeaderAction = Boolean(target?.closest("header, #test-header-controls"));
 
       if (
         !isInsideHintPanel &&
         !isOptionButton &&
-        !isHeaderHintButton &&
+        !isHeaderAction &&
         !isTargetInHintPanel &&
         !isTargetOptionButton &&
-        !isTargetHeaderHintButton
+        !isTargetHeaderAction
       ) {
         setHelpView(null);
         setIsHintModalOpen(false);
@@ -308,7 +314,7 @@ export default function QuestionPage() {
               activeTab={activeHelpTab}
               onTabChange={(tab) => setHelpView({ question: currentQuestion.original_number, tab })}
               keywords={currentQuestion.keywords}
-              hints={currentQuestion.hints}
+              hints={orderedHints}
               formulas={currentQuestion.formulas}
               answerSteps={currentQuestion.answerSteps}
               hintStrategy={currentQuestion.hint_strategy}
