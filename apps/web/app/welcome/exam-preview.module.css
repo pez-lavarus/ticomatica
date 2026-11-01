@@ -12,8 +12,8 @@
 }
 .stage[data-open="true"] { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); column-gap: 28px; }
 .card { grid-column: 1; grid-row: 1; width: 100%; max-width: 768px; justify-self: center; position: relative; z-index: 2; }
-.teaser { position: absolute; z-index: 1; top: 54px; left: calc(50% + 80px); width: min(44vw, 520px); height: calc(100% - 145px); max-height: 760px; transform: rotate(6deg); }
-.paperButton { position: relative; display: block; width: 100%; height: 100%; overflow: hidden; border: 1px solid var(--border); border-radius: 6px; background: white; opacity: .34; box-shadow: 0 20px 65px #00214724; transition: opacity 250ms; mask-image: linear-gradient(to bottom, black 80%, transparent); }
+.teaser { position: absolute; z-index: 1; top: 54px; left: calc(50% + 80px); width: min(44vw, 520px); height: calc(100% - 65px); max-height: 760px; transform: rotate(6deg); }
+.paperButton { position: relative; display: block; width: 100%; height: 100%; overflow: hidden; border: 1px solid var(--border); border-radius: 12px; background: white; opacity: .34; box-shadow: 0 20px 65px #00214724; transition: opacity 250ms; mask-image: linear-gradient(to bottom, black 80%, transparent); }
 .paperButton:hover, .paperButton:focus-visible { opacity: .65; }
 :global(.dark) .paperButton { opacity: .23; }
 :global(.dark) .paperButton:hover, :global(.dark) .paperButton:focus-visible { opacity: .45; }
@@ -22,48 +22,35 @@
 .teaser[data-paused="true"] .paperStrip, .teaser:hover .paperStrip, .teaser:focus-within .paperStrip { animation-play-state: paused; }
 .paperCaption { position: absolute; top: 30px; right: 16px; display: flex; align-items: center; gap: 8px; padding: 12px; border-radius: 4px; background: var(--primary); color: var(--primary-foreground); font-size: 13px; font-weight: 700; }
 .pause { position: absolute; bottom: 28px; right: 16px; z-index: 1; padding: 10px; background: var(--card); border: 1px solid var(--border); border-radius: 50%; color: var(--foreground); }
-.invitation { grid-column: 1; grid-row: 2; justify-self: center; position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 8px; padding-top: 22px; text-align: center; }
 .previewLink { display: inline-flex; gap: 8px; align-items: center; font-size: 14px; font-weight: 700; color: var(--foreground); padding: 8px 12px; border: 1px solid var(--border); border-radius: 4px; background: var(--card); }
 .previewLink:hover { border-color: var(--accent); }
-.reader { grid-column: 2; grid-row: 1 / span 2; position: sticky; top: 12px; z-index: 3; display: flex; flex-direction: column; min-width: 0; height: min(850px, calc(100dvh - 140px)); min-height: 480px; overflow: hidden; border: 1px solid var(--border); border-radius: 6px; background: var(--card); box-shadow: 0 12px 48px #00214714; animation: reader-enter 400ms ease-out; }
-.readerHeader { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px; border-bottom: 1px solid var(--border); }
-.readerHeader h2 { margin-top: 4px; font-size: 16px; }
-.readerHeader p { font-size: 10px; }
-.iconButton { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; width: 36px; height: 36px; border-radius: 4px; color: var(--foreground); }
-.iconButton:hover:not(:disabled), .fitButton:hover { background: var(--muted); }
-.iconButton:disabled { opacity: .3; cursor: default; }
-.toolbar { display: flex; align-items: center; justify-content: space-between; gap: 4px; flex-wrap: wrap; padding: 6px 10px; border-bottom: 1px solid var(--border); font-size: 12px; }
-.controlGroup { display: flex; align-items: center; gap: 2px; }
-.pageLabel { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
-.pageLabel input { width: 38px; padding: 5px; text-align: center; border: 1px solid var(--border); border-radius: 4px; background: var(--background); }
-.fitButton { min-width: 46px; padding: 8px 4px; border-radius: 4px; }
-.pdfScroll { min-height: 0; flex: 1; overflow: auto; overscroll-behavior: contain; background: var(--muted); scroll-behavior: auto; }
-.pdfPages { min-width: 100%; width: max-content; padding: 16px; }
-.pdfPage { position: relative; margin: 0 auto 16px; background: white; color: #002147; box-shadow: 0 2px 8px #0002; }
+.reader { grid-column: 2; grid-row: 1; position: sticky; top: 12px; z-index: 3; display: flex; flex-direction: column; min-width: 0; height: min(850px, calc(100dvh - 140px)); min-height: 480px; overflow: hidden; border-radius: 12px; animation: reader-enter 400ms ease-out; }
+.pdfScroll { min-height: 0; flex: 1; overflow: auto; overscroll-behavior: contain; border-radius: 12px; background: transparent; scrollbar-width: thin; scroll-behavior: auto; }
+.pdfPages { min-width: 100%; width: 100%; }
+.pdfPage { position: relative; margin: 0 auto 16px; background: white; color: #002147; border-radius: 12px; overflow: hidden; }
 .pdfPage:last-child { margin-bottom: 0; }
 .canvasSurface { width: 100%; height: 100%; }
 .canvasSurface canvas { display: block; }
 .pageError { position: absolute; inset: 24px; font-size: 14px; }
-.readerFooter { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; padding: 10px 16px; border-top: 1px solid var(--border); color: var(--muted-foreground); font-size: 11px; }
-.readerFooter a { color: var(--foreground); text-decoration: underline; text-underline-offset: 3px; }
-.stage button:focus-visible, .reader a:focus-visible, .pdfScroll:focus-visible, .pageLabel input:focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; }
+.stage button:focus-visible, .reader a:focus-visible, .pdfScroll:focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; }
 @keyframes paper-scroll { from { transform: translateY(0); } to { transform: translateY(-46%); } }
 @keyframes reader-enter { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: translateX(0); } }
 @media (max-width: 1099px) {
   .stage, .stage[data-open="true"] { grid-template-columns: minmax(0, 1fr); padding: 20px 0; }
   .stage[data-open="true"] { z-index: 60; }
   .teaser { left: auto; right: 0; top: 42px; width: 44%; height: calc(100% - 130px); }
-  .reader { position: fixed; inset: 0; height: auto; min-height: 0; z-index: 60; border-radius: 0; border: 0; box-shadow: 0 0 0 100vmax #0009; }
+  .reader { position: fixed; inset: 12px; height: auto; min-height: 0; z-index: 60; background: var(--background); box-shadow: 0 0 0 100vmax #0009; }
 }
 @media (max-width: 600px) {
   .stage { padding-top: 10px; }
-  .teaser { display: none; }
-  .reader { inset: 0; border-radius: 0; border: 0; padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom); }
-  .readerHeader { padding: 12px; }
-  .readerFooter { padding: 10px 12px; }
+  .teaser { position: relative; grid-column: 1; grid-row: 2; justify-self: center; top: auto; right: auto; width: 85%; height: 340px; margin-top: 24px; transform: rotate(3deg); }
+  .paperButton { opacity: .6; }
+  .reader { padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom); }
 }
 @media (prefers-reduced-motion: reduce) {
   .stage { transition: none; }
   .paperStrip, .reader { animation: none; }
   .pause { display: none; }
 }
+.closeButton { position: absolute; top: 10px; right: 18px; z-index: 2; display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border: 1px solid var(--border); border-radius: 50%; background: var(--card); color: var(--foreground); box-shadow: 0 2px 8px #0001; }
+.closeButton:hover { background: var(--muted); }

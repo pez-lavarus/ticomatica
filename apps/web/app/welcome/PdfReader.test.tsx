@@ -22,25 +22,13 @@ beforeEach(() => {
 afterEach(() => { cleanup(); vi.clearAllMocks(); vi.unstubAllGlobals(); });
 
 describe("Practice PDF reader", () => {
-  it("navigates pages, clamps direct input, and bounds zoom", async () => {
+  it("renders the document in a keyboard-scrollable area without a toolbar", async () => {
     render(<PdfReader />);
-    await screen.findByRole("group", { name: "Controles del documento" });
-    const input = screen.getByRole("textbox", { name: "Número de página" });
-    expect(screen.getByRole("button", { name: "Página anterior" })).toBeDisabled();
-    fireEvent.click(screen.getByRole("button", { name: "Página siguiente" }));
-    expect(input).toHaveValue("2");
-    fireEvent.change(input, { target: { value: "99" } });
-    fireEvent.keyDown(input, { key: "Enter" });
-    expect(input).toHaveValue("3");
-    expect(screen.getByRole("button", { name: "Página siguiente" })).toBeDisabled();
-    fireEvent.change(input, { target: { value: "invalid" } });
-    fireEvent.blur(input);
-    expect(input).toHaveValue("3");
-    for (let i = 0; i < 5; i++) fireEvent.click(screen.getByRole("button", { name: "Aumentar zoom" }));
-    expect(screen.getByRole("button", { name: "Aumentar zoom" })).toBeDisabled();
-    expect(screen.getByRole("button", { name: "Ajustar página al ancho" })).toHaveTextContent("200%");
-    fireEvent.click(screen.getByRole("button", { name: "Ajustar página al ancho" }));
-    expect(screen.getByRole("button", { name: "Ajustar página al ancho" })).toHaveTextContent("100%");
+    const pages = await screen.findByLabelText("Páginas del documento de práctica");
+    expect(pages).toHaveAttribute("tabindex", "0");
+    expect(pages.querySelectorAll("[data-pdf-page]")).toHaveLength(3);
+    expect(screen.queryByRole("group", { name: "Controles del documento" })).not.toBeInTheDocument();
+    await screen.findByText(/Contenido de la práctica/);
   });
 
   it("releases the PDF worker and render tasks when closed", async () => {
@@ -57,6 +45,6 @@ describe("Practice PDF reader", () => {
     await screen.findByRole("alert");
     expect(screen.getByRole("link", { name: "Abrir PDF original ↗" })).toHaveAttribute("href", "/documents/Practica-BxM-Matematicas-02-2026.pdf");
     fireEvent.click(screen.getByRole("button", { name: "Reintentar" }));
-    await waitFor(() => expect(screen.getByRole("group", { name: "Controles del documento" })).toBeInTheDocument());
+    await waitFor(() => expect(screen.getByLabelText("Páginas del documento de práctica")).toBeInTheDocument());
   });
 });

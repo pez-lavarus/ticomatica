@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import WelcomeExamPreview from "./WelcomeExamPreview";
 
-vi.mock("next/dynamic", () => ({ default: () => function Reader() { return <div>Interactive PDF reader</div>; } }));
+vi.mock("next/dynamic", () => ({ default: () => function Reader() { return <div tabIndex={0} aria-label="Páginas del documento de práctica">Interactive PDF reader</div>; } }));
 vi.mock("next/image", () => ({ default: (props: React.ComponentProps<"img">) => <img {...props} /> }));
 
 afterEach(() => { cleanup(); vi.unstubAllGlobals(); });
@@ -27,12 +27,12 @@ describe("Welcome document preview", () => {
 
   it("opens a modal on small screens and contains keyboard focus", () => {
     setup(true);
-    fireEvent.click(screen.getByRole("button", { name: "Ver documento de práctica" }));
+    fireEvent.click(screen.getByRole("button", { name: "Abrir vista previa del documento de práctica" }));
     expect(screen.getByRole("dialog")).toHaveAttribute("aria-modal", "true");
     expect(screen.getByRole("button", { name: "Iniciar práctica", hidden: true }).parentElement).toHaveAttribute("inert");
     const close = screen.getByRole("button", { name: "Cerrar vista previa del documento" });
     fireEvent.keyDown(document, { key: "Tab", shiftKey: true });
-    expect(screen.getByRole("link", { name: "Abrir PDF original ↗" })).toHaveFocus();
+    expect(screen.getByLabelText("Páginas del documento de práctica")).toHaveFocus();
     fireEvent.keyDown(document, { key: "Tab" });
     expect(close).toHaveFocus();
     fireEvent.click(close);
