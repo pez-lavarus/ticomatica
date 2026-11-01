@@ -29,6 +29,19 @@ function renderPlainText(text: string, keyPrefix: string) {
   );
 }
 
+/** Promote defining equations and substantial algebra, not values, coordinates,
+ * unit-bearing quantities, function references, or short substitutions. */
+function isRelevantExpression(math: string): boolean {
+  const compact = math.replace(/\\(?:left|right)\b/g, "").replace(/\s/g, "");
+  if (/\\begin\{(?:cases|aligned|matrix|pmatrix|bmatrix)\}/.test(compact)) return true;
+  if (/[a-zA-Z]\([^)]*\)=/.test(compact)) return true;
+  const relation = /[=<>]|\\(?:approx|equiv|leq?|geq?|neq)\b/.test(compact);
+  if (relation && compact.length >= 16) return true;
+  const complex = /\\(?:d?frac|sqrt|sum|int)\b/.test(compact);
+  const operations = compact.match(/[+\-*/^]/g)?.length ?? 0;
+  return complex && compact.length >= 28 && operations >= 2;
+}
+
 /**
  * Renders a text string that may contain LaTeX delimiters:
  * - \$ (Escaped dollar sign, rendered as plain "$")
@@ -59,18 +72,19 @@ export function KaTeXText({ text, displayMath = false }: { text: string; display
           : part.startsWith("$") && part.endsWith("$") ? part.slice(1, -1)
             : part.startsWith("\\(") && part.endsWith("\\)") ? part.slice(2, -2) : null;
         if (math !== null) {
-          if (displayMath || authoredBlock) {
-            // Keep punctuation attached even when authors put whitespace or a
-            // newline between a math delimiter and the sentence-ending period.
-            const punctuation = parts[i + 1]?.match(/^\s*([)\]”’"']*[.,;:!?]+(?:[”’"'])?)(?!\d)/);
-            if (punctuation) parts[i + 1] = parts[i + 1].slice(punctuation[0].length);
+          // Keep sentence punctuation with both inline and displayed math.
+          const punctuation = parts[i + 1]?.match(/^\s*([)\]”’"']*[.,;:!?]+(?:[”’"'])?)(?!\d)/);
+          if (punctuation) parts[i + 1] = parts[i + 1].slice(punctuation[0].length);
+          if (authoredBlock || (displayMath && isRelevantExpression(math))) {
             return (
               <span key={i} className={`math-line${authoredBlock ? " katex-display" : ""}`}>
                 <InlineMath math={`\\displaystyle ${math}`} />{punctuation?.[1]}
               </span>
             );
           }
-          return <InlineMath key={i} math={math} />;
+          return punctuation ? (
+            <span key={i} className="math-inline-punctuation"><InlineMath math={math} />{punctuation[1]}</span>
+          ) : <InlineMath key={i} math={math} />;
         }
 
         return renderPlainText(part, `plain-${i}`);
