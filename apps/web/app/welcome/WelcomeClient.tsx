@@ -105,7 +105,7 @@ export default function WelcomeClient({ testConfigs }: { testConfigs: Record<Tes
                       : "bg-card border-border hover:border-accent text-foreground"
                       }`}
                   >
-                    {mode === "full" ? "Práctica Completa" : mode}
+                    {mode === "full" ? "Exámen Completo" : mode}
                   </button>
                 ))}
               </div>
@@ -184,7 +184,7 @@ export default function WelcomeClient({ testConfigs }: { testConfigs: Record<Tes
                 className={`flex-[2] py-7 bg-primary text-primary-foreground font-bold text-base rounded-sm transition-colors hover:brightness-90 flex items-center justify-center gap-3 shadow-md ${hasSession ? "" : "w-full"}`}
               >
                 <Play className="w-5 h-5 fill-current" />
-                {hasSession ? "NUEVA PRÁCTICA" : "INICIAR PRÁCTICA"}
+                {hasSession ? "NUEVA PRÁCTICA" : "INICIAR"}
                 <ArrowRight className="w-5 h-5 ml-1" />
               </button>
             </div>
